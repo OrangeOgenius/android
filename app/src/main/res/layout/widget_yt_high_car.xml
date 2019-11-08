@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.de.rocket.ue.layout.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.de.rocket.ue.layout.PercentRelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        app:layout_heightPercent="74%w"
+        app:layout_widthPercent="100%w">
+
+        <ImageView
+            android:id="@+id/iv_wheel_second"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/yt_tire_black"
+            app:layout_marginTopPercent="55%h"
+            app:layout_marginLeftPercent="16%h"
+            app:layout_widthPercent="23%h"
+            app:layout_heightPercent="23%h"/>
+
+        <ImageView
+            android:id="@+id/iv_wheel_fifth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/yt_tire_black"
+            android:layout_alignParentEnd="true"
+            app:layout_marginTopPercent="24%h"
+            app:layout_marginRightPercent="57%h"
+            app:layout_widthPercent="18%h"
+            app:layout_heightPercent="18%h"/>
+
+        <ImageView
+            android:id="@+id/iv_wheel_sixth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/yt_tire_black"
+            android:layout_alignParentEnd="true"
+            app:layout_marginTopPercent="27%h"
+            app:layout_marginRightPercent="50%h"
+            app:layout_widthPercent="18%h"
+            app:layout_heightPercent="18%h"/>
+
+        <ImageView
+            android:id="@+id/iv_wheel_first"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/yt_tire_black_out"
+            app:layout_marginTopPercent="70%h"
+            app:layout_marginLeftPercent="56%h"
+            app:layout_widthPercent="26%h"
+            app:layout_heightPercent="26%h"/>
+
+        <ImageView
+            android:id="@+id/iv_wheel_forth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/yt_tire_black_out"
+            android:layout_alignParentEnd="true"
+            app:layout_marginRightPercent="22%h"
+            app:layout_marginTopPercent="37%h"
+            app:layout_widthPercent="20%h"
+            app:layout_heightPercent="20%h"/>
+
+        <ImageView
+            android:id="@+id/iv_wheel_third"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/yt_tire_black_out"
+            android:layout_alignParentEnd="true"
+            app:layout_marginRightPercent="15%h"
+            app:layout_marginTopPercent="40%h"
+            app:layout_widthPercent="20%h"
+            app:layout_heightPercent="20%h"/>
+
+        <ImageView
+            android:id="@+id/iv_car_body"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/yt_car_t7"/>
+
+        <TextView
+            android:id="@+id/tv_wheel_first"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_white"
+            android:gravity="center"
+            android:background="@drawable/yt_wheel_number_selecter"
+            android:focusable="true"
+            android:text="1"
+            app:layout_textSizePercent="5%h"
+            app:layout_widthPercent="10%h"
+            app:layout_heightPercent="10%h"
+            app:layout_marginLeftPercent="55%w"
+            app:layout_marginTopPercent="90%h"/>
+
+        <TextView
+            android:id="@+id/tv_wheel_second"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/yt_wheel_number_selecter"
+            android:focusable="true"
+            android:textColor="@color/color_white"
+            android:gravity="center"
+            android:text="2"
+            app:layout_textSizePercent="5%h"
+            app:layout_widthPercent="10%h"
+            app:layout_heightPercent="10%h"
+            app:layout_marginLeftPercent="3%w"
+            app:layout_marginTopPercent="60%h"/>
+
+        <TextView
+            android:id="@+id/tv_wheel_third"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/yt_wheel_number_selecter"
+            android:focusable="true"
+            android:textColor="@color/color_white"
+            android:gravity="center"
+            android:text="3"
+            app:layout_textSizePercent="5%h"
+            app:layout_widthPercent="10%h"
+            app:layout_heightPercent="10%h"
+            app:layout_marginLeftPercent="90%w"
+            app:layout_marginTopPercent="60%h"/>
+
+        <TextView
+            android:id="@+id/tv_wheel_forth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/yt_wheel_number_selecter"
+            android:focusable="true"
+            android:textColor="@color/color_white"
+            android:gravity="center"
+            android:text="4"
+            app:layout_textSizePercent="5%h"
+            app:layout_widthPercent="10%h"
+            app:layout_heightPercent="10%h"
+            app:layout_marginLeftPercent="80%w"
+            app:layout_marginTopPercent="60%h"/>
+
+        <TextView
+            android:id="@+id/tv_wheel_fifth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/yt_wheel_number_selecter"
+            android:focusable="true"
+            android:textColor="@color/color_white"
+            android:gravity="center"
+            android:text="5"
+            app:layout_textSizePercent="5%h"
+            app:layout_widthPercent="10%h"
+            app:layout_heightPercent="10%h"
+            app:layout_marginLeftPercent="25%w"
+            app:layout_marginTopPercent="30%h"/>
+
+        <TextView
+            android:id="@+id/tv_wheel_sixth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/yt_wheel_number_selecter"
+            android:focusable="true"
+            android:textColor="@color/color_white"
+            android:gravity="center"
+            android:text="6"
+            app:layout_textSizePercent="5%h"
+            app:layout_widthPercent="10%h"
+            app:layout_heightPercent="10%h"
+            app:layout_marginLeftPercent="35%w"
+            app:layout_marginTopPercent="30%h"/>
+
+    </com.de.rocket.ue.layout.PercentRelativeLayout>
+
+</com.de.rocket.ue.layout.PercentRelativeLayout>

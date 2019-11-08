@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.de.rocket.ue.layout.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_FF3C80B5">
+
+    <com.orange.tpms.widget.TitleWidget
+        android:id="@+id/v_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout_heightPercent="9%h"
+        tools:background="@color/color_yt"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="10dp"
+        android:focusable="true"
+        android:layout_below="@+id/v_title_bar"
+        android:id="@+id/rv_select_model"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</com.de.rocket.ue.layout.PercentRelativeLayout>

@@ -1,0 +1,19 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="TPMS_BG_STYLE" parent="RocketThemePic">
+        <item name="android:windowBackground">@mipmap/splash</item><!--背景图-->
+    </style>
+
+    <style name="YT_BG_STYLE" parent="RocketThemePic">
+        <item name="android:windowBackground">@mipmap/yt_splash</item><!--背景图-->
+    </style>
+
+</resources>

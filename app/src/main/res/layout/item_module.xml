@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.de.rocket.ue.layout.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:gravity="center"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/tv_module"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/bt_long_selecter"
+        android:gravity="center"
+        android:text="@string/app_name"
+        android:textColor="@color/color_white"
+        app:layout_widthPercent="40%sw"
+        app:layout_heightPercent="6%sh"
+        app:layout_marginTopPercent="2%sh"
+        tools:layout_widthPercent="40%w"
+        tools:layout_heightPercent="7%h"
+        tools:layout_marginTopPercent="2%h"/>
+
+</com.de.rocket.ue.layout.PercentRelativeLayout>

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.de.rocket.ue.layout.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/color_bg">
+
+    <com.orange.tpms.widget.TitleWidget
+        android:id="@+id/v_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout_heightPercent="9%h"
+        tools:background="@color/color_orange"/>
+
+    <ImageView
+        android:id="@+id/iv_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/v_title_bar"
+        android:src="@mipmap/iv_logo"
+        app:layout_marginTopPercent="5%h"
+        app:layout_widthPercent="80%w"
+        app:layout_heightPercent="20%h"/>
+
+    <com.de.rocket.ue.layout.PercentRelativeLayout
+        android:id="@+id/prl_wifi_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_logo"
+        android:layout_centerHorizontal="true"
+        app:layout_heightPercent="9%h"
+        app:layout_widthPercent="75%w">
+
+        <ImageView
+            android:id="@+id/iv_wifi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/wifi"
+            app:layout_heightPercent="80%h"
+            app:layout_widthPercent="80%h"/>
+
+        <org.angmarch.views.NiceSpinner
+            android:id="@+id/sp_wifi_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="true"
+            app:popupTextAlignment="start"
+            app:textTint="@color/color_black"
+            android:layout_toEndOf="@+id/iv_wifi"/>
+
+        <View
+            android:id="@+id/v_sep"
+            android:layout_toEndOf="@+id/iv_wifi"
+            android:layout_width="match_parent"
+            android:background="@color/color_grey"
+            android:layout_alignParentBottom="true"
+            android:layout_height="0.5dp"/>
+
+    </com.de.rocket.ue.layout.PercentRelativeLayout>
+
+    <com.de.rocket.ue.layout.PercentRelativeLayout
+        android:id="@+id/prl_wifi_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/prl_wifi_name"
+        android:layout_centerHorizontal="true"
+        app:layout_heightPercent="9%h"
+        app:layout_widthPercent="75%w"
+        app:layout_marginTopPercent="1%h">
+
+        <ImageView
+            android:id="@+id/iv_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/lock"
+            app:layout_heightPercent="80%h"
+            app:layout_widthPercent="80%h"/>
+
+        <EditText
+            android:id="@+id/et_wifi_password"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/iv_password"
+            android:gravity="start|center_vertical"
+            android:hint="@string/app_password"
+            android:textColorHint="@color/color_grey"
+            android:textColor="@color/color_black"
+            android:background="@null"
+            android:singleLine="true"
+            android:inputType="textPassword"
+            android:paddingStart="25dp"
+            app:layout_textSizePercent="35%h" />
+
+        <View
+            android:layout_toEndOf="@+id/iv_password"
+            android:layout_width="match_parent"
+            android:background="@color/color_grey"
+            android:layout_alignParentBottom="true"
+            android:layout_height="0.5dp"/>
+    </com.de.rocket.ue.layout.PercentRelativeLayout>
+
+    <com.de.rocket.ue.layout.PercentLinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/prl_wifi_password"
+        android:layout_centerHorizontal="true"
+        app:layout_marginTopPercent="10%h"
+        app:layout_widthPercent="80%w"
+        app:layout_heightPercent="7%h"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/bt_cancel"
+            android:background="@drawable/bt_long_selecter"
+            android:gravity="center"
+            android:textColor="@color/color_white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:text="@string/app_cancel"
+            app:layout_heightPercent="100%h"
+            app:layout_widthPercent="45%w"/>
+
+        <Button
+            android:id="@+id/bt_select"
+            android:background="@drawable/bt_long_selecter"
+            android:gravity="center"
+            android:textColor="@color/color_white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:text="@string/app_connection"
+            app:layout_heightPercent="100%h"
+            app:layout_widthPercent="45%w"
+            app:layout_marginLeftPercent="10%w"/>
+    </com.de.rocket.ue.layout.PercentLinearLayout>
+
+    <!--loading-->
+    <com.orange.tpms.widget.LoadingWidget
+        android:id="@+id/ldw_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+</com.de.rocket.ue.layout.PercentRelativeLayout>

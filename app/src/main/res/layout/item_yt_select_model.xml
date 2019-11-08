@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.de.rocket.ue.layout.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:gravity="center"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/prl_contaner"
+    tools:background="@color/color_FF3C80B5">
+
+    <ImageView
+        android:id="@+id/tv_triangle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:background="@mipmap/yt_icon_tire"
+        app:layout_heightPercent="5%sh"
+        app:layout_widthPercent="5%sh"
+        app:layout_marginTopPercent="1.5%sh"
+        app:layout_marginBottomPercent="1.5%sh"
+        app:layout_marginLeftPercent="1.5%sh"
+        tools:layout_heightPercent="5%h"
+        tools:layout_widthPercent="5%h"
+        tools:layout_marginTopPercent="1.5%h"
+        tools:layout_marginBottomPercent="1.5%h"
+        tools:layout_marginLeftPercent="1.5%h"/>
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_toEndOf="@+id/tv_triangle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@+id/tv_right"
+        android:text="@string/app_name"
+        android:textColor="@color/color_white"
+        android:layout_centerVertical="true"
+        app:layout_marginBottomPercent="1.5%sh"
+        app:layout_marginEndPercent="1.5%sh"
+        app:layout_marginLeftPercent="5%sw"
+        tools:layout_marginLeftPercent="5%w"
+        tools:layout_marginBottomPercent="1.5%h"
+        tools:layout_marginEndPercent="1.5%h"/>
+
+    <TextView
+        android:id="@+id/tv_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:textColor="@color/color_white"
+        android:gravity="center"
+        android:text=">"
+        app:layout_heightPercent="8%sh"
+        app:layout_widthPercent="8%sh"
+        app:layout_paddingPercent="1.5%sh"
+        tools:layout_heightPercent="8%h"
+        tools:layout_widthPercent="8%h"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/color_FF0A75C6"
+        android:layout_alignParentBottom="true"/>
+
+</com.de.rocket.ue.layout.PercentRelativeLayout>

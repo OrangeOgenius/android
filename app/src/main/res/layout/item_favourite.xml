@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.de.rocket.ue.layout.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:gravity="center"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/tv_triangle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:background="@mipmap/iv_triangle"
+        app:layout_heightPercent="5%sh"
+        app:layout_widthPercent="5%sh"
+        app:layout_marginTopPercent="1.5%sh"
+        app:layout_marginBottomPercent="1.5%sh"
+        app:layout_marginLeftPercent="1.5%sh"
+        tools:layout_heightPercent="5%h"
+        tools:layout_widthPercent="5%h"
+        tools:layout_marginTopPercent="1.5%h"
+        tools:layout_marginBottomPercent="1.5%h"
+        tools:layout_marginLeftPercent="1.5%h"/>
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_toEndOf="@+id/tv_triangle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:textColor="@color/color_black"
+        android:layout_centerVertical="true"
+        app:layout_marginBottomPercent="1.5%sh"
+        app:layout_marginEndPercent="1.5%sh"
+        app:layout_marginLeftPercent="5%sw"
+        tools:layout_marginLeftPercent="5%w"
+        tools:layout_marginBottomPercent="1.5%h"
+        tools:layout_marginEndPercent="1.5%h"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/color_black"
+        android:layout_alignParentBottom="true"/>
+
+</com.de.rocket.ue.layout.PercentRelativeLayout>

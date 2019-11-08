@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.de.rocket.ue.layout.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/color_4DCCCCCE"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- 提示框 -->
+    <com.de.rocket.ue.layout.PercentRelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/bg_ffffff_r8"
+        app:layout_widthPercent="80%sw"
+        tools:layout_widthPercent="80%w">
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingMultiplier="1.3"
+            android:text="@string/app_name"
+            android:textColor="@color/color_black"
+            app:layout_marginPercent="5%sw"
+            app:layout_textSizePercent="2.7%sh"
+            tools:layout_marginPercent="5%w"
+            tools:layout_textSizePercent="2.7%h" />
+
+        <View
+            android:id="@+id/v_split"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@id/tv_content"
+            android:background="@color/color_grey" />
+
+        <com.de.rocket.ue.layout.PercentLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/v_split"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_click_cancel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:maxLines="1"
+                android:padding="12dp"
+                android:text="@string/app_cancel"
+                android:textColor="@color/color_FF398EFF"
+                android:textStyle="bold"
+                app:layout_textSizePercent="2.5%sh"
+                tools:layout_textSizePercent="2.5%h" />
+
+            <View
+                android:id="@+id/v_bottom_split"
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="@color/color_FF398EFF" />
+
+            <TextView
+                android:id="@+id/tv_click_ok"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:maxLines="1"
+                android:padding="12dp"
+                android:text="@string/app_sure"
+                android:textColor="@color/color_FF398EFF"
+                android:textStyle="bold"
+                app:layout_textSizePercent="2.5%sh"
+                tools:layout_textSizePercent="2.5%h" />
+        </com.de.rocket.ue.layout.PercentLinearLayout>
+
+    </com.de.rocket.ue.layout.PercentRelativeLayout>
+
+</com.de.rocket.ue.layout.PercentRelativeLayout>

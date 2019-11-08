@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.de.rocket.ue.layout.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.de.rocket.ue.layout.PercentRelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        app:layout_heightPercent="100%h"
+        app:layout_widthPercent="80%h">
+
+        <ImageView
+            android:id="@+id/iv_wheel_top_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/iv_car_wheel"
+            app:layout_marginTopPercent="12%h"
+            app:layout_marginLeftPercent="10%h"
+            app:layout_widthPercent="20%h"
+            app:layout_heightPercent="20%h"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/img_wheel_circular_pattern"
+            android:gravity="center"
+            android:textColor="@color/color_white"
+            android:text="@string/app_fl"
+            app:layout_marginTopPercent="12%h"
+            app:layout_widthPercent="20%h"
+            app:layout_heightPercent="20%h"
+            app:layout_textSizePercent="4.5%h"/>
+
+        <ImageView
+            android:id="@+id/iv_wheel_top_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/iv_car_wheel"
+            android:layout_alignParentEnd="true"
+            app:layout_marginTopPercent="12%h"
+            app:layout_marginRightPercent="10%h"
+            app:layout_widthPercent="20%h"
+            app:layout_heightPercent="20%h"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:background="@mipmap/img_wheel_circular_pattern"
+            android:gravity="center"
+            android:textColor="@color/color_white"
+            android:text="@string/app_fr"
+            app:layout_marginTopPercent="12%h"
+            app:layout_widthPercent="20%h"
+            app:layout_heightPercent="20%h"
+            app:layout_textSizePercent="4.5%h"/>
+
+        <ImageView
+            android:id="@+id/iv_wheel_bottom_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/iv_car_wheel"
+            android:layout_alignParentEnd="true"
+            app:layout_marginRightPercent="10%h"
+            app:layout_marginTopPercent="70%h"
+            app:layout_widthPercent="20%h"
+            app:layout_heightPercent="20%h"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/img_wheel_circular_pattern"
+            android:gravity="center"
+            android:textColor="@color/color_white"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:text="@string/app_rr"
+            app:layout_marginBottomPercent="10%h"
+            app:layout_widthPercent="20%h"
+            app:layout_heightPercent="20%h"
+            app:layout_textSizePercent="4.5%h"/>
+
+        <ImageView
+            android:id="@+id/iv_wheel_bottom_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/iv_car_wheel"
+            app:layout_marginTopPercent="70%h"
+            app:layout_marginLeftPercent="10%h"
+            app:layout_widthPercent="20%h"
+            app:layout_heightPercent="20%h"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/img_wheel_circular_pattern"
+            android:gravity="center"
+            android:textColor="@color/color_white"
+            android:layout_alignParentBottom="true"
+            android:text="@string/app_rl"
+            app:layout_marginBottomPercent="10%h"
+            app:layout_widthPercent="20%h"
+            app:layout_heightPercent="20%h"
+            app:layout_textSizePercent="4.5%h"/>
+
+        <ImageView
+            android:id="@+id/iv_car_body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_heightPercent="100%h"
+            app:layout_widthPercent="51.4%h"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/iv_car_body"/>
+
+    </com.de.rocket.ue.layout.PercentRelativeLayout>
+
+</com.de.rocket.ue.layout.PercentRelativeLayout>

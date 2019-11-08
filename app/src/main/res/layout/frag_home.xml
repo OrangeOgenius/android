@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.de.rocket.ue.layout.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_bg">
+
+    <com.orange.tpms.widget.TitleWidget
+        android:id="@+id/v_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout_heightPercent="9%h"
+        tools:background="@color/color_orange"/>
+
+    <com.de.rocket.ue.layout.PercentRelativeLayout
+        android:layout_below="@+id/v_title_bar"
+        android:layout_above="@+id/tv_orange_co"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        app:layout_widthPercent="86%w">
+
+        <!-- 功能表 -->
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_function"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+
+    </com.de.rocket.ue.layout.PercentRelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_orange_co"
+        android:gravity="center"
+        android:text="@string/app_orange_co"
+        android:textColor="@color/color_black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:layout_textSizePercent="2%sh"
+        android:layout_marginBottom="16dp"
+        tools:layout_textSizePercent="2%h"/>
+
+</com.de.rocket.ue.layout.PercentRelativeLayout>

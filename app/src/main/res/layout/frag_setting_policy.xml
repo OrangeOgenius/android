@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.de.rocket.ue.layout.PercentLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="@color/color_bg">
+
+    <com.orange.tpms.widget.TitleWidget
+        android:id="@+id/v_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout_heightPercent="9%h"
+        tools:background="@color/color_orange"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.de.rocket.ue.layout.PercentLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/app_privacy_policy_detail"
+                android:textColor="@color/color_FF101010"
+                android:id="@+id/iv_policy"
+                android:lineSpacingExtra="3dp"
+                app:layout_paddingPercent="5%w"
+                app:layout_textSizePercent="2.5%h"/>
+
+        </com.de.rocket.ue.layout.PercentLinearLayout>
+
+    </ScrollView>
+
+</com.de.rocket.ue.layout.PercentLinearLayout>

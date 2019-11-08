@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.de.rocket.ue.layout.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#bb000000"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.de.rocket.ue.layout.PercentLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        app:layout_widthPercent="80%w">
+
+        <Button
+            android:id="@+id/bt_reset"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/app_reset_all_settings"
+            android:textAllCaps="false"
+            android:background="@drawable/bg_ffffff_r8"
+            android:textColor="@color/color_red"
+            app:layout_heightPercent="7%h"/>
+
+        <Button
+            android:id="@+id/bt_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/app_cancel"
+            android:textAllCaps="false"
+            android:background="@drawable/bg_ffffff_r8"
+            android:textColor="@color/color_FF0076FF"
+            app:layout_marginTopPercent="3.5%h"
+            app:layout_heightPercent="7%h"/>
+
+    </com.de.rocket.ue.layout.PercentLinearLayout>
+
+
+
+</com.de.rocket.ue.layout.PercentRelativeLayout>

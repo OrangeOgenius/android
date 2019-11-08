@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.de.rocket.ue.layout.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="@color/color_bg">
+
+    <com.orange.tpms.widget.TitleWidget
+        android:id="@+id/v_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout_heightPercent="9%h"
+        tools:background="@color/color_orange"/>
+
+    <TextView
+        android:id="@+id/tv_tips"
+        android:layout_below="@+id/v_title_bar"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:textColor="@color/color_black"
+        android:text="@string/app_system_password_tips"
+        app:layout_marginTopPercent="5%h"/>
+
+    <com.de.rocket.ue.layout.PercentLinearLayout
+        android:layout_below="@+id/tv_tips"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal"
+        app:layout_marginTopPercent="5%h"
+        app:layout_heightPercent="7%h"
+        app:layout_widthPercent="80%w">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/app_cancel"
+            android:textAllCaps="false"
+            android:gravity="center"
+            android:textColor="@color/color_white"
+            android:background="@drawable/bt_long_selecter"/>
+
+        <Button
+            android:id="@+id/bt_reset"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textAllCaps="false"
+            android:text="@string/app_reset"
+            android:textColor="@color/color_white"
+            android:background="@drawable/bt_long_selecter"
+            app:layout_marginLeftPercent="10%w"/>
+
+    </com.de.rocket.ue.layout.PercentLinearLayout>
+
+    <com.orange.tpms.widget.ResetWidget
+        android:visibility="gone"
+        android:id="@+id/rsw_reset"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</com.de.rocket.ue.layout.PercentRelativeLayout>

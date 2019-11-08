@@ -1,0 +1,43 @@
+<resources>
+
+    <string-array name="auto_lock">
+        <item>@string/array_autolock_1</item>
+        <item>@string/array_autolock_3</item>
+        <item>@string/array_autolock_5</item>
+        <item>@string/array_autolock_ten</item>
+        <item>@string/array_autolock_thirty</item>
+        <item>@string/array_autolock_never</item>
+　　</string-array>
+
+    <string-array name="area">
+        <item>@string/array_area_europe</item>
+        <item>@string/array_area_north_america</item>
+        <item>@string/array_area_asia</item>
+    </string-array>
+
+    <string-array name="unite_temp">
+        <item>@string/array_unit_c</item>
+        <item>@string/array_unit_f</item>
+    </string-array>
+
+    <string-array name="unite_tire">
+        <item>@string/array_unit_psi</item>
+        <item>@string/array_unit_bar</item>
+        <item>@string/array_unit_kpa</item>
+    </string-array>
+
+    <string-array name="unite_numeral">
+        <item>@string/array_unit_auto</item>
+        <item>@string/array_unit_dec</item>
+        <item>@string/array_unit_hex</item>
+    </string-array>
+
+    <string-array name="language">
+        <item>@string/array_language_english</item>
+        <item>@string/array_language_simch</item>
+        <item>@string/array_language_trach</item>
+        <item>@string/array_language_italian</item>
+        <item>@string/array_language_german</item>
+    </string-array>
+
+</resources>

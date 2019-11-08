@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.de.rocket.ue.layout.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.de.rocket.ue.layout.PercentRelativeLayout
+        android:id="@+id/prl_contaner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_title_bg">
+
+        <com.de.rocket.ue.layout.PercentRelativeLayout
+            android:id="@+id/prl_titlebar"
+            tools:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_heightPercent="@string/title_height_percent_sh"
+            tools:layout_heightPercent="@string/title_height_percent_h">
+
+            <!--返回-->
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/back"
+                app:layout_heightPercent="100%h"
+                app:layout_widthPercent="100%h"
+                app:layout_paddingPercent="20%h"
+                app:layout_marginLeftPercent="@string/title_padding_percent_w"/>
+
+            <!--标题-->
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/app_name"
+                android:textColor="@color/color_white"
+                app:layout_textSizePercent="@string/title_textsize_percent_h"/>
+
+        </com.de.rocket.ue.layout.PercentRelativeLayout>
+
+    </com.de.rocket.ue.layout.PercentRelativeLayout>
+
+</com.de.rocket.ue.layout.PercentRelativeLayout>

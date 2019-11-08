@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.de.rocket.ue.layout.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_white"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.orange.tpms.widget.TitleWidget
+        android:id="@+id/v_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout_heightPercent="9%h"
+        tools:background="@color/color_yt">
+
+    </com.orange.tpms.widget.TitleWidget>
+
+    <com.de.rocket.ue.layout.PercentLinearLayout
+        android:layout_below="@+id/v_title_bar"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iv_normal"
+            android:focusable="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/yt_normal_car_selecter"
+            android:nextFocusDown="@id/iv_high"
+            android:nextFocusUp="@id/iv_high"
+            app:layout_heightPercent="25%h"
+            app:layout_widthPercent="25%h"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="普通车"
+            android:textColor="@color/color_yt"
+            app:layout_marginTopPercent="2%h"
+            app:layout_textSizePercent="4%h"/>
+
+        <ImageView
+            android:id="@+id/iv_high"
+            android:focusable="true"
+            android:nextFocusUp="@id/iv_normal"
+            android:nextFocusDown="@id/iv_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/yt_high_car_selecter"
+            app:layout_heightPercent="25%h"
+            app:layout_widthPercent="25%h"
+            app:layout_marginTopPercent="5%h"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="高端车"
+            android:textColor="@color/color_yt"
+            app:layout_marginTopPercent="2%h"
+            app:layout_textSizePercent="4%h"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="(T7)"
+            android:textColor="@color/color_yt"
+            app:layout_marginTopPercent="1%h"
+            app:layout_textSizePercent="4%h"/>
+
+    </com.de.rocket.ue.layout.PercentLinearLayout>
+
+</com.de.rocket.ue.layout.PercentRelativeLayout>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <!--最终翻译-->
+    <string name="app_agree">Accetta</string>
+    <string name="app_disagree">Non accetta</string>
+    <string name="app_cancel">Cancella</string>
+    <string name="app_connection">Connessione</string>
+    <string name="app_sign_in">Entra</string>
+    <string name="app_registration">Registrati</string>
+    <string name="app_forgot_password">Hai dimenticato la password?</string>
+
+    <string name="app_menue">Menù</string>
+    <string name="app_home_check_sensor">Controllo sensore</string>
+    <string name="app_trigger">Attivazione</string>
+    <string name="app_home_program_sensor_phone">Programma sensore</string>
+    <string name="app_home_id_copy">Copia ID</string>
+    <string name="app_setup">Impostazioni</string>
+    <string name="app_home_obdii_relearn">Riapprendimento OBDII</string>
+    <string name="app_home_cloud_information">Apprendimento Vettura</string>
+    <string name="app_home_online_shopping">Shopping Online</string>
+    <string name="app_user_manual">Istruzioni per l`uso</string>
+
+    <string name="app_scan_2d_code">Scansione codice 2D</string>
+    <string name="app_mmy">Seleziona veicolo</string>
+    <string name="app_select_car_makes">Seleziona marca</string>
+    <string name="app_select_car_model">Seleziona modello</string>
+    <string name="app_select_year">Seleziona anno</string>
+    <string name="app_number_choice">Opzioni</string>
+    <string name="app_start">Start</string>
+    <string name="app_key_in">Inserire</string>
+    <string name="app_scan_and_packing">Scansiona il codice sul sensore o sulla scatola</string>
+    <string name="app_program">Programma</string>
+    <string name="app_copy_original">Copia sensore originale</string>
+    <string name="app_original_sensor">Sensore originale</string>
+    <string name="app_original_id">ID originale</string>
+    <string name="app_new_sensor">Nuovo sensore</string>
+    <string name="app_new_sensor_list">Lista nuovo sensore</string>
+    <string name="app_my_favorite">Preferiti</string>
+    <string name="app_scan">Scansione  </string>
+
+    <string name="app_setting">Impostazioni</string>
+    <string name="app_setting_my_favorite">Impostazioni/Preferiti</string>
+    <string name="app_my_favorite_setting">Impostazioni salvate</string>
+    <string name="app_setting_wifi">Impostazioni /WIFI</string>
+    <string name="app_wifi">WIFI</string>
+    <string name="app_setting_bluetooth">Impostazioni/Bluetooth</string>
+    <string name="app_bluetooth">Bluetooth</string>
+    <string name="app_my_device">Il mio dispositivo</string>
+    <string name="app_bluebud_other_device">Altri dispositivi</string>
+    <string name="app_setting_unit">Impostazioni/Unità</string>
+    <string name="app_units_tire">Pressione pneumatici</string>
+    <string name="app_temp_title">Temp.</string>
+    <string name="app_id_dec_hex">ID (Decimale/Esadecimale)</string>
+    <string name="app_auto">Auto</string>
+    <string name="app_minutes">Minuti</string>
+    <string name="app_never">Mai</string>
+    <string name="app_setting_language">Impostazioni/Lingua</string>
+    <string name="app_setting_device_information">Impostazioni/Informazioni dispositivo</string>
+    <string name="app_device_name">Numero dispositivo</string>
+    <string name="app_model">Modello</string>
+    <string name="infomation_serial_number">Numero seriale</string>
+    <string name="infomation_software_version">Versione Software</string>
+    <string name="app_hardware_version">Versione Hardware</string>
+    <string name="app_database_version">Versione Database</string>
+    <string name="app_check_for_updates">Controllo aggiornamenti</string>
+    <string name="app_system_update_auto">Aggiornamento automatico</string>
+    <string name="app_reset_all_settings">Ripristina tutte le impostazioni</string>
+    <string name="app_setting_privacy_policy">Impostazioni/Privacy</string>
+
+</resources>

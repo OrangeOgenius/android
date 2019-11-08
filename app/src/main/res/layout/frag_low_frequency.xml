@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.de.rocket.ue.layout.PercentLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/color_bg">
+
+    <com.orange.tpms.widget.TitleWidget
+        android:id="@+id/v_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout_heightPercent="9%h"
+        tools:background="@color/color_orange"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/color_grey"
+        app:layout_marginTopPercent="3%h"/>
+
+    <com.de.rocket.ue.layout.PercentRelativeLayout
+        android:id="@+id/rl_update"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_heightPercent="7.5%sh"
+        tools:layout_heightPercent="7.5%h">
+
+        <TextView
+            android:textColor="@color/color_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="@string/app_default"
+            app:layout_marginLeftPercent="12%w"
+            app:layout_marginRightPercent="5%w"
+            app:layout_textSizePercent="30%h"/>
+
+        <EditText
+            android:id="@+id/update_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:textColor="@color/color_black"
+            app:layout_widthPercent="15%w"
+            android:gravity="center"
+            android:hint="5"
+            app:layout_marginRightPercent="5%w"
+            app:layout_textSizePercent="50%h"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/color_grey"
+            android:layout_alignParentBottom="true"/>
+
+    </com.de.rocket.ue.layout.PercentRelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/color_grey"
+        app:layout_marginTopPercent="3%h"/>
+
+    <com.de.rocket.ue.layout.PercentRelativeLayout
+        android:id="@+id/rl_reset"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_heightPercent="7.5%sh"
+        tools:layout_heightPercent="7.5%h">
+
+        <TextView
+            android:id="@+id/tv_reset"
+            android:textColor="@color/color_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="@string/app_manual_operation"
+            app:layout_marginLeftPercent="12%w"
+            app:layout_marginRightPercent="5%w"
+            app:layout_textSizePercent="30%h"/>
+
+        <Spinner
+            android:id="@+id/sp_number"
+            style="@android:style/Widget.Spinner"
+            android:layout_alignParentEnd="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_black"
+            android:layout_centerVertical="true"
+            android:spinnerMode="dropdown"
+            android:popupBackground="@color/color_grey"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/color_grey"
+            android:layout_alignParentBottom="true"/>
+
+    </com.de.rocket.ue.layout.PercentRelativeLayout>
+
+</com.de.rocket.ue.layout.PercentLinearLayout>

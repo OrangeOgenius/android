@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.de.rocket.ue.layout.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#88ffffff"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.de.rocket.ue.layout.PercentLinearLayout
+        android:id="@+id/pll_forground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.de.rocket.ue.layout.PercentLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color_FF314A56"
+            app:layout_heightPercent="12%h"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_white"
+                android:text="@string/app_press"
+                app:layout_textSizePercent="3.3%sh"
+                tools:layout_textSizePercent="27%h"
+                android:layout_marginEnd="5dp"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_tigger_w"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_white"
+                android:text="@string/app_to_trigger_sensor"
+                app:layout_textSizePercent="3.3%sh"
+                tools:layout_textSizePercent="27%h"
+                android:layout_marginStart="5dp"/>
+
+        </com.de.rocket.ue.layout.PercentLinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:src="@mipmap/img_sensor_trigger"
+            app:layout_widthPercent="35%w"
+            app:layout_heightPercent="35%w"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_gravity="center_horizontal"
+            android:src="@mipmap/img_machine"/>
+
+    </com.de.rocket.ue.layout.PercentLinearLayout>
+
+    <ImageView
+        app:layout_marginTopPercent="67.5%h"
+        app:layout_widthPercent="10%h"
+        app:layout_heightPercent="10%h"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:src="@mipmap/img_round"/>
+
+</com.de.rocket.ue.layout.PercentRelativeLayout>

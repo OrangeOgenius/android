@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.de.rocket.ue.layout.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@mipmap/splash">
+
+    <!--loading-->
+   <!-- <com.orange.tpms.widget.LoadingWidget
+        android:id="@+id/ldw_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />-->
+
+    <com.orange.tpms.widget.LoadingPointWidget
+        android:id="@+id/ldw_loading"
+        app:layout_paddingTopPercent="15%h"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"/>
+
+    <!--loading-->
+    <com.orange.tpms.widget.LoadingWidget
+        android:id="@+id/ldw_update_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+    <com.orange.tpms.widget.NormalDialogWidget
+        android:id="@+id/ndw_tip"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</com.de.rocket.ue.layout.PercentRelativeLayout>

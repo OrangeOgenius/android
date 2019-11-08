@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.de.rocket.ue.layout.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:gravity="center"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/iv_car_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/bt_square_selecter"
+        app:layout_widthPercent="15%sh"
+        app:layout_heightPercent="15%sh"
+        app:layout_marginTopPercent="2%sh"
+        tools:layout_widthPercent="15%h"
+        tools:layout_heightPercent="15%h"
+        tools:layout_marginTopPercent="2%h"/>
+
+</com.de.rocket.ue.layout.PercentRelativeLayout>

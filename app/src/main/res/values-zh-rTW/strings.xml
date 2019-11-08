@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--最终翻译-->
+	<string name="app_agree">同意</string>
+	<string name="app_disagree">不同意</string>
+	<string name="app_cancel">取消</string>
+	<string name="app_connection">連線</string>
+	<string name="app_sign_in">登入</string>
+	<string name="app_registration">註冊</string>
+	<string name="app_forgot_password">忘記密碼</string>
+
+	<string name="app_menue">主選單</string>
+	<string name="app_home_check_sensor">檢查感測器</string>
+	<string name="app_trigger">觸發</string>
+	<string name="app_home_program_sensor_phone">燒錄感測器</string>
+	<string name="app_home_id_copy">複製感測器ID</string>
+	<string name="app_setup">系統設定</string>
+	<string name="app_home_obdii_relearn">車輛OBDII學碼</string>
+	<string name="app_home_cloud_information">雲端資訊</string>
+	<string name="app_home_online_shopping">線上訂購</string>
+	<string name="app_user_manual">使用說明</string>
+
+	<string name="app_scan_2d_code">掃描二維碼</string>
+	<string name="app_mmy">車輛選擇</string>
+	<string name="app_select_car_makes">選擇車型</string>
+	<string name="app_select_car_model">選擇車款</string>
+	<string name="app_select_year">選擇年份</string>
+	<string name="app_number_choice">選擇燒錄數量</string>
+	<string name="app_start">開始</string>
+	<string name="app_key_in">輸入指定感測器ID</string>
+	<string name="app_scan_and_packing">請掃描感測器外殼或包裝盒上的二維碼</string>
+	<string name="app_program">燒錄</string>
+	<string name="app_copy_original">複製原感測器ID</string>
+	<string name="app_original_sensor">原感測器</string>
+	<string name="app_original_id">原感測器ID</string>
+	<string name="app_new_sensor">新感測器</string>
+	<string name="app_new_sensor_list">新感測器列表</string>
+	<string name="app_my_favorite">我的最愛</string>
+	<string name="app_scan">掃描</string>
+
+	<string name="app_setting">系統設定</string>
+	<string name="app_setting_my_favorite">系統設定/我的最愛</string>
+	<string name="app_my_favorite_setting">設定我的最愛</string>
+	<string name="app_setting_wifi">系統設定/WIFI</string>
+	<string name="app_wifi">WIFI設定</string>
+	<string name="app_setting_bluetooth">系統設定/藍牙</string>
+	<string name="app_bluetooth">藍牙</string>
+	<string name="app_my_device">我的裝置</string>
+	<string name="app_bluebud_other_device">其它裝置</string>
+	<string name="app_setting_unit">系統設定/顯示單位t</string>
+	<string name="app_units_tire">胎壓</string>
+	<string name="app_temp_title">溫度</string>
+	<string name="app_id_dec_hex">ID格式(10/16進制)</string>
+	<string name="app_auto">自動</string>
+	<string name="app_minutes">分鐘</string>
+	<string name="app_never">不使用</string>
+	<string name="app_setting_language">系統設定/語言</string>
+	<string name="app_setting_device_information">系統設定/裝置資訊</string>
+	<string name="app_device_name">裝置名稱</string>
+	<string name="app_model">裝置型號</string>
+	<string name="infomation_serial_number">裝置序號</string>
+	<string name="infomation_software_version">軟體版本</string>
+	<string name="app_hardware_version">硬體版本</string>
+	<string name="app_database_version">資料庫版本</string>
+	<string name="app_check_for_updates">檢查更新</string>
+	<string name="app_system_update_auto">自動更新</string>
+	<string name="app_reset_all_settings">恢復預設值</string>
+	<string name="app_setting_privacy_policy">系統設定/隱私權</string>
+
+</resources>

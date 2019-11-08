@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.de.rocket.ue.layout.PercentLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="@color/color_bg">
+
+    <com.orange.tpms.widget.TitleWidget
+        android:id="@+id/v_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout_heightPercent="9%h"
+        tools:background="@color/color_orange"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.de.rocket.ue.layout.PercentLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/app_privacy_policy_detail"
+                android:textColor="@color/color_FF101010"
+                android:id="@+id/iv_policy"
+                android:lineSpacingExtra="4dp"
+                app:layout_paddingPercent="5%w"
+                app:layout_textSizePercent="3%h"/>
+
+            <com.de.rocket.ue.layout.PercentLinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_marginTopPercent="5%sh"
+                app:layout_marginBottomPercent="5%sh"
+                app:layout_heightPercent="7%h"
+                app:layout_widthPercent="80%w">
+
+                <Button
+                    android:id="@+id/bt_disagree"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="@string/app_disagree"
+                    android:textAllCaps="false"
+                    android:gravity="center"
+                    android:textColor="@color/color_white"
+                    android:background="@drawable/bt_long_selecter"/>
+
+                <Button
+                    android:id="@+id/bt_agree"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textAllCaps="false"
+                    android:text="@string/app_agree"
+                    android:textColor="@color/color_white"
+                    android:background="@drawable/bt_long_selecter"
+                    app:layout_marginLeftPercent="10%w"/>
+
+            </com.de.rocket.ue.layout.PercentLinearLayout>
+
+        </com.de.rocket.ue.layout.PercentLinearLayout>
+
+    </ScrollView>
+
+</com.de.rocket.ue.layout.PercentLinearLayout>

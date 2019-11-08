@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--标题栏左右间距-->
+    <string name="title_padding_percent_w">5%w</string>
+    <string name="title_padding_percent_sw">5%sw</string>
+    <!--标题栏高度-->
+    <string name="title_height_percent_h">8%h</string>
+    <string name="title_height_percent_sh">8%sh</string>
+    <!--标题栏文字大小-->
+    <string name="title_textsize_percent_h">40%h</string>
+    <!--标题栏按钮大小-->
+    <string name="title_icon_percent_h">60%h</string>
+
+</resources>

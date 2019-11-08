@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.de.rocket.ue.layout.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_white"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.orange.tpms.widget.TitleWidget
+        android:id="@+id/v_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout_heightPercent="9%h"
+        tools:background="@color/color_yt"/>
+
+    <TextView
+        android:layout_below="@+id/v_title_bar"
+        android:id="@+id/tv_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/color_FF101010"
+        android:background="@color/color_FFDCDCDD"
+        app:layout_heightPercent="10%h"
+        android:gravity="center"
+        android:text="请依照轮位触发传感器"
+        app:layout_textSizePercent="3%h"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="3"
+        >
+        <Button
+            android:id="@+id/bn_copy"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="复制"
+            />
+        <Button
+            android:id="@+id/bn_test"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="烧录传感器"
+            />
+        <Button
+            android:id="@+id/bn_test_flash"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="烧录Flash"
+            />
+    </LinearLayout>
+    <com.de.rocket.ue.layout.PercentRelativeLayout
+        android:id="@+id/prl_car"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_widthPercent="50%h"
+        android:layout_below="@+id/tv_content"
+        android:layout_centerHorizontal="true">
+
+        <com.orange.tpms.widget.YTNormalCarWidget
+            android:id="@+id/cw_normal_car"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <com.orange.tpms.widget.YTHighCarWidget
+            android:visibility="gone"
+            android:id="@+id/cw_high_car"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </com.de.rocket.ue.layout.PercentRelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_below="@+id/prl_car"
+        android:id="@+id/rv_read_sensor"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        app:layout_widthPercent="90%w"/>
+
+    <com.orange.tpms.widget.LoadingWidget
+        android:id="@+id/lw_loading"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </com.orange.tpms.widget.LoadingWidget>
+
+</com.de.rocket.ue.layout.PercentRelativeLayout>

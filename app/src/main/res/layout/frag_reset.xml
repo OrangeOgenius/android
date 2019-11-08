@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.de.rocket.ue.layout.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/color_bg">
+
+    <com.de.rocket.ue.layout.PercentLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <com.orange.tpms.widget.TitleWidget
+            android:id="@+id/v_title_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout_heightPercent="9%h"
+            tools:background="@color/color_orange"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_black"
+            android:text="@string/app_reset_tips"
+            app:layout_widthPercent="80%w"
+            app:layout_marginTopPercent="4%h"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edit_border_bg"
+            android:padding="2dp"
+            android:hint="@string/app_email"
+            android:textColorHint="@color/color_grey"
+            android:textColor="@color/color_black"
+            app:layout_paddingPercent="1%sh"
+            app:layout_heightPercent="6%h"
+            app:layout_marginTopPercent="4%h"
+            app:layout_widthPercent="80%w"/>
+
+        <Button
+            android:focusable="true"
+            android:id="@+id/bt_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_submit"
+            android:textAllCaps="false"
+            android:gravity="center"
+            android:textColor="@color/color_white"
+            app:layout_heightPercent="7%h"
+            app:layout_widthPercent="40%w"
+            app:layout_marginTopPercent="4%h"
+            android:background="@drawable/bt_long_selecter"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_black"
+            android:text="@string/app_reset_email"
+            app:layout_widthPercent="80%w"
+            app:layout_marginTopPercent="4%h"/>
+
+    </com.de.rocket.ue.layout.PercentLinearLayout>
+
+    <!--loading-->
+    <com.orange.tpms.widget.LoadingWidget
+        android:id="@+id/ldw_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+</com.de.rocket.ue.layout.PercentRelativeLayout>
