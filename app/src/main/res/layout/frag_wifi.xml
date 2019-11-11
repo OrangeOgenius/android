@@ -6,13 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/color_bg">
 
-    <com.orange.tpms.widget.TitleWidget
-        android:id="@+id/v_title_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:layout_heightPercent="9%h"
-        tools:background="@color/color_orange"/>
-
     <ImageView
         android:id="@+id/iv_logo"
         android:layout_width="wrap_content"
@@ -30,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/iv_logo"
         android:layout_centerHorizontal="true"
-        app:layout_heightPercent="9%h"
+        app:layout_heightPercent="12%h"
         app:layout_widthPercent="75%w">
 
         <ImageView
@@ -67,7 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/prl_wifi_name"
         android:layout_centerHorizontal="true"
-        app:layout_heightPercent="9%h"
+        app:layout_heightPercent="12%h"
         app:layout_widthPercent="75%w"
         app:layout_marginTopPercent="1%h">
 
@@ -104,43 +97,6 @@
             android:layout_height="0.5dp"/>
     </com.de.rocket.ue.layout.PercentRelativeLayout>
 
-    <com.de.rocket.ue.layout.PercentLinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/prl_wifi_password"
-        android:layout_centerHorizontal="true"
-        app:layout_marginTopPercent="10%h"
-        app:layout_widthPercent="80%w"
-        app:layout_heightPercent="7%h"
-        android:orientation="horizontal"
-        android:gravity="center">
-
-        <Button
-            android:id="@+id/bt_cancel"
-            android:background="@drawable/bt_long_selecter"
-            android:gravity="center"
-            android:textColor="@color/color_white"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAllCaps="false"
-            android:text="@string/app_cancel"
-            app:layout_heightPercent="100%h"
-            app:layout_widthPercent="45%w"/>
-
-        <Button
-            android:id="@+id/bt_select"
-            android:background="@drawable/bt_long_selecter"
-            android:gravity="center"
-            android:textColor="@color/color_white"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAllCaps="false"
-            android:text="@string/app_connection"
-            app:layout_heightPercent="100%h"
-            app:layout_widthPercent="45%w"
-            app:layout_marginLeftPercent="10%w"/>
-    </com.de.rocket.ue.layout.PercentLinearLayout>
-
     <!--loading-->
     <com.orange.tpms.widget.LoadingWidget
         android:id="@+id/ldw_loading"
@@ -148,5 +104,33 @@
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
         android:visibility="gone" />
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="90dp" android:layout_alignParentBottom="true">
+        <Button
+                android:id="@+id/bt_cancel"
+                android:background="@color/buttoncolor"
+                android:gravity="center"
+                android:textColor="@color/color_white"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textAllCaps="false"
+                android:text="@string/app_cancel"
+                app:layout_heightPercent="100%h"
+                app:layout_widthPercent="45%w" android:layout_weight="1" android:layout_marginEnd="0.5dp"/>
+        <Button
+                android:id="@+id/bt_select"
+                android:background="@color/buttoncolor"
+                android:gravity="center"
+                android:textColor="@color/color_white"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textAllCaps="false"
+                android:text="@string/app_connection"
+                app:layout_heightPercent="100%h"
+                app:layout_widthPercent="45%w"
+                app:layout_marginLeftPercent="10%w" android:layout_weight="1" android:layout_marginStart="0.5dp"/>
+    </LinearLayout>
 
 </com.de.rocket.ue.layout.PercentRelativeLayout>

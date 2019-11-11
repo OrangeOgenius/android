@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#EFE8E1">
+    <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp" android:id="@+id/next2" android:layout_alignParentBottom="true"
+            android:background="@color/buttoncolor" android:textColor="@color/white"
+            android:text="@string/Set_up"/>
+    <TextView
+            android:text="@string/Area"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/textView72"
+            android:layout_marginTop="39dp" android:layout_marginLeft="29dp" android:textSize="20sp"
+            android:textColor="@android:color/black" android:textStyle="bold"/>
+    <TextView
+            android:text="@string/to_give"
+            android:layout_width="wrap_content"
+            android:id="@+id/textView73" android:layout_below="@id/textView72"
+            android:layout_marginLeft="29dp" android:layout_height="wrap_content" android:layout_marginTop="5dp"
+            android:textSize="17sp" android:textColor="@android:color/black" android:layout_marginRight="28dp"
+            android:lineSpacingMultiplier="1.2"/>
+    <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="48dp" android:id="@+id/spinner2" android:layout_below="@id/textView73"
+            android:layout_marginTop="12dp" android:layout_marginLeft="27dp" android:layout_marginRight="28dp"
+            android:background="@color/white"/>
+    <TextView
+            android:text="@string/Languages"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" android:id="@+id/textView74" android:layout_below="@id/spinner2"
+            android:layout_marginLeft="27dp" android:layout_marginTop="39dp"
+            android:textColor="@android:color/background_dark" android:textSize="20sp"
+            android:gravity="center_vertical" android:textStyle="bold"/>
+    <TextView
+            android:text="@string/Languages_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/textView75" android:layout_below="@id/textView74"
+            android:layout_marginLeft="27dp" android:layout_marginRight="27dp" android:layout_marginTop="5dp"
+            android:textSize="17sp" android:textColor="@android:color/background_dark"
+            android:lineSpacingMultiplier="1.2"/>
+    <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="50dp" android:id="@+id/spinner4" android:layout_below="@id/textView75"
+            android:layout_marginTop="11dp" android:layout_marginLeft="27dp" android:layout_marginRight="28dp"
+            android:background="@color/white"/>
+</RelativeLayout>

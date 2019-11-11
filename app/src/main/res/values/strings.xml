@@ -12,7 +12,9 @@
     <string name="app_wifi_disconnected">Wifi Disconnected</string>
     <string name="app_permission">Permission</string>
     <string name="app_permission_requre">Our function requires you to open relevant permissions</string>
-    <string name="app_permission_reject">You have denied the relevant permission. The function is abnormal. Please go to settings to open the relevant permission</string>
+    <string name="app_permission_reject">You have denied the relevant permission. The function is abnormal. Please go to
+        settings to open the relevant permission
+    </string>
     <string name="app_connecting">Connecting…</string>
     <string name="app_content_empty">Content cannot be empty</string>
     <string name="app_loading">Loading…</string>
@@ -89,7 +91,9 @@
     <string name="app_check_up">CHECK</string>
     <string name="app_wifi_choose">CHOOSE A NETWORK</string>
     <string name="app_wifi_ask">Ask to join Networks</string>
-    <string name="app_wifi_auto_tips">Known networks will be automatically. If no known networks are avalible ,you will be have to manualy select a networks.</string>
+    <string name="app_wifi_auto_tips">Known networks will be automatically. If no known networks are avalible ,you will
+        be have to manualy select a networks.
+    </string>
     <string name="app_connected">Connected</string>
     <string name="app_disconnected">Disconnected</string>
     <string name="app_bluebud_my_device">My Device</string>
@@ -107,10 +111,14 @@
     <string name="app_version">OG 1.0.1</string>
     <string name="app_app_name">Orange Electronic</string>
     <string name="app_size">822.1MB</string>
-    <string name="app_tips">For develop information, please visite the website:www.orange-electronic.com </string>
+    <string name="app_tips">For develop information, please visite the website:www.orange-electronic.com</string>
     <string name="app_reset_password">Reset Password</string>
-    <string name="app_reset_tips">Please provide the email address that you used when you signed up for O-GENIUS account. </string>
-    <string name="app_reset_email">Go to your email inbox and find an email from us with the subject “Reset your password”.</string>
+    <string name="app_reset_tips">Please provide the email address that you used when you signed up for O-GENIUS
+        account.
+    </string>
+    <string name="app_reset_email">Go to your email inbox and find an email from us with the subject “Reset your
+        password”.
+    </string>
     <string name="app_submit">Submit</string>
     <string name="app_register_title">Account Setup</string>
     <string name="app_register_account_title">Create your email account</string>
@@ -258,7 +266,9 @@
     <string name="app_updating_model_database">Updating model database</string>
     <string name="app_burning_succeeded">Burning succeeded!</string>
     <string name="app_module_firmware_updated">Module firmware has been updated. Do you want to update?</string>
-    <string name="app_vehicle_payment_updated">There is an update to the vehicle payment database. Do you want to update it?</string>
+    <string name="app_vehicle_payment_updated">There is an update to the vehicle payment database. Do you want to update
+        it?
+    </string>
     <string name="app_sendor_firmware_updated">Sensor firmware has been updated. Do you want to update it?</string>
     <string name="app_model_database_finished">Model database update finished!</string>
     <string name="app_writing_model_database">Writing to model database</string>
@@ -282,5 +292,8 @@
     <string name="app_module_is_empty">Module is empty!</string>
     <string name="app_year_is_empty">Year is empty!</string>
     <string name="app_read_failed">Read failed,please read again!</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

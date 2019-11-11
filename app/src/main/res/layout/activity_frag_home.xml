@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ue.kt_frag.Frag_home">
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp">
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" android:layout_weight="1"
+                        android:id="@+id/bt_check_sensor">
+
+                    <ImageView
+                            android:layout_width="140dp"
+                            android:layout_height="140dp" app:srcCompat="@drawable/bt_check_sensor_selecter"
+                            android:id="@+id/imageView23" android:layout_centerInParent="false"
+                            android:layout_centerHorizontal="true"/>
+                    <TextView
+                            android:text="@string/app_home_check_sensor"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" android:id="@+id/textView14"
+                            android:layout_below="@id/imageView23" android:layout_centerHorizontal="true"
+                            android:textColor="#314A56" android:textSize="20sp" android:gravity="center_horizontal|top"
+                            android:padding="5dp"/>
+                </RelativeLayout>
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" android:layout_weight="1">
+
+                    <ImageView
+                            android:layout_width="140dp"
+                            android:layout_height="140dp" app:srcCompat="@drawable/bt_program_sensor_selecter"
+                            android:id="@+id/imageView23" android:layout_centerInParent="false"
+                            android:layout_centerHorizontal="true"/>
+                    <TextView
+                            android:text="@string/app_home_program_sensor_phone"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" android:id="@+id/textView14"
+                            android:layout_below="@id/imageView23" android:layout_centerHorizontal="true"
+                            android:textColor="#314A56" android:textSize="20sp" android:gravity="center_horizontal|top"
+                            android:padding="5dp"/>
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp">
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" android:layout_weight="1">
+
+                    <ImageView
+                            android:layout_width="140dp"
+                            android:layout_height="140dp" app:srcCompat="@drawable/bt_id_copy_selecter"
+                            android:id="@+id/imageView23" android:layout_centerInParent="false"
+                            android:layout_centerHorizontal="true"/>
+                    <TextView
+                            android:text="@string/app_home_id_copy"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" android:id="@+id/textView14"
+                            android:layout_below="@id/imageView23" android:layout_centerHorizontal="true"
+                            android:textColor="#314A56" android:textSize="20sp" android:gravity="center_horizontal|top"
+                            android:padding="5dp"/>
+                </RelativeLayout>
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" android:layout_weight="1">
+
+                    <ImageView
+                            android:layout_width="140dp"
+                            android:layout_height="140dp" app:srcCompat="@mipmap/btn_pad_idcopy"
+                            android:id="@+id/imageView23" android:layout_centerInParent="false"
+                            android:layout_centerHorizontal="true"/>
+                    <TextView
+                            android:text="ID copy by OBD"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" android:id="@+id/textView14"
+                            android:layout_below="@id/imageView23" android:layout_centerHorizontal="true"
+                            android:textColor="#314A56" android:textSize="20sp" android:gravity="center_horizontal|top"
+                            android:padding="5dp"/>
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp">
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" android:layout_weight="1">
+
+                    <ImageView
+                            android:layout_width="140dp"
+                            android:layout_height="140dp" app:srcCompat="@drawable/bt_obdii_relearn_selecter"
+                            android:id="@+id/imageView23" android:layout_centerInParent="false"
+                            android:layout_centerHorizontal="true"/>
+                    <TextView
+                            android:text="@string/app_home_obdii_relearn"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" android:id="@+id/textView14"
+                            android:layout_below="@id/imageView23" android:layout_centerHorizontal="true"
+                            android:textColor="#314A56" android:textSize="20sp" android:gravity="center_horizontal|top"
+                            android:padding="5dp"/>
+                </RelativeLayout>
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" android:layout_weight="1">
+
+                    <ImageView
+                            android:layout_width="140dp"
+                            android:layout_height="140dp" app:srcCompat="@drawable/bt_check_sensor_selecter"
+                            android:id="@+id/imageView23" android:layout_centerInParent="false"
+                            android:layout_centerHorizontal="true"/>
+                    <TextView
+                            android:text="@string/Relearn_Procedure"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" android:id="@+id/textView14"
+                            android:layout_below="@id/imageView23" android:layout_centerHorizontal="true"
+                            android:textColor="#314A56" android:textSize="20sp" android:gravity="center_horizontal|top"
+                            android:padding="5dp"/>
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp">
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" android:layout_weight="1">
+
+                    <ImageView
+                            android:layout_width="140dp"
+                            android:layout_height="140dp" app:srcCompat="@drawable/bt_usb_pad_selecter"
+                            android:id="@+id/imageView23" android:layout_centerInParent="false"
+                            android:layout_centerHorizontal="true"/>
+                    <TextView
+                            android:text="@string/Program_USB_PAD"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" android:id="@+id/textView14"
+                            android:layout_below="@id/imageView23" android:layout_centerHorizontal="true"
+                            android:textColor="#314A56" android:textSize="20sp" android:gravity="center_horizontal|top"
+                            android:padding="5dp"/>
+                </RelativeLayout>
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" android:layout_weight="1">
+
+                    <ImageView
+                            android:layout_width="140dp"
+                            android:layout_height="140dp" app:srcCompat="@drawable/bt_usb_pad_selecter"
+                            android:id="@+id/imageView23" android:layout_centerInParent="false"
+                            android:layout_centerHorizontal="true"/>
+                    <TextView
+                            android:text="ID Copy by USB PAD  "
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" android:id="@+id/textView14"
+                            android:layout_below="@id/imageView23" android:layout_centerHorizontal="true"
+                            android:textColor="#314A56" android:textSize="20sp" android:gravity="center_horizontal|top"
+                            android:padding="5dp"/>
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp">
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" android:layout_weight="1">
+
+                    <ImageView
+                            android:layout_width="140dp"
+                            android:layout_height="140dp" app:srcCompat="@drawable/bt_online_shopping_selecter"
+                            android:id="@+id/imageView23" android:layout_centerInParent="false"
+                            android:layout_centerHorizontal="true"/>
+                    <TextView
+                            android:text="@string/Online_shopping"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" android:id="@+id/textView14"
+                            android:layout_below="@id/imageView23" android:layout_centerHorizontal="true"
+                            android:textColor="#314A56" android:textSize="20sp" android:gravity="center_horizontal|top"
+                            android:padding="5dp"/>
+                </RelativeLayout>
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" android:layout_weight="1">
+
+                    <ImageView
+                            android:layout_width="140dp"
+                            android:layout_height="140dp" app:srcCompat="@drawable/bt_cloud_information_selecter"
+                            android:id="@+id/imageView23" android:layout_centerInParent="false"
+                            android:layout_centerHorizontal="true"/>
+                    <TextView
+                            android:text="@string/Cloud_information"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" android:id="@+id/textView14"
+                            android:layout_below="@id/imageView23" android:layout_centerHorizontal="true"
+                            android:textColor="#314A56" android:textSize="20sp" android:gravity="center_horizontal|top"
+                            android:padding="5dp"/>
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp">
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" android:layout_weight="1">
+
+                    <ImageView
+                            android:layout_width="140dp"
+                            android:layout_height="140dp" app:srcCompat="@drawable/bt_users_manual_selecter"
+                            android:id="@+id/imageView23" android:layout_centerInParent="false"
+                            android:layout_centerHorizontal="true"/>
+                    <TextView
+                            android:text="@string/app_user_manual"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" android:id="@+id/textView14"
+                            android:layout_below="@id/imageView23" android:layout_centerHorizontal="true"
+                            android:textColor="#314A56" android:textSize="20sp" android:gravity="center_horizontal|top"
+                            android:padding="5dp"/>
+                </RelativeLayout>
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" android:layout_weight="1">
+
+                    <ImageView
+                            android:layout_width="140dp"
+                            android:layout_height="140dp" app:srcCompat="@drawable/bt_setting_selecter"
+                            android:id="@+id/imageView23" android:layout_centerInParent="false"
+                            android:layout_centerHorizontal="true"/>
+                    <TextView
+                            android:text="@string/Setting"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" android:id="@+id/textView14"
+                            android:layout_below="@id/imageView23" android:layout_centerHorizontal="true"
+                            android:textColor="#314A56" android:textSize="20sp" android:gravity="center_horizontal|top"
+                            android:padding="5dp"/>
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

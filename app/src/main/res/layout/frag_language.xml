@@ -8,13 +8,6 @@
     android:orientation="vertical"
     android:gravity="center_horizontal">
 
-    <com.orange.tpms.widget.TitleWidget
-        android:id="@+id/v_title_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:layout_heightPercent="9%h"
-        tools:background="@color/color_orange"/>
-
     <com.de.rocket.ue.layout.PercentLinearLayout
         android:layout_below="@+id/v_title_bar"
         android:layout_width="wrap_content"
