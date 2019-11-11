@@ -127,8 +127,8 @@ public class Frag_splash extends Frag_base {
             @Override
             public void onStop() {
                 resultCallback.onSuccess();
-                ((MainActivity)activity).itemDAO=new ItemDAO(activity);
-                Log.d("mmy",((MainActivity)activity).itemDAO.getMake(activity).get(0).getMake()+"");
+//                ((MainActivity)activity).itemDAO=new ItemDAO(activity);
+//                Log.d("mmy",((MainActivity)activity).itemDAO.getMake(activity).get(0).getMake()+"");
             }
 
             @Override

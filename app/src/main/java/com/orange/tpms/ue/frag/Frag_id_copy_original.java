@@ -13,11 +13,7 @@ import com.de.rocket.ue.frag.RoFragment;
 import com.de.rocket.ue.injector.Event;
 import com.orange.tpms.R;
 import com.orange.tpms.adapter.IDCopyAdapter;
-import com.orange.tpms.bean.IDCopyBean;
-import com.orange.tpms.bean.IDCopyFragBean;
-import com.orange.tpms.bean.MMYQrCodeBean;
-import com.orange.tpms.bean.ScanQrCodeBean;
-import com.orange.tpms.bean.SensorQrCodeBean;
+import com.orange.tpms.bean.*;
 import com.orange.tpms.helper.CopyIDHelper;
 import com.orange.tpms.lib.hardware.HardwareApp;
 import com.orange.tpms.ue.activity.MainActivity;
@@ -81,7 +77,7 @@ public class Frag_id_copy_original extends Frag_base {
 
     @Override
     public void onNexts(Object o) {
-        ObdHex=((MainActivity)activity).itemDAO.GetHex(MainActivity.SelectMake,MainActivity.SelectModel,MainActivity.SelectYear);
+//        ObdHex=((MainActivity)activity).itemDAO.GetHex(PublicBean.SelectMake, PublicBean.SelectModel,PublicBean.SelectYear);
         tvContent.setText(ObdHex);
     }
 
@@ -136,7 +132,7 @@ public class Frag_id_copy_original extends Frag_base {
 //                IDCopyFragBean idCopyFragBean = new IDCopyFragBean();
 //                idCopyFragBean.setOrignalSendorid(getSensoridList());
 //                idCopyFragBean.setmMyBean(mMyBean);
-                MainActivity.SensorList=getSensoridList();
+                PublicBean.SensorList=getSensoridList();
                 toFrag(Frag_id_copy_new.class, true,true,"");
             }else{
                 toast(R.string.app_sensor_repeated);

@@ -5,6 +5,7 @@ import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import android.widget.*
 import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.HttpCommand.Fuction
 import com.orange.tpms.R
+import com.orange.tpms.utils.FileDowload
 import com.orange.tpms.widget.LoadingWidget
 
 
@@ -36,7 +38,7 @@ class Sign_in : RootFragement() {
             val password=password.text.toString()
             lwLoading.show(getResources().getString(R.string.app_sign_ing))
             Thread{
-                val a= Fuction.ValidateUser(admin,password)
+                val a= Fuction.ValidateUser(admin,password)&&FileDowload.HaveData(act)
                 run=false
                 handler.post {
                     lwLoading.hide()

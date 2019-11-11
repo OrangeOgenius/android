@@ -12,6 +12,7 @@ import com.de.rocket.ue.frag.RoFragment;
 import com.de.rocket.ue.injector.Event;
 import com.orange.tpms.R;
 import com.orange.tpms.bean.MMYQrCodeBean;
+import com.orange.tpms.bean.PublicBean;
 import com.orange.tpms.bean.ScanQrCodeBean;
 import com.orange.tpms.bean.SensorQrCodeBean;
 import com.orange.tpms.lib.hardware.HardwareApp;
@@ -53,7 +54,7 @@ public class Frag_scan_info extends Frag_base {
 
     @Override
     public void onNexts(Object o) {
-        scanQrCodeBean.setScanType(MainActivity.ScanType);
+        scanQrCodeBean.setScanType(PublicBean.ScanType);
             twTitle.setTvTitle(R.string.app_scan_code);
             if(scanQrCodeBean.getScanType() == ScanQrCodeBean.TYPE_MMY){
                 ivTips.setImageResource(R.mipmap.iv_scan_mmy);
@@ -102,7 +103,7 @@ public class Frag_scan_info extends Frag_base {
                 }else{
                     scanQrCodeBean.setMmyQrCodeBean(MMYQrCodeBean.toQRcodeBean(content));
                     Log.v("yhd-","scanQrCodeBean："+scanQrCodeBean.getMmyQrCodeBean().getMmyNumber());
-                    ((MainActivity)activity).itemDAO.GoOk(scanQrCodeBean.getMmyQrCodeBean().getMmyNumber(),this);
+//                    ((MainActivity)activity).itemDAO.GoOk(scanQrCodeBean.getMmyQrCodeBean().getMmyNumber(),this);
                     back(false,scanQrCodeBean);
                 }
             }else if(scanQrCodeBean.getScanType() == ScanQrCodeBean.TYPE_SENSORID){

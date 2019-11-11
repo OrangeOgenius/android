@@ -13,11 +13,7 @@ import com.de.rocket.ue.frag.RoFragment;
 import com.de.rocket.ue.injector.Event;
 import com.orange.tpms.R;
 import com.orange.tpms.adapter.ProgramAdapter;
-import com.orange.tpms.bean.MMYQrCodeBean;
-import com.orange.tpms.bean.ProgramFragBean;
-import com.orange.tpms.bean.ProgramItemBean;
-import com.orange.tpms.bean.ScanQrCodeBean;
-import com.orange.tpms.bean.SensorQrCodeBean;
+import com.orange.tpms.bean.*;
 import com.orange.tpms.helper.ProgramSensorHelper;
 import com.orange.tpms.lib.hardware.HardwareApp;
 import com.orange.tpms.ue.activity.MainActivity;
@@ -88,12 +84,12 @@ public class Frag_program_detail extends Frag_base {
 
     @Override
     public void onNexts(Object o) {
-        ObdHex=((MainActivity)activity).itemDAO.GetHex(MainActivity.SelectMake,MainActivity.SelectModel,MainActivity.SelectYear);
+//        ObdHex=((MainActivity)activity).itemDAO.GetHex(PublicBean.SelectMake,PublicBean.SelectModel,PublicBean.SelectYear);
 //        if (o instanceof ProgramFragBean) {
 //            programFragBean = (ProgramFragBean) o;
 //            MMyBean mMyBean = programFragBean.getmMyBean();
 //            tvTitle.setText(mMyBean.getHex());
-        updateList(MainActivity.ProgramNumber);
+        updateList(PublicBean.ProgramNumber);
 //        }
     }
 
@@ -162,7 +158,7 @@ public class Frag_program_detail extends Frag_base {
         vibMediaUtil.playVibrate();
         if(checkSelectFinish()){
             if(!haveSameSensorid()){
-                programSensorHelper.writeSensor(MainActivity.ProgramNumber,ObdHex,((MainActivity)activity).itemDAO.getMMY(MainActivity.SelectMake,MainActivity.SelectModel,MainActivity.SelectYear));
+//                programSensorHelper.writeSensor(PublicBean.ProgramNumber,ObdHex,((MainActivity)activity).itemDAO.getMMY(PublicBean.SelectMake,PublicBean.SelectModel,PublicBean.SelectYear));
             }else{
                 toast(R.string.app_duplicate_items);
             }
@@ -176,8 +172,8 @@ public class Frag_program_detail extends Frag_base {
      */
     private void updateEditable() {
         //数目要对上
-        if (programAdapter.getItems().size() >= MainActivity.ProgramNumber) {
-            for (int i = 0; i < MainActivity.ProgramNumber; i++) {
+        if (programAdapter.getItems().size() >= PublicBean.ProgramNumber) {
+            for (int i = 0; i < PublicBean.ProgramNumber; i++) {
                 ProgramItemBean programItemBean = programAdapter.getItems().get(i);
                 programItemBean.setEditable(true);
                 programAdapter.setItem(i,programItemBean);
@@ -191,8 +187,8 @@ public class Frag_program_detail extends Frag_base {
      */
     private void updateSensorid(String sensorid) {
         //数目要对上
-        if (programAdapter.getItems().size() >= MainActivity.ProgramNumber) {
-            for (int i = 0; i < MainActivity.ProgramNumber; i++) {
+        if (programAdapter.getItems().size() >= PublicBean.ProgramNumber) {
+            for (int i = 0; i < PublicBean.ProgramNumber; i++) {
                 ProgramItemBean programItemBean = programAdapter.getItems().get(i);
                 //sensorid为空才插入
                 if(TextUtils.isEmpty(programItemBean.getSensorid())){
@@ -214,7 +210,7 @@ public class Frag_program_detail extends Frag_base {
     private void updateList(int number) {
         //数目要对上
         if (programAdapter.getItems().size() >= number && number > 0) {
-            for (int i = 0; i < MainActivity.ProgramNumber; i++) {
+            for (int i = 0; i < PublicBean.ProgramNumber; i++) {
                 if(i > number - 1){
                     return;
                 }
@@ -232,8 +228,8 @@ public class Frag_program_detail extends Frag_base {
      */
     private void updateProgramState(List<SensorDataBean> sensorDataBeans) {
         //数目要对上
-        if (programAdapter.getItems().size() >= MainActivity.ProgramNumber) {
-            for (int i = 0; i < MainActivity.ProgramNumber; i++) {
+        if (programAdapter.getItems().size() >= PublicBean.ProgramNumber) {
+            for (int i = 0; i < PublicBean.ProgramNumber; i++) {
                 ProgramItemBean programItemBean = programAdapter.getItems().get(i);
                 if(sensorDataBeans == null || sensorDataBeans.size() == 0){
                     programItemBean.setState(ProgramItemBean.STATE_FAILED);
@@ -269,8 +265,8 @@ public class Frag_program_detail extends Frag_base {
      */
     private void updateProgramState(String sensorid,int state) {
         //数目要对上
-        if (programAdapter.getItems().size() >= MainActivity.ProgramNumber) {
-            for (int i = 0; i < MainActivity.ProgramNumber; i++) {
+        if (programAdapter.getItems().size() >= PublicBean.ProgramNumber) {
+            for (int i = 0; i < PublicBean.ProgramNumber; i++) {
                 ProgramItemBean programItemBean = programAdapter.getItems().get(i);
                 if(!TextUtils.isEmpty(sensorid) && !TextUtils.isEmpty(programItemBean.getSensorid())){
                     if(sensorid.equals(programItemBean.getSensorid())){
@@ -293,8 +289,8 @@ public class Frag_program_detail extends Frag_base {
     private boolean checkSelectFinish() {
         boolean finish = true;
         //数目要对上
-        if (programAdapter.getItems().size() >= MainActivity.ProgramNumber) {
-            for (int i = 0; i < MainActivity.ProgramNumber; i++) {
+        if (programAdapter.getItems().size() >= PublicBean.ProgramNumber) {
+            for (int i = 0; i < PublicBean.ProgramNumber; i++) {
                 ProgramItemBean programItemBean = programAdapter.getItems().get(i);
                 //sensorid都不为空才行
                 if(TextUtils.isEmpty(programItemBean.getSensorid())){
@@ -310,8 +306,8 @@ public class Frag_program_detail extends Frag_base {
      */
     private boolean haveSameSensorid(String sensorid) {
         //数目要对上
-        if (programAdapter.getItems().size() >= MainActivity.ProgramNumber && !TextUtils.isEmpty(sensorid)) {
-            for (int i = 0; i < MainActivity.ProgramNumber; i++) {
+        if (programAdapter.getItems().size() >= PublicBean.ProgramNumber && !TextUtils.isEmpty(sensorid)) {
+            for (int i = 0; i < PublicBean.ProgramNumber; i++) {
                 ProgramItemBean programItemBean = programAdapter.getItems().get(i);
                 //sensorid都不为空才行
                 if(sensorid.equals(programItemBean.getSensorid())){
@@ -327,7 +323,7 @@ public class Frag_program_detail extends Frag_base {
      */
     private boolean haveSameSensorid() {
         //数目要对上
-        if (programAdapter.getItems().size() >= MainActivity.ProgramNumber) {
+        if (programAdapter.getItems().size() >= PublicBean.ProgramNumber) {
             Set<String> set = new HashSet<>();
             Set<String> exist = new HashSet<>();
             for (ProgramItemBean programItemBean : programAdapter.getItems()) {

@@ -6,29 +6,29 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import com.orange.blelibrary.blelibrary.RootFragement
+
 import com.orange.tpms.R
-import com.orange.tpms.mmySql.ItemDAO
-import com.orange.tpms.ue.activity.KtActivity
-import kotlinx.android.synthetic.main.activity_frag_home.view.*
+import kotlinx.android.synthetic.main.frag_check_sensor_information.view.*
 
 
 /**
  * A simple [Fragment] subclass.
  *
  */
-class Frag_home : RootFragement() {
+class Frag_Check_Sensor_Information : RootFragement() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        rootview=inflater.inflate(R.layout.activity_frag_home, container, false)
-        rootview.bt_check_sensor.setOnClickListener {
-            act.ChangePage(Frag_CheckSensor(),R.id.frage,"Frag_CheckSensor",true)
+        rootview=inflater.inflate(R.layout.fragment_frag__check__sensor__information, container, false)
+        rootview.b1.setOnClickListener {
+act.ChangePage(Frag_Check_Sensor_Read(),R.id.frage,"Frag_Check_Sensor_Read",true)
         }
-        (activity as KtActivity).itemDAO = ItemDAO(activity!!);
+        rootview.b2.setOnClickListener {
+
+        }
         return rootview
     }
 

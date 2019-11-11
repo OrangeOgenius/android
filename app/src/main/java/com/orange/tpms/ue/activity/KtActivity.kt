@@ -8,9 +8,11 @@ import android.widget.RelativeLayout
 import com.orange.blelibrary.blelibrary.BleActivity
 import com.orange.tpms.R
 import com.orange.tpms.lib.hardware.HardwareApp
+import com.orange.tpms.mmySql.ItemDAO
 import com.orange.tpms.ue.kt_frag.kt_splash
 
 class KtActivity : BleActivity() {
+    lateinit var itemDAO: ItemDAO
     override fun ChangePageListener(tag:String,frag: Fragment){
 
     }

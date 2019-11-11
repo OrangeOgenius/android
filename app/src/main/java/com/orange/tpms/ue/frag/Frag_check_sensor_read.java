@@ -120,7 +120,7 @@ public class Frag_check_sensor_read extends Frag_base {
      * 初始化页面
      */
     private void initView() {
-        ObdHex=((MainActivity)activity).itemDAO.GetHex(MainActivity.SelectMake,MainActivity.SelectModel,MainActivity.SelectYear);
+//        ObdHex=((MainActivity)activity).itemDAO.GetHex(PublicBean.SelectMake,PublicBean.SelectModel,PublicBean.SelectYear);
         Log.d("obdhex","hex"+ObdHex);
         tvContent.setText(ObdHex);
         //设置标题

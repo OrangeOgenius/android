@@ -66,18 +66,18 @@ import java.util.List;
  * Created by haide.yin() on 2019/3/26 14:28.
  */
 public class MainActivity extends RoActivity {
-    public ItemDAO  itemDAO= null ;
-    public static String SelectMake="";
-    public static String SelectModel="";
-    public static String SelectYear="";
-    public static int position=1;
-    public static int ProgramNumber=1;
-    public final static int 檢查傳感器=1;
-    public final static int 燒錄傳感器=2;
-    public final static int 複製傳感器=3;
-    public static int ScanType=1;
-    public static List<String> SensorList=null;
-    public static List<String> NewSensorList=null;
+//    public ItemDAO  itemDAO= null ;
+//    public static String SelectMake="";
+//    public static String SelectModel="";
+//    public static String SelectYear="";
+//    public static int position=1;
+//    public static int ProgramNumber=1;
+//    public final static int 檢查傳感器=1;
+//    public final static int 燒錄傳感器=2;
+//    public final static int 複製傳感器=3;
+//    public static int ScanType=1;
+//    public static List<String> SensorList=null;
+//    public static List<String> NewSensorList=null;
     // 全部显示的Frag都需要在这里注册
     private Class[] frags = {
             // TODO: 2019/9/3 临时加的

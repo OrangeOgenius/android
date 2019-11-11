@@ -231,7 +231,7 @@ public class Frag_check_sensor_location extends Frag_base {
      * 初始化页面
      */
     private void initView() {
-        ObdHex=((MainActivity)activity).itemDAO.GetHex(MainActivity.SelectMake,MainActivity.SelectModel,MainActivity.SelectYear);
+//        ObdHex=((MainActivity)activity).itemDAO.GetHex(PublicBean.SelectMake,PublicBean.SelectModel,PublicBean.SelectYear);
         //设置标题
         twTitle.setTvTitle(R.string.app_sensor_info_location);
         //返回

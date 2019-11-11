@@ -59,7 +59,7 @@ public class Frag_car_year extends Frag_base {
      * 初始化页面
      */
     private void initView() {
-        year=((MainActivity)activity).itemDAO.getYear(MainActivity.SelectMake,MainActivity.SelectModel);
+//        year=((MainActivity)activity).itemDAO.getYear(PublicBean.SelectMake,PublicBean.SelectModel);
         //设置标题
         twTitle.setTvTitle(R.string.app_select_year);
         //返回
@@ -69,7 +69,7 @@ public class Frag_car_year extends Frag_base {
             layoutManager = new LinearLayoutManager(activity);
         }
         rvYear.setLayoutManager(layoutManager);
-        yearAdapter = new ShowYear(year,this);
+//        yearAdapter = new ShowYear(year,this);
         rvYear.setAdapter(yearAdapter);
         //点击事件
 //        yearAdapter.setOnItemClickListener((pos, mMyBean) -> {

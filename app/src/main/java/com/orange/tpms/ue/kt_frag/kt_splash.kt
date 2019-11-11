@@ -33,12 +33,13 @@ class kt_splash : RootFragement() {
     fun ListenFinish(){
         handler.post {
             (activity as KtActivity).ShowTitleBar(true)
+//            act.ChangePage(Set_Languages(), R.id.frage, "Set_Languages", false)
             val profilePreferences =act.getSharedPreferences("Setting", Context.MODE_PRIVATE)
             if (profilePreferences.getString("admin", "nodata").equals("nodata")) {
                 Set_Languages.place = 0
                 act.ChangePage(Set_Languages(), R.id.frage, "Set_Languages", false)
             }else{
-                act.ChangePage(Frag_home(), R.id.frage, "Set_Languages", false)
+                act.ChangePage(Frag_home(), R.id.frage, "Frag_home", false)
             }
         }
     }

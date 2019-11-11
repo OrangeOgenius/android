@@ -20,19 +20,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.orange.blelibrary.blelibrary.BleActivity;
 import com.orange.tpms.R;
+import com.orange.tpms.bean.PublicBean;
 import com.orange.tpms.mmySql.Item;
+import com.orange.tpms.ue.activity.KtActivity;
 import com.orange.tpms.ue.activity.MainActivity;
 import com.orange.tpms.ue.frag.Frag_base;
 import com.orange.tpms.ue.frag.Frag_car_model;
+import com.orange.tpms.ue.kt_frag.Frag_SelectModle;
 
 import java.util.ArrayList;
 
 
 public class ShowItemImage extends RecyclerView.Adapter<ShowItemImage.ViewHolder> {
     public ArrayList<Item> makes ;
-    public Frag_base navigationActivity;
-    public ShowItemImage(Frag_base navigationActivity, ArrayList<Item> makes) {
+    public BleActivity navigationActivity;
+    public ShowItemImage(BleActivity navigationActivity, ArrayList<Item> makes) {
 this.navigationActivity=navigationActivity;
 this.makes=makes;
     }
@@ -75,8 +79,9 @@ simpleDraweeView=itemView.findViewById(R.id.make_item);
         holder.simpleDraweeView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.SelectMake=makes.get(position).getMake();
-                navigationActivity.toFrag(Frag_car_model.class,false,true,"");
+                PublicBean.SelectMake=(makes.get(position).getMake());
+                navigationActivity.ChangePage(new Frag_SelectModle(),R.id.frage,"Frag_car_model",true);
+//                navigationActivity.toFrag(Frag_car_model.class,false,true,"");
             }
         });
     }

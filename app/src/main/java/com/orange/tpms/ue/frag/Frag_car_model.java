@@ -12,6 +12,7 @@ import com.orange.tpms.adapter.ModuleAdapter;
 import com.orange.tpms.bean.FavouriteFragBean;
 import com.orange.tpms.bean.MMYFragBean;
 import com.orange.tpms.bean.MMYItemBean;
+import com.orange.tpms.bean.PublicBean;
 import com.orange.tpms.helper.MMYHelper;
 import com.orange.tpms.lib.api.MMy;
 import com.orange.tpms.ue.activity.MainActivity;
@@ -57,7 +58,7 @@ public class Frag_car_model extends Frag_base {
      * 初始化页面
      */
     private void initView() {
-        modle=((MainActivity)activity).itemDAO.getModel(MainActivity.SelectMake);
+//        modle=((MainActivity)activity).itemDAO.getModel(PublicBean.SelectMake);
         //设置标题
         twTitle.setTvTitle(R.string.app_select_car_model);
         //返回
@@ -67,7 +68,7 @@ public class Frag_car_model extends Frag_base {
             layoutManager = new LinearLayoutManager(activity);
         }
         rvModel.setLayoutManager(layoutManager);
-        moduleAdapter = new ShowModel(modle,this);
+//        moduleAdapter = new ShowModel(modle,this);
         rvModel.setAdapter(moduleAdapter);
     }
 

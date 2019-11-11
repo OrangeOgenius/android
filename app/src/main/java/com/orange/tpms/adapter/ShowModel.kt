@@ -13,15 +13,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.orange.blelibrary.blelibrary.BleActivity
 import com.orange.tpms.R
+import com.orange.tpms.bean.PublicBean
+import com.orange.tpms.ue.activity.KtActivity
 import com.orange.tpms.ue.activity.MainActivity
 import com.orange.tpms.ue.frag.Frag_base
 import com.orange.tpms.ue.frag.Frag_car_model
 import com.orange.tpms.ue.frag.Frag_car_year
+import com.orange.tpms.ue.kt_frag.Frag_SelectYear
 import java.util.ArrayList
 
 
-class ShowModel(private val models: ArrayList<String>,private val navigationActivity:Frag_base)
+class ShowModel(private val models: ArrayList<String>,private val navigationActivity:BleActivity)
     : RecyclerView.Adapter<ShowModel.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -33,8 +37,9 @@ class ShowModel(private val models: ArrayList<String>,private val navigationActi
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.text_item.text=models[position]
 holder.mView.setOnClickListener{
-    MainActivity.SelectModel = models.get(position)
-    navigationActivity.toFrag(Frag_car_year::class.java, false, true, "")
+    PublicBean.SelectModel = models.get(position)
+    navigationActivity.ChangePage(Frag_SelectYear(),R.id.frage,"Frag_SelectYear",true)
+//    navigationActivity.toFrag(Frag_car_year::class.java, false, true, "")
 }
     }
 

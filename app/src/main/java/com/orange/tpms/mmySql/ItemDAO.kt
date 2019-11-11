@@ -9,8 +9,9 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentTransaction
 import android.util.Log
 import com.orange.tpms.R
+import com.orange.tpms.bean.PublicBean
 import com.orange.tpms.mmySql.Item
-import com.orange.tpms.ue.activity.MainActivity
+import com.orange.tpms.ue.activity.KtActivity
 import com.orange.tpms.ue.frag.Frag_base
 import com.orange.tpms.ue.frag.Frag_check_sensor_information
 import com.orange.tpms.ue.frag.Frag_id_copy_original
@@ -58,17 +59,17 @@ fun GoOk(code:String,navigationActivity: Frag_base){
     if(result.count > 0){
         result.moveToFirst()
         do{
-            MainActivity.SelectMake=result.getString(0)
-            MainActivity.SelectModel=result.getString(1)
-            MainActivity.SelectYear=result.getString(2)
-            when(MainActivity.position){
-                MainActivity.檢查傳感器->{
+            PublicBean.SelectMake=result.getString(0)
+            PublicBean.SelectModel=result.getString(1)
+            PublicBean.SelectYear=result.getString(2)
+            when(PublicBean.position){
+                PublicBean.檢查傳感器->{
                     navigationActivity.toFrag(Frag_check_sensor_information::class.java, false, true, "");
                 }
-                MainActivity.燒錄傳感器->{
+                PublicBean.燒錄傳感器->{
                     navigationActivity.toFrag(Frag_program_number_choice::class.java, false, true, "");
                 }
-                MainActivity.複製傳感器->{
+                PublicBean.複製傳感器->{
                     navigationActivity.toFrag(Frag_id_copy_original::class.java, false, true, "");
                 }
             }

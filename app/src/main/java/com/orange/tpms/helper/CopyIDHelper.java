@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.de.rocket.Rocket;
 import com.orange.tpms.bean.IDCopyFragBean;
+import com.orange.tpms.bean.PublicBean;
 import com.orange.tpms.lib.driver.source.SensorSource;
 import com.orange.tpms.lib.hardware.HardwareApp;
 import com.orange.tpms.ue.activity.MainActivity;
@@ -52,38 +53,37 @@ public class CopyIDHelper extends BaseHelper {
             failedRequestNext("硬件关闭，模拟失败");
             return;
         }
-
-        if( MainActivity.SensorList != null
-                && MainActivity.NewSensorList != null
-                && MainActivity.NewSensorList.size() == MainActivity.SensorList.size()
-                && MainActivity.SensorList.size() > 0){
-            if(MainActivity.SensorList.size() == 1){
-                String originalSensorid = MainActivity.SensorList.get(0);
-                String newSensorid = MainActivity.NewSensorList.get(0);
+        if( PublicBean.SensorList != null
+                && PublicBean.NewSensorList != null
+                && PublicBean.NewSensorList.size() == PublicBean.SensorList.size()
+                && PublicBean.SensorList.size() > 0){
+            if(PublicBean.SensorList.size() == 1){
+                String originalSensorid = PublicBean.SensorList.get(0);
+                String newSensorid = PublicBean.NewSensorList.get(0);
                 idCopy(0,originalSensorid, newSensorid, null);
-            }else if(MainActivity.SensorList.size() == 2){
-                String originalSensorid1 = MainActivity.SensorList.get(0);
-                String newSensorid1 = MainActivity.NewSensorList.get(0);
-                String originalSensorid2 = MainActivity.SensorList.get(1);
-                String newSensorid2 = MainActivity.NewSensorList.get(1);
+            }else if(PublicBean.SensorList.size() == 2){
+                String originalSensorid1 = PublicBean.SensorList.get(0);
+                String newSensorid1 = PublicBean.NewSensorList.get(0);
+                String originalSensorid2 = PublicBean.SensorList.get(1);
+                String newSensorid2 = PublicBean.NewSensorList.get(1);
                 idCopy(0,originalSensorid1, newSensorid1, ret -> idCopy(1,originalSensorid2, newSensorid2, null));
-            }else if(MainActivity.SensorList.size() == 3){
-                String originalSensorid1 = MainActivity.SensorList.get(0);
-                String newSensorid1 = MainActivity.NewSensorList.get(0);
-                String originalSensorid2 = MainActivity.SensorList.get(1);
-                String newSensorid2 = MainActivity.NewSensorList.get(1);
-                String originalSensorid3 = MainActivity.SensorList.get(2);
-                String newSensorid3 = MainActivity.NewSensorList.get(2);
+            }else if(PublicBean.SensorList.size() == 3){
+                String originalSensorid1 = PublicBean.SensorList.get(0);
+                String newSensorid1 = PublicBean.NewSensorList.get(0);
+                String originalSensorid2 = PublicBean.SensorList.get(1);
+                String newSensorid2 = PublicBean.NewSensorList.get(1);
+                String originalSensorid3 = PublicBean.SensorList.get(2);
+                String newSensorid3 = PublicBean.NewSensorList.get(2);
                 idCopy(0,originalSensorid1, newSensorid1, ret1 -> idCopy(1,originalSensorid2, newSensorid2, ret2 -> idCopy(2,originalSensorid3, newSensorid3, null)));
-            }else if(MainActivity.SensorList.size() == 4){
-                String originalSensorid1 = MainActivity.SensorList.get(0);
-                String newSensorid1 = MainActivity.NewSensorList.get(0);
-                String originalSensorid2 = MainActivity.SensorList.get(1);
-                String newSensorid2 = MainActivity.NewSensorList.get(1);
-                String originalSensorid3 = MainActivity.SensorList.get(2);
-                String newSensorid3 = MainActivity.NewSensorList.get(2);
-                String originalSensorid4 = MainActivity.SensorList.get(3);
-                String newSensorid4 = MainActivity.NewSensorList.get(3);
+            }else if(PublicBean.SensorList.size() == 4){
+                String originalSensorid1 = PublicBean.SensorList.get(0);
+                String newSensorid1 = PublicBean.NewSensorList.get(0);
+                String originalSensorid2 = PublicBean.SensorList.get(1);
+                String newSensorid2 = PublicBean.NewSensorList.get(1);
+                String originalSensorid3 = PublicBean.SensorList.get(2);
+                String newSensorid3 = PublicBean.NewSensorList.get(2);
+                String originalSensorid4 = PublicBean.SensorList.get(3);
+                String newSensorid4 = PublicBean.NewSensorList.get(3);
                 idCopy(0,originalSensorid1, newSensorid1, ret1 -> idCopy(1,originalSensorid2, newSensorid2, ret2 -> idCopy(2,originalSensorid3, newSensorid3, ret3 -> idCopy(3,originalSensorid4, newSensorid4, null))));
             }
         }

@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".ue.kt_frag.Frag_Check_Sensor_Read">
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_bg">
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="90dp" android:layout_alignParentBottom="true"
+        >
+            <Button
+                    android:id="@+id/bt_tigger"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/app_tigger"
+                    android:textAllCaps="false"
+                    android:gravity="center"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/iv_scan_tips"
+                    android:textColor="@color/color_white"
+                    app:layout_widthPercent="35%w" android:layout_weight="1" android:background="@color/buttoncolor"
+                    android:textSize="17sp"/>
+            <ImageView
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent" app:srcCompat="@android:color/white"
+                    android:id="@+id/imageView13"
+                    android:background="@color/color_white"/>
+            <Button
+                    android:id="@+id/bt_menue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/app_menue"
+                    android:textAllCaps="false"
+                    android:gravity="center"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/iv_scan_tips"
+                    android:textColor="@color/color_white"
+                    app:layout_widthPercent="35%w"
+                    app:layout_marginLeftPercent="8%w" android:layout_weight="1" android:background="@color/buttoncolor"
+                    android:textSize="17sp"/>
+        </LinearLayout>
+        <com.de.rocket.ue.layout.PercentLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+            <TextView
+                    android:layout_below="@+id/v_title_bar"
+                    android:id="@+id/tv_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_white"
+                    android:background="@color/color_FF314A56"
+                    app:layout_heightPercent="12%h"
+                    android:gravity="center"
+                    android:text=""
+                    app:layout_textSizePercent="3.3%h"/>
+
+            <TextView
+                    android:text="Not all of the OE sensor contains the temperature,Battery and Voltage status"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp" android:id="@+id/textView10" android:textColor="#E94F06"
+                    android:gravity="center" android:padding="10dp" android:textSize="15sp"/>
+            <com.de.rocket.ue.layout.PercentRelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_widthPercent="80%w"
+                    app:layout_heightPercent="6%h"
+            >
+
+                <TextView
+                        android:id="@+id/tv_id_tip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textColor="@color/color_black"
+                        android:text="@string/app_id"
+                        android:gravity="center_vertical|end"
+                        app:layout_textSizePercent="2.5%sh"
+                        app:layout_widthPercent="15%sw"
+                        tools:layout_textSizePercent="40%h"
+                        tools:layout_widthPercent="20%w"/>
+
+                <TextView
+                        android:id="@+id/tv_id"
+                        android:layout_toEndOf="@+id/tv_id_tip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/color_black"
+                        android:layout_centerVertical="true"
+                        tools:text="@string/app_scan"
+                        app:layout_marginLeftPercent="5%w"
+                        app:layout_textSizePercent="2.5%sh"
+                        tools:layout_textSizePercent="40%h"/>
+
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/color_black"
+                        android:layout_toEndOf="@+id/tv_id_tip"
+                        android:layout_alignParentBottom="true"
+                        app:layout_marginLeftPercent="2%sw"/>
+
+            </com.de.rocket.ue.layout.PercentRelativeLayout>
+
+            <com.de.rocket.ue.layout.PercentRelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_widthPercent="80%w"
+                    app:layout_heightPercent="6%h"
+                    app:layout_marginTopPercent="3%h">
+
+                <TextView
+                        android:id="@+id/tv_kpa_tip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textColor="@color/color_black"
+                        android:text="@string/app_kpa"
+                        android:gravity="center_vertical|end"
+                        app:layout_textSizePercent="2.5%sh"
+                        app:layout_widthPercent="15%sw"
+                        tools:layout_textSizePercent="40%h"
+                        tools:layout_widthPercent="20%w"/>
+
+                <TextView
+                        android:id="@+id/tv_kpa"
+                        android:layout_toEndOf="@+id/tv_kpa_tip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/color_black"
+                        android:layout_centerVertical="true"
+                        tools:text="@string/app_scan"
+                        app:layout_marginLeftPercent="5%w"
+                        app:layout_textSizePercent="2.5%sh"
+                        tools:layout_textSizePercent="40%h"/>
+
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/color_black"
+                        android:layout_toEndOf="@+id/tv_kpa_tip"
+                        android:layout_alignParentBottom="true"
+                        app:layout_marginLeftPercent="2%sw"/>
+
+            </com.de.rocket.ue.layout.PercentRelativeLayout>
+
+            <com.de.rocket.ue.layout.PercentRelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_widthPercent="80%w"
+                    app:layout_heightPercent="6%h"
+                    app:layout_marginTopPercent="3%h">
+
+                <TextView
+                        android:id="@+id/tv_c_tip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textColor="@color/color_black"
+                        android:text="@string/app_c"
+                        android:gravity="center_vertical|end"
+                        app:layout_textSizePercent="2.5%sh"
+                        app:layout_widthPercent="15%sw"
+                        tools:layout_textSizePercent="40%h"
+                        tools:layout_widthPercent="20%w"/>
+
+                <TextView
+                        android:id="@+id/tv_c"
+                        android:layout_toEndOf="@+id/tv_c_tip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/color_black"
+                        android:layout_centerVertical="true"
+                        tools:text="@string/app_scan"
+                        app:layout_marginLeftPercent="5%w"
+                        app:layout_textSizePercent="2.5%sh"
+                        tools:layout_textSizePercent="40%h"/>
+
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/color_black"
+                        android:layout_toEndOf="@+id/tv_c_tip"
+                        android:layout_alignParentBottom="true"
+                        app:layout_marginLeftPercent="2%sw"/>
+
+            </com.de.rocket.ue.layout.PercentRelativeLayout>
+
+            <com.de.rocket.ue.layout.PercentRelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_widthPercent="80%w"
+                    app:layout_heightPercent="6%h"
+                    app:layout_marginTopPercent="3%h">
+
+                <TextView
+                        android:id="@+id/tv_bat_tip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textColor="@color/color_black"
+                        android:text="@string/app_bat"
+                        android:gravity="center_vertical|end"
+                        app:layout_textSizePercent="2.5%sh"
+                        app:layout_widthPercent="15%sw"
+                        tools:layout_textSizePercent="40%h"
+                        tools:layout_widthPercent="20%w"/>
+
+                <TextView
+                        android:id="@+id/tv_bat"
+                        android:layout_toEndOf="@+id/tv_bat_tip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/color_black"
+                        android:layout_centerVertical="true"
+                        tools:text="@string/app_scan"
+                        app:layout_marginLeftPercent="5%w"
+                        app:layout_textSizePercent="2.5%sh"
+                        tools:layout_textSizePercent="40%h"/>
+
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/color_black"
+                        android:layout_toEndOf="@+id/tv_bat_tip"
+                        android:layout_alignParentBottom="true"
+                        app:layout_marginLeftPercent="2%sw"/>
+
+            </com.de.rocket.ue.layout.PercentRelativeLayout>
+
+            <com.de.rocket.ue.layout.PercentRelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_widthPercent="80%w"
+                    app:layout_heightPercent="6%h"
+                    app:layout_marginTopPercent="3%h">
+
+                <TextView
+                        android:id="@+id/tv_vol_tip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textColor="@color/color_black"
+                        android:text="@string/app_voltage"
+                        android:gravity="center_vertical|end"
+                        app:layout_textSizePercent="2.5%sh"
+                        app:layout_widthPercent="15%sw"
+                        tools:layout_textSizePercent="40%h"
+                        tools:layout_widthPercent="20%w"/>
+
+                <TextView
+                        android:id="@+id/tv_vol"
+                        android:layout_toEndOf="@+id/tv_vol_tip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/color_black"
+                        android:layout_centerVertical="true"
+                        tools:text="@string/app_scan"
+                        app:layout_marginLeftPercent="5%w"
+                        app:layout_textSizePercent="2.5%sh"
+                        tools:layout_textSizePercent="40%h"/>
+
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/color_black"
+                        android:layout_toEndOf="@+id/tv_vol_tip"
+                        android:layout_alignParentBottom="true"
+                        app:layout_marginLeftPercent="2%sw"/>
+
+            </com.de.rocket.ue.layout.PercentRelativeLayout>
+
+        </com.de.rocket.ue.layout.PercentLinearLayout>
+
+        <com.orange.tpms.widget.ScanWidget
+                android:visibility="visible"
+                android:id="@+id/scw_tips"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        <!--loading-->
+        <com.orange.tpms.widget.LoadingWidget
+                android:id="@+id/ldw_loading"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone" android:layout_centerVertical="true" android:layout_centerHorizontal="true"/>
+        <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:text="00"
+                android:ems="10"
+                android:id="@+id/editText" android:layout_above="@id/ldw_loading"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="100dp" android:visibility="gone"/>
+
+    </RelativeLayout>
+</RelativeLayout>

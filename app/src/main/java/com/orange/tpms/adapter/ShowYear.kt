@@ -13,13 +13,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.orange.blelibrary.blelibrary.BleActivity
 import com.orange.tpms.R
+import com.orange.tpms.bean.PublicBean
+import com.orange.tpms.ue.activity.KtActivity
 import com.orange.tpms.ue.activity.MainActivity
 import com.orange.tpms.ue.frag.*
+import com.orange.tpms.ue.kt_frag.Frag_Check_Sensor_Information
 import java.util.ArrayList
 
 
-class ShowYear(private val years: ArrayList<String>, private val navigationActivity: Frag_base)
+class ShowYear(private val years: ArrayList<String>, private val navigationActivity: BleActivity)
     : RecyclerView.Adapter<ShowYear.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -30,18 +34,18 @@ class ShowYear(private val years: ArrayList<String>, private val navigationActiv
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
     holder.text_item.text=years[position]
     holder.mView.setOnClickListener{
-        when(MainActivity.position){
-            MainActivity.檢查傳感器->{
-                MainActivity.SelectYear=years[position]
-                navigationActivity.toFrag(Frag_check_sensor_information::class.java, false, true, "");
+        when(PublicBean.position){
+            PublicBean.檢查傳感器->{
+                PublicBean.SelectYear=years[position]
+                navigationActivity.ChangePage(Frag_Check_Sensor_Information(),R.id.frage,"Frag_Check_Sensor_Information",true)
             }
-            MainActivity.燒錄傳感器->{
-                MainActivity.SelectYear=years[position]
-                navigationActivity.toFrag(Frag_program_number_choice::class.java, false, true, "");
+            PublicBean.燒錄傳感器->{
+                PublicBean.SelectYear=years[position]
+//                navigationActivity.toFrag(Frag_program_number_choice::class.java, false, true, "");
             }
-            MainActivity.複製傳感器->{
-                MainActivity.SelectYear=years[position]
-                navigationActivity.toFrag(Frag_id_copy_original::class.java, false, true, "");
+            PublicBean.複製傳感器->{
+                PublicBean.SelectYear=years[position]
+//                navigationActivity.toFrag(Frag_id_copy_original::class.java, false, true, "");
             }
         }
 

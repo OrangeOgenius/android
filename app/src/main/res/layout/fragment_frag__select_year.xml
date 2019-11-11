@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".ue.kt_frag.Frag_SelectYear">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+            android:layout_below="@+id/v_title_bar"
+            android:id="@+id/tv_content4"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:textColor="@color/color_white"
+            android:background="@color/color_FF314A56"
+            app:layout_heightPercent="12%h"
+            android:gravity="center"
+            android:text="@string/Select_Year"
+            app:layout_textSizePercent="3.3%h" android:textSize="20sp"/>
+    <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_year"
+            android:layout_below="@id/tv_content4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_marginBottomPercent="1.5%h"/>
+
+</RelativeLayout>

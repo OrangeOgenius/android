@@ -59,7 +59,7 @@ public class Frag_car_makes extends Frag_base {
      */
     private void initView() {
         //设置make
-        make=((MainActivity)activity).itemDAO.getMake(activity);
+//        make=((MainActivity)activity).itemDAO.getMake(activity);
         //设置标题
         twTitle.setTvTitle(R.string.app_select_car_makes);
         //返回
@@ -69,7 +69,7 @@ public class Frag_car_makes extends Frag_base {
             layoutManager = new GridLayoutManager(activity, 2);
         }
         rvMakes.setLayoutManager(layoutManager);
-        carLogoAdapter = new ShowItemImage(this,make);
+//        carLogoAdapter = new ShowItemImage(this,make);
         rvMakes.setAdapter(carLogoAdapter);
         //点击事件
 //        carLogoAdapter.setOnItemClickListener((pos, content) -> {

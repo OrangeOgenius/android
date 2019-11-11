@@ -13,6 +13,7 @@ import com.orange.tpms.R;
 import com.orange.tpms.adapter.IDCopyDetailAdapter;
 import com.orange.tpms.bean.IDCopyDetailBean;
 import com.orange.tpms.bean.IDCopyFragBean;
+import com.orange.tpms.bean.PublicBean;
 import com.orange.tpms.helper.CopyIDHelper;
 import com.orange.tpms.lib.hardware.HardwareApp;
 import com.orange.tpms.ue.activity.MainActivity;
@@ -106,12 +107,12 @@ public class Frag_id_copy_detail extends Frag_base {
      * 刷新页面
      */
     private void updateView() {
-        if ( MainActivity.SensorList.size() == MainActivity.NewSensorList.size()) {
+        if ( PublicBean.SensorList.size() == PublicBean.NewSensorList.size()) {
             for (int i = 1; i < idCopyDetailAdapter.getItems().size(); i++) {
-                if (i <= MainActivity.SensorList.size()) {
+                if (i <= PublicBean.SensorList.size()) {
                     IDCopyDetailBean idCopyDetailBean = idCopyDetailAdapter.getItems().get(i);
-                    idCopyDetailBean.setOriginalid(MainActivity.SensorList.get(i - 1));
-                    idCopyDetailBean.setNewid(MainActivity.NewSensorList.get(i - 1));
+                    idCopyDetailBean.setOriginalid(PublicBean.SensorList.get(i - 1));
+                    idCopyDetailBean.setNewid(PublicBean.NewSensorList.get(i - 1));
                     idCopyDetailBean.setState(IDCopyDetailBean.STATE_NORMAL);
                     idCopyDetailAdapter.setItem(i, idCopyDetailBean);
                 }
@@ -129,9 +130,9 @@ public class Frag_id_copy_detail extends Frag_base {
         }else{
             cwCar.setCarStatus(CarWidget.CAR_LOCATION.TOP_LEFT,CarWidget.CAR_STATUS.BAD);
         }
-        if (MainActivity.SensorList.size() == MainActivity.NewSensorList.size()) {
+        if (PublicBean.SensorList.size() == PublicBean.NewSensorList.size()) {
             for (int i = 1; i < idCopyDetailAdapter.getItems().size(); i++) {
-                if (i <= MainActivity.SensorList.size() && i == (index+1)) {
+                if (i <= PublicBean.SensorList.size() && i == (index+1)) {
                     IDCopyDetailBean idCopyDetailBean = idCopyDetailAdapter.getItems().get(i);
                     if(success){
                         idCopyDetailBean.setState(IDCopyDetailBean.STATE_SUCCESS);

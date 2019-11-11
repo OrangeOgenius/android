@@ -14,11 +14,7 @@ import com.de.rocket.ue.injector.BindView;
 import com.de.rocket.ue.injector.Event;
 import com.orange.tpms.R;
 import com.orange.tpms.adapter.IDCopyAdapter;
-import com.orange.tpms.bean.IDCopyBean;
-import com.orange.tpms.bean.IDCopyFragBean;
-import com.orange.tpms.bean.MMYQrCodeBean;
-import com.orange.tpms.bean.ScanQrCodeBean;
-import com.orange.tpms.bean.SensorQrCodeBean;
+import com.orange.tpms.bean.*;
 import com.orange.tpms.helper.CopyIDHelper;
 import com.orange.tpms.lib.hardware.HardwareApp;
 import com.orange.tpms.ue.activity.MainActivity;
@@ -81,7 +77,7 @@ public class Frag_id_copy_new extends Frag_base {
 
     @Override
     public void onNexts(Object o) {
-        ObdHex=((MainActivity)activity).itemDAO.GetHex(MainActivity.SelectMake,MainActivity.SelectModel,MainActivity.SelectYear);
+//        ObdHex=((MainActivity)activity).itemDAO.GetHex(PublicBean.SelectMake,PublicBean.SelectModel,PublicBean.SelectYear);
         tvContent.setText(ObdHex);
 //        if (o instanceof IDCopyFragBean) {
 //            idCopyFragBean = (IDCopyFragBean) o;
@@ -142,10 +138,10 @@ public class Frag_id_copy_new extends Frag_base {
         vibMediaUtil.playVibrate();
         if(checkHasSensor()){
             List<String> newSensorList = getSensoridList();
-            if(MainActivity.SensorList.size() != newSensorList.size()){
+            if(PublicBean.SensorList.size() != newSensorList.size()){
                 toast(R.string.app_sensor_copy_different);
             }else{
-                MainActivity.NewSensorList=newSensorList;
+                PublicBean.NewSensorList=newSensorList;
                 toFrag(Frag_id_copy_detail.class, true,true,"");
             }
         }else{

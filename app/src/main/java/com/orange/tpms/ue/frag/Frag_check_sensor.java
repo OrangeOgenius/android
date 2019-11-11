@@ -10,6 +10,7 @@ import com.orange.tpms.R;
 import com.orange.tpms.adapter.FunctionSelectAdapter;
 import com.orange.tpms.bean.FunctionSelectBean;
 import com.orange.tpms.bean.MMYFragBean;
+import com.orange.tpms.bean.PublicBean;
 import com.orange.tpms.bean.ScanQrCodeBean;
 import com.orange.tpms.ue.activity.MainActivity;
 import com.orange.tpms.widget.TitleWidget;
@@ -57,7 +58,7 @@ public class Frag_check_sensor extends Frag_base {
 //            MMyBean mMyBean = (MMyBean)o;
 //            toFrag(Frag_check_sensor_information.class,false,true,mMyBean);
 //        }
-        MainActivity.position=MainActivity.檢查傳感器;
+        PublicBean.position=PublicBean.檢查傳感器;
     }
 
     /**
@@ -70,7 +71,7 @@ public class Frag_check_sensor extends Frag_base {
         twTitle.setOnBackListener((view) -> back());
         //初始化列表
         b1.setOnClickListener(v -> {
-            MainActivity.ScanType=ScanQrCodeBean.TYPE_MMY;
+            PublicBean.ScanType=ScanQrCodeBean.TYPE_MMY;
             toFrag(Frag_scan_info.class, false, true, "");
         });
         b2.setOnClickListener(v -> {
