@@ -11,7 +11,9 @@ public class PublicBean {
     public final static int 檢查傳感器=1;
     public final static int 燒錄傳感器=2;
     public final static int 複製傳感器=3;
-    public static int ScanType=1;
+    public final static int 掃描Mmy=4;
+    public final static int 掃描Sensor=5;
+    public static int ScanType=4;
     public static List<String> SensorList=null;
     public static List<String> NewSensorList=null;
 }

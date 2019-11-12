@@ -61,7 +61,7 @@
                     app:layout_heightPercent="12%h"
                     android:gravity="center"
                     android:text=""
-                    app:layout_textSizePercent="3.3%h"/>
+                    app:layout_textSizePercent="5%h" android:textSize="20sp"/>
 
             <TextView
                     android:text="Not all of the OE sensor contains the temperature,Battery and Voltage status"

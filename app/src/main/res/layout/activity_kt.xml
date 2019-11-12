@@ -25,11 +25,11 @@
                 android:textStyle="bold"/>
         <ImageView
                 android:layout_width="60dp"
-                android:layout_height="match_parent" app:srcCompat="@mipmap/back" android:id="@+id/imageView18"
-                android:padding="10dp"/>
+                android:layout_height="match_parent" app:srcCompat="@mipmap/back" android:id="@+id/back"
+                android:padding="10dp" android:visibility="gone"/>
         <ImageView
                 android:layout_width="60dp"
-                android:layout_height="60dp" app:srcCompat="@mipmap/yt_log_out" android:id="@+id/imageView19"
-                android:layout_alignParentEnd="true" android:padding="5dp"/>
+                android:layout_height="60dp" app:srcCompat="@mipmap/yt_log_out" android:id="@+id/logout"
+                android:layout_alignParentEnd="true" android:padding="5dp" android:visibility="gone"/>
     </RelativeLayout>
 </RelativeLayout>

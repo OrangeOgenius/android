@@ -20,6 +20,7 @@ import com.orange.tpms.ue.activity.KtActivity
 import com.orange.tpms.ue.activity.MainActivity
 import com.orange.tpms.ue.frag.*
 import com.orange.tpms.ue.kt_frag.Frag_Check_Sensor_Information
+import com.orange.tpms.ue.kt_frag.Frag_Program_Number_Choice
 import java.util.ArrayList
 
 
@@ -41,7 +42,7 @@ class ShowYear(private val years: ArrayList<String>, private val navigationActiv
             }
             PublicBean.燒錄傳感器->{
                 PublicBean.SelectYear=years[position]
-//                navigationActivity.toFrag(Frag_program_number_choice::class.java, false, true, "");
+                navigationActivity.ChangePage(Frag_Program_Number_Choice(), R.id.frage,"Frag_Program_Number_Choice",true);
             }
             PublicBean.複製傳感器->{
                 PublicBean.SelectYear=years[position]

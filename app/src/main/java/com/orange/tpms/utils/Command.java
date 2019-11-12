@@ -1,8 +1,13 @@
 package com.orange.tpms.utils;
 
+import android.app.Activity;
 import com.orange.tpms.bean.SensorData;
 import com.orange.tpms.lib.hardware.HardwareApp;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -66,6 +71,7 @@ public class Command {
         int low = bytes[1];
         return (high << 8 & 0xFF00) | (low & 0xFF);
     }
+//    public static Read
     public static SensorData GetId(String hex, String Lf) {
         SensorData data = new SensorData();
         try {
@@ -98,7 +104,41 @@ public class Command {
             return data;
         }
     }
+public static boolean ProgramFirst(String Lf, String Hex, String count, String s19, Activity activity){
+        try{
+            while(count.length()<2){count="0"+count;}
+            while(Hex.length()<2){Hex="0"+Hex;}
+//            InputStream is =new InputStream(new FileInputStream("s19"));
+            FileInputStream fo=new FileInputStream(activity.getApplicationContext().getFilesDir().getPath()+"/"+s19+".s19");
+            InputStreamReader fr = new InputStreamReader(fo);
+            BufferedReader br = new BufferedReader(fr);
+            StringBuilder sb = new StringBuilder();
+            while (br.ready()) {
+                String s=br.readLine();
+                if(s!=null&&!s.equals("null")){sb.append(s);}
+            }
+            String B8=sb.toString().substring(16,18);
+            String B9=sb.toString().substring(18,20);
+            String B12=sb.toString().substring(24,26);
+            String B13=sb.toString().substring(26,28);
+            Send("0A 10 00 0E  02 CT  Lf Hex 8b 9b 12b 13b 00 00 00 00 ff f5".replace("CT",count).replace("Lf",Lf).replace("Hex",Hex)
+                    .replace("8b",B8).replace("9b",B9).replace("12b",B12).replace("13b",B13).replace(" ",""));
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS");
+            Date past = sdf.parse(sdf.format(new Date()));
+            while (true) {
+                Date now = sdf.parse(sdf.format(new Date()));
+                double time = getDatePoor(now, past);
+                if (time > 10 || Rx.equals(GetCrcString("F51C000301000A")) || Rx.equals(GetCrcString("F51C000302000A"))) {
+                    return false;
+                }
+                if(Rx.length()==36){
 
+                }
+                Thread.currentThread().sleep(1000);
+            }
+        }catch (Exception e){e.printStackTrace();}
+        return false;
+}
     public static double getDatePoor(Date endDate, Date nowDate) {
         long diff = endDate.getTime() - nowDate.getTime();
         long sec = diff / 1000;

@@ -8,6 +8,8 @@ import android.os.Bundle
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentTransaction
 import android.util.Log
+import com.orange.blelibrary.blelibrary.BleActivity
+import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.R
 import com.orange.tpms.bean.PublicBean
 import com.orange.tpms.mmySql.Item
@@ -16,6 +18,7 @@ import com.orange.tpms.ue.frag.Frag_base
 import com.orange.tpms.ue.frag.Frag_check_sensor_information
 import com.orange.tpms.ue.frag.Frag_id_copy_original
 import com.orange.tpms.ue.frag.Frag_program_number_choice
+import com.orange.tpms.ue.kt_frag.Frag_Check_Sensor_Information
 import com.orange.tpms.utils.FileDowload
 import java.lang.Exception
 import java.util.ArrayList
@@ -52,7 +55,7 @@ class ItemDAO(context: Context) {
     }
 
 
-fun GoOk(code:String,navigationActivity: Frag_base){
+fun GoOk(code:String,navigationActivity: BleActivity){
     val sql="select `Make`,`Model`,`Year`,`Make_Img` from `Summary table` where `Direct Fit` not in($notin) and `$MAKE_IMG_COLUMN` not in($notin) and `MMY number`='$code' limit 0,1"
     val result = db.rawQuery(
         sql,null)
@@ -64,13 +67,13 @@ fun GoOk(code:String,navigationActivity: Frag_base){
             PublicBean.SelectYear=result.getString(2)
             when(PublicBean.position){
                 PublicBean.檢查傳感器->{
-                    navigationActivity.toFrag(Frag_check_sensor_information::class.java, false, true, "");
+                    navigationActivity.ChangePage(Frag_Check_Sensor_Information(),R.id.frage,"Frag_Check_Sensor_Information",true);
                 }
                 PublicBean.燒錄傳感器->{
-                    navigationActivity.toFrag(Frag_program_number_choice::class.java, false, true, "");
+//                    navigationActivity.ChangePage(Frag_program_number_choice::class.java, false, true, "");
                 }
                 PublicBean.複製傳感器->{
-                    navigationActivity.toFrag(Frag_id_copy_original::class.java, false, true, "");
+//                    navigationActivity.ChangePage(Frag_id_copy_original::class.java, false, true, "");
                 }
             }
         }while (result.moveToNext())

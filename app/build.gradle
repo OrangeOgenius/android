@@ -9,7 +9,7 @@ def library = rootProject.ext.dependencies
 android {
     compileSdkVersion info.compileSdkVersion
     defaultConfig {
-        applicationId "com.orange.tpms"
+        applicationId "com.orange.mytpms"
         minSdkVersion info.minSdkVersion
         targetSdkVersion info.targetSdkVersion
         versionCode info.versionCode

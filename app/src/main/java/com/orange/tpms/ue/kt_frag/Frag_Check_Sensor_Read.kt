@@ -3,6 +3,7 @@ package com.orange.tpms.ue.kt_frag
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,6 +38,9 @@ class Frag_Check_Sensor_Read : RootFragement() {
             act.supportFragmentManager!!.popBackStack(null, 1)
         }
         ObdHex=(activity as KtActivity).itemDAO.GetHex(PublicBean.SelectMake,PublicBean.SelectModel,PublicBean.SelectYear)
+        while(ObdHex.length<2){ObdHex="0"+ObdHex}
+        Log.e("Hex",ObdHex)
+        rootview.tv_content.setText("${PublicBean.SelectMake}/${PublicBean.SelectModel}/${PublicBean.SelectYear}")
         return rootview
     }
 
@@ -56,6 +60,7 @@ class Frag_Check_Sensor_Read : RootFragement() {
             val a = Command.GetId(ObdHex, "00")
             handler.post {
                 run = false
+                if(!act.NowFrage.equals("Frag_Check_Sensor_Read")){return@post}
                 lwLoading.hide()
                 if (a.success) {
                     vibMediaUtil.playBeep()

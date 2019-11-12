@@ -10,22 +10,19 @@ import com.orange.blelibrary.blelibrary.RootFragement
 
 import com.orange.tpms.R
 import com.orange.tpms.bean.PublicBean
-import com.orange.tpms.bean.ScanQrCodeBean
-import com.orange.tpms.ue.activity.KtActivity
-import com.orange.tpms.ue.activity.MainActivity
-import kotlinx.android.synthetic.main.fragment_frag__check_sensor.view.*
+import kotlinx.android.synthetic.main.fragment_frag__program__sensor.view.*
 
 /**
  * A simple [Fragment] subclass.
  *
  */
-class Frag_CheckSensor : RootFragement() {
+class Frag_Program_Sensor : RootFragement() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-       rootview=inflater.inflate(R.layout.fragment_frag__check_sensor, container, false)
+        rootview=inflater.inflate(R.layout.fragment_frag__program__sensor, container, false)
         rootview.b1.setOnClickListener {
             PublicBean.ScanType = PublicBean.掃描Mmy
             act.ChangePage(Frag_Scan(),R.id.frage,"Frag_Scan",true)
@@ -33,9 +30,7 @@ class Frag_CheckSensor : RootFragement() {
         rootview.b2.setOnClickListener {
             act.ChangePage(Frag_SelectMake(),R.id.frage,"Frag_SelectMake",true)
         }
-        rootview.b3.setOnClickListener {
-
-        }
+        rootview.b3.setOnClickListener {  }
         return rootview
     }
 

@@ -29,7 +29,7 @@ public class ProgramSensorHelper extends BaseHelper {
         preRequestNext();
         if(HardwareApp.getInstance().isEnableHareware()){//开启硬件
             HardwareApp.getInstance().sensorHandler.readSensor(1, hex, sensorDataBean -> {
-                Rocket.writeOuterLog( sensorDataBean.toString());
+//                Rocket.writeOuterLog( sensorDataBean.toString());
                 finishRequestNext();
                 if(TextUtils.isEmpty(sensorDataBean.getSensor_id())){
                     failedRequestNext("读取失败");
@@ -66,13 +66,13 @@ public class ProgramSensorHelper extends BaseHelper {
 
             @Override
             public void start(int total) {
-                Rocket.writeOuterLog("烧录传感器-start:"+total);
+//                Rocket.writeOuterLog("烧录传感器-start:"+total);
                 Log.v("yhd-", String.format("total bytes %s, has start", total));
             }
 
             @Override
             public void progress(int progress, int total) {
-                Rocket.writeOuterLog("烧录传感器-progress:"+String.format("total bytes %s, progress: %s", total, progress));
+//                Rocket.writeOuterLog("烧录传感器-progress:"+String.format("total bytes %s, progress: %s", total, progress));
                 Log.v("yhd-", String.format("total bytes %s, progress: %s", total, progress));
                 float finalProgress = (float) progress/total * 100;
                 if(finalProgress >= 100){
@@ -84,7 +84,7 @@ public class ProgramSensorHelper extends BaseHelper {
 
             @Override
             public void finish(int total) {
-                Rocket.writeOuterLog("烧录传感器-finish:"+total);
+//                Rocket.writeOuterLog("烧录传感器-finish:"+total);
                 Log.v("yhd-", String.format("total bytes %s, has finish", total));
                 if(!hasFinish){
                     hasFinish = true;
@@ -114,15 +114,15 @@ public class ProgramSensorHelper extends BaseHelper {
 
             @Override
             public void fail(int errcode, int start, int total) {
-                Rocket.writeOuterLog("烧录传感器-fail:"+String.format("total bytes %s, fail on %s, errcode is %s", total,
-                        start, errcode));
+//                Rocket.writeOuterLog("烧录传感器-fail:"+String.format("total bytes %s, fail on %s, errcode is %s", total,
+//                        start, errcode));
                 finishRequestNext();
                 onProgramSuccessNext(null,false);
                 Log.v("yhd-", String.format("total bytes %s, fail on %s, errcode is %s", total,
                         start, errcode));
             }
         },name);
-        Rocket.writeOuterLog("烧录传感器状态码:"+status);
+//        Rocket.writeOuterLog("烧录传感器状态码:"+status);
     }
 
     /* ***************************** StrggerSuccess ***************************** */

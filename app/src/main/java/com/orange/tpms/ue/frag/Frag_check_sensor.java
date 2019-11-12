@@ -71,7 +71,7 @@ public class Frag_check_sensor extends Frag_base {
         twTitle.setOnBackListener((view) -> back());
         //初始化列表
         b1.setOnClickListener(v -> {
-            PublicBean.ScanType=ScanQrCodeBean.TYPE_MMY;
+            PublicBean.ScanType=PublicBean.掃描Mmy;
             toFrag(Frag_scan_info.class, false, true, "");
         });
         b2.setOnClickListener(v -> {

@@ -14,6 +14,7 @@ import com.orange.tpms.R
 import com.orange.tpms.lib.hardware.HardwareApp
 import com.orange.tpms.ue.activity.KtActivity
 import com.orango.electronic.orangetxusb.SettingPagr.Set_Languages
+import java.lang.Thread.sleep
 
 
 /**
@@ -32,17 +33,21 @@ class kt_splash : RootFragement() {
         return rootview
     }
     fun ListenFinish(){
-        handler.post {
-            (activity as KtActivity).ShowTitleBar(true)
+        Thread{
+            sleep(2000)
+            handler.post {
+                (activity as KtActivity).ShowTitleBar(true)
 //            act.ChangePage(Set_Languages(), R.id.frage, "Set_Languages", false)
-            val profilePreferences =act.getSharedPreferences("Setting", Context.MODE_PRIVATE)
-            if (profilePreferences.getString("admin", "nodata").equals("nodata")) {
-                Set_Languages.place = 0
-                act.ChangePage(Set_Languages(), R.id.frage, "Set_Languages", false)
-            }else{
-                act.ChangePage(Frag_home(), R.id.frage, "Frag_home", false)
+                val profilePreferences =act.getSharedPreferences("Setting", Context.MODE_PRIVATE)
+                if (profilePreferences.getString("admin", "nodata").equals("nodata")) {
+                    Set_Languages.place = 0
+                    act.ChangePage(Set_Languages(), R.id.frage, "Set_Languages", false)
+                }else{
+                    act.ChangePage(Frag_home(), R.id.frage, "Frag_home", false)
+                }
             }
-        }
+        }.start()
+
     }
 
 

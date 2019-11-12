@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".ue.kt_frag.Frag_Program_Detail">
+    <com.de.rocket.ue.layout.PercentLinearLayout
+            android:id="@+id/pll_title"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@color/color_FF314A56">
+
+        <TextView
+                android:layout_below="@+id/v_title_bar"
+                android:id="@+id/tv_program_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_white"
+                android:gravity="center"
+                android:text=""
+                />
+
+        <com.de.rocket.ue.layout.PercentLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_FFFFC300"
+                    android:text="@string/app_press"
+                    android:layout_marginEnd="5dp"
+            />
+
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@mipmap/icon_tigger_y"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_FFFFC300"
+                    android:text="@string/app_to_program_sensor"
+                    android:layout_marginStart="5dp"/>
+
+        </com.de.rocket.ue.layout.PercentLinearLayout>
+
+    </com.de.rocket.ue.layout.PercentLinearLayout>
+    <android.support.v7.widget.RecyclerView
+            android:layout_below="@+id/pll_title"
+            android:id="@+id/rv_program"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_marginBottom="95dp" android:layout_marginTop="5dp"/>
+    <LinearLayout
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/iv_scan_tips"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+    >
+
+        <Button
+                android:id="@+id/bt_program"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/app_program"
+                android:textAllCaps="false"
+                android:gravity="center"
+                android:textColor="@color/color_white"
+                android:background="@color/buttoncolor"
+                android:layout_weight="1" android:textSize="20sp"/>
+
+        <ImageView
+                android:layout_width="1dp"
+                android:layout_height="match_parent"  android:id="@+id/imageView15"
+                android:background="@android:color/white"/>
+        <Button
+                android:id="@+id/bt_menue"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/app_menue"
+                android:textAllCaps="false"
+                android:gravity="center"
+                android:textColor="@color/color_white"
+                android:background="@color/buttoncolor"
+                android:layout_weight="1" android:textSize="20sp"/>
+
+    </LinearLayout>
+    <com.orange.tpms.widget.SensorWayWidget
+            android:visibility="visible"
+            android:id="@+id/sww_select"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+    </com.orange.tpms.widget.SensorWayWidget>
+    <com.orange.tpms.widget.ScanWidget
+            android:visibility="gone"
+            android:id="@+id/scw_tips"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    <com.orange.tpms.widget.LoadingWidget
+            android:id="@+id/ldw_loading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" android:layout_centerInParent="true"/>
+</RelativeLayout>

@@ -150,7 +150,7 @@ class Frag_Wifi : RootFragement() {
         //连接成功
         wifiHelper.setOnConnecteSuccessListener {
             act.Toast(R.string.app_wifi_connected)
-            act.ChangePage(Sign_in(), R.id.frage,"Sign_in",true)
+            act.ChangePage(Sign_in(), R.id.frage,"Sign_in",false)
         }
         //连接失败
         wifiHelper.setOnConnecteFailedListener {
@@ -194,7 +194,7 @@ class Frag_Wifi : RootFragement() {
         }
         //初始化注册广播
         if (WifiConnectHelper.isNetworkConnected(activity)) {
-            act.ChangePage(Sign_in(), R.id.frage,"Sign_in",true)
+            act.ChangePage(Sign_in(), R.id.frage,"Sign_in",false)
         } else {
             //注册广播
             wifiHelper.initViewFinish(activity)

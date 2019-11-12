@@ -31,15 +31,15 @@ class Set_Languages : RootFragement() {
     ): View? {
         rootView=inflater.inflate(R.layout.frag_language, container, false)
         rootView.bt_select_en.setOnClickListener { LanguageUtil.updateLocale(activity, LanguageUtil.LOCALE_ENGLISH);
-            act.ChangePage(PrivaryPolicy(),R.id.frage,"PrivaryPolicy",true)}
+            act.ChangePage(PrivaryPolicy(),R.id.frage,"PrivaryPolicy",false)}
         rootView.bt_select_cn.setOnClickListener {  LanguageUtil.updateLocale(activity, LanguageUtil.LOCALE_CHINESE);
-            act.ChangePage(PrivaryPolicy(),R.id.frage,"PrivaryPolicy",true)}
+            act.ChangePage(PrivaryPolicy(),R.id.frage,"PrivaryPolicy",false)}
         rootView.bt_select_tr.setOnClickListener { LanguageUtil.updateLocale(activity, LanguageUtil.LOCALE_TAIWAIN);
-            act.ChangePage(PrivaryPolicy(),R.id.frage,"PrivaryPolicy",true)}
+            act.ChangePage(PrivaryPolicy(),R.id.frage,"PrivaryPolicy",false)}
         rootView.bt_select_ita.setOnClickListener { LanguageUtil.updateLocale(activity, LanguageUtil.LOCALE_ITALIANO);
-            act.ChangePage(PrivaryPolicy(),R.id.frage,"PrivaryPolicy",true)}
+            act.ChangePage(PrivaryPolicy(),R.id.frage,"PrivaryPolicy",false)}
         rootView.bt_select_deu.setOnClickListener {  LanguageUtil.updateLocale(activity, LanguageUtil.LOCALE_DE);
-        act.ChangePage(PrivaryPolicy(),R.id.frage,"PrivaryPolicy",true)}
+        act.ChangePage(PrivaryPolicy(),R.id.frage,"PrivaryPolicy",false)}
         return rootView
     }
 
