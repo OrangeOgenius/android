@@ -28,8 +28,6 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ue.kt_frag.Frag_home">
-        </activity>
         <!-- <activity android:name=".ue.activity.KtActivity"> -->
         <!-- </activity> -->
         <activity

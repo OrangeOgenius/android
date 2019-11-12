@@ -80,7 +80,7 @@ public class Frag_check_sensor extends Frag_base {
         b3.setOnClickListener(v -> {
             toFrag(Frag_favourite.class, false, true, "");
         });
-        //配置RecyclerView
+//配置RecyclerView
 //        rvFunction.setLayoutManager(new GridLayoutManager(activity, 3));
 //        FunctionSelectAdapter functionSelectAdapter = new FunctionSelectAdapter(activity);
 //        functionSelectAdapter.setItems(getFunctionList());

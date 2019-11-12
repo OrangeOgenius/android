@@ -24,6 +24,7 @@ import android.zyapi.CommonApi;
 
 import com.orange.tpms.R;
 import com.orange.tpms.lib.api.SensorHandler;
+import com.orange.tpms.utils.Command;
 
 /**
  * Created by john on 2019/6/22.
@@ -494,6 +495,8 @@ public class HardwareApp extends BaseHardware {
                         String ss=bytesToHexString(recv);
 
                         Log.e("RX:", "11数据："+ss);
+
+                        Command.Rx=Command.bytesToHex(recv);
 
                     } catch (UnsupportedEncodingException e) {
                         // TODO Auto-generated catch block
