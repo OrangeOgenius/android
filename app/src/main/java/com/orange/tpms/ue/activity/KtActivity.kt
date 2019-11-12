@@ -29,6 +29,7 @@ class KtActivity : BleActivity() {
         titlebar=findViewById(R.id.toolbar)
         ChangePage(kt_splash(),R.id.frage,"kt_splash",false)
         ShowTitleBar(false)
+        splash()
     }
 fun ShowTitleBar(boolean: Boolean){
     titlebar.visibility=if(boolean) View.VISIBLE else View.GONE
@@ -40,8 +41,28 @@ fun ShowTitleBar(boolean: Boolean){
             //按键事件向Fragment分发
             (Fraging as RootFragement).dispatchKeyEvent(event)
             //页面在顶层才会分发
-
         }
         return superDispatchKeyEvent(event)
+    }
+    fun splash(){
+        if (HardwareApp.getInstance().isEnableHareware) {
+            HardwareApp.getInstance().initWithCb(this, object : HardwareApp.InitCb {
+                override fun onStart() {
+
+                }
+
+                override  fun pingReceive(ret: Int) {
+
+                    if (ret == 1) {
+
+
+                    } else {
+
+                    }
+                }
+            })
+        } else {
+
+        }
     }
 }

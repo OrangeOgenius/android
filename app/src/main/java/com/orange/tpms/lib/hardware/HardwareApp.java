@@ -205,7 +205,8 @@ public class HardwareApp extends BaseHardware {
                                                 }
 
                                                 Log.e("DATA:", "RX："+str_uart2);
-
+                                                Command.Rx=str_uart2.replace(" ","");
+                                                Log.e("CommandRX:", "zommand："+Command.Rx);
                                                 Intent intentBroadcast = new Intent();
                                                 intentBroadcast
                                                         .setAction("com.qs.uart2code");
@@ -495,9 +496,6 @@ public class HardwareApp extends BaseHardware {
                         String ss=bytesToHexString(recv);
 
                         Log.e("RX:", "11数据："+ss);
-
-                        Command.Rx=Command.bytesToHex(recv);
-
                     } catch (UnsupportedEncodingException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();

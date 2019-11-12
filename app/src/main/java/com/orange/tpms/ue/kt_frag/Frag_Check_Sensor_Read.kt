@@ -10,7 +10,9 @@ import android.widget.TextView
 import com.orange.blelibrary.blelibrary.RootFragement
 
 import com.orange.tpms.R
+import com.orange.tpms.bean.PublicBean
 import com.orange.tpms.helper.ReadSensorHelper
+import com.orange.tpms.ue.activity.KtActivity
 import com.orange.tpms.ue.frag.Frag_home
 import com.orange.tpms.utils.Command
 import com.orange.tpms.utils.VibMediaUtil
@@ -27,12 +29,14 @@ class Frag_Check_Sensor_Read : RootFragement() {
     ): View? {
         rootview = inflater.inflate(R.layout.fragment_frag__check__sensor__read, container, false)
         vibMediaUtil = VibMediaUtil(activity)
+        lwLoading=rootview.findViewById(R.id.ldw_loading)
         rootview.bt_tigger.setOnClickListener {
             trigger()
         }
         rootview.bt_menue.setOnClickListener {
             act.supportFragmentManager!!.popBackStack(null, 1)
         }
+        ObdHex=(activity as KtActivity).itemDAO.GetHex(PublicBean.SelectMake,PublicBean.SelectModel,PublicBean.SelectYear)
         return rootview
     }
 

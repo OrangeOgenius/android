@@ -49,6 +49,18 @@ public class Command {
         }
         return sb.toString();
     }
+    public static String getBit(byte by){
+        StringBuffer sb = new StringBuffer();
+        sb.append((by>>7)&0x1);
+        sb.append((by>>6)&0x1);
+        sb.append((by>>5)&0x1);
+        sb.append((by>>4)&0x1);
+        sb.append((by>>3)&0x1);
+        sb.append((by>>2)&0x1);
+        sb.append((by>>1)&0x1);
+        sb.append((by>>0)&0x1);
+        return sb.toString();
+    }
     public static int byte2ToINT(byte[] bytes) {
         int high = bytes[0];
         int low = bytes[1];
@@ -70,11 +82,11 @@ public class Command {
                 if (Rx.length() == 36) {
                     int idcount = Integer.parseInt(Rx.substring(17, 18));
                     data.id = Rx.substring(16 - idcount, 16);
-                    data.bat = StringHexToByte(Rx.substring(18, 20))[0];
+                    data.bat = getBit(StringHexToByte(Rx.substring(28,30))[0]).substring(3,4);
                     data.kpa=byte2ToINT(StringHexToByte(Rx.substring(22,26)));
                     byte[] bytes=StringHexToByte(Rx.substring(18 , 22));
-                    data.c=bytes[0]-bytes[1];
-                    data.vol=StringHexToByte(Rx.substring(26 , 28))[0];
+                    data.c=bytes[1]-bytes[0];
+                    data.vol=22+(StringHexToByte(Rx.substring(26 , 28))[0]&0x0F);
                     data.success = true;
                     return data;
                 }
