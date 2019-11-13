@@ -106,6 +106,7 @@ public class Command {
     }
 public static boolean ProgramFirst(String Lf, String Hex, String count, String s19, Activity activity){
         try{
+            String spilt="";
             while(count.length()<2){count="0"+count;}
             while(Hex.length()<2){Hex="0"+Hex;}
 //            InputStream is =new InputStream(new FileInputStream("s19"));
@@ -132,12 +133,67 @@ public static boolean ProgramFirst(String Lf, String Hex, String count, String s
                     return false;
                 }
                 if(Rx.length()==36){
-
+                    spilt=(Rx.substring(10, 12).equals("04")) ? sb.substring(0, 2048*2) : sb.substring(0, 6144*2);
+                    return WriteFlash(spilt);
                 }
-                Thread.currentThread().sleep(1000);
+                Thread.currentThread().sleep(100);
             }
-        }catch (Exception e){e.printStackTrace();}
-        return false;
+        }catch (Exception e){e.printStackTrace(); return false;}
+
+}
+public static boolean WriteFlash(String data){
+        try{
+            int count=(data.length()%400==0) ? data.length()/400 : data.length()/400+1;
+            for(int i=0;i<count;i++){
+                if(i==count-1){
+                   if(!CheckData(data.substring(400*i),Integer.toHexString(i))){return false;} ;
+                }else{
+                    if(!CheckData(data.substring(400*i,400*i+400),Integer.toHexString(i))){return false;};
+                }
+            }
+            return true;
+        }catch (Exception e){e.printStackTrace();
+        return false;}
+
+}
+public static boolean CheckData(String data,String place){
+        try{
+            String Long=(data.length()==400) ? "00CB":"00"+Integer.toHexString(data.length()/2+1);
+            String command="0A 13 LONG DATA PLACE FF F5".replace(" ", "").
+                    replace("LONG", Long).replace("DATA",data).replace("PLACE", place);
+            Send(command);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS");
+            Date past = sdf.parse(sdf.format(new Date()));
+            while(true){
+                Date now = sdf.parse(sdf.format(new Date()));
+                double time = getDatePoor(now, past);
+                if (time > 10 || Rx.equals(GetCrcString("F51C000301000A")) || Rx.equals(GetCrcString("F51C000302000A"))) {
+                    return false;
+                }
+                if(Rx.length()==36){return true;}
+                Thread.currentThread().sleep(100);
+            }
+        }catch (Exception e){e.printStackTrace();return false;}
+}
+public static boolean ProgramCheck(){
+        try{
+            Send("0A 14 00 0E 00 00 00 00 00 00 00 00 00 00 00 00 ff f5".replace(" ", ""));
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS");
+            Date past = sdf.parse(sdf.format(new Date()));
+            while(true){
+                Date now = sdf.parse(sdf.format(new Date()));
+                double time = getDatePoor(now, past);
+                if (time > 10 || Rx.equals(GetCrcString("F51C000301000A")) || Rx.equals(GetCrcString("F51C000302000A"))) {
+                    return false;
+                }
+                if(Rx.length()==36){
+                    String check=Rx.substring(12, 20);
+                    if(check.equals("7FFFFFFF")||check.equals("000007FF")){return true;}else{
+
+                    }
+                }
+            }
+        }catch (Exception e){e.printStackTrace();return false;}
 }
     public static double getDatePoor(Date endDate, Date nowDate) {
         long diff = endDate.getTime() - nowDate.getTime();
