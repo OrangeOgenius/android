@@ -20,7 +20,6 @@ import com.orange.tpms.widget.LoadingWidget
 class Sign_in : RootFragement() {
     lateinit var admin:EditText
     lateinit var password:EditText
-    var run=false
     lateinit var lwLoading: LoadingWidget
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

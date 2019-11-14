@@ -19,6 +19,8 @@ import com.orange.tpms.ue.frag.Frag_check_sensor_information
 import com.orange.tpms.ue.frag.Frag_id_copy_original
 import com.orange.tpms.ue.frag.Frag_program_number_choice
 import com.orange.tpms.ue.kt_frag.Frag_Check_Sensor_Information
+import com.orange.tpms.ue.kt_frag.Frag_Idcopy_original
+import com.orange.tpms.ue.kt_frag.Frag_Program_Number_Choice
 import com.orange.tpms.utils.FileDowload
 import java.lang.Exception
 import java.util.ArrayList
@@ -70,10 +72,10 @@ fun GoOk(code:String,navigationActivity: BleActivity){
                     navigationActivity.ChangePage(Frag_Check_Sensor_Information(),R.id.frage,"Frag_Check_Sensor_Information",true);
                 }
                 PublicBean.燒錄傳感器->{
-//                    navigationActivity.ChangePage(Frag_program_number_choice::class.java, false, true, "");
+                    navigationActivity.ChangePage(Frag_Program_Number_Choice(),R.id.frage,"Frag_Program_Number_Choice",true);
                 }
                 PublicBean.複製傳感器->{
-//                    navigationActivity.ChangePage(Frag_id_copy_original::class.java, false, true, "");
+                    navigationActivity.ChangePage(Frag_Idcopy_original(),R.id.frage,"Frag_Idcopy_original",true);
                 }
             }
         }while (result.moveToNext())

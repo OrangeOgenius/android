@@ -34,6 +34,10 @@ class Frag_home : RootFragement() {
             PublicBean.position=PublicBean.燒錄傳感器
             act.ChangePage(Frag_Program_Sensor(),R.id.frage,"Frag_Program_Sensor",true)
         }
+        rootview.bt_sensor_idcopy.setOnClickListener {
+            PublicBean.position=PublicBean.複製傳感器
+            act.ChangePage(Frag_Id_Copy(),R.id.frage,"Frag_Id_Copy",true)
+        }
         (activity as KtActivity).itemDAO = ItemDAO(activity!!);
         return rootview
     }

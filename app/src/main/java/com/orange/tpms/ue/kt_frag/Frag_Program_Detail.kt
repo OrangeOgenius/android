@@ -14,6 +14,7 @@ import android.widget.Button
 import bean.hardware.SensorDataBean
 import com.de.rocket.Rocket
 import com.orange.blelibrary.blelibrary.RootFragement
+import com.orange.tpms.Callback.Program_C
 
 import com.orange.tpms.R
 import com.orange.tpms.adapter.ProgramAdapter
@@ -27,6 +28,7 @@ import com.orange.tpms.ue.activity.KtActivity
 import com.orange.tpms.ue.activity.MainActivity
 import com.orange.tpms.ue.frag.Frag_program_detail
 import com.orange.tpms.utils.Command
+import com.orange.tpms.utils.Command.Program
 import com.orange.tpms.utils.Command.ProgramFirst
 import com.orange.tpms.utils.NumberUtil
 import com.orange.tpms.utils.VibMediaUtil
@@ -39,7 +41,42 @@ import java.util.ArrayList
 import java.util.HashSet
 
 
-class Frag_Program_Detail : RootFragement() {
+class Frag_Program_Detail : RootFragement(),Program_C{
+    override fun Program_Progress(i: Int) {
+        if(!act.NowFrage.equals("Frag_Program_Detail")){return}
+        handler.post{   if (lwLoading.visibility != View.VISIBLE) {
+            lwLoading.show()
+        }
+            lwLoading.tvLoading.text = "$i%"}
+    }
+
+    override fun Program_Finish(boolean: Boolean) {
+        if(!act.NowFrage.equals("Frag_Program_Detail")){return}
+        run=false
+
+        if(boolean){
+            Log.e("DATA:", "燒錄成功")
+            val result = Command.GetPrId(ObdHex, "00")
+            if(!act.NowFrage.equals("Frag_Program_Detail")){return}
+                handler.post {
+                    AllFall()
+                    for(i in result){
+                    updateProgramState(i.id, ProgramItemBean.STATE_SUCCESS,i.idcount)
+                        Log.e("DATA:", "成功id:"+i.id)
+                    }
+            }
+        }else{
+            handler.post { AllFall() }
+            Log.e("DATA:", "燒錄失敗")
+        }
+        handler.post {
+            lwLoading.hide()
+            vibMediaUtil.playBeep()
+            btProgram.setText(R.string.app_re_program)
+
+        }
+    }
+
     lateinit var programSensorHelper: ProgramSensorHelper
     lateinit var vibMediaUtil: VibMediaUtil
     lateinit var programAdapter: ProgramAdapter
@@ -56,13 +93,18 @@ class Frag_Program_Detail : RootFragement() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-  rootview=inflater.inflate(R.layout.fragment_frag__program__detail, container, false)
-
+        rootview=inflater.inflate(R.layout.fragment_frag__program__detail, container, false)
+        rootview.tv_program_title.text="${PublicBean.SelectMake}/${PublicBean.SelectModel}/${PublicBean.SelectYear}"
+        rootview.bt_menue.setOnClickListener { GoMenu() }
         rootview.bt_program.setOnClickListener {
-            Thread{ProgramFirst("00",ObdHex,Integer.toHexString(PublicBean.ProgramNumber),(activity as KtActivity).itemDAO.getMMY(PublicBean.SelectMake,PublicBean.SelectModel,PublicBean.SelectYear),act)}.start()
-
-//            program()
-            }
+            if(run){return@setOnClickListener}
+            run=true
+            lwLoading.tvLoading.text = "0%"
+            lwLoading.show()
+            Thread{
+                Program("00",ObdHex,Integer.toHexString(PublicBean.ProgramNumber),(activity as KtActivity).itemDAO.getMMY(PublicBean.SelectMake,PublicBean.SelectModel,PublicBean.SelectYear),act,this)
+            }.start()
+        }
         scwTips=rootview.findViewById(R.id.scw_tips)
         btProgram=rootview.findViewById(R.id.bt_program)
         lwLoading=rootview.findViewById(R.id.ldw_loading)
@@ -70,17 +112,35 @@ class Frag_Program_Detail : RootFragement() {
         rvProgram=rootview.findViewById(R.id.rv_program)
         ObdHex=(activity as KtActivity).itemDAO.GetHex(PublicBean.SelectMake,PublicBean.SelectModel,PublicBean.SelectYear)
         while(ObdHex.length<2){ObdHex="0"+ObdHex}
-        initHelper()
         initView()
         updateList(PublicBean.ProgramNumber)
         return rootview
     }
 
+    override fun onKeyScan() {
+        super.onKeyScan()
+        if(run){return}
+        if (swwSelect.isShown) {
+            swwSelect.pllScan.performClick()
+        }
+        if (scwTips.isShown) {
+            scwTips.hide()
+        }
+        HardwareApp.getInstance().scan()
+        lwLoading.hide()
+        lwLoading.show(resources.getString(R.string.app_scaning))
+        Thread{
+            Thread.sleep(3000)
+            run=false
+        }.start()
+    }
     override fun onPause() {
         super.onPause()
         vibMediaUtil.release()
-        HardwareApp.getInstance().switchScan(false)
-        HardwareApp.getInstance().removeDataReceiver(dataReceiver)
+        try{
+            HardwareApp.getInstance().switchScan(false)
+            HardwareApp.getInstance().removeDataReceiver(dataReceiver)
+        }catch (e:Exception){e.printStackTrace()}
     }
     /**
      * 初始化页面
@@ -112,7 +172,6 @@ class Frag_Program_Detail : RootFragement() {
             }
 
             override fun scanMsgReceive(content: String) {
-                Rocket.writeOuterLog("Frag_program_detail::scanMsgReceive->content:$content")
                 lwLoading.hide()
                 Log.v("yhd-", "content:$content")
                 //兼容三种
@@ -124,17 +183,18 @@ class Frag_Program_Detail : RootFragement() {
                     }
                     return
                 }
-                val sensorid: String
+                var sensorid=""
                 if (content.contains("**")) {
                     sensorid = MMYQrCodeBean.toQRcodeBean(content).mmyNumber
                 } else {
-                    sensorid = SensorQrCodeBean.toQRcodeBean(content).sensorID
+                    if(content.split(":","*").size>=3){
+                        sensorid=content.split(":","*")[1]
+                    }
                 }
                 if (TextUtils.isEmpty(sensorid)) {
                     act.Toast(R.string.app_invalid_sensor_qrcode)
                     return
                 }
-                Rocket.writeOuterLog("Frag_id_copy_new::scanMsgReceive->sensorid:$sensorid")
                 vibMediaUtil.playBeep()
                 if (!haveSameSensorid(sensorid)) {
                     updateSensorid(sensorid)
@@ -164,13 +224,36 @@ class Frag_Program_Detail : RootFragement() {
         }
     }
     override fun onKeyTrigger() {
+        Trigger()
+    }
+    fun Trigger(){
+        if(run){return}
+        run=true
+        lwLoading.show()
         if (swwSelect.isShown()) {
             swwSelect.pllTrigger.performClick()
         }
         if (scwTips.isShown()) {
             scwTips.hide()
         }
-                programSensorHelper.trigger(ObdHex)
+        Thread{
+            val a = Command.GetId(ObdHex, "00")
+            handler.post {
+                run = false
+                if(!act.NowFrage.equals("Frag_Program_Detail")){return@post}
+                vibMediaUtil.playBeep()
+                lwLoading.hide()
+                if(a.success){
+                    if (!haveSameSensorid(a.id)) {
+                        updateSensorid(a.id)
+                    } else {
+                        act.Toast(R.string.app_sensor_repeated)
+                    }
+                }else{
+                    act.Toast(resources.getString(R.string.app_read_failed))
+                }
+            }
+        }.start()
     }
     /**
      * 烧录
@@ -185,57 +268,6 @@ class Frag_Program_Detail : RootFragement() {
             }
         } else {
             act.Toast(R.string.app_fillin_all_sensor_id)
-        }
-    }
-    private fun initHelper() {
-        programSensorHelper = ProgramSensorHelper()
-        //开始请求
-        programSensorHelper.setOnPreRequestListener { lwLoading.show(resources.getString(R.string.app_loading_data)) }
-        //结束请求
-        programSensorHelper.setOnFinishRequestListener { lwLoading.hide() }
-        //请求失败
-        programSensorHelper.setOnFailedRequestListener { `object` -> act.Toast(`object`.toString()) }
-        //读取传感器情况
-        programSensorHelper.setOnStrggerSuccessListener { sensorid ->
-            Log.v("yhd-", "setOnStrggerSuccessListener:sensorid:$sensorid")
-            vibMediaUtil.playBeep()
-            if (!haveSameSensorid(sensorid)) {
-                updateSensorid(sensorid)
-            } else {
-                act.Toast(R.string.app_sensor_repeated)
-            }
-        }
-        //进度
-        programSensorHelper.setOnProgressListener { progress ->
-            if (lwLoading.getVisibility() != View.VISIBLE) {
-                lwLoading.show()
-            }
-            val content = NumberUtil.toFormate(progress)
-            lwLoading.getTvLoading().setText("$content%")
-        }
-        //烧录成功
-        programSensorHelper.setOnProgramSuccessListener { sensorid, success ->
-            Log.v("yhd-", "setOnProgramSuccessListener:sensorid:$sensorid success:$success")
-            vibMediaUtil.playBeep()
-            btProgram.setText(R.string.app_re_program)
-            if (success) {
-                updateProgramState(sensorid, ProgramItemBean.STATE_SUCCESS)
-            } else {
-                updateProgramState(sensorid, ProgramItemBean.STATE_FAILED)
-            }
-        }
-        //开始检测
-        programSensorHelper.setOnCheckProgramListener {
-            if (lwLoading.getVisibility() != View.VISIBLE) {
-                lwLoading.show()
-            }
-            lwLoading.getTvLoading().setText(R.string.app_checking)
-        }
-        //检测超时
-        programSensorHelper.setOnCheckTimeoutListener { sensorDataBeans ->
-            Log.v("yhd-", "setOnCheckTimeoutListener:" + "sensorDataBeans:" + sensorDataBeans.size)
-            vibMediaUtil.playBeep()
-            updateProgramState(sensorDataBeans)
         }
     }
     /**
@@ -330,17 +362,29 @@ class Frag_Program_Detail : RootFragement() {
         }
         return false
     }
+    private fun AllFall(){
+        if (programAdapter.items.size >= PublicBean.ProgramNumber) {
+        for (i in 0 until PublicBean.ProgramNumber) {
+            val programItemBean = programAdapter.items[i]
+                programAdapter.setItem(i, programItemBean)
+                 programItemBean.state=ProgramItemBean.STATE_FAILED
+            programAdapter.setItem(i, programItemBean)
+            }
+            rvProgram.adapter = programAdapter
+        }
+    }
     /**
      * 更新状态
      */
-    private fun updateProgramState(sensorid: String, state: Int) {
+    private fun updateProgramState(sensorid: String, state: Int,lo:Int) {
         //数目要对上
         if (programAdapter.items.size >= PublicBean.ProgramNumber) {
             for (i in 0 until PublicBean.ProgramNumber) {
                 val programItemBean = programAdapter.items[i]
                 if (!TextUtils.isEmpty(sensorid) && !TextUtils.isEmpty(programItemBean.sensorid)) {
-                    if (sensorid == programItemBean.sensorid) {
-                        Log.e("sensorid", sensorid)
+                    if (sensorid.substring(8-lo+2) == programItemBean.sensorid.substring(8-lo+2)) {
+                        Log.e("sensorid", sensorid.substring(8-8+lo)+":"+programItemBean.sensorid.substring(8-8+lo))
+                        programItemBean.sensorid=sensorid
                         programItemBean.state = state
                     }
                 }

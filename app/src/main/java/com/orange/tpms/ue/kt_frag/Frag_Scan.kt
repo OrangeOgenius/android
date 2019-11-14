@@ -19,6 +19,7 @@ import com.orange.tpms.ue.activity.KtActivity
 import com.orange.tpms.ue.frag.Frag_scan_info
 import com.orange.tpms.widget.LoadingWidget
 import kotlinx.android.synthetic.main.fragment_frag__scan.view.*
+import java.lang.Exception
 
 
 /**
@@ -50,8 +51,16 @@ class Frag_Scan : RootFragement() {
     }
 
     override fun onKeyScan() {
+        if(run){return}
+        run=true
         HardwareApp.getInstance().scan()
+        lwLoading!!.hide()
         lwLoading!!.show(resources.getString(R.string.app_scaning))
+        Thread{
+            Thread.sleep(5000)
+            handler.post { lwLoading!!.hide() }
+            run=false
+        }.start()
     }
 fun init(){
     HardwareApp.getInstance().switchScan(true)
@@ -77,6 +86,7 @@ fun init(){
                 if (!content.contains("**")) {
                     act.Toast(R.string.app_invalid_mmy_qrcode)
                 } else {
+                    Log.d("Scan","")
                     val dataArray = content.split("\\*\\*".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
                     if(dataArray.size==2){
                         (activity as KtActivity).itemDAO.GoOk(dataArray.get(0),act)
@@ -92,7 +102,9 @@ fun init(){
 
     override fun onPause() {
         super.onPause()
-        HardwareApp.getInstance().switchScan(false)
-        HardwareApp.getInstance().removeDataReceiver(dataReceiver)
+        try {
+            HardwareApp.getInstance().switchScan(false)
+            HardwareApp.getInstance().removeDataReceiver(dataReceiver)
+        }catch (e:Exception){e.printStackTrace()}
     }
 }

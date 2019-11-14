@@ -12,13 +12,19 @@ import android.widget.RelativeLayout
 import com.de.rocket.Rocket
 import com.orange.blelibrary.blelibrary.BleActivity
 import com.orange.blelibrary.blelibrary.RootFragement
+import com.orange.tpms.Callback.Scan_C
 import com.orange.tpms.R
 import com.orange.tpms.lib.hardware.HardwareApp
 import com.orange.tpms.mmySql.ItemDAO
 import com.orange.tpms.ue.frag.Frag_base
 import com.orange.tpms.ue.kt_frag.kt_splash
+import com.orange.tpms.utils.Command
 
-class KtActivity : BleActivity() {
+class KtActivity : BleActivity(), Scan_C{
+    override fun GetScan(a: String?) {
+        if(Fraging != null){ (Fraging as RootFragement).ScanContent(a!!)}
+    }
+
     lateinit var itemDAO: ItemDAO
     lateinit var back: ImageView
     lateinit var logout:ImageView
@@ -26,6 +32,7 @@ class KtActivity : BleActivity() {
         Log.e("switch",tag)
         Log.e("switch","count:"+supportFragmentManager.backStackEntryCount)
 if(tag!="Frag_home"){back.visibility=View.VISIBLE}else{back.visibility=View.GONE}
+        Command.NowTag=tag
     }
     lateinit var titlebar:RelativeLayout
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,8 +50,6 @@ if(tag!="Frag_home"){back.visibility=View.VISIBLE}else{back.visibility=View.GONE
         ChangePage(kt_splash(),R.id.frage,"kt_splash",false)
         ShowTitleBar(false)
         splash()
-
-//Log.e("pd","${Integer.toHexString(11)}")
     }
 fun ShowTitleBar(boolean: Boolean){
     titlebar.visibility=if(boolean) View.VISIBLE else View.GONE
@@ -60,6 +65,7 @@ fun ShowTitleBar(boolean: Boolean){
         return superDispatchKeyEvent(event)
     }
     fun splash(){
+        HardwareApp.scan_c=this
         if (HardwareApp.getInstance().isEnableHareware) {
             HardwareApp.getInstance().initWithCb(this, object : HardwareApp.InitCb {
                 override fun onStart() {

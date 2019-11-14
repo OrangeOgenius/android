@@ -32,7 +32,7 @@
                 app:layout_heightPercent="12%h"
                 android:gravity="center"
                 android:text="@string/app_name"
-                app:layout_textSizePercent="3.3%h"/>
+                app:layout_textSizePercent="5%h"/>
 
         <TextView
                 android:layout_below="@+id/tv_mmy_title"

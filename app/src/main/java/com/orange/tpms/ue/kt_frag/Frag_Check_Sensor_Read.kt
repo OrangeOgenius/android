@@ -48,7 +48,6 @@ class Frag_Check_Sensor_Read : RootFragement() {
         trigger()
     }
 
-    var run = false
     private fun trigger() {
         if (run) {
             return

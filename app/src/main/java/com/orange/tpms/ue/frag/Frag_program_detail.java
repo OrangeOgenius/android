@@ -181,7 +181,6 @@ public class Frag_program_detail extends Frag_base {
             rvProgram.setAdapter(programAdapter);
         }
     }
-
     /**
      * 插入传感器id
      */

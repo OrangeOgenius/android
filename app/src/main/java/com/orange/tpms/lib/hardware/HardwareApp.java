@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import android.zyapi.CommonApi;
 
+import com.orange.tpms.Callback.Scan_C;
 import com.orange.tpms.R;
 import com.orange.tpms.lib.api.SensorHandler;
 import com.orange.tpms.utils.Command;
@@ -40,7 +41,7 @@ public class HardwareApp extends BaseHardware {
 
     public SensorHandler sensorHandler = null;
     public static boolean isCanSend = true;
-
+    public static Scan_C scan_c=null;
     private final int MAX_RECV_BUF_SIZE = 1024;
     private boolean isOpen = false;
     private MediaPlayer player;
@@ -204,9 +205,7 @@ public class HardwareApp extends BaseHardware {
                                                     }
                                                 }
 
-                                                Log.e("DATA:", "RX："+str_uart2);
-                                                Command.Rx=str_uart2.replace(" ","");
-                                                Log.e("CommandRX:", "zommand："+Command.Rx);
+
                                                 Intent intentBroadcast = new Intent();
                                                 intentBroadcast
                                                         .setAction("com.qs.uart2code");
@@ -265,20 +264,26 @@ public class HardwareApp extends BaseHardware {
     boolean ifInitCb = false;
     public void initWithCb (Activity activity, InitCb cb) {
         ifInitCb = false;
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                if (!ifInitCb) {
-                    // 超时重新执行一次
-                    Log.d(TAG, "initWithCb: timeout");
-                    cb.pingReceive(-3);     // 超时重试
-                    initWithCb(activity, cb);
-                }
-            }
-        }, 3000);       // 3s超时
+//        Timer timer = new Timer();
+//        timer.schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//                if (!ifInitCb) {
+//                    // 超时重新执行一次
+//                    Log.d(TAG, "initWithCb: timeout");
+//                    cb.pingReceive(-3);     // 超时重试
+//                    initWithCb(activity, cb);
+//                }
+//            }
+//        }, 3000);       // 3s超时
         if(enableHareware){
+
             try {
+                this.open5V(false);
+                Thread.sleep(500);
+                this.setGpio1V(false);
+                Thread.sleep(500);
+                this.open9V(false);
                 Thread.sleep(500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -492,16 +497,17 @@ public class HardwareApp extends BaseHardware {
                         strRead = new String(recv, "UTF-8");
 
                         Log.e("RX:", "22数据："+strRead);
-
-                        String ss=bytesToHexString(recv);
-
-                        Log.e("RX:", "11数据："+ss);
+                        if(strRead.contains("uart2_$")){
+                            String ss=bytesToHexString(recv);
+                            Command.Rx=Command.Rx+ss.replace("75 61 72 74 32 5f 24","").replace(" ","").toUpperCase();
+                            Log.e("DATA:", "RX："+ss.replace("75 61 72 74 32 5f 24",""));
+                        }
                     } catch (UnsupportedEncodingException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
 
-                    if (strRead != null) {
+                    if (strRead.contains("scan_$")) {
                         Message msg = handler.obtainMessage(SHOW_RECV_DATA);
                         msg.obj = strRead;
                         msg.sendToTarget();
@@ -531,10 +537,10 @@ public class HardwareApp extends BaseHardware {
                                             mHanlder.removeCallbacks(run_getData);
                                             mHanlder.post(run_getData);
 
-                                            // Message m = new Message();
-                                            // m.what = 0x123;
-                                            // m.obj = barCodeStr1;
-                                            // h.sendMessage(m);
+                                             Message m = new Message();
+                                             m.what = 0x123;
+                                             m.obj = barCodeStr1;
+                                             h.sendMessage(m);
                                         }
 
                                     }

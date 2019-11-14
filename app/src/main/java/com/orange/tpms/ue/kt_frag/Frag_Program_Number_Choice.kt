@@ -28,6 +28,7 @@ class Frag_Program_Number_Choice : RootFragement() {
         savedInstanceState: Bundle?
     ): View? {
        rootview=inflater.inflate(R.layout.fragment_frag__program__sensor_information, container, false)
+        rootview.tv_mmy_title.text="${PublicBean.SelectMake}/${PublicBean.SelectModel}/${PublicBean.SelectYear}"
         rootview.bt_start.setOnClickListener {
             OggUtils.hideKeyBoard(activity)
             val result = rootview.et_number.getText().toString()
