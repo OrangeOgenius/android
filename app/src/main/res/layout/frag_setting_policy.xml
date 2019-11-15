@@ -26,14 +26,14 @@
             android:orientation="vertical">
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/app_privacy_policy_detail"
-                android:textColor="@color/color_FF101010"
-                android:id="@+id/iv_policy"
-                android:lineSpacingExtra="3dp"
-                app:layout_paddingPercent="5%w"
-                app:layout_textSizePercent="2.5%h"/>
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Welcome"
+                    android:textColor="@color/color_FF101010"
+                    android:id="@+id/iv_policy"
+                    android:lineSpacingExtra="3dp"
+                    app:layout_paddingPercent="5%w"
+                    app:layout_textSizePercent="2.5%h"/>
 
         </com.de.rocket.ue.layout.PercentLinearLayout>
 

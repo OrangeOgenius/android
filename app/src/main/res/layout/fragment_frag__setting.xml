@@ -426,7 +426,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:layout_heightPercent="14%sh"
-                        tools:layout_heightPercent="7.5%h">
+                        tools:layout_heightPercent="7.5%h" android:id="@+id/bt_information">
 
                     <ImageView
                             android:id="@+id/iv_information"
@@ -479,7 +479,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:layout_heightPercent="14%sh"
-                        tools:layout_heightPercent="7.5%h">
+                        tools:layout_heightPercent="7.5%h" android:visibility="gone">
 
                     <ImageView
                             android:id="@+id/iv_tips"
@@ -543,7 +543,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:layout_heightPercent="14%sh"
-                        tools:layout_heightPercent="7.5%h">
+                        tools:layout_heightPercent="7.5%h" android:id="@+id/bt_reset">
 
                     <ImageView
                             android:id="@+id/iv_system_reset"
@@ -596,7 +596,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:layout_heightPercent="14%sh"
-                        tools:layout_heightPercent="7.5%h">
+                        tools:layout_heightPercent="7.5%h" android:id="@+id/bt_update">
 
                     <ImageView
                             android:id="@+id/iv_system_update"
@@ -650,7 +650,7 @@
                         android:layout_height="wrap_content"
                         app:layout_heightPercent="14%sh"
                         app:layout_marginBottomPercent="3%h"
-                        tools:layout_heightPercent="7.5%h">
+                        tools:layout_heightPercent="7.5%h" android:id="@+id/bt_policy">
 
                     <ImageView
                             android:id="@+id/iv_privacy_policy"

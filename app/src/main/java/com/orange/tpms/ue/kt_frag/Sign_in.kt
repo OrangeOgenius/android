@@ -44,7 +44,7 @@ class Sign_in : RootFragement() {
                     if(a){
                         val profilePreferences = act.getSharedPreferences("Setting", Context.MODE_PRIVATE)
                         profilePreferences.edit().putString("admin",admin).putString("password",password).commit()
-                       act.ChangePage(Frag_home(),R.id.frage,"Home",false)
+                       act.ChangePage(Frag_home(),R.id.frage,"Frag_home",false)
                     }else{
                        Toast.makeText(act,R.string.signfall, Toast.LENGTH_SHORT).show()
                     }

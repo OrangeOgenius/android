@@ -2,6 +2,10 @@ package com.orange.tpms.lib.db.share;
 
 import android.content.Context;
 
+import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.telephony.TelephonyManager;
 import com.orange.tpms.lib.utils.SharedPreferencesUtils;
 
 /**
@@ -106,21 +110,38 @@ public class SettingShare {
     public static boolean getIfSystemAutoUpdate (Context context) {
         return (Boolean) SharedPreferencesUtils.getParam(context, IfSystemAutoUpdate, true);
     }
-
     /**
      * 获取系统信息
      * @return
      */
-    public static Information getSystemInformation () {
+    public static Information getSystemInformation (Context context) {
+        SharedPreferences profilePreferences = context.getSharedPreferences("Setting", Context.MODE_PRIVATE);
         Information info = new Information();
         info.systemName = "O-GENIUS";
         info.sysModule = "v1";
-        info.serialNumber = "FIKJGJ56454JH";
-        info.version = "1.0.1";
-        info.dataVersion = "1.0.1";
+        info.serialNumber = getDeviceId(context);
+        info.version = getVersionName(context);
+        info.dataVersion = profilePreferences.getString("mmyname","MMY_EU_list_V0.5_191113").substring(12,17);
         return info;
     }
-
+    public static String getVersionName(Context context) {
+        //获取包管理器
+        PackageManager pm = context.getPackageManager();
+        //获取包信息
+        try {
+            PackageInfo packageInfo = pm.getPackageInfo(context.getPackageName(), 0);
+            //返回版本号
+            return packageInfo.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    private static String getDeviceId(Context context) {
+        TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        String deviceId = telephonyManager.getDeviceId();
+        return deviceId;
+    }
     /**
      * 设置系统信息
      * @param information

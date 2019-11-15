@@ -7,49 +7,49 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.de.rocket.ue.layout.PercentRelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_heightPercent="8%sh"
-        tools:layout_heightPercent="8%h">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_heightPercent="12%sh"
+            tools:layout_heightPercent="8%h">
 
         <ImageView
-            android:id="@+id/iv_ok"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/iv_tick"
-            android:visibility="invisible"
-            android:layout_centerVertical="true"
-            app:layout_marginLeftPercent="5%w"
-            app:layout_heightPercent="50%h"
-            app:layout_widthPercent="50%h"/>
+                android:id="@+id/iv_ok"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/iv_tick"
+                android:visibility="gone"
+                android:layout_centerVertical="true"
+                app:layout_marginLeftPercent="5%w"
+                app:layout_heightPercent="50%h"
+                app:layout_widthPercent="50%h"/>
 
         <TextView
-            android:id="@+id/tv_title"
-            android:layout_toEndOf="@+id/iv_ok"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:textColor="@color/color_black"
-            android:text="@string/app_name"
-            app:layout_marginLeftPercent="3%w"
-            app:layout_textSizePercent="33%h"/>
+                android:id="@+id/tv_title"
+                android:layout_toEndOf="@+id/iv_ok"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textColor="@color/color_black"
+                android:text="@string/app_name"
+                app:layout_marginLeftPercent="3%w"
+                app:layout_textSizePercent="33%h"/>
 
         <TextView
-            android:id="@+id/tv_information"
-            android:layout_alignParentEnd="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:textColor="@color/color_black"
-            android:text="@string/app_name"
-            app:layout_marginRightPercent="3%w"
-            app:layout_textSizePercent="25%h"/>
+                android:id="@+id/tv_information"
+                android:layout_alignParentEnd="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textColor="@color/color_black"
+                android:text="@string/app_name"
+                app:layout_marginRightPercent="3%w"
+                app:layout_textSizePercent="25%h"/>
 
         <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_alignParentBottom="true"
-            android:background="@color/color_black"/>
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/color_black"/>
 
     </com.de.rocket.ue.layout.PercentRelativeLayout>
 

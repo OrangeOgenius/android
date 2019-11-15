@@ -136,6 +136,7 @@ public class Command {
             return array;
         }
     }
+
 //    public static Read
     public static SensorData GetId(String hex, String Lf) {
         SensorData data = new SensorData();

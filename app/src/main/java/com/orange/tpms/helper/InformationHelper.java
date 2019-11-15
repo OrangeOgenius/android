@@ -19,7 +19,7 @@ public class InformationHelper extends BaseHelper {
     public void getInformation(Context context) {
         preRequestNext();
         informationList = new ArrayList<>();//数据源
-        SettingShare.Information information = SettingShare.getSystemInformation();
+        SettingShare.Information information = SettingShare.getSystemInformation(context);
         informationList.add(new InformationBean(context.getString(R.string.infomation_name),information.systemName));
         informationList.add(new InformationBean(context.getString(R.string.infomation_module),information.sysModule));
         informationList.add(new InformationBean(context.getString(R.string.infomation_serial_number),information.serialNumber));

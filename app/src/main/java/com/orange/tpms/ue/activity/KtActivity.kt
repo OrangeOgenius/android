@@ -54,6 +54,12 @@ if(tag!="Frag_home"){back.visibility=View.VISIBLE}else{back.visibility=View.GONE
         ChangePage(kt_splash(),R.id.frage,"kt_splash",false)
         ShowTitleBar(false)
         Thread{Command.ReOpen()}.start()
+ShowDaiLog(R.layout.update_dialog,false,false)
+    }
+
+    override fun onResume(){
+        super.onResume()
+        SetNaVaGation(true)
     }
 fun ShowTitleBar(boolean: Boolean){
     titlebar.visibility=if(boolean) View.VISIBLE else View.GONE
@@ -66,6 +72,7 @@ fun ShowTitleBar(boolean: Boolean){
             if(Fraging != null){ (Fraging as RootFragement).dispatchKeyEvent(event)}
             //页面在顶层才会分发
         }
-        return superDispatchKeyEvent(event)
+        return  false
+//        return superDispatchKeyEvent(event)
     }
 }

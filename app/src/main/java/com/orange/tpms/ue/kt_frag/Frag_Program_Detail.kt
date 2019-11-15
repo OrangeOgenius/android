@@ -385,7 +385,9 @@ class Frag_Program_Detail : RootFragement(),Program_C{
             for (i in 0 until PublicBean.ProgramNumber) {
                 val programItemBean = programAdapter.items[i]
                 if (!TextUtils.isEmpty(sensorid) && !TextUtils.isEmpty(programItemBean.sensorid)) {
-                    if (sensorid.substring(8-lo+2) == programItemBean.sensorid.substring(8-lo+2)) {
+                    var compareid=programItemBean.sensorid
+                    while(compareid.length<8){compareid="0"+compareid}
+                    if (sensorid.substring(8-lo+2) == compareid.substring(8-lo+2)) {
                         Log.e("sensorid", sensorid.substring(8-8+lo)+":"+programItemBean.sensorid.substring(8-8+lo))
                         programItemBean.sensorid=sensorid
                         programItemBean.state = state

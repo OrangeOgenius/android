@@ -1,0 +1,123 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="com.orange.tpms.ue.kt_frag.Frag_Update">
+    <android.support.v7.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+        <View
+                android:layout_width="match_parent"
+                android:background="@color/color_black"
+                android:layout_height="0.5dp"
+                app:layout_marginTopPercent="3%h"/>
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <ImageView
+                    android:id="@+id/iv_logo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/iv_logo"
+                    android:layout_marginTop="10dp"
+                    app:layout_widthPercent="30%w"
+                    app:layout_heightPercent="20%sh"
+                    tools:layout_heightPercent="20%h"/>
+
+            <LinearLayout
+                    android:layout_toEndOf="@+id/iv_logo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:orientation="vertical"
+                    android:gravity="center_vertical"
+                    tools:ignore="RtlHardcoded">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/color_black"
+                        android:text="@string/app_version"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/color_black"
+                        android:text="@string/app_name"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/color_black"
+                        android:text="@string/app_size"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <TextView
+                android:layout_below="@+id/iv_logo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_black"
+                android:gravity="center"
+                android:text="@string/app_tips"
+                android:padding="15dp"/>
+
+        <View
+                android:layout_width="match_parent"
+                android:background="@color/color_black"
+                android:layout_height="0.5dp"/>
+
+        <com.de.rocket.ue.layout.PercentRelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="96dp"
+                app:layout_heightPercent="8%h">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/color_black"
+                    android:text="@string/app_check_for_updates"
+                    app:layout_marginLeftPercent="13%w" android:id="@+id/textView20" android:textSize="18sp"/>
+        </com.de.rocket.ue.layout.PercentRelativeLayout>
+        <View
+                android:layout_width="match_parent"
+                android:background="@color/color_black"
+                android:layout_height="0.5dp" android:id="@+id/view5"/>
+        <com.de.rocket.ue.layout.PercentRelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="96dp"
+                app:layout_heightPercent="8%h">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/color_black"
+                    android:text="@string/app_system_update_auto"
+                    app:layout_marginLeftPercent="13%w" android:textSize="18sp"/>
+
+            <ImageView
+                    android:id="@+id/iv_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/iv_check_selecter"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    app:layout_marginRightPercent="5%w"/>
+
+        </com.de.rocket.ue.layout.PercentRelativeLayout>
+
+        <View
+                android:layout_width="match_parent"
+                android:background="@color/color_black"
+                android:layout_height="0.5dp"/>
+
+    </android.support.v7.widget.LinearLayoutCompat>
+</RelativeLayout>
