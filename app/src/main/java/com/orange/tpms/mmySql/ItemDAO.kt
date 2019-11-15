@@ -55,7 +55,28 @@ class ItemDAO(context: Context) {
     fun close() {
         dbHelper.close()
     }
-
+    var favorite= ArrayList<String>()
+    fun AddFavorite(act:Activity){
+        GetFav(act)
+        if(!favorite.contains("${PublicBean.SelectMake}☆${PublicBean.SelectModel}☆${PublicBean.SelectYear}")){ favorite.add("${PublicBean.SelectMake}☆${PublicBean.SelectModel}☆${PublicBean.SelectYear}")}
+        SetFav(act)
+    }
+    fun GetFav(act:Activity){
+        favorite.clear()
+        val profilePreferences = act.getSharedPreferences("Favorite", Context.MODE_PRIVATE)
+        val a= profilePreferences.getInt("count",0)
+        for(i in 0 until a){
+            var tmpdata=profilePreferences.getString("$i","nodata")
+            if (!tmpdata.equals("nodata")){   favorite.add(tmpdata)}
+        }
+    }
+    fun SetFav(act:Activity){
+        val profilePreferences = act.getSharedPreferences("Favorite", Context.MODE_PRIVATE)
+        profilePreferences.edit().putInt("count",favorite.size).commit()
+        for(i in 0 until favorite.size){
+            profilePreferences.edit().putString("$i",favorite[i]).commit()
+        }
+    }
 
 fun GoOk(code:String,navigationActivity: BleActivity){
     val sql="select `Make`,`Model`,`Year`,`Make_Img` from `Summary table` where `Direct Fit` not in($notin) and `$MAKE_IMG_COLUMN` not in($notin) and `MMY number`='$code' limit 0,1"
@@ -67,6 +88,7 @@ fun GoOk(code:String,navigationActivity: BleActivity){
             PublicBean.SelectMake=result.getString(0)
             PublicBean.SelectModel=result.getString(1)
             PublicBean.SelectYear=result.getString(2)
+            AddFavorite(navigationActivity)
             when(PublicBean.position){
                 PublicBean.檢查傳感器->{
                     navigationActivity.ChangePage(Frag_Check_Sensor_Information(),R.id.frage,"Frag_Check_Sensor_Information",true);

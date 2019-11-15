@@ -26,6 +26,8 @@ class Frag_home : RootFragement() {
         savedInstanceState: Bundle?
     ): View? {
         rootview=inflater.inflate(R.layout.activity_frag_home, container, false)
+        Laninit()
+        SleepInit()
         rootview.bt_check_sensor.setOnClickListener {
             PublicBean.position=PublicBean.檢查傳感器
             act.ChangePage(Frag_CheckSensor(),R.id.frage,"Frag_CheckSensor",true)
@@ -37,6 +39,10 @@ class Frag_home : RootFragement() {
         rootview.bt_sensor_idcopy.setOnClickListener {
             PublicBean.position=PublicBean.複製傳感器
             act.ChangePage(Frag_Id_Copy(),R.id.frage,"Frag_Id_Copy",true)
+        }
+        rootview.bt_setting.setOnClickListener {
+            PublicBean.position=PublicBean.設定
+            act.ChangePage(Frag_Setting(),R.id.frage,"Frag_Setting",true)
         }
         (activity as KtActivity).itemDAO = ItemDAO(activity!!);
         return rootview

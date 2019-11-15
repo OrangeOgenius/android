@@ -1,5 +1,6 @@
 package com.orange.tpms.bean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PublicBean {
@@ -11,6 +12,7 @@ public class PublicBean {
     public final static int 檢查傳感器=1;
     public final static int 燒錄傳感器=2;
     public final static int 複製傳感器=3;
+    public final static int 設定=4;
     public final static int 掃描Mmy=4;
     public final static int 掃描Sensor=5;
     public static int ScanType=4;

@@ -32,7 +32,7 @@ class Frag_Id_Copy : RootFragement() {
             act.ChangePage(Frag_SelectMake(),R.id.frage,"Frag_SelectMake",true)
         }
         rootview.b3.setOnClickListener {
-
+            act.ChangePage(Frag_Favorite(),R.id.frage,"Frag_Favorite",true)
         }
         return rootview
     }

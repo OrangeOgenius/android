@@ -1,6 +1,7 @@
 package com.orange.tpms.ue.activity
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -14,11 +15,14 @@ import com.orange.blelibrary.blelibrary.BleActivity
 import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.Callback.Scan_C
 import com.orange.tpms.R
+import com.orange.tpms.bean.PublicBean
 import com.orange.tpms.lib.hardware.HardwareApp
 import com.orange.tpms.mmySql.ItemDAO
 import com.orange.tpms.ue.frag.Frag_base
 import com.orange.tpms.ue.kt_frag.kt_splash
 import com.orange.tpms.utils.Command
+import kotlinx.android.synthetic.main.fragment_add_favorite.view.*
+import java.util.ArrayList
 
 class KtActivity : BleActivity(), Scan_C{
     override fun GetScan(a: String?) {
@@ -49,7 +53,7 @@ if(tag!="Frag_home"){back.visibility=View.VISIBLE}else{back.visibility=View.GONE
         }
         ChangePage(kt_splash(),R.id.frage,"kt_splash",false)
         ShowTitleBar(false)
-        splash()
+        Thread{Command.ReOpen()}.start()
     }
 fun ShowTitleBar(boolean: Boolean){
     titlebar.visibility=if(boolean) View.VISIBLE else View.GONE
@@ -63,27 +67,5 @@ fun ShowTitleBar(boolean: Boolean){
             //页面在顶层才会分发
         }
         return superDispatchKeyEvent(event)
-    }
-    fun splash(){
-        HardwareApp.scan_c=this
-        if (HardwareApp.getInstance().isEnableHareware) {
-            HardwareApp.getInstance().initWithCb(this, object : HardwareApp.InitCb {
-                override fun onStart() {
-
-                }
-
-                override  fun pingReceive(ret: Int) {
-
-                    if (ret == 1) {
-
-
-                    } else {
-
-                    }
-                }
-            })
-        } else {
-
-        }
     }
 }
