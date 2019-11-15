@@ -1,0 +1,762 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="com.orange.tpms.ue.kt_frag.Frag_Setting">
+    <com.de.rocket.ue.layout.PercentLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/color_bg">
+
+        <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <com.de.rocket.ue.layout.PercentLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/color_grey"
+                        app:layout_marginTopPercent="3%h"/>
+
+                <com.de.rocket.ue.layout.PercentRelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_heightPercent="14%sh"
+                        tools:layout_heightPercent="7.5%h">
+
+                    <ImageView
+                            android:id="@+id/iv_my_favourite"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/my_favorites"
+                            android:layout_centerVertical="true"
+                            app:layout_marginLeftPercent="5%w"
+                            app:layout_paddingPercent="1%sh"
+                            app:layout_widthPercent="14%sh"
+                            app:layout_heightPercent="14%sh"
+                            tools:layout_widthPercent="80%h"
+                            tools:layout_heightPercent="80%h"/>
+
+                    <TextView
+                            android:focusable="true"
+                            android:id="@+id/tv_my_favourite"
+                            android:textColor="@color/tv_black_oringe_selecter"
+                            android:layout_toEndOf="@+id/iv_my_favourite"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:layout_centerVertical="true"
+                            android:text="@string/app_my_favorite"
+                            app:layout_marginLeftPercent="3%w"
+                            app:layout_marginRightPercent="5%w"
+                            app:layout_textSizePercent="30%h"/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentEnd="true"
+                            android:textColor="@color/color_black"
+                            android:text=">"
+                            app:layout_marginRightPercent="5%w"
+                            app:layout_textSizePercent="50%h"/>
+
+                    <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="@color/color_grey"
+                            android:layout_alignParentBottom="true"/>
+
+                </com.de.rocket.ue.layout.PercentRelativeLayout>
+
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/color_grey"
+                        app:layout_marginTopPercent="1%h"/>
+
+                <com.de.rocket.ue.layout.PercentRelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_heightPercent="14%sh"
+                        tools:layout_heightPercent="7.5%h">
+
+                    <ImageView
+                            android:id="@+id/iv_area"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/setting_icon_area"
+                            android:layout_centerVertical="true"
+                            app:layout_marginLeftPercent="5%w"
+                            app:layout_paddingPercent="1%sh"
+                            app:layout_widthPercent="14%sh"
+                            app:layout_heightPercent="14%sh"
+                            tools:layout_widthPercent="80%h"
+                            tools:layout_heightPercent="80%h"/>
+
+                    <TextView
+                            android:focusable="true"
+                            android:id="@+id/tv_area"
+                            android:textColor="@color/tv_black_oringe_selecter"
+                            android:layout_toEndOf="@+id/iv_area"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:layout_centerVertical="true"
+                            android:text="@string/app_area"
+                            app:layout_marginLeftPercent="3%w"
+                            app:layout_marginRightPercent="5%w"
+                            app:layout_textSizePercent="30%h"/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentEnd="true"
+                            android:textColor="@color/color_black"
+                            android:text=">"
+                            app:layout_marginRightPercent="5%w"
+                            app:layout_textSizePercent="50%h"/>
+
+                    <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="@color/color_grey"
+                            android:layout_alignParentBottom="true"/>
+
+                </com.de.rocket.ue.layout.PercentRelativeLayout>
+
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/color_grey"
+                        app:layout_marginTopPercent="1%h"/>
+
+                <com.de.rocket.ue.layout.PercentRelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_heightPercent="14%sh"
+                        tools:layout_heightPercent="7.5%h">
+
+                    <ImageView
+                            android:id="@+id/iv_wifi"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/wifi_setting"
+                            android:layout_centerVertical="true"
+                            app:layout_marginLeftPercent="5%w"
+                            app:layout_paddingPercent="1%sh"
+                            app:layout_widthPercent="14%sh"
+                            app:layout_heightPercent="14%sh"
+                            tools:layout_widthPercent="80%h"
+                            tools:layout_heightPercent="80%h"/>
+
+                    <TextView
+                            android:focusable="true"
+                            android:id="@+id/tv_wifi"
+                            android:textColor="@color/tv_black_oringe_selecter"
+                            android:layout_toEndOf="@+id/iv_wifi"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:layout_centerVertical="true"
+                            android:text="@string/app_wifi_setting"
+                            app:layout_marginLeftPercent="3%w"
+                            app:layout_marginRightPercent="5%w"
+                            app:layout_textSizePercent="30%h"/>
+
+                    <TextView
+                            android:id="@+id/tv_conneted_wifi"
+                            android:layout_toStartOf="@+id/wifi_right"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="@string/app_name"
+                            android:textColor="@color/color_black"
+                            app:layout_marginRightPercent="3%w"
+                            app:layout_textSizePercent="30%h"/>
+
+                    <TextView
+                            android:id="@+id/wifi_right"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentEnd="true"
+                            android:textColor="@color/color_black"
+                            android:text=">"
+                            app:layout_marginRightPercent="5%w"
+                            app:layout_textSizePercent="50%h"/>
+
+                    <View
+                            app:layout_marginLeftPercent="3%w"
+                            android:layout_toEndOf="@+id/iv_wifi"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="@color/color_grey"
+                            android:layout_alignParentBottom="true"/>
+
+                </com.de.rocket.ue.layout.PercentRelativeLayout>
+
+                <com.de.rocket.ue.layout.PercentRelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_heightPercent="14%sh"
+                        tools:layout_heightPercent="7.5%h">
+
+                    <ImageView
+                            android:id="@+id/iv_blue_bud"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/blue_bud"
+                            android:layout_centerVertical="true"
+                            app:layout_marginLeftPercent="5%w"
+                            app:layout_paddingPercent="1%sh"
+                            app:layout_widthPercent="14%sh"
+                            app:layout_heightPercent="14%sh"
+                            tools:layout_widthPercent="80%h"
+                            tools:layout_heightPercent="80%h"/>
+
+                    <TextView
+                            android:focusable="true"
+                            android:id="@+id/tv_blue_bud"
+                            android:textColor="@color/tv_black_oringe_selecter"
+                            android:layout_toEndOf="@+id/iv_blue_bud"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:layout_centerVertical="true"
+                            android:text="@string/app_blue_bud"
+                            app:layout_marginLeftPercent="3%w"
+                            app:layout_marginRightPercent="5%w"
+                            app:layout_textSizePercent="30%h"/>
+
+                    <TextView
+                            android:layout_toStartOf="@+id/blue_bud_right"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="@string/app_blue_bud_open"
+                            android:textColor="@color/color_black"
+                            app:layout_marginRightPercent="3%w"
+                            app:layout_textSizePercent="30%h"/>
+
+                    <TextView
+                            android:id="@+id/blue_bud_right"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentEnd="true"
+                            android:textColor="@color/color_black"
+                            android:text=">"
+                            app:layout_marginRightPercent="5%w"
+                            app:layout_textSizePercent="50%h"/>
+
+                    <View
+                            app:layout_marginLeftPercent="3%w"
+                            android:layout_toEndOf="@+id/iv_blue_bud"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="@color/color_grey"
+                            android:layout_alignParentBottom="true"/>
+
+                </com.de.rocket.ue.layout.PercentRelativeLayout>
+
+                <com.de.rocket.ue.layout.PercentRelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_heightPercent="14%sh"
+                        tools:layout_heightPercent="7.5%h">
+
+                    <ImageView
+                            android:id="@+id/iv_unit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/unit"
+                            android:layout_centerVertical="true"
+                            app:layout_marginLeftPercent="5%w"
+                            app:layout_paddingPercent="1%sh"
+                            app:layout_widthPercent="14%sh"
+                            app:layout_heightPercent="14%sh"
+                            tools:layout_widthPercent="80%h"
+                            tools:layout_heightPercent="80%h"/>
+
+                    <TextView
+                            android:focusable="true"
+                            android:id="@+id/tv_unit"
+                            android:textColor="@color/tv_black_oringe_selecter"
+                            android:layout_toEndOf="@+id/iv_unit"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:layout_centerVertical="true"
+                            android:text="@string/app_unit"
+                            app:layout_marginLeftPercent="3%w"
+                            app:layout_marginRightPercent="5%w"
+                            app:layout_textSizePercent="30%h"/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentEnd="true"
+                            android:textColor="@color/color_black"
+                            android:text=">"
+                            app:layout_marginRightPercent="5%w"
+                            app:layout_textSizePercent="50%h"/>
+
+                    <View
+                            app:layout_marginLeftPercent="3%w"
+                            android:layout_toEndOf="@+id/iv_unit"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="@color/color_grey"
+                            android:layout_alignParentBottom="true"/>
+
+                </com.de.rocket.ue.layout.PercentRelativeLayout>
+
+                <com.de.rocket.ue.layout.PercentRelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_heightPercent="14%sh"
+                        tools:layout_heightPercent="7.5%h">
+
+                    <ImageView
+                            android:id="@+id/iv_auto_lock"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/auto_ock"
+                            android:layout_centerVertical="true"
+                            app:layout_marginLeftPercent="5%w"
+                            app:layout_paddingPercent="1%sh"
+                            app:layout_widthPercent="14%sh"
+                            app:layout_heightPercent="14%sh"
+                            tools:layout_widthPercent="80%h"
+                            tools:layout_heightPercent="80%h"/>
+
+                    <TextView
+                            android:focusable="true"
+                            android:id="@+id/tv_auto_lock"
+                            android:textColor="@color/tv_black_oringe_selecter"
+                            android:layout_toEndOf="@+id/iv_auto_lock"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:layout_centerVertical="true"
+                            android:text="@string/app_sleep"
+                            app:layout_marginLeftPercent="3%w"
+                            app:layout_marginRightPercent="5%w"
+                            app:layout_textSizePercent="30%h"/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentEnd="true"
+                            android:textColor="@color/color_black"
+                            android:text=">"
+                            app:layout_marginRightPercent="5%w"
+                            app:layout_textSizePercent="50%h"/>
+
+                    <View
+                            app:layout_marginLeftPercent="3%w"
+                            android:layout_toEndOf="@+id/iv_auto_lock"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="@color/color_grey"
+                            android:layout_alignParentBottom="true"/>
+
+                </com.de.rocket.ue.layout.PercentRelativeLayout>
+
+                <com.de.rocket.ue.layout.PercentRelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_heightPercent="14%sh"
+                        tools:layout_heightPercent="7.5%h">
+
+                    <ImageView
+                            android:id="@+id/iv_language"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/language"
+                            android:layout_centerVertical="true"
+                            app:layout_marginLeftPercent="5%w"
+                            app:layout_paddingPercent="1%sh"
+                            app:layout_widthPercent="14%sh"
+                            app:layout_heightPercent="14%sh"
+                            tools:layout_widthPercent="80%h"
+                            tools:layout_heightPercent="80%h"/>
+
+                    <TextView
+                            android:focusable="true"
+                            android:id="@+id/tv_language"
+                            android:textColor="@color/tv_black_oringe_selecter"
+                            android:layout_toEndOf="@+id/iv_language"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:layout_centerVertical="true"
+                            android:text="@string/app_language_setting"
+                            app:layout_marginLeftPercent="3%w"
+                            app:layout_marginRightPercent="5%w"
+                            app:layout_textSizePercent="30%h"/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentEnd="true"
+                            android:textColor="@color/color_black"
+                            android:text=">"
+                            app:layout_marginRightPercent="5%w"
+                            app:layout_textSizePercent="50%h"/>
+
+                    <View
+                            app:layout_marginLeftPercent="3%w"
+                            android:layout_toEndOf="@+id/iv_language"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="@color/color_grey"
+                            android:layout_alignParentBottom="true"/>
+
+                </com.de.rocket.ue.layout.PercentRelativeLayout>
+
+                <com.de.rocket.ue.layout.PercentRelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_heightPercent="14%sh"
+                        tools:layout_heightPercent="7.5%h">
+
+                    <ImageView
+                            android:id="@+id/iv_sounds"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/sounds"
+                            android:layout_centerVertical="true"
+                            app:layout_marginLeftPercent="5%w"
+                            app:layout_paddingPercent="1%sh"
+                            app:layout_widthPercent="14%sh"
+                            app:layout_heightPercent="14%sh"
+                            tools:layout_widthPercent="80%h"
+                            tools:layout_heightPercent="80%h"/>
+
+                    <TextView
+                            android:focusable="true"
+                            android:id="@+id/tv_sounds"
+                            android:textColor="@color/tv_black_oringe_selecter"
+                            android:layout_toEndOf="@+id/iv_sounds"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:layout_centerVertical="true"
+                            android:text="@string/app_sounds_vibration"
+                            app:layout_marginLeftPercent="3%w"
+                            app:layout_marginRightPercent="5%w"
+                            app:layout_textSizePercent="30%h"/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentEnd="true"
+                            android:textColor="@color/color_black"
+                            android:text=">"
+                            app:layout_marginRightPercent="5%w"
+                            app:layout_textSizePercent="50%h"/>
+
+                    <View
+                            app:layout_marginLeftPercent="3%w"
+                            android:layout_toEndOf="@+id/iv_sounds"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="@color/color_grey"
+                            android:layout_alignParentBottom="true"/>
+
+                </com.de.rocket.ue.layout.PercentRelativeLayout>
+
+                <com.de.rocket.ue.layout.PercentRelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_heightPercent="14%sh"
+                        tools:layout_heightPercent="7.5%h">
+
+                    <ImageView
+                            android:id="@+id/iv_information"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/machine_information"
+                            android:layout_centerVertical="true"
+                            app:layout_marginLeftPercent="5%w"
+                            app:layout_paddingPercent="1%sh"
+                            app:layout_widthPercent="14%sh"
+                            app:layout_heightPercent="14%sh"
+                            tools:layout_widthPercent="80%h"
+                            tools:layout_heightPercent="80%h"/>
+
+                    <TextView
+                            android:focusable="true"
+                            android:id="@+id/tv_information"
+                            android:textColor="@color/tv_black_oringe_selecter"
+                            android:layout_toEndOf="@+id/iv_information"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:layout_centerVertical="true"
+                            android:text="@string/app_device_information"
+                            app:layout_marginLeftPercent="3%w"
+                            app:layout_marginRightPercent="5%w"
+                            app:layout_textSizePercent="30%h"/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentEnd="true"
+                            android:textColor="@color/color_black"
+                            android:text=">"
+                            app:layout_marginRightPercent="5%w"
+                            app:layout_textSizePercent="50%h"/>
+
+                    <View
+                            app:layout_marginLeftPercent="3%w"
+                            android:layout_toEndOf="@+id/iv_information"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="@color/color_grey"
+                            android:layout_alignParentBottom="true"/>
+
+                </com.de.rocket.ue.layout.PercentRelativeLayout>
+
+                <com.de.rocket.ue.layout.PercentRelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_heightPercent="14%sh"
+                        tools:layout_heightPercent="7.5%h">
+
+                    <ImageView
+                            android:id="@+id/iv_tips"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/setting_icon_tips"
+                            android:layout_centerVertical="true"
+                            app:layout_marginLeftPercent="5%w"
+                            app:layout_paddingPercent="1%sh"
+                            app:layout_widthPercent="14%sh"
+                            app:layout_heightPercent="14%sh"
+                            tools:layout_widthPercent="80%h"
+                            tools:layout_heightPercent="80%h"/>
+
+                    <TextView
+                            android:focusable="true"
+                            android:id="@+id/tv_tips"
+                            android:textColor="@color/tv_black_oringe_selecter"
+                            android:layout_toEndOf="@+id/iv_tips"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:layout_centerVertical="true"
+                            android:text="@string/app_tips_notifications"
+                            app:layout_marginLeftPercent="3%w"
+                            app:layout_marginRightPercent="5%w"
+                            app:layout_textSizePercent="30%h"/>
+
+                    <TextView
+                            android:layout_toStartOf="@+id/tips_right"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="@string/app_blue_bud_open"
+                            android:textColor="@color/color_black"
+                            app:layout_marginRightPercent="3%w"
+                            app:layout_textSizePercent="30%h"/>
+
+                    <TextView
+                            android:id="@+id/tips_right"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentEnd="true"
+                            android:textColor="@color/color_black"
+                            android:text=">"
+                            app:layout_marginRightPercent="5%w"
+                            app:layout_textSizePercent="50%h"/>
+
+                    <View
+                            app:layout_marginLeftPercent="3%w"
+                            android:layout_toEndOf="@+id/iv_tips"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="@color/color_grey"
+                            android:layout_alignParentBottom="true"/>
+
+                </com.de.rocket.ue.layout.PercentRelativeLayout>
+
+                <com.de.rocket.ue.layout.PercentRelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_heightPercent="14%sh"
+                        tools:layout_heightPercent="7.5%h">
+
+                    <ImageView
+                            android:id="@+id/iv_system_reset"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/setting_icon_reset"
+                            android:layout_centerVertical="true"
+                            app:layout_marginLeftPercent="5%w"
+                            app:layout_paddingPercent="1%sh"
+                            app:layout_widthPercent="14%sh"
+                            app:layout_heightPercent="14%sh"
+                            tools:layout_widthPercent="80%h"
+                            tools:layout_heightPercent="80%h"/>
+
+                    <TextView
+                            android:focusable="true"
+                            android:id="@+id/tv_system_reset"
+                            android:textColor="@color/tv_black_oringe_selecter"
+                            android:layout_toEndOf="@+id/iv_system_reset"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:layout_centerVertical="true"
+                            android:text="@string/app_reset"
+                            app:layout_marginLeftPercent="3%w"
+                            app:layout_marginRightPercent="5%w"
+                            app:layout_textSizePercent="30%h"/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentEnd="true"
+                            android:textColor="@color/color_black"
+                            android:text=">"
+                            app:layout_marginRightPercent="5%w"
+                            app:layout_textSizePercent="50%h"/>
+
+                    <View
+                            app:layout_marginLeftPercent="3%w"
+                            android:layout_toEndOf="@+id/iv_system_reset"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="@color/color_grey"
+                            android:layout_alignParentBottom="true"/>
+
+                </com.de.rocket.ue.layout.PercentRelativeLayout>
+
+                <com.de.rocket.ue.layout.PercentRelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_heightPercent="14%sh"
+                        tools:layout_heightPercent="7.5%h">
+
+                    <ImageView
+                            android:id="@+id/iv_system_update"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/setting_icon_update"
+                            android:layout_centerVertical="true"
+                            app:layout_marginLeftPercent="5%w"
+                            app:layout_paddingPercent="1%sh"
+                            app:layout_widthPercent="14%sh"
+                            app:layout_heightPercent="14%sh"
+                            tools:layout_widthPercent="80%h"
+                            tools:layout_heightPercent="80%h"/>
+
+                    <TextView
+                            android:focusable="true"
+                            android:id="@+id/tv_system_update"
+                            android:textColor="@color/tv_black_oringe_selecter"
+                            android:layout_toEndOf="@+id/iv_system_update"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:layout_centerVertical="true"
+                            android:text="@string/app_update"
+                            app:layout_marginLeftPercent="3%w"
+                            app:layout_marginRightPercent="5%w"
+                            app:layout_textSizePercent="30%h"/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentEnd="true"
+                            android:textColor="@color/color_black"
+                            android:text=">"
+                            app:layout_marginRightPercent="5%w"
+                            app:layout_textSizePercent="50%h"/>
+
+                    <View
+                            app:layout_marginLeftPercent="3%w"
+                            android:layout_toEndOf="@+id/iv_system_update"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="@color/color_grey"
+                            android:layout_alignParentBottom="true"/>
+
+                </com.de.rocket.ue.layout.PercentRelativeLayout>
+
+                <com.de.rocket.ue.layout.PercentRelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_heightPercent="14%sh"
+                        app:layout_marginBottomPercent="3%h"
+                        tools:layout_heightPercent="7.5%h">
+
+                    <ImageView
+                            android:id="@+id/iv_privacy_policy"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/privacy_policy"
+                            android:layout_centerVertical="true"
+                            app:layout_marginLeftPercent="5%w"
+                            app:layout_paddingPercent="1%sh"
+                            app:layout_widthPercent="14%sh"
+                            app:layout_heightPercent="14%sh"
+                            tools:layout_widthPercent="80%h"
+                            tools:layout_heightPercent="80%h"/>
+
+                    <TextView
+                            android:focusable="true"
+                            android:id="@+id/tv_privacy_policy"
+                            android:textColor="@color/tv_black_oringe_selecter"
+                            android:layout_toEndOf="@+id/iv_privacy_policy"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:layout_centerVertical="true"
+                            android:text="@string/app_privacy_policy"
+                            app:layout_marginLeftPercent="3%w"
+                            app:layout_marginRightPercent="5%w"
+                            app:layout_textSizePercent="30%h"/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentEnd="true"
+                            android:textColor="@color/color_black"
+                            android:text=">"
+                            app:layout_marginRightPercent="5%w"
+                            app:layout_textSizePercent="50%h"/>
+
+                    <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="@color/color_grey"
+                            android:layout_alignParentBottom="true"/>
+
+                </com.de.rocket.ue.layout.PercentRelativeLayout>
+
+            </com.de.rocket.ue.layout.PercentLinearLayout>
+
+        </ScrollView>
+
+    </com.de.rocket.ue.layout.PercentLinearLayout>
+</RelativeLayout>

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="480dp" android:layout_marginStart="40dp" android:layout_marginEnd="40dp"
+            android:layout_centerInParent="true" android:background="@drawable/corner_sensor_way">
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" android:layout_weight="1">
+            <TextView
+                    android:text="@string/app_new_sensor"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" android:id="@+id/textView13"
+                    android:layout_centerInParent="false"
+                    android:textSize="20sp" android:textColor="@color/white" android:gravity="center"/>
+        </RelativeLayout>
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp" android:id="@+id/view" android:background="@android:color/white"/>
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" android:layout_weight="1" android:id="@+id/scan">
+
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" android:layout_weight="1.2">
+
+                    <ImageView
+                            android:layout_width="88dp"
+                            android:layout_height="88dp" app:srcCompat="@mipmap/iv_scan"
+                            android:id="@+id/imageView18"
+                            android:layout_centerInParent="true"/>
+                </RelativeLayout>
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" android:layout_weight="1">
+
+                    <TextView
+                            android:text="@string/app_scan_code_up"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:id="@+id/textView15"
+                            android:textSize="20sp" android:textColor="@color/white"
+                            android:gravity="center" android:layout_centerInParent="true" android:translationY="-10dp"
+                            android:layout_alignParentStart="true"/>
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/color_white"
+                            android:text="@string/app_orange_sensor"
+                            android:id="@+id/textView17"
+                            android:layout_below="@id/textView15" android:layout_centerHorizontal="false"
+                            android:textSize="17sp" android:translationY="-10dp" android:layout_centerVertical="true"
+                            android:layout_alignParentStart="true"/>
+                </RelativeLayout>
+            </LinearLayout>
+        </RelativeLayout>
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp" android:id="@+id/view2" android:background="@android:color/white"/>
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" android:layout_weight="1" android:id="@+id/trigger">
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" android:layout_weight="1.2">
+
+                    <ImageView
+                            android:layout_width="88dp"
+                            android:layout_height="88dp" app:srcCompat="@mipmap/iv_tigger"
+                            android:id="@+id/imageView18"
+                            android:layout_centerInParent="true"/>
+                </RelativeLayout>
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" android:layout_weight="1">
+
+                    <TextView
+                            android:text="@string/app_tigger"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:id="@+id/textView15"
+                            android:textSize="20sp" android:textColor="@color/white"
+                            android:gravity="center" android:layout_centerInParent="true"
+                            android:layout_alignParentStart="true"/>
+                </RelativeLayout>
+            </LinearLayout>
+        </RelativeLayout>
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp" android:id="@+id/view3" android:background="@android:color/white"/>
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" android:layout_weight="1" android:id="@+id/keyin">
+
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" android:layout_weight="1.2">
+
+                    <ImageView
+                            android:layout_width="88dp"
+                            android:layout_height="88dp" app:srcCompat="@mipmap/iv_keyin"
+                            android:id="@+id/imageView18"
+                            android:layout_centerInParent="true"/>
+                </RelativeLayout>
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" android:layout_weight="1">
+
+                    <TextView
+                            android:text="@string/app_key_in"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:id="@+id/textView15"
+                            android:textSize="20sp" android:textColor="@color/white"
+                            android:gravity="center" android:layout_centerInParent="true"
+                            android:layout_alignParentStart="true"/>
+                </RelativeLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>

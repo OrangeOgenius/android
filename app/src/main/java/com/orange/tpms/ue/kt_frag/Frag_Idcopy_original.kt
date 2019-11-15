@@ -9,6 +9,7 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RelativeLayout
 import android.widget.TextView
 import com.de.rocket.Rocket
 import com.orange.blelibrary.blelibrary.RootFragement
@@ -39,9 +40,8 @@ import java.util.HashSet
 class Frag_Idcopy_original : RootFragement() {
     lateinit var rvIDCopy: RecyclerView//IDCopy
     lateinit var tvContent: TextView//title
-    lateinit var swwSelect: SensorWayWidget
     lateinit var lwLoading: LoadingWidget//Loading
-     var ObdHex = "00"
+    var ObdHex = "00"
     lateinit var idCopyAdapter: IDCopyAdapter//适配器
     lateinit var linearLayoutManager: LinearLayoutManager//列表表格布局
     lateinit var copyIDHelper: CopyIDHelper
@@ -57,7 +57,6 @@ class Frag_Idcopy_original : RootFragement() {
         rootview.bt_menue.setOnClickListener { GoMenu() }
         rvIDCopy=rootview.findViewById(R.id.rv_id_copy)
         tvContent=rootview.findViewById(R.id.tv_content)
-        swwSelect=rootview.findViewById(R.id.sww_select)
         lwLoading=rootview.findViewById(R.id.ldw_loading)
         initView()
         rootview.bt_new_sensor_list.setOnClickListener {
@@ -75,14 +74,23 @@ class Frag_Idcopy_original : RootFragement() {
                 act.Toast(R.string.app_no_sensor_set)
             }
         }
+        act.ShowDaiLog(R.layout.sensor_way_dialog,false,false)
+        act.mDialog!!.findViewById<RelativeLayout>(R.id.scan).setOnClickListener {
+            act.DaiLogDismiss()
+        }
+        act.mDialog!!.findViewById<RelativeLayout>(R.id.trigger).setOnClickListener {
+            act.DaiLogDismiss()
+        }
+        act.mDialog!!.findViewById<RelativeLayout>(R.id.keyin).setOnClickListener {
+            act.DaiLogDismiss()
+            updateEditable()
+        }
         return rootview
     }
     override fun onKeyScan() {
         super.onKeyScan()
         if(run){return}
-        if (swwSelect.isShown) {
-            swwSelect.pllScan.performClick()
-        }
+        act.DaiLogDismiss()
         HardwareApp.getInstance().scan()
         lwLoading.hide()
         lwLoading.show(resources.getString(R.string.app_scaning))
@@ -94,9 +102,7 @@ class Frag_Idcopy_original : RootFragement() {
     }
     override fun onPause() {
         super.onPause()
-        if (swwSelect.isShown) {
-            swwSelect.pllScan.performClick()
-        }
+        act.DaiLogDismiss()
         vibMediaUtil.release()
         try{
             HardwareApp.getInstance().switchScan(false)
@@ -133,7 +139,6 @@ class Frag_Idcopy_original : RootFragement() {
      * 初始化页面
      */
     private fun initView() {
-        swwSelect.setTitle(resources.getString(R.string.app_original_sensor))
         //音效与震动
         vibMediaUtil = VibMediaUtil(activity)
         //配置RecyclerView,每行是哪个元素
@@ -162,8 +167,6 @@ class Frag_Idcopy_original : RootFragement() {
         numberList.add(flBean)
         idCopyAdapter.items = numberList
         idCopyAdapter.notifyDataSetChanged()
-        //选择方式
-        swwSelect.setOnKeyinClickListener { updateEditable() }
         //硬件
         HardwareApp.getInstance().switchScan(true)
         dataReceiver = object : HardwareApp.DataReceiver {

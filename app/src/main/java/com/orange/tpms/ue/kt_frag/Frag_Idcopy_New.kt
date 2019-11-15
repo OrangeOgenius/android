@@ -9,6 +9,7 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RelativeLayout
 import android.widget.TextView
 import com.de.rocket.Rocket
 import com.orange.blelibrary.blelibrary.RootFragement
@@ -43,7 +44,6 @@ import java.util.HashSet
 class Frag_Idcopy_New : RootFragement() {
     lateinit var rvIDCopy: RecyclerView//IDCopy
     lateinit var tvContent: TextView//title
-    lateinit var swwSelect: SensorWayWidget
     lateinit var lwLoading: LoadingWidget//Loading
     lateinit var scwTips: ScanWidget//Tips
     lateinit var idCopyAdapter: IDCopyAdapter//适配器
@@ -59,7 +59,6 @@ class Frag_Idcopy_New : RootFragement() {
         rootview.tv_content.text="${PublicBean.SelectMake}/${PublicBean.SelectModel}/${PublicBean.SelectYear}"
         rvIDCopy=rootview.findViewById(R.id.rv_id_copy)
         tvContent=rootview.findViewById(R.id.tv_content)
-        swwSelect=rootview.findViewById(R.id.sww_select)
         lwLoading=rootview.findViewById(R.id.ldw_loading)
         scwTips=rootview.findViewById(R.id.scw_tips)
         rootview.bt_menue.setOnClickListener { GoMenu()}
@@ -80,6 +79,17 @@ class Frag_Idcopy_New : RootFragement() {
         initView()
         ObdHex=(activity as KtActivity).itemDAO.GetHex(PublicBean.SelectMake,PublicBean.SelectModel,PublicBean.SelectYear)
         tvContent.text = "${PublicBean.SelectMake}${PublicBean.SelectModel}${PublicBean.SelectYear}"
+        act.ShowDaiLog(R.layout.sensor_way_dialog,false,false)
+        act.mDialog!!.findViewById<RelativeLayout>(R.id.scan).setOnClickListener {
+            act.DaiLogDismiss()
+        }
+        act.mDialog!!.findViewById<RelativeLayout>(R.id.trigger).setOnClickListener {
+            act.DaiLogDismiss()
+        }
+        act.mDialog!!.findViewById<RelativeLayout>(R.id.keyin).setOnClickListener {
+            act.DaiLogDismiss()
+            updateEditable()
+        }
         return rootview
     }
 
@@ -92,9 +102,7 @@ class Frag_Idcopy_New : RootFragement() {
         }catch (e:Exception){e.printStackTrace()}
     }
     override fun onKeyTrigger() {
-        if (swwSelect.isShown) {
-            swwSelect.pllScan.performClick()
-        }
+      act.DaiLogDismiss()
         Trigger()
     }
     fun Trigger(){
@@ -123,9 +131,7 @@ class Frag_Idcopy_New : RootFragement() {
     override fun onKeyScan() {
         super.onKeyScan()
         if(run){return}
-        if (swwSelect.isShown) {
-            swwSelect.pllScan.performClick()
-        }
+       act.DaiLogDismiss()
         HardwareApp.getInstance().scan()
         lwLoading.hide()
         lwLoading.show(resources.getString(R.string.app_scaning))
@@ -167,10 +173,6 @@ class Frag_Idcopy_New : RootFragement() {
         numberList.add(flBean)
         idCopyAdapter.items = numberList
         idCopyAdapter.notifyDataSetChanged()
-        //选择方式
-        swwSelect.setOnScanClickListener { scwTips.show() }
-        swwSelect.setOnTriggerClickListener { scwTips.show() }
-        swwSelect.setOnKeyinClickListener { updateEditable() }
         //硬件
         HardwareApp.getInstance().switchScan(true)
         dataReceiver = object : HardwareApp.DataReceiver {

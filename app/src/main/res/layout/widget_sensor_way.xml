@@ -40,115 +40,112 @@
             android:layout_below="@id/tv_content"
             android:background="@color/color_white" />
 
-        <com.de.rocket.ue.layout.PercentLinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/v_split"
-            android:orientation="horizontal">
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/v_split"
+                android:orientation="horizontal">
 
             <com.de.rocket.ue.layout.PercentLinearLayout
-                android:id="@+id/pll_scan"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:orientation="vertical"
-                android:layout_weight="1"
-                android:gravity="center" >
+                    android:id="@+id/pll_scan"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:gravity="center">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/iv_scan"
-                    app:layout_heightPercent="10%h"
-                    app:layout_widthPercent="10%h"
-                    app:layout_marginTopPercent="3%h"/>
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/iv_scan"
+                        app:layout_heightPercent="10%h"
+                        app:layout_widthPercent="10%h"
+                        app:layout_marginTopPercent="3%h"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/color_white"
-                    android:text="@string/app_scan_code"
-                    app:layout_marginTopPercent="2%h"
-                    app:layout_marginBottomPercent="1%h"
-                    app:layout_textSizePercent="3%h"/>
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/color_white"
+                        android:text="@string/app_scan_code"
+                        app:layout_marginTopPercent="2%h"
+                        app:layout_marginBottomPercent="1%h"
+                        app:layout_textSizePercent="3%h"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/color_white"
-                    android:text="@string/app_orange_sensor"
-                    app:layout_marginBottomPercent="2%h"
-                    app:layout_textSizePercent="2.2%h"/>
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/color_white"
+                        android:text="@string/app_orange_sensor"
+                        app:layout_marginBottomPercent="2%h"
+                        app:layout_textSizePercent="2.2%h"/>
 
             </com.de.rocket.ue.layout.PercentLinearLayout>
 
             <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@color/color_white" />
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/color_white"/>
 
             <com.de.rocket.ue.layout.PercentLinearLayout
-                android:id="@+id/pll_trigger"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center" >
+                    android:id="@+id/pll_trigger"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/iv_tigger"
-                    app:layout_heightPercent="10%h"
-                    app:layout_widthPercent="10%h"
-                    app:layout_marginTopPercent="3%h"/>
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/iv_tigger"
+                        app:layout_heightPercent="10%h"
+                        app:layout_widthPercent="10%h"
+                        app:layout_marginTopPercent="3%h"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/color_white"
-                    android:text="@string/app_tigger"
-                    app:layout_marginTopPercent="2%h"
-                    app:layout_marginBottomPercent="1%h"
-                    app:layout_textSizePercent="3%h"/>
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/color_white"
+                        android:text="@string/app_tigger"
+                        app:layout_marginTopPercent="2%h"
+                        app:layout_marginBottomPercent="1%h"
+                        app:layout_textSizePercent="3%h"/>
 
             </com.de.rocket.ue.layout.PercentLinearLayout>
 
             <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@color/color_white" />
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/color_white"/>
 
             <com.de.rocket.ue.layout.PercentLinearLayout
-                android:id="@+id/pll_keyin"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center" >
+                    android:id="@+id/pll_keyin"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/iv_keyin"
-                    app:layout_heightPercent="10%h"
-                    app:layout_widthPercent="10%h"
-                    app:layout_marginTopPercent="3%h"/>
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/iv_keyin"
+                        app:layout_heightPercent="10%h"
+                        app:layout_widthPercent="10%h"
+                        app:layout_marginTopPercent="3%h"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/color_white"
-                    android:text="@string/app_key_in"
-                    app:layout_marginTopPercent="2%h"
-                    app:layout_marginBottomPercent="1%h"
-                    app:layout_textSizePercent="3%h"/>
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/color_white"
+                        android:text="@string/app_key_in"
+                        app:layout_marginTopPercent="2%h"
+                        app:layout_marginBottomPercent="1%h"
+                        app:layout_textSizePercent="3%h"/>
 
             </com.de.rocket.ue.layout.PercentLinearLayout>
 
-        </com.de.rocket.ue.layout.PercentLinearLayout>
+        </LinearLayout>
 
     </com.de.rocket.ue.layout.PercentRelativeLayout>
 

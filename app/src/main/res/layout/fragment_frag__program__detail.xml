@@ -92,12 +92,6 @@
                 android:layout_weight="1" android:textSize="20sp"/>
 
     </LinearLayout>
-    <com.orange.tpms.widget.SensorWayWidget
-            android:visibility="visible"
-            android:id="@+id/sww_select"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-    </com.orange.tpms.widget.SensorWayWidget>
     <com.orange.tpms.widget.ScanWidget
             android:visibility="gone"
             android:id="@+id/scw_tips"

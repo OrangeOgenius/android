@@ -296,4 +296,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <!-- 待新增 -->
+    <string name="original_way">Enter original sensor ID code</string>
+    <string name="new_way">Enter new sensor ID code</string>
 </resources>

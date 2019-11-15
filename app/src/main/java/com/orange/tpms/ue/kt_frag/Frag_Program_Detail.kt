@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.RelativeLayout
 import bean.hardware.SensorDataBean
 import com.de.rocket.Rocket
 import com.orange.blelibrary.blelibrary.RootFragement
@@ -83,7 +84,6 @@ class Frag_Program_Detail : RootFragement(),Program_C{
     lateinit var rvProgram: RecyclerView
     lateinit var lwLoading: LoadingWidget
     lateinit var btProgram: Button
-    lateinit var swwSelect: SensorWayWidget
     lateinit var scwTips: ScanWidget
     lateinit var dataReceiver: HardwareApp.DataReceiver
      var  numberList = ArrayList<ProgramItemBean>()
@@ -108,21 +108,29 @@ class Frag_Program_Detail : RootFragement(),Program_C{
         scwTips=rootview.findViewById(R.id.scw_tips)
         btProgram=rootview.findViewById(R.id.bt_program)
         lwLoading=rootview.findViewById(R.id.ldw_loading)
-        swwSelect=rootview.findViewById(R.id.sww_select)
         rvProgram=rootview.findViewById(R.id.rv_program)
         ObdHex=(activity as KtActivity).itemDAO.GetHex(PublicBean.SelectMake,PublicBean.SelectModel,PublicBean.SelectYear)
         while(ObdHex.length<2){ObdHex="0"+ObdHex}
         initView()
         updateList(PublicBean.ProgramNumber)
+        act.ShowDaiLog(R.layout.sensor_way_dialog,false,false)
+        act.mDialog!!.findViewById<RelativeLayout>(R.id.scan).setOnClickListener {
+            act.DaiLogDismiss()
+        }
+        act.mDialog!!.findViewById<RelativeLayout>(R.id.trigger).setOnClickListener {
+            act.DaiLogDismiss()
+        }
+        act.mDialog!!.findViewById<RelativeLayout>(R.id.keyin).setOnClickListener {
+            act.DaiLogDismiss()
+            updateEditable()
+        }
         return rootview
     }
 
     override fun onKeyScan() {
         super.onKeyScan()
         if(run){return}
-        if (swwSelect.isShown) {
-            swwSelect.pllScan.performClick()
-        }
+        act.DaiLogDismiss()
         if (scwTips.isShown) {
             scwTips.hide()
         }
@@ -162,9 +170,6 @@ class Frag_Program_Detail : RootFragement(),Program_C{
         }
         programAdapter.items = numberList
         //选择方式
-        swwSelect.setOnScanClickListener { scwTips.show() }
-        swwSelect.setOnTriggerClickListener { scwTips.show() }
-        swwSelect.setOnKeyinClickListener( { this.updateEditable() })
         HardwareApp.getInstance().switchScan(true)
         dataReceiver = object : HardwareApp.DataReceiver {
             override fun scanReceive() {
@@ -230,9 +235,7 @@ class Frag_Program_Detail : RootFragement(),Program_C{
         if(run){return}
         run=true
         lwLoading.show()
-        if (swwSelect.isShown()) {
-            swwSelect.pllTrigger.performClick()
-        }
+        act.DaiLogDismiss()
         if (scwTips.isShown()) {
             scwTips.hide()
         }
