@@ -284,14 +284,14 @@ public class MMy extends BApi {
 //        }
 //
 //        mMyAllTable.closeObject();
-        while(!FileDowload.HaveData(context)){
-            try {
-                Log.d("下載","下載失敗");
-                Thread.currentThread().sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        };
+//        while(!FileDowload.HaveData(context)){
+//            try {
+//                Log.d("下載","下載失敗");
+//                Thread.currentThread().sleep(1000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        };
         Log.d("下載","下載成功");
         cb.onStop();
         return true;

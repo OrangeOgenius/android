@@ -53,8 +53,7 @@ if(tag!="Frag_home"){back.visibility=View.VISIBLE}else{back.visibility=View.GONE
         }
         ChangePage(kt_splash(),R.id.frage,"kt_splash",false)
         ShowTitleBar(false)
-        Thread{Command.ReOpen()}.start()
-ShowDaiLog(R.layout.update_dialog,false,false)
+//        Thread{Command.ReOpen()}.start()
     }
 
     override fun onResume(){
@@ -72,7 +71,6 @@ fun ShowTitleBar(boolean: Boolean){
             if(Fraging != null){ (Fraging as RootFragement).dispatchKeyEvent(event)}
             //页面在顶层才会分发
         }
-        return  false
-//        return superDispatchKeyEvent(event)
+        return superDispatchKeyEvent(event)
     }
 }

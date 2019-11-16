@@ -78,7 +78,7 @@
             android:orientation="horizontal" android:layout_alignParentBottom="true">
 
         <Button
-                android:id="@+id/button2"
+                android:id="@+id/bt_register"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

@@ -11,12 +11,12 @@
         <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" app:srcCompat="@mipmap/img_data_upload_and_loading"
-                android:id="@+id/imageView24" android:layout_above="@id/textView19"
+                android:id="@+id/imageView24" android:layout_above="@id/tit"
                 android:layout_marginBottom="-20dp"/>
         <TextView
                 android:text="@string/app_updating"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/textView19" android:layout_centerInParent="true"
+                android:layout_height="wrap_content" android:id="@+id/tit" android:layout_centerInParent="true"
                 android:textColor="@android:color/white" android:textSize="28sp" android:translationY="20dp"/>
         <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/animation_view"

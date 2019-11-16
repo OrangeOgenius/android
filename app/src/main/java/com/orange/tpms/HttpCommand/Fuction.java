@@ -1,6 +1,7 @@
 package com.orange.tpms.HttpCommand;
 
 import android.util.Log;
+import com.orange.tpms.Callback.Sign_In_C;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -75,7 +76,7 @@ public class Fuction {
             return _req(wsdl,sb.toString(),timeout).status==200;
         }catch(Exception e){e.printStackTrace();return false;}
     }
-    public static boolean ValidateUser(String admin,String password){
+    public static void ValidateUser(String admin, String password, Sign_In_C caller){
         try{
             StringBuffer sb = new StringBuffer();
             sb.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
@@ -88,8 +89,8 @@ public class Fuction {
                     " </soap12:Body>\n" +
                     "</soap12:Envelope>");
             RetNode respnse=_req(wsdl,sb.toString(),timeout);
-            return respnse.data.substring(respnse.data.indexOf("<ValidateUserResult>") + 20, respnse.data.indexOf("</ValidateUserResult>")).equals("true");
-        }catch(Exception e){e.printStackTrace();return false;}
+            caller.result(respnse.data.substring(respnse.data.indexOf("<ValidateUserResult>") + 20, respnse.data.indexOf("</ValidateUserResult>")).equals("true")); ;
+        }catch(Exception e){e.printStackTrace();caller.wifierror();}
     }
     public static int Register(String admin,String password,String SerialNum,String storetype,String companyname,String firstname,String lastname,String phone,String State,String city,String streat,String zp){
         try{

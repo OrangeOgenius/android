@@ -19,10 +19,10 @@ public class TPMSApp extends RoApplication {
         super.onCreate();
         Fresco.initialize(this);
         // 硬件初始化
-        HardwareApp.getInstance()
-                .setApplication(this)       //设置Application
-                .setEnableHareware(true)   //是否开启硬件功能，可用于关闭调试UI
-                .onCreate();
+//        HardwareApp.getInstance()
+//                .setApplication(this)       //设置Application
+//                .setEnableHareware(true)   //是否开启硬件功能，可用于关闭调试UI
+//                .onCreate();
         //最后统一调用初始化硬件
 
 //        MTest mTest = new MTest();

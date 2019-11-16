@@ -14,26 +14,28 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.util.Log;
+import com.orange.tpms.Callback.Update_C;
+
 public class FileDowload {
     public static boolean Internet=true;
     public static String ip=(Build.VERSION.SDK_INT > Build.VERSION_CODES.M) ? "35.240.51.141:21":"61.221.15.194:21/OrangeTool";
     private static String encoding = System.getProperty("file.encoding");
     public static String username="orangerd";
     public static String password=(Build.VERSION.SDK_INT > Build.VERSION_CODES.M) ? "orangetpms(~2":"orangetpms";
-    public static boolean HaveData(Activity activity){
+    public static void HaveData(Activity activity, Update_C caller){
         try{
             SharedPreferences profilePreferences = activity.getSharedPreferences("Setting", Context.MODE_PRIVATE);
             boolean success=true;
             if(profilePreferences.getString("mmyinit","no").equals("no")){
                 Log.d("下載","下載mmy ok");
-                if(!DownMMy(activity)){success=false;} ;
+                if(!DownMMy(activity)){caller.Finish(false);} ;
             }
             if(profilePreferences.getString("s19init","no").equals("no")){
                 Log.d("下載","下載s19 ok");
-                if(!DownAllS19(activity)){success=false;}
+                if(!DownAllS19(activity,caller)){caller.Finish(false);}
             }
-            return success;
-        }catch (Exception e){e.printStackTrace();return false;}
+            caller.Finish(true);
+        }catch (Exception e){e.printStackTrace();caller.Finish(false);}
     }
     public static boolean DownMMy( Activity activity) {
         try {
@@ -50,7 +52,7 @@ public class FileDowload {
     public static boolean DownS19(String Filename,Activity activity){
         return donloads19(Filename,activity);
     }
-    public static boolean DownAllS19(Activity activity){
+    public static boolean DownAllS19(Activity activity,Update_C caller){
         try{
             URL url=new URL("http://bento2.orange-electronic.com/Orange%20Cloud/Database/SensorCode/SIII/");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -63,10 +65,11 @@ public class FileDowload {
             }
             boolean success=true;
             String[] arg=strBuf.toString().split(" HREF=\"");
-            for(String a : arg){
-                if(a.contains("SIII")&&a.contains("&lt;dir")){
-                    if(!donloads19(a.substring(a.indexOf(">")+1,a.indexOf("<")),activity)){success=false;};
+            for(int i=0;i<arg.length;i++){
+                if(arg[i].contains("SIII")&&arg[i].contains("&lt;dir")){
+                    if(!donloads19(arg[i].substring(arg[i].indexOf(">")+1,arg[i].indexOf("<")),activity)){success=false;};
                 }
+                caller.Updateing(i*100/arg.length);
             }
             SharedPreferences profilePreferences = activity.getSharedPreferences("Setting", Context.MODE_PRIVATE);
             profilePreferences.edit().putString("s19init",success ? "yes" : "no").commit();
