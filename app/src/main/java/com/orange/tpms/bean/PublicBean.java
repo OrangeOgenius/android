@@ -13,6 +13,7 @@ public class PublicBean {
     public final static int 燒錄傳感器=2;
     public final static int 複製傳感器=3;
     public final static int 設定=4;
+    public final static int 學碼步驟=5;
     public final static int 掃描Mmy=4;
     public final static int 掃描Sensor=5;
     public static int ScanType=4;

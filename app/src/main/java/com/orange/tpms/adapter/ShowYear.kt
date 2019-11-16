@@ -1,9 +1,6 @@
-package com.orango.electronic.orangetxusb.Adapter
+package com.orange.tpms.adapter
 
 import android.content.Context
-import android.os.Bundle
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentTransaction
 
 import android.support.v7.widget.RecyclerView
 
@@ -12,17 +9,14 @@ import android.view.LayoutInflater
 import android.view.View
 
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import com.orange.blelibrary.blelibrary.BleActivity
 import com.orange.tpms.R
 import com.orange.tpms.bean.PublicBean
-import com.orange.tpms.ue.activity.KtActivity
-import com.orange.tpms.ue.activity.MainActivity
-import com.orange.tpms.ue.frag.*
 import com.orange.tpms.ue.kt_frag.Frag_Check_Sensor_Information
 import com.orange.tpms.ue.kt_frag.Frag_Idcopy_original
 import com.orange.tpms.ue.kt_frag.Frag_Program_Number_Choice
+import com.orange.tpms.ue.kt_frag.Frag_Relearm_Detail
 import java.util.ArrayList
 
 
@@ -50,6 +44,10 @@ class ShowYear(private val years: ArrayList<String>, private val navigationActiv
             PublicBean.複製傳感器->{
                 PublicBean.SelectYear=years[position]
                 navigationActivity.ChangePage(Frag_Idcopy_original(), R.id.frage,"Frag_Idcopy_original",true);
+            }
+            PublicBean.學碼步驟->{
+                PublicBean.SelectYear=years[position]
+                navigationActivity.ChangePage(Frag_Relearm_Detail(), R.id.frage,"Frag_Relearm_Detail",true);
             }
         }
 

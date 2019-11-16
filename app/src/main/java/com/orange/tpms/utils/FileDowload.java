@@ -37,6 +37,13 @@ public class FileDowload {
             caller.Finish(true);
         }catch (Exception e){e.printStackTrace();caller.Finish(false);}
     }
+    public static void ChechUpdate(Activity activity, Update_C caller){
+        try{
+                if(!DownMMy(activity)){caller.Finish(false);} ;
+                if(!DownAllS19(activity,caller)){caller.Finish(false);}
+                caller.Finish(true);
+        }catch (Exception e){e.printStackTrace();caller.Finish(false);}
+    }
     public static boolean DownMMy( Activity activity) {
         try {
             File DB_PATH = activity.getDatabasePath("usb_tx_mmy.db");

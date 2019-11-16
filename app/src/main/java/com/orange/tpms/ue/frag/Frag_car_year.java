@@ -1,24 +1,16 @@
 package com.orange.tpms.ue.frag;
 
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.de.rocket.ue.frag.RoFragment;
 import com.orange.tpms.R;
-import com.orange.tpms.adapter.YearAdapter;
-import com.orange.tpms.bean.FavouriteFragBean;
-import com.orange.tpms.bean.MMYFragBean;
-import com.orange.tpms.bean.MMYItemBean;
 import com.orange.tpms.helper.MMYHelper;
-import com.orange.tpms.ue.activity.MainActivity;
 import com.orange.tpms.widget.TitleWidget;
 
-import bean.mmy.MMyBean;
 import com.de.rocket.ue.injector.BindView;
-import com.orango.electronic.orangetxusb.Adapter.ShowYear;
+import com.orange.tpms.adapter.ShowYear;
 
 import java.util.ArrayList;
 

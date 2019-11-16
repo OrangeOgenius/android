@@ -1,6 +1,8 @@
 package com.orange.tpms.HttpCommand;
 
 import android.util.Log;
+import com.orange.tpms.Callback.Register_C;
+import com.orange.tpms.Callback.Reset_C;
 import com.orange.tpms.Callback.Sign_In_C;
 
 import java.io.BufferedReader;
@@ -61,7 +63,7 @@ public class Fuction {
             return retNode;
         }
     }
-    public static boolean ResetPassword(String admin){
+    public static void ResetPassword(String admin, Reset_C caller){
         try{
             StringBuffer sb = new StringBuffer();
             sb.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
@@ -72,9 +74,8 @@ public class Fuction {
                     " </SysResetPwd>\n" +
                     " </soap12:Body>\n" +
                     "</soap12:Envelope>");
-
-            return _req(wsdl,sb.toString(),timeout).status==200;
-        }catch(Exception e){e.printStackTrace();return false;}
+            caller.Result(_req(wsdl,sb.toString(),timeout).status==200);
+        }catch(Exception e){e.printStackTrace();caller.Result(false);}
     }
     public static void ValidateUser(String admin, String password, Sign_In_C caller){
         try{
@@ -92,7 +93,8 @@ public class Fuction {
             caller.result(respnse.data.substring(respnse.data.indexOf("<ValidateUserResult>") + 20, respnse.data.indexOf("</ValidateUserResult>")).equals("true")); ;
         }catch(Exception e){e.printStackTrace();caller.wifierror();}
     }
-    public static int Register(String admin,String password,String SerialNum,String storetype,String companyname,String firstname,String lastname,String phone,String State,String city,String streat,String zp){
+    public static void Register(String admin, String password, String SerialNum, String storetype, String companyname, String firstname, String lastname, String phone, String State, String city, String streat,
+                               String zp, Register_C caller){
         try{
             StringBuffer sb = new StringBuffer();
             sb.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
@@ -132,14 +134,13 @@ public class Fuction {
                     " </soap12:Body>\n" +
                     "</soap12:Envelope>");
             RetNode respnse=_req(wsdl,sb.toString(),timeout);
-            if(respnse.status!=200){return -1;}
+            if(respnse.status!=200){caller.WifiError();}
             if(respnse.data.substring(respnse.data.indexOf("<RegisterResult>")+16,respnse.data.indexOf("</RegisterResult>")).equals("true")){
-                return 0;
+                caller.Result(true);
             }else{
-                return 1;
+                caller.Result(false);
             }
-        }catch(Exception e){e.printStackTrace();return -1;}
-
+        }catch(Exception e){e.printStackTrace();caller.WifiError();}
     }
     public static void Upload_ProgramRecord(String make, String model, String year, String startime, String Endtime, String SreialNum, String Devicetype, String Mode, int SensorCount, String position
             , ArrayList<SensorRecord> idrecord){try{

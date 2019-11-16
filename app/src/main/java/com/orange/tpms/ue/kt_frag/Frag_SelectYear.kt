@@ -12,8 +12,7 @@ import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.R
 import com.orange.tpms.bean.PublicBean
 import com.orange.tpms.ue.activity.KtActivity
-import com.orange.tpms.ue.activity.MainActivity
-import com.orango.electronic.orangetxusb.Adapter.ShowYear
+import com.orange.tpms.adapter.ShowYear
 import kotlinx.android.synthetic.main.frag_car_year.view.*
 import java.util.ArrayList
 

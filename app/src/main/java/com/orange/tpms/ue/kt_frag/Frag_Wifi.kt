@@ -17,9 +17,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.R
 import com.orange.tpms.helper.WifiConnectHelper
@@ -44,10 +42,12 @@ class Frag_Wifi : RootFragement() {
     lateinit var wifiHelper: WifiConnectHelper
     lateinit var lwLoading: LoadingWidget
     private var isStartConnected: Boolean = false
-    lateinit var spWifiName: NiceSpinner
+    lateinit var spWifiName: Spinner
     lateinit var etWifiPassword: EditText //密码
     private var wifiName: String? = null//wifi name
     private var hasList = false//是否已经拿到列表
+    var WifiList= ArrayList<String>()
+    lateinit var arrayAdapter:ArrayAdapter<String>
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -56,9 +56,9 @@ class Frag_Wifi : RootFragement() {
         lwLoading=rootview.findViewById(R.id.ldw_loading)
         spWifiName=rootview.findViewById(R.id.sp_wifi_name)
         etWifiPassword=rootview.findViewById(R.id.et_wifi_password)
-        spWifiName.setOnSpinnerItemSelectedListener { parent, view, position, id ->
-            wifiName = parent.getItemAtPosition(position) as String
-        }
+         arrayAdapter = ArrayAdapter<String>(act, R.layout.spinner, WifiList)
+        rootview.sp_wifi_name.adapter=arrayAdapter
+
         if (!isGPSOpen()) {
             //跳转到手机原生设置页面,打开定位功能
             val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
@@ -71,8 +71,8 @@ class Frag_Wifi : RootFragement() {
             act.GoBack()
         }
         rootview.bt_select.setOnClickListener {
-            if (!TextUtils.isEmpty(wifiName) && !OggUtils.isEmpty(etWifiPassword)) {
-                wifiHelper.connectWifi(activity, wifiName, etWifiPassword.getText().toString())
+            if (!TextUtils.isEmpty(rootview.sp_wifi_name.selectedItem.toString()) && !OggUtils.isEmpty(etWifiPassword)) {
+                wifiHelper.connectWifi(activity,rootview.sp_wifi_name.selectedItem.toString() , etWifiPassword.getText().toString())
                 isStartConnected = true
             } else {
                 act.Toast(R.string.app_content_empty)
@@ -154,6 +154,7 @@ class Frag_Wifi : RootFragement() {
         }
         //连接失败
         wifiHelper.setOnConnecteFailedListener {
+            lwLoading.hide()
             if (isStartConnected) {
                 act.Toast(R.string.app_connected_failed)
                 isStartConnected = false
@@ -161,16 +162,11 @@ class Frag_Wifi : RootFragement() {
         }
         //wifi扫描失败
         wifiHelper.setOnScanFailedListener { wifiList ->
-            act.Toast(R.string.app_wiFi_scan_failed)
-            spWifiName.setVisibility(View.GONE)
-        }
-        //wifi扫描成功
-        wifiHelper.setOnScanSuccessListener { wifiList ->
-            if (hasList) {
-                return@setOnScanSuccessListener
-            }
+
+//            Log.d("wifi",""+wifiList)
+//            act.Toast(R.string.app_wiFi_scan_failed)
+//            spWifiName.setVisibility(View.GONE)
             spWifiName.setVisibility(View.VISIBLE)
-            val ssidList = ArrayList<String>()
             for (scanResult in wifiList) {
                 var name = scanResult.SSID
                 if (!TextUtils.isEmpty(name)) {
@@ -178,12 +174,24 @@ class Frag_Wifi : RootFragement() {
                         name = name.replace("\"", "")
                     }
                 }
-                ssidList.add(name)
+                if(!WifiList.contains(name)){WifiList.add(name)
+                    arrayAdapter.notifyDataSetChanged()
+                }
             }
-            if (ssidList.size > 0) {
-                hasList = true
-                wifiName = ssidList[0]
-                spWifiName.attachDataSource(ssidList)
+        }
+        //wifi扫描成功
+        wifiHelper.setOnScanSuccessListener { wifiList ->
+            spWifiName.setVisibility(View.VISIBLE)
+            for (scanResult in wifiList) {
+                var name = scanResult.SSID
+                if (!TextUtils.isEmpty(name)) {
+                    if (name.contains("\"")) {
+                        name = name.replace("\"", "")
+                    }
+                }
+                if(!WifiList.contains(name)){WifiList.add(name)
+                    arrayAdapter.notifyDataSetChanged()
+                }
             }
         }
         //wifi开关状态改变
@@ -201,5 +209,10 @@ class Frag_Wifi : RootFragement() {
             //打开wifi
             wifiHelper.switchWifi(activity, true)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        wifiHelper.onDestroyView(activity)
     }
 }

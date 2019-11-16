@@ -44,6 +44,10 @@ class Frag_home : RootFragement() {
             PublicBean.position=PublicBean.設定
             act.ChangePage(Frag_Setting(),R.id.frage,"Frag_Setting",true)
         }
+        rootview.btn_relearn.setOnClickListener {
+            PublicBean.position=PublicBean.學碼步驟
+            act.ChangePage(Frag_Relearm(),R.id.frage,"Frag_Relearm",true)
+        }
         (activity as KtActivity).itemDAO = ItemDAO(activity!!);
         return rootview
     }

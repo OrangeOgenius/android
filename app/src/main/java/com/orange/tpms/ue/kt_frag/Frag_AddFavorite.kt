@@ -29,16 +29,16 @@ class Frag_AddFavorite : RootFragement() {
         act=activity!!as BleActivity
         GetMake()
         GetFav()
-        rootview.make.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener{
-           override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-               GetModel()
+        rootview.make.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                GetModel()
             }
 
             override  fun onNothingSelected(parent: AdapterView<*>) {
                 // TODO Auto-generated method stub
             }
-        })
-        rootview.model.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener{
+        }
+        rootview.model.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                 GetYear()
             }
@@ -46,15 +46,15 @@ class Frag_AddFavorite : RootFragement() {
             override  fun onNothingSelected(parent: AdapterView<*>) {
                 // TODO Auto-generated method stub
             }
-        })
-        rootview.year.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener{
+        }
+        rootview.year.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
             }
 
             override  fun onNothingSelected(parent: AdapterView<*>) {
                 // TODO Auto-generated method stub
             }
-        })
+        }
         rootview.button7.setOnClickListener {
             if(rootview.model.selectedItem==null){  return@setOnClickListener}
             if(rootview.make.selectedItem==null){  return@setOnClickListener}
@@ -73,20 +73,20 @@ class Frag_AddFavorite : RootFragement() {
         if(rootview.model.selectedItem==null){return}
         if(rootview.make.selectedItem==null){return}
         for(i in (activity as KtActivity).itemDAO.getYear(rootview.make.selectedItem.toString(),rootview.model.selectedItem.toString())!!){YearList.add(i)}
-        val arrayAdapter = ArrayAdapter<String>(activity!!, android.R.layout.simple_spinner_item, YearList)
+        val arrayAdapter = ArrayAdapter<String>(activity!!, R.layout.spinner, YearList)
         rootview.year.adapter=arrayAdapter
     }
     fun GetModel(){
         ModelList.clear()
         if(rootview.make.selectedItem==null){return}
         for(i in (activity as KtActivity).itemDAO.getModel(rootview.make.selectedItem.toString())!!){ModelList.add(i)}
-        val arrayAdapter = ArrayAdapter<String>(activity!!, android.R.layout.simple_spinner_item, ModelList)
+        val arrayAdapter = ArrayAdapter<String>(activity!!, R.layout.spinner, ModelList)
         rootview.model.adapter=arrayAdapter
     }
     fun GetMake(){
         MakeList.clear()
         for(i in (activity as KtActivity).itemDAO.getMake(act)!!){MakeList.add(i.make)}
-        val arrayAdapter = ArrayAdapter<String>(activity!!, android.R.layout.simple_spinner_item, MakeList)
+        val arrayAdapter = ArrayAdapter<String>(activity!!, R.layout.spinner, MakeList)
         rootview.make.adapter=arrayAdapter
     }
     fun SetFav(){

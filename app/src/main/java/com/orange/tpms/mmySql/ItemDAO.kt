@@ -21,6 +21,7 @@ import com.orange.tpms.ue.frag.Frag_program_number_choice
 import com.orange.tpms.ue.kt_frag.Frag_Check_Sensor_Information
 import com.orange.tpms.ue.kt_frag.Frag_Idcopy_original
 import com.orange.tpms.ue.kt_frag.Frag_Program_Number_Choice
+import com.orange.tpms.ue.kt_frag.Frag_Relearm_Detail
 import com.orange.tpms.utils.FileDowload
 import java.lang.Exception
 import java.util.ArrayList
@@ -77,7 +78,30 @@ class ItemDAO(context: Context) {
             profilePreferences.edit().putString("$i",favorite[i]).commit()
         }
     }
+    fun GetreLarm(make:String,model:String,year:String,act:Context):String{
+        val profilePreferences = act.getSharedPreferences("Setting", Context.MODE_PRIVATE)
+        val a= profilePreferences.getString("Language","English")
+        var colname="English"
+        when(a){
+            "繁體中文"->{ colname="`Relearn Procedure (Traditional Chinese)`"}
+            "简体中文"->{ colname="`Relearn Procedure (Jane)`"}
+            "Deutsch"->{ colname="`Relearn Procedure (German)`"}
+            "English"->{ colname="`Relearn Procedure (English)`"}
+            "Italiano"->{ colname="`Relearn Procedure (Italian)`"}
+        }
+        val result = db.rawQuery(
+            "select $colname from `Summary table` where make='$make' and model='$model' and year='$year' limit 0,1",
+            null)
 
+        if(result.count > 0 ){
+            result.moveToFirst()
+            if(result.getString(0).isEmpty()){  return act.resources.getString(R.string.norelarm)}else{  return result.getString(0)}
+
+        }else{
+            result.close()
+            return act.resources.getString(R.string.norelarm)
+        }
+    }
 fun GoOk(code:String,navigationActivity: BleActivity){
     val sql="select `Make`,`Model`,`Year`,`Make_Img` from `Summary table` where `Direct Fit` not in($notin) and `$MAKE_IMG_COLUMN` not in($notin) and `MMY number`='$code' limit 0,1"
     val result = db.rawQuery(
@@ -98,6 +122,9 @@ fun GoOk(code:String,navigationActivity: BleActivity){
                 }
                 PublicBean.複製傳感器->{
                     navigationActivity.ChangePage(Frag_Idcopy_original(),R.id.frage,"Frag_Idcopy_original",true);
+                }
+                PublicBean.學碼步驟->{
+                    navigationActivity.ChangePage(Frag_Relearm_Detail(),R.id.frage,"Frag_Relearm_Detail",true);
                 }
             }
         }while (result.moveToNext())

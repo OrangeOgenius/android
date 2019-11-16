@@ -1,0 +1,48 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="com.orange.tpms.ue.kt_frag.Frag_Relearm_Detail">
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".mainActivity.Relarm" android:background="#EFE8E1">
+
+        <!-- TODO: Update blank fragment layout -->
+        <Button
+                android:text="@string/MENU"
+                android:layout_height="70dp" android:id="@+id/menu"
+                app:layout_constraintBottom_toBottomOf="parent" android:layout_width="match_parent"
+                app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                android:background="@color/buttoncolor" android:textColor="@color/white" android:visibility="visible"
+                android:layout_alignParentBottom="true" android:textSize="18sp"/>
+        <TextView
+                android:id="@+id/mmy_text"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" android:singleLine="true"
+                android:background="@color/buttoncolor" android:text="BMW / 1(F20,F21) / 2014~2015" android:lines="2"/>
+        <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" android:layout_below="@id/mmy_text"
+                android:layout_centerInParent="false" android:layout_above="@id/menu"
+                android:background="@android:color/white">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:orientation="vertical">
+                <TextView
+                        android:text='01. Apply parking brake.\n 02. Adjust all tires to correct pressure. \n03. Turn ignition on. \n04. Go to information display then choose vehichle data. \n05. Choose vehicle status.  \n06. Go to " reset ".\n 07. Start the engine , press " reset".   \n08. Drive the vehicle over 30 km/h and keep upto 10 munitues.   \n09. Display show tires in green. \n10. Tire pressure active will be shown in display. '
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:id="@+id/textView10"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp" android:lineSpacingMultiplier="1.5" android:textSize="18sp"
+                        android:layout_marginTop="15dp"/>
+            </LinearLayout>
+        </ScrollView>
+
+    </RelativeLayout>
+</RelativeLayout>

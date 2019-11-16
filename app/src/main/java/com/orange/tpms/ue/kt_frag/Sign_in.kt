@@ -41,6 +41,9 @@ class Sign_in : RootFragement(), Update_C,Sign_In_C {
         handler.post {  try{
             if(act.mDialog!!.isShowing){
                 act.mDialog!!.findViewById<TextView>(R.id.tit).text=resources.getString(R.string.app_updating)+"$progress%"
+            }else{
+                act.ShowDaiLog(R.layout.update_dialog,false,false)
+                act.mDialog!!.findViewById<TextView>(R.id.tit).text=resources.getString(R.string.app_updating)+"$progress%"
             }
         }catch (e:Exception){e.printStackTrace()}  }
     }
@@ -83,13 +86,13 @@ class Sign_in : RootFragement(), Update_C,Sign_In_C {
             }.start()
         }
         (rootview.findViewById(R.id.textView26) as TextView).setOnClickListener {
-//            act.ChangePage(ResetPass(),R.id.frage,"ResetPass",true)
+            act.ChangePage(Frag_Reset_Ps(),R.id.frage,"Frag_Reset_Ps",true)
         }
         (rootview.findViewById(R.id.imageView22) as ImageView).setOnClickListener {
-//            act.ChangePage(ResetPass(),R.id.frage,"ResetPass",true)
+            act.ChangePage(Frag_Reset_Ps(),R.id.frage,"Frag_Reset_Ps",true)
         }
         rootview.bt_register.setOnClickListener {
-            act.ChangePage(Frag_Register(),R.id.frage,"Frag_Register",true)
+            act.ChangePage(Frag_Register(),R.id.frage,"Frag_Register",false)
         }
          super.onCreateView(inflater, container, savedInstanceState)
         return rootview

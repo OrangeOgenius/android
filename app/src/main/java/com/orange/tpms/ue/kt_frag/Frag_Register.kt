@@ -11,12 +11,60 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import com.orange.blelibrary.blelibrary.RootFragement
+import com.orange.tpms.Callback.Register_C
+import com.orange.tpms.Callback.Update_C
+import com.orange.tpms.HttpCommand.Fuction
 import com.orange.tpms.R
+import com.orange.tpms.helper.WifiConnectHelper
+import com.orange.tpms.utils.FileDowload
 import kotlinx.android.synthetic.main.fragment_frag__register.view.*
+import java.lang.Exception
 import java.util.ArrayList
 
 
-class Frag_Register : RootFragement() {
+class Frag_Register : RootFragement(), Register_C, Update_C {
+    override fun WifiError() {
+        handler.post {
+            WifiConnectHelper().switchWifi(act,false)
+            act.DaiLogDismiss()
+            act.Toast(resources.getString(R.string.nointernet))
+            act.ChangePage(Frag_Wifi(),R.id.frage,"Frag_Wifi",false)
+        }
+    }
+
+    override fun Result(a: Boolean) {
+        handler.post { act.DaiLogDismiss() }
+        if(a){
+            handler.post { act.ShowDaiLog(R.layout.update_dialog,false,false) }
+            FileDowload.HaveData(act,this)
+        }else{handler.post { act.Toast(resources.getString(R.string.be_register)) }
+            run=false}
+    }
+    override fun Updateing(progress: Int) {
+        handler.post {  try{
+            if(act.mDialog!!.isShowing){
+                act.mDialog!!.findViewById<TextView>(R.id.tit).text=resources.getString(R.string.app_updating)+"$progress%"
+            }else{
+                act.ShowDaiLog(R.layout.update_dialog,false,false)
+                act.mDialog!!.findViewById<TextView>(R.id.tit).text=resources.getString(R.string.app_updating)+"$progress%"
+            }
+        }catch (e: Exception){e.printStackTrace()}  }
+    }
+
+    override fun Finish(a: Boolean) {
+        handler.post {
+            act.DaiLogDismiss()
+            if(a){
+                val profilePreferences = act.getSharedPreferences("Setting", Context.MODE_PRIVATE)
+                profilePreferences.edit().putString("admin",email.text.toString()).putString("password",password.text.toString()).commit()
+                act.ChangePage(Frag_home(),R.id.frage,"Frag_home",false)
+            }else{
+                WifiConnectHelper().switchWifi(act,false)
+                act.Toast(resources.getString(R.string.updatefault))
+                act.ChangePage(Frag_Wifi(),R.id.frage,"Frag_Wifi",false)
+            }
+        }
+    }
     lateinit var AreaSpinner: Spinner
     lateinit var Store: Spinner
     lateinit var email: EditText
@@ -31,8 +79,6 @@ class Frag_Register : RootFragement() {
     lateinit var city: EditText
     lateinit var state: EditText
     lateinit var zpcode: EditText
-    lateinit var loadtitle: TextView
-    lateinit var load: RelativeLayout
     var Arealist= ArrayList<String>()
     var Arealist2= ArrayList<String>()
     override fun onCreateView(
@@ -41,13 +87,11 @@ class Frag_Register : RootFragement() {
     ): View? {
         rootview=inflater.inflate(R.layout.fragment_frag__register, container, false)
         rootview.cancel.setOnClickListener {
-            act.GoBack()
+            act.ChangePage(Sign_in(),R.id.frage,"Sign_in",false)
         }
         rootview.next.setOnClickListener {
-
+            register()
         }
-        load=rootview.findViewById(R.id.load)
-        loadtitle=rootview.findViewById(R.id.textView11)
         email=rootview.findViewById(R.id.email)
         password=rootview.findViewById(R.id.password)
         repeatpassword=rootview.findViewById(R.id.repeatpassword)
@@ -75,6 +119,36 @@ class Frag_Register : RootFragement() {
         Store.adapter=arrayAdapter2
         return rootview
     }
-
+fun register(){
+    if(run){
+        return
+    }
+    val email=email.text.toString()
+    val password=password.text.toString()
+    val repeatpassword=repeatpassword.text.toString()
+    val serialnumber=serialnumber.text.toString()
+    val firstname=firstname.text.toString()
+    val lastname=lastname.text.toString()
+    val company=company.text.toString()
+    val phone=phone.text.toString()
+    val streat=streat.text.toString()
+    val city=city.text.toString()
+    val state=AreaSpinner.selectedItem.toString()
+    val storetype=Store.selectedItem.toString()
+    val zpcode=zpcode.text.toString()
+    if(!password.equals(repeatpassword)){
+        act.Toast(resources.getString(R.string.confirm_password))
+        return
+    }
+    run=true
+    act.ShowDaiLog(R.layout.normal_dialog,false,false)
+    Thread{
+        if(storetype.equals(getString(R.string.Distributor))){
+            Fuction.Register(email,password,serialnumber,"Distributor",company,firstname,lastname,phone,state,city,streat,zpcode,this)
+        }else{
+            Fuction.Register(email,password,serialnumber,"Retailer",company,firstname,lastname,phone,state,city,streat,zpcode,this)
+        }
+    }.start()
+}
 
 }

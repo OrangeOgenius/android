@@ -35,7 +35,7 @@ class KtActivity : BleActivity(), Scan_C{
     override fun ChangePageListener(tag:String,frag: Fragment){
         Log.e("switch",tag)
         Log.e("switch","count:"+supportFragmentManager.backStackEntryCount)
-if(tag!="Frag_home"){back.visibility=View.VISIBLE}else{back.visibility=View.GONE}
+if(supportFragmentManager.backStackEntryCount!=0){back.visibility=View.VISIBLE}else{back.visibility=View.GONE}
         Command.NowTag=tag
     }
     lateinit var titlebar:RelativeLayout
@@ -51,11 +51,15 @@ if(tag!="Frag_home"){back.visibility=View.VISIBLE}else{back.visibility=View.GONE
         logout.setOnClickListener {
 
         }
-        ChangePage(kt_splash(),R.id.frage,"kt_splash",false)
+        Laninit()
         ShowTitleBar(false)
+        ChangePage(kt_splash(),R.id.frage,"kt_splash",false)
 //        Thread{Command.ReOpen()}.start()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+    }
     override fun onResume(){
         super.onResume()
         SetNaVaGation(true)

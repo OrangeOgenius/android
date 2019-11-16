@@ -118,13 +118,13 @@
                 </RelativeLayout>
                 <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" android:layout_weight="1">
+                        android:layout_height="match_parent" android:layout_weight="1" android:id="@+id/btn_relearn">
 
                     <ImageView
                             android:layout_width="140dp"
                             android:layout_height="140dp" app:srcCompat="@mipmap/btn_relearnrrocedure_n"
                             android:id="@+id/imageView23" android:layout_centerInParent="false"
-                            android:layout_centerHorizontal="true" android:alpha="0.7"/>
+                            android:layout_centerHorizontal="true"/>
                     <TextView
                             android:text="@string/Relearn_Procedure"
                             android:layout_width="match_parent"
