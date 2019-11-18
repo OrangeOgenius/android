@@ -2,9 +2,9 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context="com.orange.tpms.ue.kt_frag.Frag_Id_Copy">
+                tools:context="com.orange.tpms.ue.kt_frag.Frag_Id_Copy" android:background="@android:color/white">
     <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
-                  android:orientation="vertical" >
+                  android:orientation="vertical">
         <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" android:layout_weight="1">
@@ -14,7 +14,7 @@
                     android:layout_width="140dp"
                     android:layout_height="140dp"
                     android:src="@mipmap/og_id_copy"
-           android:layout_centerVertical="true"
+                    android:layout_centerVertical="true"
             />
             <TextView
                     android:text="@string/Methods_of_vehicle_data_selection"

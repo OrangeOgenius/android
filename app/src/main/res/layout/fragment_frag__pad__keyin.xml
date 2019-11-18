@@ -1,0 +1,216 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="com.orange.tpms.ue.kt_frag.Frag_Pad_Keyin" android:background="@android:color/white">
+
+    <!-- TODO: Update blank fragment layout -->
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".UsbPad.Pad_Idcopy">
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp" android:id="@+id/Twice" android:layout_alignParentBottom="true">
+
+            <Button
+                    android:layout_height="match_parent" android:id="@+id/program"
+                    app:layout_constraintBottom_toBottomOf="parent" android:layout_width="match_parent"
+                    app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                    android:background="@color/buttoncolor" android:textColor="@color/white"
+                    android:visibility="visible"
+                    android:layout_weight="1" android:layout_marginRight="0.5dp" android:text="@string/Next"/>
+        </LinearLayout>
+        <TextView
+                android:id="@+id/mmy_text6"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="17dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" android:singleLine="true"
+                android:background="@color/buttoncolor" android:text="BMW / 1(F20,F21) / 2014~2015"/>
+        <TextView
+                android:text="@string/Key_in_the_original_sensor_ID_number"
+                android:layout_width="match_parent"
+                android:layout_height="40dp" android:id="@+id/condition2"
+                android:gravity="center" android:textSize="15dp"
+                android:layout_alignParentTop="false" android:layout_below="@id/relative"/>
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp" android:layout_weight="1"
+                android:id="@+id/relative"
+                android:layout_below="@id/mmy_text6">
+
+            <Button
+                    android:text="@string/ID_COPY"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp" android:id="@+id/copy_id_btn"
+                    android:background="@drawable/solid"
+                    android:translationX="-50dp"
+                    android:layout_centerInParent="true" android:textColor="@color/white"/>
+            <Button
+                    android:text="Program"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp" android:id="@+id/Program_bt"
+                    android:translationX="50dp"
+                    android:layout_centerInParent="true" android:background="@drawable/stroke"
+                    android:textColor="@color/buttoncolor"/>
+        </RelativeLayout>
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" android:layout_below="@id/condition2"
+                android:layout_above="@id/Twice"
+                android:id="@+id/rin">
+
+            <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp" android:id="@+id/Lf"
+                    android:translationX="-50dp" android:translationY="-50dp" android:layout_centerInParent="true"
+                    android:background="@mipmap/icon_tire_normal" android:text="LF" android:textColor="@color/white"
+                    android:gravity="center" android:textSize="18sp"/>
+            <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp" android:id="@+id/Rf"
+                    android:translationY="-50dp" android:translationX="50dp" android:layout_centerInParent="true"
+                    android:background="@mipmap/icon_tire_normal" android:textSize="18sp"
+                    android:textColor="@color/white"
+                    android:gravity="center" android:text="RF"/>
+            <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp" android:id="@+id/Lr"
+                    android:translationY="50dp" android:translationX="-50dp" android:layout_centerInParent="true"
+                    android:background="@mipmap/icon_tire_normal" android:textSize="18sp"
+                    android:textColor="@color/white"
+                    android:gravity="center" android:text="LR"/>
+            <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp" android:id="@+id/Rr"
+                    android:translationY="50dp" android:translationX="50dp" android:layout_centerInParent="true"
+                    android:background="@mipmap/icon_tire_normal" android:textSize="18sp"
+                    android:textColor="@color/white"
+                    android:gravity="center" android:text="RR"/>
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:layout_above="@id/imageView4" android:id="@+id/li"
+                    android:layout_marginBottom="10dp">
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" android:layout_weight="1">
+
+                    <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp" android:id="@+id/Lft"
+                            android:background="@mipmap/icon_input_box_locked" android:gravity="right|center_vertical"
+                            android:textColor="@color/white"
+                            android:layout_marginStart="16dp" android:paddingRight="20dp"
+                            android:hint="Original sensor ID" android:textColorHint="@color/white"
+                            android:textSize="14sp" android:layout_marginEnd="5dp"/>
+                    <ImageView
+                            android:src="@mipmap/correct"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp" android:id="@+id/Lfi"
+                            android:layout_centerVertical="true" android:layout_marginLeft="29dp"
+                            android:visibility="gone"/>
+                </RelativeLayout>
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" android:layout_weight="1">
+
+                    <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp" android:id="@+id/Rft"
+                            android:background="@mipmap/icon_input_box_locked" android:gravity="left|center_vertical"
+                            android:textColor="@color/white"
+                            android:layout_marginEnd="16dp"
+                            android:paddingLeft="20dp"
+                            android:hint="Original sensor ID"
+                            android:textColorHint="@color/white" android:textSize="14sp"
+                            android:layout_marginStart="5dp"/>
+                    <ImageView
+                            android:src="@mipmap/correct"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp" android:id="@+id/Rfi"
+                            android:layout_centerVertical="true" android:layout_alignParentEnd="true"
+                            android:layout_marginRight="29dp" android:visibility="gone"/>
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:layout_below="@id/imageView4"
+                    android:layout_marginTop="10dp">
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" android:layout_weight="1">
+
+                    <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp" android:id="@+id/Lrt"
+                            android:background="@mipmap/icon_input_box_locked" android:gravity="right|center_vertical"
+                            android:textColor="@color/white"
+                            android:paddingRight="20dp" android:hint="Original sensor ID"
+                            android:textColorHint="@color/white" android:textSize="14sp"
+                            android:layout_marginEnd="5dp" android:layout_marginStart="16dp"/>
+                    <ImageView
+                            android:src="@mipmap/error"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp" android:id="@+id/Lri"
+                            android:layout_centerVertical="true" android:layout_marginLeft="29dp"
+                            android:visibility="gone"/>
+                </RelativeLayout>
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" android:layout_weight="1">
+
+                    <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp" android:id="@+id/Rrt"
+                            android:background="@mipmap/icon_input_box_locked" android:gravity="left|center_vertical"
+                            android:textColor="@color/white"
+                            android:layout_marginEnd="16dp" android:paddingLeft="20dp" android:hint="Original sensor ID"
+                            android:textColorHint="@color/white" android:textSize="14sp"
+                            android:layout_marginStart="5dp"/>
+                    <ImageView
+                            android:src="@mipmap/error"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp" android:id="@+id/Rri"
+                            android:layout_centerVertical="true" android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="30dp" android:visibility="gone"/>
+                </RelativeLayout>
+            </LinearLayout>
+            <ImageView
+                    android:src="@mipmap/icon_wheel_normal"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp" android:id="@+id/imageView6"
+                    android:layout_centerInParent="true"
+                    android:translationX="-35dp" android:translationY="-50dp"/>
+            <ImageView
+                    android:src="@mipmap/icon_wheel_normal"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp" android:id="@+id/imageView7"
+                    android:layout_centerInParent="true"
+                    android:translationY="-50dp" android:translationX="35dp"/>
+            <ImageView
+                    android:src="@mipmap/icon_wheel_normal"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp" android:id="@+id/imageView8"
+                    android:layout_centerInParent="true"
+                    android:translationX="-35dp" android:translationY="50dp"/>
+            <ImageView
+                    android:src="@mipmap/icon_wheel_normal"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp" android:id="@+id/imageView9"
+                    android:layout_centerInParent="true"
+                    android:translationY="50dp" android:translationX="35dp"/>
+            <ImageView
+                    android:src="@mipmap/icon_car"
+                    android:layout_width="132dp"
+                    android:layout_height="150dp" android:id="@+id/imageView4" android:layout_centerInParent="true"/>
+        </RelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

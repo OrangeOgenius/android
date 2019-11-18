@@ -3,7 +3,7 @@
                 xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context=".ue.kt_frag.Frag_Program_Number_Choice">
+                tools:context=".ue.kt_frag.Frag_Program_Number_Choice" android:background="@color/color_white">
     <Button
             android:focusable="true"
             android:id="@+id/bt_start"

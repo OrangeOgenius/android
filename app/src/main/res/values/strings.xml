@@ -302,4 +302,5 @@
     <string name="new_way">Enter new sensor ID code</string>
     <string name="autolock">Changing the Sleep Timer Settings</string>
     <string name="updatefault">update false,Please reconnect wifi and try again!</string>
+    <string name="enginer">Engineering mode</string>
 </resources>

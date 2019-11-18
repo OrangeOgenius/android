@@ -17,6 +17,7 @@ import com.orange.tpms.HttpCommand.SensorRecord
 import com.orange.tpms.R
 import com.orange.tpms.bean.PublicBean
 import com.orange.tpms.ue.activity.KtActivity
+import com.orange.tpms.utils.BleCommand
 import kotlinx.android.synthetic.main.fragment_frag__pad__program__detail.view.*
 import java.lang.Exception
 import java.text.SimpleDateFormat
@@ -50,21 +51,21 @@ class Frag_Pad_Program_Detail : RootFragement() {
     lateinit var navActivity: KtActivity
     lateinit var make: String
     lateinit var makeImg: String
-    lateinit var mmyNum:String
+    var mmyNum=""
     lateinit var model: String
     lateinit var year: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        retainInstance = true
         navActivity = activity as KtActivity
         make = PublicBean.SelectMake
         model = PublicBean.SelectModel
         year = PublicBean.SelectYear
-        WriteLf= ""
-        WriteRf= ""
-        WriteLr= ""
-        WriteRR= ""
+        WriteLf= PublicBean.WriteLf
+        WriteRf= PublicBean.WriteRf
+        WriteLr= PublicBean.WriteLr
+        WriteRR= PublicBean.WriteRr
         mmyNum = navActivity.itemDAO.getMMY(make,model,year)
+        Log.e("mmy",mmyNum)
         Idcount=8-navActivity.itemDAO.GetCopyId( mmyNum)
         Lf=navActivity.itemDAO.getLf(mmyNum)!!
         if((mmyNum.equals("RN1628")||mmyNum.equals("SI2048"))&&WriteLf.length==8){
@@ -77,6 +78,7 @@ class Frag_Pad_Program_Detail : RootFragement() {
             WriteLr=WriteLrtmp.replace("XX",WriteLr.substring(6,8)).replace("YY",WriteLr.substring(2,4))
             WriteRR=WriteRRtmp.replace("XX",WriteRR.substring(6,8)).replace("YY",WriteRR.substring(2,4))
         }
+        Thread{(activity as KtActivity).BleCommand.Setserial(act) }.start()
     }
     fun getMem(str: String, m: String): Int {
         var str = str
@@ -94,6 +96,9 @@ class Frag_Pad_Program_Detail : RootFragement() {
     ): View? {
         rootview=inflater.inflate(R.layout.fragment_frag__pad__program__detail, container, false)
         rootview.mmy_text.text = "$make/$model /$year"
+        mmyNum = navActivity.itemDAO.getMMY(make,model,year)
+        val mmyname=GetPro(mmyNum,"nodata")
+        SensorRecord.SensorCode_Version = mmyname
         first=true
         UpdateUi(LF,UNLINK)
         UpdateUi(RF,UNLINK)
@@ -131,7 +136,6 @@ class Frag_Pad_Program_Detail : RootFragement() {
     }
     fun UdCondition(){
         handler.post {     navActivity.back.isClickable=false}
-
         run=true
         Thread(Runnable {
             try{
@@ -140,6 +144,7 @@ class Frag_Pad_Program_Detail : RootFragement() {
                     var Id1 = navActivity.BleCommand.ID
                     val Ch2 = navActivity.BleCommand.Command_11(i, 2)
                     var Id2 = navActivity.BleCommand.ID
+                    if(!act.NowFrage.equals("Frag_Pad_Program_Detail")){return@Runnable}
                     handler.post(Runnable {
                         if (Ch1) {
                             if(mmyNum.equals("RN1628")||mmyNum.equals("SI2048")){
@@ -199,7 +204,7 @@ class Frag_Pad_Program_Detail : RootFragement() {
                 handler.post {navActivity.back.isClickable=true
                     run=false
                 }
-                Thread.sleep(2000)
+                Thread.sleep(4000)
                 if(first){
                     UdCondition()}
             }catch (e: Exception){e.printStackTrace()}
@@ -398,7 +403,7 @@ class Frag_Pad_Program_Detail : RootFragement() {
                 var condition:Boolean
                 if(WriteLf.length==8&&WriteLr.length==8&&WriteRR.length==8&&WriteRf.length==8){
                     val startime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
-                    condition=navActivity.BleCommand.ProgramAll("${navActivity.applicationContext.filesDir.path}/$mmyNum.s19",WriteLf,WriteLr,WriteRf,WriteRR,Lf)
+                    condition=navActivity.BleCommand.ProgramAll(activity!!.getApplicationContext().filesDir.path + "/" + mmyNum + ".s19",WriteLf,WriteLr,WriteRf,WriteRR,Lf)
                     val endtime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
                     val idrecord: ArrayList<SensorRecord> = ArrayList()
                     if (!WriteLf.equals("00000000")){
@@ -432,7 +437,7 @@ class Frag_Pad_Program_Detail : RootFragement() {
                     Upload_IDCopyRecord(make,model,year,startime,endtime,PublicBean.SerialNum, "USBPad", "IDCOPY", idrecord.size, "ALL", idrecord)
                 }else{
                     val startime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
-                    condition=navActivity.BleCommand.ProgramAll("${navActivity.applicationContext.filesDir.path}/$mmyNum.s19",Lf)
+                    condition=navActivity.BleCommand.ProgramAll(activity!!.getApplicationContext().filesDir.path + "/" + mmyNum + ".s19",Lf)
                     val idrecord: ArrayList<SensorRecord> = ArrayList()
                     val endtime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
                     for (i in 0 until navActivity.BleCommand.CHANNEL_BLE.size){
@@ -476,7 +481,10 @@ class Frag_Pad_Program_Detail : RootFragement() {
                 }
                 handler.post {
                     navActivity.back.isClickable=true
-//                    navActivity.back.setImageResource(R.mipmap.menu)
+                    navActivity.back.setImageResource(R.mipmap.menu)
+                    navActivity.back.setOnClickListener {
+                        GoMenu()
+                    }
                     ISPROGRAMMING=false
                     try{
                         LFID=navActivity.resources.getString(R.string.Unlinked)

@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.orange.blelibrary.blelibrary.RootFragement
+import com.orange.tpms.HttpCommand.SensorRecord
 import com.orange.tpms.R
 import com.orange.tpms.bean.PublicBean
 import com.orange.tpms.mmySql.ItemDAO
@@ -62,6 +63,8 @@ class Frag_home : RootFragement() {
 
         }
         (activity as KtActivity).itemDAO = ItemDAO(activity!!);
+         val mmyname=GetPro("mmyname","nodata")
+         SensorRecord.DB_Version = if (mmyname.length > 19) mmyname.substring(16) else mmyname
         return rootview
     }
 

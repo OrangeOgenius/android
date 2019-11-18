@@ -3,7 +3,7 @@
                 xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                >
+                android:background="@android:color/white">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
@@ -48,12 +48,12 @@
     <TextView
             android:text="Programmimg, do not move sensors"
             android:layout_width="match_parent"
-            android:layout_height="40dp" android:id="@+id/condition"
+            android:layout_height="30dp" android:id="@+id/condition"
             android:gravity="center" android:textSize="14dp"
             android:layout_alignParentTop="false" android:layout_below="@id/relative"/>
     <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp" android:layout_weight="1"
+            android:layout_height="50dp" android:layout_weight="1"
             android:id="@+id/relative"
             android:layout_below="@id/mmy_text">
 
@@ -77,27 +77,27 @@
             android:layout_height="match_parent" android:layout_below="@id/condition" android:layout_above="@id/Twice">
 
         <TextView
-                android:layout_width="88dp"
-                android:layout_height="88dp" android:id="@+id/Lf"
-                android:translationX="-70dp" android:translationY="-60dp" android:layout_centerInParent="true"
+                android:layout_width="50dp"
+                android:layout_height="50dp" android:id="@+id/Lf"
+                android:translationX="-50dp" android:translationY="-50dp" android:layout_centerInParent="true"
                 android:background="@mipmap/icon_tire_ok" android:text="LF" android:textColor="@color/white"
                 android:gravity="center" android:textSize="18sp"/>
         <TextView
-                android:layout_width="88dp"
-                android:layout_height="88dp" android:id="@+id/Rf"
-                android:translationY="-60dp" android:translationX="70dp" android:layout_centerInParent="true"
+                android:layout_width="50dp"
+                android:layout_height="50dp" android:id="@+id/Rf"
+                android:translationY="-50dp" android:translationX="50dp" android:layout_centerInParent="true"
                 android:background="@mipmap/icon_tire_ok" android:textSize="18sp" android:textColor="@color/white"
                 android:gravity="center" android:text="RF"/>
         <TextView
-                android:layout_width="88dp"
-                android:layout_height="88dp" android:id="@+id/Lr"
-                android:translationY="60dp" android:translationX="-70dp" android:layout_centerInParent="true"
+                android:layout_width="50dp"
+                android:layout_height="50dp" android:id="@+id/Lr"
+                android:translationY="50dp" android:translationX="-50dp" android:layout_centerInParent="true"
                 android:background="@mipmap/icon_tire_fail" android:textSize="18sp" android:textColor="@color/white"
                 android:gravity="center" android:text="LR"/>
         <TextView
-                android:layout_width="88dp"
-                android:layout_height="88dp" android:id="@+id/Rr"
-                android:translationY="60dp" android:translationX="70dp" android:layout_centerInParent="true"
+                android:layout_width="50dp"
+                android:layout_height="50dp" android:id="@+id/Rr"
+                android:translationY="50dp" android:translationX="50dp" android:layout_centerInParent="true"
                 android:background="@mipmap/icon_tire_fail" android:textSize="18sp" android:textColor="@color/white"
                 android:gravity="center" android:text="RR"/>
         <LinearLayout
@@ -115,8 +115,8 @@
                         android:layout_height="50dp" android:id="@+id/Lft"
                         android:background="@mipmap/icon_input_box_ok" android:gravity="right|center_vertical"
                         android:textColor="@color/white"
-                        android:layout_weight="1" android:layout_marginRight="14dp"
-                        android:layout_marginStart="16dp" android:paddingRight="20dp"/>
+                        android:layout_weight="1"
+                        android:layout_marginStart="16dp" android:paddingRight="20dp" android:layout_marginEnd="14dp"/>
                 <ImageView
                         android:src="@mipmap/correct"
                         android:layout_width="20dp"
@@ -135,7 +135,7 @@
                         android:background="@mipmap/icon_input_box_ok" android:gravity="left|center_vertical"
                         android:textColor="@color/white"
                         android:layout_weight="1" android:layout_marginEnd="16dp"
-                        android:layout_marginLeft="14dp" android:paddingLeft="20dp"/>
+                        android:paddingLeft="20dp" android:layout_marginStart="14dp"/>
                 <ImageView
                         android:src="@mipmap/correct"
                         android:layout_width="20dp"
@@ -159,8 +159,8 @@
                         android:layout_height="50dp" android:id="@+id/Lrt"
                         android:background="@mipmap/icon_input_box_fail" android:gravity="right|center_vertical"
                         android:textColor="@color/white"
-                        android:layout_weight="1" android:layout_marginLeft="16dp" android:layout_marginRight="14dp"
-                        android:paddingRight="20dp"/>
+                        android:layout_weight="1"
+                        android:paddingRight="20dp" android:layout_marginStart="16dp" android:layout_marginEnd="14dp"/>
                 <ImageView
                         android:src="@mipmap/error"
                         android:layout_width="20dp"
@@ -177,8 +177,8 @@
                         android:layout_height="50dp" android:id="@+id/Rrt"
                         android:background="@mipmap/icon_input_box_fail" android:gravity="left|center_vertical"
                         android:textColor="@color/white"
-                        android:layout_marginLeft="14dp" android:layout_weight="1"
-                        android:layout_marginEnd="16dp" android:paddingLeft="20dp"/>
+                        android:layout_weight="1"
+                        android:layout_marginEnd="16dp" android:paddingLeft="20dp" android:layout_marginStart="14dp"/>
                 <ImageView
                         android:src="@mipmap/error"
                         android:layout_width="20dp"
@@ -189,28 +189,28 @@
         </LinearLayout>
         <ImageView
                 android:src="@mipmap/icon_wheel_normal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/imageView6" android:layout_centerInParent="true"
-                android:translationX="-45dp" android:translationY="-60dp"/>
+                android:layout_width="30dp"
+                android:layout_height="30dp" android:id="@+id/imageView6" android:layout_centerInParent="true"
+                android:translationX="-35dp" android:translationY="-40dp"/>
         <ImageView
                 android:src="@mipmap/icon_wheel_normal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/imageView7" android:layout_centerInParent="true"
-                android:translationY="-60dp" android:translationX="45dp"/>
+                android:layout_width="30dp"
+                android:layout_height="30dp" android:id="@+id/imageView7" android:layout_centerInParent="true"
+                android:translationY="-40dp" android:translationX="35dp"/>
         <ImageView
                 android:src="@mipmap/icon_wheel_normal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/imageView8" android:layout_centerInParent="true"
-                android:translationX="-45dp" android:translationY="60dp"/>
+                android:layout_width="30dp"
+                android:layout_height="30dp" android:id="@+id/imageView8" android:layout_centerInParent="true"
+                android:translationX="-35dp" android:translationY="50dp"/>
         <ImageView
                 android:src="@mipmap/icon_wheel_normal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/imageView9" android:layout_centerInParent="true"
-                android:translationY="60dp" android:translationX="45dp"/>
+                android:layout_width="30dp"
+                android:layout_height="30dp" android:id="@+id/imageView9" android:layout_centerInParent="true"
+                android:translationY="50dp" android:translationX="35dp"/>
         <ImageView
                 android:src="@mipmap/icon_car"
                 android:layout_width="132dp"
-                android:layout_height="200dp" android:id="@+id/imageView4" android:layout_centerInParent="true"/>
+                android:layout_height="150dp" android:id="@+id/imageView4" android:layout_centerInParent="true"/>
         <RelativeLayout
                 android:layout_width="200dp"
                 android:layout_height="80dp" android:layout_centerInParent="true"

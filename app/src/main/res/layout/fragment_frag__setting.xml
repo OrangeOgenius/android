@@ -2,7 +2,7 @@
                 xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context="com.orange.tpms.ue.kt_frag.Frag_Setting">
+                tools:context="com.orange.tpms.ue.kt_frag.Frag_Setting" android:background="@android:color/white">
     <com.de.rocket.ue.layout.PercentLinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -649,7 +649,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:layout_heightPercent="14%sh"
-                        app:layout_marginBottomPercent="3%h"
                         tools:layout_heightPercent="7.5%h" android:id="@+id/bt_policy">
 
                     <ImageView
@@ -690,8 +689,63 @@
                             app:layout_textSizePercent="50%h"/>
 
                     <View
+                            app:layout_marginLeftPercent="3%w"
                             android:layout_width="match_parent"
                             android:layout_height="0.5dp"
+                            android:background="@color/color_grey"
+                            android:layout_toEndOf="@+id/iv_privacy_policy"
+                            android:layout_alignParentBottom="true"/>
+
+                </com.de.rocket.ue.layout.PercentRelativeLayout>
+                <com.de.rocket.ue.layout.PercentRelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layout_heightPercent="14%sh"
+                        app:layout_marginBottomPercent="3%h"
+                        tools:layout_heightPercent="7.5%h" android:id="@+id/bt_enginer">
+
+                    <ImageView
+                            android:id="@+id/enginer"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/btn_enginer_mode"
+                            android:layout_centerVertical="true"
+                            app:layout_marginLeftPercent="5%w"
+                            app:layout_paddingPercent="1%sh"
+                            app:layout_widthPercent="14%sh"
+                            app:layout_heightPercent="14%sh"
+                            tools:layout_widthPercent="80%h"
+                            tools:layout_heightPercent="80%h"/>
+
+                    <TextView
+                            android:focusable="true"
+                            android:id="@+id/tv_enginer"
+                            android:textColor="@color/tv_black_oringe_selecter"
+                            android:layout_toEndOf="@+id/enginer"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:layout_centerVertical="true"
+                            android:text="@string/enginer"
+                            app:layout_marginLeftPercent="3%w"
+                            app:layout_marginRightPercent="5%w"
+                            app:layout_textSizePercent="30%h"/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentEnd="true"
+                            android:textColor="@color/color_black"
+                            android:text=">"
+                            app:layout_marginRightPercent="5%w"
+                            app:layout_textSizePercent="50%h"/>
+
+                    <View
+                            app:layout_marginLeftPercent="3%w"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_toEndOf="@+id/enginer"
                             android:background="@color/color_grey"
                             android:layout_alignParentBottom="true"/>
 

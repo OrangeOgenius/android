@@ -13,6 +13,7 @@ import android.widget.TextView
 import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.R
 import com.orange.tpms.utils.WifiUtils
+import kotlinx.android.synthetic.main.fragment_frag__check__location.view.*
 import kotlinx.android.synthetic.main.fragment_frag__setting.view.*
 
 
@@ -29,7 +30,9 @@ class Frag_Setting : RootFragement() {
         rootview=inflater.inflate(R.layout.fragment_frag__setting, container, false)
         val connetedWifi = WifiUtils.getInstance(activity).connectedSSID
         rootview.tv_conneted_wifi.text=connetedWifi
-
+rootview.bt_enginer.setOnClickListener {
+    act.ChangePage(Frag_Enginer(),R.id.frage,"Frag_Enginer",true)
+}
         rootview.bt_update.setOnClickListener {
             act.ChangePage(Frag_Update(),R.id.frage,"Frag_Update",true)
         }

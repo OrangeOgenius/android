@@ -10,6 +10,7 @@ import android.view.KeyEvent
 import android.view.View
 import android.widget.ImageView
 import android.widget.RelativeLayout
+import android.widget.TextView
 import com.de.rocket.Rocket
 import com.orange.blelibrary.blelibrary.BleActivity
 import com.orange.blelibrary.blelibrary.RootFragement
@@ -37,13 +38,28 @@ class KtActivity : BleActivity(), Scan_C{
     override fun ChangePageListener(tag:String,frag: Fragment){
         Log.e("switch",tag)
         Log.e("switch","count:"+supportFragmentManager.backStackEntryCount)
-if(supportFragmentManager.backStackEntryCount!=0){back.visibility=View.VISIBLE}else{back.visibility=View.GONE}
+if(supportFragmentManager.backStackEntryCount!=0){
+    back.setImageResource(R.mipmap.back)
+    back.visibility=View.VISIBLE
+    back.setOnClickListener { GoBack() }
+}else{back.visibility=View.GONE}
         Command.NowTag=tag
+        when(tag){
+            "Frag_home"->{tit.text=resources.getString(R.string.app_o_genius)}
+            "Frag_CheckSensor"->{tit.text=resources.getString(R.string.app_home_check_sensor)}
+            "Frag_Check_Sensor_Read"->{tit.text=resources.getString(R.string.app_sensor_info_read)}
+            "Frag_Check_Location"->{tit.text=resources.getString(R.string.app_home_check_sensor)}
+            "Frag_Program_Sensor"->{tit.text=resources.getString(R.string.app_program)}
+            "Frag_Id_Copy"->{tit.text=resources.getString(R.string.app_home_id_copy)}
+            "Frag_Relearm"->{tit.text=resources.getString(R.string.Relearn_Procedure)}
+        }
     }
     lateinit var titlebar:RelativeLayout
+    lateinit var tit:TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_kt)
+        tit=findViewById(R.id.textView12)
         back=findViewById(R.id.back)
         logout=findViewById(R.id.logout)
         titlebar=findViewById(R.id.toolbar)
@@ -70,9 +86,16 @@ ShowDaiLog(R.layout.dataloading,false,false)
     override fun ConnectSituation(b:Boolean){
         super.ConnectSituation(b)
         if(!b){
-            GoMenu()
+            when(PublicBean.position){
+                PublicBean.PAD_PROGRAM->{GoMenu()}
+                PublicBean.PAD_COPY->{GoMenu()}
+            }
         }else{
             BleCommand.act=this
+            when(PublicBean.position){
+                PublicBean.PAD_PROGRAM->{Thread{BleCommand.Setserial(this)}.start()}
+                PublicBean.PAD_COPY->{Thread{BleCommand.Setserial(this)}.start()}
+            }
         }
     }
     override fun onDestroy() {

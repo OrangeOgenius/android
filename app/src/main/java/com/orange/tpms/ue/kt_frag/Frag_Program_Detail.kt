@@ -86,7 +86,7 @@ class Frag_Program_Detail : RootFragement(),Program_C{
     lateinit var btProgram: Button
     lateinit var scwTips: ScanWidget
     lateinit var dataReceiver: HardwareApp.DataReceiver
-     var  numberList = ArrayList<ProgramItemBean>()
+    var numberList = ArrayList<ProgramItemBean>()
     private var linearLayoutManager: LinearLayoutManager? = null//列表表格布局
     var ObdHex = "00"
     override fun onCreateView(

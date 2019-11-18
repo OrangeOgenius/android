@@ -24,10 +24,10 @@ class Frag_Check_Sensor_Information : RootFragement() {
     ): View? {
         rootview=inflater.inflate(R.layout.fragment_frag__check__sensor__information, container, false)
         rootview.b1.setOnClickListener {
-act.ChangePage(Frag_Check_Sensor_Read(),R.id.frage,"Frag_Check_Sensor_Read",true)
+           act.ChangePage(Frag_Check_Sensor_Read(),R.id.frage,"Frag_Check_Sensor_Read",true)
         }
         rootview.b2.setOnClickListener {
-
+            act.ChangePage(Frag_Check_Location(),R.id.frage,"Frag_Check_Location",true)
         }
         return rootview
     }

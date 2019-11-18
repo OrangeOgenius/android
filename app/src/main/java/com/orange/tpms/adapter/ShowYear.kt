@@ -18,7 +18,7 @@ import java.util.ArrayList
 
 
 class ShowYear(private val years: ArrayList<String>, private val navigationActivity: BleActivity)
-    : RecyclerView.Adapter<ShowYear.ViewHolder>() {
+    :RecyclerView.Adapter<ShowYear.ViewHolder>() {
     var favorite= ArrayList<String>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -29,25 +29,25 @@ class ShowYear(private val years: ArrayList<String>, private val navigationActiv
     holder.text_item.text=years[position]
     holder.mView.setOnClickListener{
         AddFavorite()
+        PublicBean.SelectYear=years[position]
         when(PublicBean.position){
             PublicBean.檢查傳感器->{
-                PublicBean.SelectYear=years[position]
                 navigationActivity.ChangePage(Frag_Check_Sensor_Information(),R.id.frage,"Frag_Check_Sensor_Information",true)
             }
             PublicBean.燒錄傳感器->{
-                PublicBean.SelectYear=years[position]
                 navigationActivity.ChangePage(Frag_Program_Number_Choice(), R.id.frage,"Frag_Program_Number_Choice",true);
             }
             PublicBean.複製傳感器->{
-                PublicBean.SelectYear=years[position]
                 navigationActivity.ChangePage(Frag_Idcopy_original(), R.id.frage,"Frag_Idcopy_original",true);
             }
             PublicBean.學碼步驟->{
-                PublicBean.SelectYear=years[position]
                 navigationActivity.ChangePage(Frag_Relearm_Detail(), R.id.frage,"Frag_Relearm_Detail",true);
             }
             PublicBean.PAD_PROGRAM->{
                 navigationActivity.ChangePage(Frag_Pad_Program_Detail(), R.id.frage,"Frag_Pad_Program_Detail",true);
+            }
+            PublicBean.PAD_COPY->{
+                navigationActivity.ChangePage(Frag_Pad_Keyin(), R.id.frage,"Frag_Pad_Keyin",true);
             }
         }
 

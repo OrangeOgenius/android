@@ -95,7 +95,7 @@ public class Fuction {
         }catch(Exception e){e.printStackTrace();caller.wifierror();}
     }
     public static void Register(String admin, String password, String SerialNum, String storetype, String companyname, String firstname, String lastname, String phone, String State, String city, String streat,
-                               String zp, Register_C caller){
+                               String zp, Register_C caller,String type){
         try{
             StringBuffer sb = new StringBuffer();
             sb.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
@@ -121,7 +121,7 @@ public class Fuction {
                     " </Reg_StoreInfo>\n" +
                     " <Reg_DeviceInfo>\n" +
                     " <SerialNum>"+SerialNum+"</SerialNum>\n" +
-                    " <DeviceType>USBPad</DeviceType>\n" +
+                    " <DeviceType>"+type+"</DeviceType>\n" +
                     " <ModelNum>PA001</ModelNum>\n" +
                     " <AreaNo>"+zp+"</AreaNo>\n" +
                     " <Firmware_1_Copy>EU-1.0</Firmware_1_Copy>\n" +
@@ -267,7 +267,7 @@ public class Fuction {
         RetNode respnse=_req(wsdl,sb.toString(),timeout);
         Log.d("upload",respnse.data.toString());
     }catch(Exception e){ Log.d("upload",e.getMessage());}}
-    public static void AddIfNotValid(String serialnum,Register_C caller){
+    public static void AddIfNotValid(String serialnum,Register_C caller,String type){
         try{
             StringBuffer sb = new StringBuffer();
             sb.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
@@ -278,7 +278,7 @@ public class Fuction {
                     "    </GetDeviceInfo>\n" +
                     "  </soap12:Body>\n" +
                     "</soap12:Envelope>");
-            Fuction.Register(PublicBean.admin,PublicBean.password,serialnum,"Distributor","spare","spare","spare","spare","spare","spare","spare","",caller);
+            Fuction.Register(PublicBean.admin,PublicBean.password,serialnum,"Distributor","spare","spare","spare","spare","spare","spare","spare","",caller,type);
         }catch (Exception e){e.printStackTrace();caller.WifiError();}
     }
 

@@ -49,7 +49,7 @@ class FavAdapter(private val name: ArrayList<String>, val act: BleActivity,val g
                         act.ChangePage(Frag_Pad_Program_Detail(), R.id.frage,"Frag_Pad_Program_Detail",true);
                     }
                     PublicBean.PAD_COPY->{
-
+                        act.ChangePage(Frag_Pad_Keyin(), R.id.frage,"Frag_Pad_Keyin",true);
                     }
                 }
             }}else{

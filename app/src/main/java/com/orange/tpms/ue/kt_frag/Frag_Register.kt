@@ -117,6 +117,8 @@ class Frag_Register : RootFragement(), Register_C, Update_C {
         val arrayAdapter2 = ArrayAdapter<String>(act, R.layout.spinner, Arealist2)
         AreaSpinner.adapter=arrayAdapter
         Store.adapter=arrayAdapter2
+        super.onCreateView(inflater, container, savedInstanceState)
+        rootview.linear.setOnClickListener {act.HideKeyBoard()  }
         return rootview
     }
 fun register(){
@@ -144,9 +146,9 @@ fun register(){
     act.ShowDaiLog(R.layout.normal_dialog,false,false)
     Thread{
         if(storetype.equals(getString(R.string.Distributor))){
-            Fuction.Register(email,password,serialnumber,"Distributor",company,firstname,lastname,phone,state,city,streat,zpcode,this)
+            Fuction.Register(email,password,serialnumber,"Distributor",company,firstname,lastname,phone,state,city,streat,zpcode,this,"OGenius")
         }else{
-            Fuction.Register(email,password,serialnumber,"Retailer",company,firstname,lastname,phone,state,city,streat,zpcode,this)
+            Fuction.Register(email,password,serialnumber,"Retailer",company,firstname,lastname,phone,state,city,streat,zpcode,this,"OGenius")
         }
     }.start()
 }

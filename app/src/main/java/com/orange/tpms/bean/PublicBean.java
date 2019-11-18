@@ -7,6 +7,10 @@ public class PublicBean {
     public static String SelectMake="";
     public static String SelectModel="";
     public static String SelectYear="";
+    public static String WriteLf="";
+    public static String WriteRf="";
+    public static String WriteRr="";
+    public static String WriteLr="";
     public static String SerialNum="";
     public static String admin="";
     public static String password="";

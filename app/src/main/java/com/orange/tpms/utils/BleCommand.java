@@ -54,6 +54,7 @@ public class BleCommand {
                     if(g){ID=act.getRXDATA().substring(14,22);}
                     return g;
                 }
+                Thread.currentThread().sleep(100);
             }
         }catch (Exception e){e.printStackTrace();
             return false;}
@@ -78,6 +79,7 @@ public class BleCommand {
                     IC=((int)StringHexToByte(act.getRXDATA().substring(12,14))[0])/2;
                     return true;
                 }
+                Thread.currentThread().sleep(100);
             }
         }catch (Exception e){e.printStackTrace();
             return false;}
@@ -105,6 +107,7 @@ public class BleCommand {
                     if(g){ID=act.getRXDATA().substring(14,22);}
                     return g;
                 }
+                Thread.currentThread().sleep(100);
             }
         }catch (Exception e){e.printStackTrace();
             return false;}
@@ -127,19 +130,20 @@ public class BleCommand {
                 if(time>5){
                     return false;
                 }
+                Thread.currentThread().sleep(100);
             }
             return true;
         }catch (Exception e){e.printStackTrace();
             return false;}
     }
-    public boolean Setserial(KtActivity act){
+    public boolean Setserial(BleActivity act){
         try{
             SendData("0A0004000754504D535610F5",32);
             SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS");
             Date past=sdf.parse(sdf.format(new Date()));
             while(true){
                 if(act.getRXDATA().contains("F50004000B")){
-                    String ser=act.getRXDATA().substring(16,26);
+                    String ser="SP:"+act.getRXDATA().substring(14,26);
                     PublicBean.SerialNum=ser;
                     AddIfNotValid(ser,new Register_C() {
                         @Override
@@ -151,13 +155,14 @@ public class BleCommand {
                         public void Result(boolean a) {
 
                         }
-                    });
+                    },"USBPad");
                     break;}
                 Date now=sdf.parse(sdf.format(new Date()));
                 double time=getDatePoor(now,past);
                 if(time>2){
                     return false;
                 }
+                Thread.currentThread().sleep(100);
             }
             return true;
         }catch (Exception e){e.printStackTrace();
@@ -202,6 +207,7 @@ public class BleCommand {
                 }
                 if(fal>3){return false;}
                 if(act.getRXDATA().length()==34){if(act.getRXDATA().substring(4,6).equals("14")){return true;}}
+                Thread.currentThread().sleep(100);
             }
         }catch (Exception e){e.printStackTrace();
             return false;}
@@ -225,6 +231,7 @@ public class BleCommand {
                 if(time>10){
                     return false;
                 }
+                Thread.currentThread().sleep(100);
             }
         }catch (Exception e){e.printStackTrace();
             return false;}
@@ -295,6 +302,7 @@ public class BleCommand {
                     if(time>3){
                         return false;
                     }
+                    Thread.currentThread().sleep(100);
                 }
             }
             fr.close();
@@ -377,6 +385,7 @@ public class BleCommand {
                     }
                     return g;
                 }
+                Thread.currentThread().sleep(100);
             }
         }catch (Exception e){e.printStackTrace();
             return false;}
@@ -425,6 +434,7 @@ public class BleCommand {
                     }
                     return g;
                 }
+                Thread.currentThread().sleep(100);
             }
         }catch (Exception e){e.printStackTrace();
             return false;}}
@@ -462,6 +472,7 @@ public class BleCommand {
                     }
                     return g;
                 }
+                Thread.currentThread().sleep(100);
             }
         }catch (Exception e){e.printStackTrace();
             return false;}
@@ -485,6 +496,7 @@ public class BleCommand {
                 if(act.getRXDATA().length()==check&&!SensorModel.equals("nodata")&&!AppVersion.equals("nodata")&&!Lib.equals("nodata")){
                     return true;
                 }
+                Thread.currentThread().sleep(100);
             }
         }catch (Exception e){e.printStackTrace();
             return false;}
@@ -526,7 +538,9 @@ public class BleCommand {
                     Appver=act.getRXDATA().substring(20,24);
                     Boover=act.getRXDATA().substring(16,20);
                     return true;
-                }}
+                }
+                Thread.currentThread().sleep(100);
+            }
         }catch(Exception e){e.printStackTrace();return false;}
     }
     public boolean Command25(String ID1,String ID2,String ID3,String ID4,String Lf){
@@ -564,6 +578,7 @@ public class BleCommand {
                     }
                     return g;
                 }
+                Thread.currentThread().sleep(100);
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -730,6 +745,7 @@ public class BleCommand {
                 double time=getDatePoor(now,past);
                 if(time>3){return false;}
                 if(act.getRXDATA().equals("F501000300F70A")){return true;}
+                Thread.currentThread().sleep(100);
             }
         }catch (Exception e){e.printStackTrace();return false;}
     }

@@ -3,7 +3,7 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context=".ue.kt_frag.Frag_Program_Detail">
+                tools:context=".ue.kt_frag.Frag_Program_Detail" android:background="@color/white">
     <com.de.rocket.ue.layout.PercentLinearLayout
             android:id="@+id/pll_title"
             android:layout_width="match_parent"
@@ -20,7 +20,7 @@
                 android:textColor="@color/color_white"
                 android:gravity="center"
                 android:text=""
-                />
+        />
 
         <com.de.rocket.ue.layout.PercentLinearLayout
                 android:layout_width="match_parent"
@@ -78,7 +78,7 @@
 
         <ImageView
                 android:layout_width="1dp"
-                android:layout_height="match_parent"  android:id="@+id/imageView15"
+                android:layout_height="match_parent" android:id="@+id/imageView15"
                 android:background="@android:color/white"/>
         <Button
                 android:id="@+id/bt_menue"

@@ -24,7 +24,7 @@ import com.de.rocket.ue.injector.BindView;
  * Sensor Information
  * Created by haide.yin() on 2019/3/30 14:28.
  */
-public class Frag_check_sensor_read extends Frag_base {
+public class  Frag_check_sensor_read extends Frag_base {
 
     @BindView(R.id.v_title_bar)
     TitleWidget twTitle;//Title

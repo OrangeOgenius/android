@@ -126,6 +126,9 @@ fun GoOk(code:String,navigationActivity: BleActivity){
                 PublicBean.PAD_PROGRAM->{
                     navigationActivity.ChangePage(Frag_Pad_Program_Detail(), R.id.frage,"Frag_Pad_Program_Detail",true);
                 }
+                PublicBean.PAD_COPY->{
+                    navigationActivity.ChangePage(Frag_Pad_Keyin(), R.id.frage,"Frag_Pad_Keyin",true);
+                }
             }
         }while (result.moveToNext())
         // 關閉Cursor物件
