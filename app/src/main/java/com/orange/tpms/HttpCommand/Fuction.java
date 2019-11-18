@@ -4,6 +4,7 @@ import android.util.Log;
 import com.orange.tpms.Callback.Register_C;
 import com.orange.tpms.Callback.Reset_C;
 import com.orange.tpms.Callback.Sign_In_C;
+import com.orange.tpms.bean.PublicBean;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -266,10 +267,19 @@ public class Fuction {
         RetNode respnse=_req(wsdl,sb.toString(),timeout);
         Log.d("upload",respnse.data.toString());
     }catch(Exception e){ Log.d("upload",e.getMessage());}}
-//    public static boolean AddIfNotValid(String serialnum){
-//        try{
-//            return Fuction.Register(LogoActivity.Companion.getAdmin(),LogoActivity.Companion.getPassword(),serialnum,"Distributor","spare","spare","spare","spare","spare","spare","spare","")==0;
-//        }catch (Exception e){e.printStackTrace();return false;}
-//    }
+    public static void AddIfNotValid(String serialnum,Register_C caller){
+        try{
+            StringBuffer sb = new StringBuffer();
+            sb.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
+                    "<soap12:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap12=\"http://www.w3.org/2003/05/soap-envelope\">\n" +
+                    "  <soap12:Body>\n" +
+                    "    <GetDeviceInfo xmlns=\"http://tempuri.org/\">\n" +
+                    "      <SerialNum>119403980040</SerialNum>\n" +
+                    "    </GetDeviceInfo>\n" +
+                    "  </soap12:Body>\n" +
+                    "</soap12:Envelope>");
+            Fuction.Register(PublicBean.admin,PublicBean.password,serialnum,"Distributor","spare","spare","spare","spare","spare","spare","spare","",caller);
+        }catch (Exception e){e.printStackTrace();caller.WifiError();}
+    }
 
 }

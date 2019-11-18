@@ -18,10 +18,7 @@ import com.orange.tpms.ue.frag.Frag_base
 import com.orange.tpms.ue.frag.Frag_check_sensor_information
 import com.orange.tpms.ue.frag.Frag_id_copy_original
 import com.orange.tpms.ue.frag.Frag_program_number_choice
-import com.orange.tpms.ue.kt_frag.Frag_Check_Sensor_Information
-import com.orange.tpms.ue.kt_frag.Frag_Idcopy_original
-import com.orange.tpms.ue.kt_frag.Frag_Program_Number_Choice
-import com.orange.tpms.ue.kt_frag.Frag_Relearm_Detail
+import com.orange.tpms.ue.kt_frag.*
 import com.orange.tpms.utils.FileDowload
 import java.lang.Exception
 import java.util.ArrayList
@@ -125,6 +122,9 @@ fun GoOk(code:String,navigationActivity: BleActivity){
                 }
                 PublicBean.學碼步驟->{
                     navigationActivity.ChangePage(Frag_Relearm_Detail(),R.id.frage,"Frag_Relearm_Detail",true);
+                }
+                PublicBean.PAD_PROGRAM->{
+                    navigationActivity.ChangePage(Frag_Pad_Program_Detail(), R.id.frage,"Frag_Pad_Program_Detail",true);
                 }
             }
         }while (result.moveToNext())

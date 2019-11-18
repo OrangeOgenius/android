@@ -21,6 +21,8 @@ import com.orange.tpms.mmySql.ItemDAO
 import com.orange.tpms.ue.frag.Frag_base
 import com.orange.tpms.ue.kt_frag.kt_splash
 import com.orange.tpms.utils.Command
+import com.orange.tpms.utils.Command.StringHexToByte
+import com.orange.tpms.utils.RxCommand
 import kotlinx.android.synthetic.main.fragment_add_favorite.view.*
 import java.util.ArrayList
 
@@ -28,7 +30,7 @@ class KtActivity : BleActivity(), Scan_C{
     override fun GetScan(a: String?) {
         if(Fraging != null){ (Fraging as RootFragement).ScanContent(a!!)}
     }
-
+    var BleCommand=com.orange.tpms.utils.BleCommand()
     lateinit var itemDAO: ItemDAO
     lateinit var back: ImageView
     lateinit var logout:ImageView
@@ -54,15 +56,35 @@ if(supportFragmentManager.backStackEntryCount!=0){back.visibility=View.VISIBLE}e
         Laninit()
         ShowTitleBar(false)
         ChangePage(kt_splash(),R.id.frage,"kt_splash",false)
+        BleCommand.act=this
+//        ShowDaiLog(R.layout.dataloading,false,false)
 //        Thread{Command.ReOpen()}.start()
     }
 
+    override fun LoadingUI(a: String, pass: Int) {
+ShowDaiLog(R.layout.dataloading,false,false)
+    }
+    override fun LoadingSuccessUI(){
+        DaiLogDismiss()
+    }
+    override fun ConnectSituation(b:Boolean){
+        super.ConnectSituation(b)
+        if(!b){
+            GoMenu()
+        }else{
+            BleCommand.act=this
+        }
+    }
     override fun onDestroy() {
         super.onDestroy()
     }
     override fun onResume(){
         super.onResume()
         SetNaVaGation(true)
+    }
+    override fun RX(a:String){
+        Log.w("BLEDATA", "RX:$a")
+        RxCommand.RX(StringHexToByte(a), this)
     }
 fun ShowTitleBar(boolean: Boolean){
     titlebar.visibility=if(boolean) View.VISIBLE else View.GONE

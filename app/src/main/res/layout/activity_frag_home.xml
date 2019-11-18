@@ -140,13 +140,13 @@
                     android:layout_height="200dp">
                 <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" android:layout_weight="1">
+                        android:layout_height="match_parent" android:layout_weight="1" android:id="@+id/bt_pad_program">
 
                     <ImageView
                             android:layout_width="140dp"
                             android:layout_height="140dp" app:srcCompat="@drawable/bt_usb_pad_selecter"
                             android:id="@+id/imageView23" android:layout_centerInParent="false"
-                            android:layout_centerHorizontal="true" android:alpha="0.7"/>
+                            android:layout_centerHorizontal="true"/>
                     <TextView
                             android:text="@string/Program_USB_PAD"
                             android:layout_width="match_parent"
@@ -157,13 +157,13 @@
                 </RelativeLayout>
                 <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" android:layout_weight="1">
+                        android:layout_height="match_parent" android:layout_weight="1" android:id="@+id/bt_pad_copy">
 
                     <ImageView
                             android:layout_width="140dp"
                             android:layout_height="140dp" app:srcCompat="@drawable/bt_usb_pad_selecter"
                             android:id="@+id/imageView23" android:layout_centerInParent="false"
-                            android:layout_centerHorizontal="true" android:alpha="0.7"/>
+                            android:layout_centerHorizontal="true"/>
                     <TextView
                             android:text="ID Copy by USB PAD  "
                             android:layout_width="match_parent"

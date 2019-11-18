@@ -1,6 +1,7 @@
 package com.orange.tpms.ue.kt_frag
 
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -28,6 +29,9 @@ class Frag_home : RootFragement() {
         rootview=inflater.inflate(R.layout.activity_frag_home, container, false)
         Laninit()
         SleepInit()
+        val profilePreferences =act.getSharedPreferences("Setting", Context.MODE_PRIVATE)
+        PublicBean.admin=profilePreferences.getString("admin","")
+        PublicBean.password=profilePreferences.getString("password","")
         rootview.bt_check_sensor.setOnClickListener {
             PublicBean.position=PublicBean.檢查傳感器
             act.ChangePage(Frag_CheckSensor(),R.id.frage,"Frag_CheckSensor",true)
@@ -47,6 +51,15 @@ class Frag_home : RootFragement() {
         rootview.btn_relearn.setOnClickListener {
             PublicBean.position=PublicBean.學碼步驟
             act.ChangePage(Frag_Relearm(),R.id.frage,"Frag_Relearm",true)
+        }
+        rootview.bt_pad_copy.setOnClickListener {
+            PublicBean.position=PublicBean.PAD_COPY
+            act.ChangePage(Frag_Pad_IdCopy(),R.id.frage,"Frag_Pad_IdCopy",true)
+        }
+        rootview.bt_pad_program.setOnClickListener {
+            PublicBean.position=PublicBean.PAD_PROGRAM
+            act.ChangePage(Frag_Pad_IdCopy(),R.id.frage,"Frag_Pad_IdCopy",true)
+
         }
         (activity as KtActivity).itemDAO = ItemDAO(activity!!);
         return rootview

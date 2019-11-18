@@ -13,9 +13,7 @@ import android.widget.TextView
 import com.orange.blelibrary.blelibrary.BleActivity
 import com.orange.tpms.R
 import com.orange.tpms.bean.PublicBean
-import com.orange.tpms.ue.kt_frag.Frag_Check_Sensor_Information
-import com.orange.tpms.ue.kt_frag.Frag_Idcopy_original
-import com.orange.tpms.ue.kt_frag.Frag_Program_Number_Choice
+import com.orange.tpms.ue.kt_frag.*
 import java.util.ArrayList
 
 class FavAdapter(private val name: ArrayList<String>, val act: BleActivity,val go:Boolean)
@@ -43,6 +41,15 @@ class FavAdapter(private val name: ArrayList<String>, val act: BleActivity,val g
                     }
                     PublicBean.複製傳感器->{
                         act.ChangePage(Frag_Idcopy_original(), R.id.frage,"Frag_Idcopy_original",true);
+                    }
+                    PublicBean.學碼步驟->{
+                        act.ChangePage(Frag_Relearm_Detail(), R.id.frage,"Frag_Relearm_Detail",true);
+                    }
+                    PublicBean.PAD_PROGRAM->{
+                        act.ChangePage(Frag_Pad_Program_Detail(), R.id.frage,"Frag_Pad_Program_Detail",true);
+                    }
+                    PublicBean.PAD_COPY->{
+
                     }
                 }
             }}else{

@@ -13,10 +13,7 @@ import android.widget.TextView
 import com.orange.blelibrary.blelibrary.BleActivity
 import com.orange.tpms.R
 import com.orange.tpms.bean.PublicBean
-import com.orange.tpms.ue.kt_frag.Frag_Check_Sensor_Information
-import com.orange.tpms.ue.kt_frag.Frag_Idcopy_original
-import com.orange.tpms.ue.kt_frag.Frag_Program_Number_Choice
-import com.orange.tpms.ue.kt_frag.Frag_Relearm_Detail
+import com.orange.tpms.ue.kt_frag.*
 import java.util.ArrayList
 
 
@@ -48,6 +45,9 @@ class ShowYear(private val years: ArrayList<String>, private val navigationActiv
             PublicBean.學碼步驟->{
                 PublicBean.SelectYear=years[position]
                 navigationActivity.ChangePage(Frag_Relearm_Detail(), R.id.frage,"Frag_Relearm_Detail",true);
+            }
+            PublicBean.PAD_PROGRAM->{
+                navigationActivity.ChangePage(Frag_Pad_Program_Detail(), R.id.frage,"Frag_Pad_Program_Detail",true);
             }
         }
 

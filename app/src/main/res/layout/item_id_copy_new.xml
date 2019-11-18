@@ -72,12 +72,12 @@
                 android:background="@color/color_black"/>
 
             <TextView
-                android:id="@+id/tv_newid"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:textColor="@color/color_black"
-                android:layout_weight="1"
-                android:gravity="center"/>
+                    android:id="@+id/tv_newid"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textColor="?attr/colorError"
+                    android:layout_weight="1"
+                    android:gravity="center"/>
 
         </com.de.rocket.ue.layout.PercentLinearLayout>
         <!--上边框-->

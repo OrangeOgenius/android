@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--自带颜色-->
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">#E95008</color>
+    <color name="colorPrimaryDark">#BF360C</color>
+    <color name="colorAccent">#FF6E40</color>
     <!--常用颜色-->
     <color name="color_unite_bg">#FF324A56</color><!--统一的风格颜色-->
     <color name="color_title_bg">@color/color_orange</color><!--统一的标题栏颜色-->

@@ -2,7 +2,6 @@ package com.orange.tpms.ue.kt_frag
 
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,7 +21,7 @@ class Frag_Relearm_Detail : RootFragement() {
         rootview=inflater.inflate(R.layout.fragment_frag__relearm__detail, container, false)
         rootview.mmy_text.text="${PublicBean.SelectMake}/${PublicBean.SelectModel}/${PublicBean.SelectYear}"
         rootview.textView10.text=(activity as KtActivity).itemDAO.GetreLarm(PublicBean.SelectMake,PublicBean.SelectModel,PublicBean.SelectYear,act)
-        rootview.menu.setOnClickListener { GoMenu() }
+        rootview.prog_bt.setOnClickListener { GoMenu() }
         return rootview
     }
 
