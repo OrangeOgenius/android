@@ -60,10 +60,12 @@ class Frag_Pad_Program_Detail : RootFragement() {
         make = PublicBean.SelectMake
         model = PublicBean.SelectModel
         year = PublicBean.SelectYear
-        WriteLf= PublicBean.WriteLf
-        WriteRf= PublicBean.WriteRf
-        WriteLr= PublicBean.WriteLr
-        WriteRR= PublicBean.WriteRr
+       if(PublicBean.position==PublicBean.PAD_COPY){
+           WriteLf= PublicBean.WriteLf
+           WriteRf= PublicBean.WriteRf
+           WriteLr= PublicBean.WriteLr
+           WriteRR= PublicBean.WriteRr
+       }
         mmyNum = navActivity.itemDAO.getMMY(make,model,year)
         Log.e("mmy",mmyNum)
         Idcount=8-navActivity.itemDAO.GetCopyId( mmyNum)
@@ -111,12 +113,12 @@ class Frag_Pad_Program_Detail : RootFragement() {
             rootview.Program_bt.setTextColor(navActivity.resources.getColor(R.color.buttoncolor))
             rootview.Program_bt.setOnClickListener {
                 PublicBean.position=PublicBean.PAD_PROGRAM
-//                navActivity.ChangePage()
+                act.ChangePage(Frag_Pad_Program_Detail(), R.id.frage,"Frag_Pad_Program_Detail",false);
             }
         }else{
             rootview.copy_id_btn.setOnClickListener {
                 PublicBean.position=PublicBean.PAD_COPY
-
+                act.ChangePage(Frag_Pad_Keyin(), R.id.frage,"Frag_Pad_Keyin",false);
             }
         }
 
@@ -434,7 +436,7 @@ class Frag_Pad_Program_Detail : RootFragement() {
                         a.SensorID = WriteRR
                         idrecord.add(a)
                     }
-                    Upload_IDCopyRecord(make,model,year,startime,endtime,PublicBean.SerialNum, "USBPad", "IDCOPY", idrecord.size, "ALL", idrecord)
+                    Upload_IDCopyRecord(make,model,year,startime,endtime,PublicBean.SerialNum, "USBPad", "IDCOPY", idrecord.size, "ALL", idrecord,activity as KtActivity)
                 }else{
                     val startime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
                     condition=navActivity.BleCommand.ProgramAll(activity!!.getApplicationContext().filesDir.path + "/" + mmyNum + ".s19",Lf)
@@ -477,7 +479,7 @@ class Frag_Pad_Program_Detail : RootFragement() {
                         b.SensorID = "error"
                         idrecord.add(b)
                     }
-                    Upload_ProgramRecord(make,model,year,startime,endtime,PublicBean.SerialNum, "USBPad", "Program", idrecord.size, "ALL", idrecord)
+                    Upload_ProgramRecord(make,model,year,startime,endtime,PublicBean.SerialNum, "USBPad", "Program", idrecord.size, "ALL", idrecord,activity as KtActivity)
                 }
                 handler.post {
                     navActivity.back.isClickable=true

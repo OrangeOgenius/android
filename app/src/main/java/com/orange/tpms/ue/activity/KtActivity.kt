@@ -15,6 +15,7 @@ import com.de.rocket.Rocket
 import com.orange.blelibrary.blelibrary.BleActivity
 import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.Callback.Scan_C
+import com.orange.tpms.HttpCommand.Fuction
 import com.orange.tpms.R
 import com.orange.tpms.bean.PublicBean
 import com.orange.tpms.lib.hardware.HardwareApp
@@ -25,16 +26,21 @@ import com.orange.tpms.utils.Command
 import com.orange.tpms.utils.Command.StringHexToByte
 import com.orange.tpms.utils.RxCommand
 import kotlinx.android.synthetic.main.fragment_add_favorite.view.*
-import java.util.ArrayList
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.concurrent.schedule
 
 class KtActivity : BleActivity(), Scan_C{
     override fun GetScan(a: String?) {
         if(Fraging != null){ (Fraging as RootFragement).ScanContent(a!!)}
     }
     var BleCommand=com.orange.tpms.utils.BleCommand()
+    lateinit var xml:ArrayList<String>
     lateinit var itemDAO: ItemDAO
     lateinit var back: ImageView
     lateinit var logout:ImageView
+    var uploadtimer= Timer()
+    var Fragnumber=0
     override fun ChangePageListener(tag:String,frag: Fragment){
         Log.e("switch",tag)
         Log.e("switch","count:"+supportFragmentManager.backStackEntryCount)
@@ -43,7 +49,8 @@ if(supportFragmentManager.backStackEntryCount!=0){
     back.visibility=View.VISIBLE
     back.setOnClickListener { GoBack() }
 }else{back.visibility=View.GONE}
-        Command.NowTag=tag
+        Command.NowTag="${Fragnumber++}"
+        if(Fragnumber>100){Fragnumber=0}
         when(tag){
             "Frag_home"->{tit.text=resources.getString(R.string.app_o_genius)}
             "Frag_CheckSensor"->{tit.text=resources.getString(R.string.app_home_check_sensor)}
@@ -58,6 +65,7 @@ if(supportFragmentManager.backStackEntryCount!=0){
     lateinit var tit:TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        xml=ArrayList()
         setContentView(R.layout.activity_kt)
         tit=findViewById(R.id.textView12)
         back=findViewById(R.id.back)
@@ -70,11 +78,17 @@ if(supportFragmentManager.backStackEntryCount!=0){
 
         }
         Laninit()
+
         ShowTitleBar(false)
         ChangePage(kt_splash(),R.id.frage,"kt_splash",false)
         BleCommand.act=this
 //        ShowDaiLog(R.layout.dataloading,false,false)
 //        Thread{Command.ReOpen()}.start()
+
+        uploadtimer.schedule(0,1000*60*5){
+            GetXml()
+            DataUpload()
+        }
     }
 
     override fun LoadingUI(a: String, pass: Int) {
@@ -121,5 +135,29 @@ fun ShowTitleBar(boolean: Boolean){
             //页面在顶层才会分发
         }
         return superDispatchKeyEvent(event)
+    }
+    fun GetXml(){
+        xml.clear()
+        val profilePreferences = getSharedPreferences("Setting", Context.MODE_PRIVATE)
+        val a= profilePreferences.getInt("xml_count",0)
+        for(i in 0 until a){
+            var tmpdata=profilePreferences.getString("xml_$i","nodata")
+            if (!tmpdata.equals("nodata")){   xml.add(tmpdata)}
+        }
+    }
+    fun SetXml(){
+        val profilePreferences = getSharedPreferences("Setting", Context.MODE_PRIVATE)
+        profilePreferences.edit().putInt("xml_count",xml.size).commit()
+        for(i in 0 until xml.size){
+            profilePreferences.edit().putString("xml_$i",xml[i]).commit()
+        }
+    }
+    fun DataUpload(){
+        for(i in 0 until xml.size){
+            if(Fuction._req(Fuction.wsdl,xml[i],Fuction.timeout).status!=-1){
+                xml.removeAt(i)
+            }
+        }
+        SetXml()
     }
 }

@@ -77,7 +77,6 @@ class Frag_Program_Detail : RootFragement(),Program_C{
 
         }
     }
-
     lateinit var programSensorHelper: ProgramSensorHelper
     lateinit var vibMediaUtil: VibMediaUtil
     lateinit var programAdapter: ProgramAdapter

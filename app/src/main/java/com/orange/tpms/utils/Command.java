@@ -19,16 +19,16 @@ import java.util.Date;
 public class Command {
     public static String Rx = "";
     public static String NowTag = "";
+    public static String SendTag="";
     public static void Send(String a) {
         Rx = "";
+        SendTag=NowTag;
         byte[] data = GetCrc(a.toUpperCase());
         Log.d("DATA:","TX:"+bytesToHex(data));
         HardwareApp.send(new byte[]{0x1B, 0x23, 0x23, 0x55, 0x54, 0x54, 0x32});
         HardwareApp.send(new byte[]{(byte) data.length});
         HardwareApp.send(data);
     }
-//    失敗1010101011110110000110011101111
-//            失敗1111111111111111111111011111111
     public static String GetCrcString(String a) {
         byte[] command = StringHexToByte(a);
         int xor = 0;
@@ -317,7 +317,7 @@ public static boolean ProgramCheck(String data){
         return true;
     }
 //    0a 11 00 0e 12 34 56 78 08 34 dd c0 8b 08 00 00 bf f5
-    public static void IdCopy(Copy_C caller,String FgTag){
+    public static void IdCopy(Copy_C caller){
     try{
         for(int i=0;i<PublicBean.SensorList.size();i++){
             int Original_Long=PublicBean.SensorList.get(i).length();
@@ -336,18 +336,18 @@ public static boolean ProgramCheck(String data){
                 double time = getDatePoor(now, past);
                 if (time > 15 || Rx.equals(GetCrcString("F51C000301000A")) || Rx.equals(GetCrcString("F51C000302000A"))) {
                     if(time > 15){ReOpen();return;}
-                   if(NowTag.equals(FgTag)){caller.Copy_Next(false,i);}
+                   if(SendTag.equals(NowTag)){caller.Copy_Next(false,i);}
                     break;
                 }
                 if(Rx.length()>=36){
                     if(Rx.contains(PublicBean.SensorList.get(i))){
-                        if(NowTag.equals(FgTag)){caller.Copy_Next(true,i);}
-                    }else{ if(NowTag.equals(FgTag)){caller.Copy_Next(false,i);} }
+                        if(SendTag.equals(NowTag)){caller.Copy_Next(true,i);}
+                    }else{ if(SendTag.equals(NowTag)){caller.Copy_Next(false,i);} }
                     break;
                 }
             }
         }
-        if(NowTag.equals(FgTag)){caller.Copy_Finish();}
+        if(SendTag.equals(NowTag)){caller.Copy_Finish();}
     }catch (Exception e){e.printStackTrace();caller.Copy_Finish();}
     }
     public static String reverseBySort(String str){
@@ -363,6 +363,6 @@ public static boolean ProgramCheck(String data){
     public static double getDatePoor(Date endDate, Date nowDate) {
         long diff = endDate.getTime() - nowDate.getTime();
         long sec = diff / 1000;
-        return sec;
+        return (SendTag.equals(NowTag)) ? sec:16;
     }
 }

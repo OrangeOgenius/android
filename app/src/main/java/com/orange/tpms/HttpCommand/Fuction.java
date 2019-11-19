@@ -5,6 +5,7 @@ import com.orange.tpms.Callback.Register_C;
 import com.orange.tpms.Callback.Reset_C;
 import com.orange.tpms.Callback.Sign_In_C;
 import com.orange.tpms.bean.PublicBean;
+import com.orange.tpms.ue.activity.KtActivity;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -19,7 +20,7 @@ import static android.support.constraint.Constraints.TAG;
 public class Fuction {
     public static final int timeout=10000;
     public static final String wsdl = "http://bento2.orange-electronic.com/App_Asmx/ToolApp.asmx";
-    private static RetNode _req(String url_String, String data, int timeout) {
+    public static RetNode _req(String url_String, String data, int timeout) {
         try{ Log.d(TAG + "_post", "url: " + url_String);
             Log.d(TAG + "_post", "data: " + data);
             URL url = new URL(url_String);
@@ -30,7 +31,6 @@ public class Fuction {
             conn.setUseCaches(false);
             conn.setDoInput(true);
             conn.setDoOutput(true);
-
             conn.setConnectTimeout(timeout);
             conn.setReadTimeout(timeout);
             DataOutputStream dos = new DataOutputStream(conn.getOutputStream());
@@ -64,6 +64,7 @@ public class Fuction {
             return retNode;
         }
     }
+
     public static void ResetPassword(String admin, Reset_C caller){
         try{
             StringBuffer sb = new StringBuffer();
@@ -144,7 +145,7 @@ public class Fuction {
         }catch(Exception e){e.printStackTrace();caller.WifiError();}
     }
     public static void Upload_ProgramRecord(String make, String model, String year, String startime, String Endtime, String SreialNum, String Devicetype, String Mode, int SensorCount, String position
-            , ArrayList<SensorRecord> idrecord){try{
+            , ArrayList<SensorRecord> idrecord,KtActivity activity){try{
         StringBuffer sb = new StringBuffer();
         sb.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
                 "<soap12:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap12=\"http://www.w3.org/2003/05/soap-envelope\">\n" +
@@ -204,9 +205,13 @@ public class Fuction {
                         " </soap12:Body>\n" +
                         "</soap12:Envelope>");
         RetNode respnse=_req(wsdl,sb.toString(),timeout);
+        if(respnse.status==-1){
+            activity.xml.add(sb.toString());
+            activity.SetXml();
+        }
     }catch(Exception e){ Log.d("upload",e.getMessage());}}
     public static void Upload_IDCopyRecord(String make,String model,String year,String startime,String Endtime,String SreialNum,String Devicetype,String Mode,int SensorCount,String position
-            ,ArrayList<SensorRecord> idrecord){try{
+            ,ArrayList<SensorRecord> idrecord,KtActivity activity){try{
         StringBuffer sb = new StringBuffer();
         sb.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
                 "<soap12:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap12=\"http://www.w3.org/2003/05/soap-envelope\">\n" +
@@ -266,6 +271,10 @@ public class Fuction {
                         "</soap12:Envelope>");
         RetNode respnse=_req(wsdl,sb.toString(),timeout);
         Log.d("upload",respnse.data.toString());
+        if(respnse.status==-1){
+            activity.xml.add(sb.toString());
+            activity.SetXml();
+        }
     }catch(Exception e){ Log.d("upload",e.getMessage());}}
     public static void AddIfNotValid(String serialnum,Register_C caller,String type){
         try{

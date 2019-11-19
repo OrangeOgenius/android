@@ -82,7 +82,7 @@ class Frag_Idcopy_Detail : RootFragement(), Copy_C {
         lwLoading.show()
         vibMediaUtil.playVibrate()
         if (checkCanCopy()) {
-            Thread{Command.IdCopy(this,"Frag_Idcopy_Detail")}.start()
+            Thread{Command.IdCopy(this)}.start()
         } else {
             act.Toast(R.string.app_no_data_to_copy)
         }
