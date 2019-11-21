@@ -42,6 +42,7 @@ class Frag_Idcopy_original : RootFragement() {
     lateinit var tvContent: TextView//title
     lateinit var lwLoading: LoadingWidget//Loading
     var ObdHex = "00"
+    var idcount=0
     lateinit var idCopyAdapter: IDCopyAdapter//适配器
     lateinit var linearLayoutManager: LinearLayoutManager//列表表格布局
     lateinit var copyIDHelper: CopyIDHelper
@@ -53,6 +54,7 @@ class Frag_Idcopy_original : RootFragement() {
     ): View? {
         rootview=inflater.inflate(R.layout.fragment_frag__idcopy_original, container, false)
         ObdHex=(activity as KtActivity).itemDAO.GetHex(PublicBean.SelectMake,PublicBean.SelectModel,PublicBean.SelectYear)
+        idcount=(activity as KtActivity).itemDAO.GetCopyId((activity as KtActivity).itemDAO.getMMY(PublicBean.SelectMake,PublicBean.SelectModel,PublicBean.SelectYear))
         rootview.tv_content.text="${PublicBean.SelectMake}/${PublicBean.SelectModel}/${PublicBean.SelectYear}"
         rootview.bt_menue.setOnClickListener { GoMenu() }
         rvIDCopy=rootview.findViewById(R.id.rv_id_copy)
@@ -144,7 +146,7 @@ class Frag_Idcopy_original : RootFragement() {
         //配置RecyclerView,每行是哪个元素
         linearLayoutManager = LinearLayoutManager(activity)
         rvIDCopy.layoutManager = linearLayoutManager
-        idCopyAdapter = IDCopyAdapter(activity)
+        idCopyAdapter = IDCopyAdapter(activity,idcount)
         rvIDCopy.adapter = idCopyAdapter
         //数据源
         val numberList = ArrayList<IDCopyBean>()

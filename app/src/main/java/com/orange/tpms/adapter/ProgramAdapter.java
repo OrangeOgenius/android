@@ -1,5 +1,6 @@
 package com.orange.tpms.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -14,17 +15,20 @@ import com.de.rocket.ue.injector.BindView;
 import com.orange.tpms.R;
 import com.orange.tpms.bean.ProgramItemBean;
 import com.orange.tpms.utils.KeyboardUtil;
+import com.orange.tpms.utils.ProgramFilter;
 import com.orange.tpms.widget.ClearEditText;
 
 public class ProgramAdapter extends BaseRecyclerAdapter<ProgramItemBean, ProgramAdapter.ViewHolder> {
 
     private int select;
-
     private OnItemClickListener onItemClickListener;
-
-    public ProgramAdapter(Context context) {
-        super(context);
-        select = -1;
+    int count;
+    Activity activity;
+    public ProgramAdapter(Context context, int count, Activity activity) {
+         super(context);
+         select = -1;
+         this.count=count;
+         this.activity=activity;
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
@@ -44,8 +48,9 @@ public class ProgramAdapter extends BaseRecyclerAdapter<ProgramItemBean, Program
         //不显示软键盘
         KeyboardUtil.hideEditTextKeyboard(holder.etTitle);
         //全部大写
-        holder.etTitle.setFilters(new InputFilter[] {new InputFilter.AllCaps()});
+        holder.etTitle.setFilters(new InputFilter[] {new InputFilter.AllCaps(),new InputFilter.LengthFilter(count)});
         holder.etTitle.setText(getItem(index).getSensorid());
+        holder.etTitle.addTextChangedListener(new ProgramFilter(holder.etTitle,count,activity));
         holder.tvNumber.setText(String.valueOf(index+1));
         if(!getItem(index).isShowIndex()){
             holder.tvNumber.setVisibility(View.INVISIBLE);
@@ -107,6 +112,7 @@ public class ProgramAdapter extends BaseRecyclerAdapter<ProgramItemBean, Program
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             Rocket.bindViewHolder(this,itemView);
+
         }
     }
 }

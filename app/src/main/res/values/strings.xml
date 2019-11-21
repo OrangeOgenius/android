@@ -74,7 +74,7 @@
     <string name="app_c">°C:</string>
     <string name="app_bat">BAT:</string>
     <string name="app_voltage">Voltage:</string>
-    <string name="app_tigger">Tigger</string>
+    <string name="app_tigger">Trigger</string>
     <string name="app_back">Back</string>
     <string name="app_check">Check</string>
     <string name="app_id_clear">ID</string>
@@ -303,4 +303,5 @@
     <string name="autolock">Changing the Sleep Timer Settings</string>
     <string name="updatefault">update false,Please reconnect wifi and try again!</string>
     <string name="enginer">Engineering mode</string>
+    <string name="maxsize">max size is 12</string>
 </resources>

@@ -12,11 +12,15 @@ import android.view.View
 import android.view.ViewGroup
 import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.Callback.Copy_C
+import com.orange.tpms.HttpCommand.Fuction
+import com.orange.tpms.HttpCommand.SensorRecord
 import com.orange.tpms.R
 import com.orange.tpms.adapter.IDCopyDetailAdapter
 import com.orange.tpms.bean.IDCopyDetailBean
+import com.orange.tpms.bean.ProgramItemBean
 import com.orange.tpms.bean.PublicBean
 import com.orange.tpms.helper.CopyIDHelper
+import com.orange.tpms.ue.activity.KtActivity
 import com.orange.tpms.utils.Command
 import com.orange.tpms.utils.NumberUtil
 import com.orange.tpms.utils.VibMediaUtil
@@ -24,7 +28,8 @@ import com.orange.tpms.widget.CarWidget
 import com.orange.tpms.widget.LoadingWidget
 import com.orange.tpms.widget.TitleWidget
 import kotlinx.android.synthetic.main.fragment_frag__idcopy__detail.view.*
-import java.util.ArrayList
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 /**
@@ -35,17 +40,23 @@ class Frag_Idcopy_Detail : RootFragement(), Copy_C {
 
 
     override fun Copy_Next(success: Boolean, position: Int) {
-        handler.post { vibMediaUtil.playBeep()
-            lwLoading.tvLoading.setText("${position*100/PublicBean.SensorList.size}%")
-            copySuccess(position, success)}
+        handler.post {
+            vibMediaUtil.playBeep()
+            lwLoading.tvLoading.setText("${position * 100 / PublicBean.SensorList.size}%")
+            copySuccess(position, success)
+        }
 
     }
 
     override fun Copy_Finish() {
         handler.post { lwLoading.hide() }
-        run=false
+        run = false
+        endtime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
+        upload()
     }
 
+    var startime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
+    var endtime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
     lateinit var rvIDCopyDetail: RecyclerView
     lateinit var lwLoading: LoadingWidget//Loading
     lateinit var cwCar: CarWidget//CarWidget
@@ -56,12 +67,12 @@ class Frag_Idcopy_Detail : RootFragement(), Copy_C {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        rootview=inflater.inflate(R.layout.fragment_frag__idcopy__detail, container, false)
-        rootview.tv_content.text="${PublicBean.SelectMake}/${PublicBean.SelectModel}/${PublicBean.SelectYear}"
-        run=false
-        rvIDCopyDetail=rootview.findViewById(R.id.rv_id_copy_neww)
-        lwLoading=rootview.findViewById(R.id.ldw_loading)
-        cwCar=rootview.findViewById(R.id.cw_car)
+        rootview = inflater.inflate(R.layout.fragment_frag__idcopy__detail, container, false)
+        rootview.tv_content.text = "${PublicBean.SelectMake}/${PublicBean.SelectModel}/${PublicBean.SelectYear}"
+        run = false
+        rvIDCopyDetail = rootview.findViewById(R.id.rv_id_copy_neww)
+        lwLoading = rootview.findViewById(R.id.ldw_loading)
+        cwCar = rootview.findViewById(R.id.cw_car)
         rootview.bt_program.setOnClickListener { program() }
         rootview.bt_menue.setOnClickListener { GoMenu() }
         initView()
@@ -73,16 +84,20 @@ class Frag_Idcopy_Detail : RootFragement(), Copy_C {
         super.onKeyTrigger()
         program()
     }
+
     /**
      * 烧录
      */
     private fun program() {
-        if(run){return}
-        run=true
+        if (run) {
+            return
+        }
+        run = true
+        startime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
         lwLoading.show()
         vibMediaUtil.playVibrate()
         if (checkCanCopy()) {
-            Thread{Command.IdCopy(this)}.start()
+            Thread { Command.IdCopy(this) }.start()
         } else {
             act.Toast(R.string.app_no_data_to_copy)
         }
@@ -131,6 +146,39 @@ class Frag_Idcopy_Detail : RootFragement(), Copy_C {
         }
     }
 
+    fun upload() {
+        Thread {
+            val idrecord: ArrayList<SensorRecord> = ArrayList()
+            if (PublicBean.SensorList.size == PublicBean.NewSensorList.size) {
+                for (i in 1 until idCopyDetailAdapter.items.size) {
+                    val idCopyDetailBean = idCopyDetailAdapter.items[i]
+                    if(idCopyDetailBean.originalid.isNotEmpty()){
+                        val b = SensorRecord()
+                        b.Car_SensorID = idCopyDetailBean.originalid
+                        b.SensorID = idCopyDetailBean.newid
+                        b.IsSuccess = if (idCopyDetailBean.state == ProgramItemBean.STATE_FAILED) "false" else "true"
+                        idrecord.add(b)
+                    }
+                }
+            }
+            Fuction.Upload_IDCopyRecord(
+                PublicBean.SelectMake,
+                PublicBean.SelectModel,
+                PublicBean.SelectYear,
+                startime,
+                endtime,
+                PublicBean.OG_SerialNum,
+                "OGenius",
+                "Program",
+                idrecord.size,
+                "ALL",
+                idrecord,
+                activity as KtActivity
+            )
+        }.start()
+
+    }
+
     /**
      * 检测是否可以copy数据了
      */
@@ -144,6 +192,7 @@ class Frag_Idcopy_Detail : RootFragement(), Copy_C {
         }
         return false
     }
+
     /**
      * 初始化页面
      */

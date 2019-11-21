@@ -46,6 +46,7 @@ class Frag_Idcopy_New : RootFragement() {
     lateinit var tvContent: TextView//title
     lateinit var lwLoading: LoadingWidget//Loading
     lateinit var scwTips: ScanWidget//Tips
+    var idcount=0
     lateinit var idCopyAdapter: IDCopyAdapter//适配器
     lateinit var linearLayoutManager: LinearLayoutManager//列表表格布局
      var ObdHex = "00"
@@ -57,6 +58,7 @@ class Frag_Idcopy_New : RootFragement() {
     ): View? {
         rootview=inflater.inflate(R.layout.fragment_frag__idcopy__new, container, false)
         rootview.tv_content.text="${PublicBean.SelectMake}/${PublicBean.SelectModel}/${PublicBean.SelectYear}"
+        idcount=(activity as KtActivity).itemDAO.GetCopyId((activity as KtActivity).itemDAO.getMMY(PublicBean.SelectMake,PublicBean.SelectModel,PublicBean.SelectYear))
         rvIDCopy=rootview.findViewById(R.id.rv_id_copy)
         tvContent=rootview.findViewById(R.id.tv_content)
         lwLoading=rootview.findViewById(R.id.ldw_loading)
@@ -78,7 +80,6 @@ class Frag_Idcopy_New : RootFragement() {
         }
         initView()
         ObdHex=(activity as KtActivity).itemDAO.GetHex(PublicBean.SelectMake,PublicBean.SelectModel,PublicBean.SelectYear)
-        tvContent.text = "${PublicBean.SelectMake}${PublicBean.SelectModel}${PublicBean.SelectYear}"
         act.ShowDaiLog(R.layout.sensor_way_dialog,false,false)
         act.mDialog!!.findViewById<RelativeLayout>(R.id.scan).setOnClickListener {
             act.DaiLogDismiss()
@@ -140,6 +141,7 @@ class Frag_Idcopy_New : RootFragement() {
             Thread.sleep(3000)
             run=false
         }.start()
+
     }
     /**
      * 初始化页面
@@ -150,7 +152,7 @@ class Frag_Idcopy_New : RootFragement() {
         vibMediaUtil = VibMediaUtil(activity)
             linearLayoutManager = LinearLayoutManager(activity)
         rvIDCopy.layoutManager = linearLayoutManager
-        idCopyAdapter = IDCopyAdapter(activity)
+        idCopyAdapter = IDCopyAdapter(activity,idcount)
         rvIDCopy.adapter = idCopyAdapter
         //数据源
         val numberList = ArrayList<IDCopyBean>()

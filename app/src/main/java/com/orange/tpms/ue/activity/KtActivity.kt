@@ -2,6 +2,7 @@ package com.orange.tpms.ue.activity
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.hardware.usb.UsbDevice.getDeviceId
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -14,10 +15,13 @@ import android.widget.TextView
 import com.de.rocket.Rocket
 import com.orange.blelibrary.blelibrary.BleActivity
 import com.orange.blelibrary.blelibrary.RootFragement
+import com.orange.tpms.Callback.Register_C
 import com.orange.tpms.Callback.Scan_C
 import com.orange.tpms.HttpCommand.Fuction
+import com.orange.tpms.HttpCommand.Fuction.AddIfNotValid
 import com.orange.tpms.R
 import com.orange.tpms.bean.PublicBean
+import com.orange.tpms.lib.db.share.SettingShare
 import com.orange.tpms.lib.hardware.HardwareApp
 import com.orange.tpms.mmySql.ItemDAO
 import com.orange.tpms.ue.frag.Frag_base
@@ -59,6 +63,9 @@ if(supportFragmentManager.backStackEntryCount!=0){
             "Frag_Program_Sensor"->{tit.text=resources.getString(R.string.app_program)}
             "Frag_Id_Copy"->{tit.text=resources.getString(R.string.app_home_id_copy)}
             "Frag_Relearm"->{tit.text=resources.getString(R.string.Relearn_Procedure)}
+            "Frag_Pad_IdCopy"->{tit.text="${resources.getString(R.string.Program_USB_PAD)}(${resources.getString(R.string.ID_COPY)})"}
+            "Frag_Pad_Program"->{tit.text="${resources.getString(R.string.Program_USB_PAD)}(${resources.getString(R.string.Program)})"}
+            "Frag_WebView"->{tit.text=resources.getString(R.string.Online_shopping)}
         }
     }
     lateinit var titlebar:RelativeLayout
@@ -83,14 +90,14 @@ if(supportFragmentManager.backStackEntryCount!=0){
         ChangePage(kt_splash(),R.id.frage,"kt_splash",false)
         BleCommand.act=this
 //        ShowDaiLog(R.layout.dataloading,false,false)
-//        Thread{Command.ReOpen()}.start()
 
-        uploadtimer.schedule(0,1000*60*5){
+        uploadtimer.schedule(0,1000*60){
             GetXml()
             DataUpload()
         }
-    }
+        PublicBean.OG_SerialNum=SettingShare.getDeviceId(this)
 
+    }
     override fun LoadingUI(a: String, pass: Int) {
 ShowDaiLog(R.layout.dataloading,false,false)
     }
@@ -128,6 +135,7 @@ fun ShowTitleBar(boolean: Boolean){
 }
     @SuppressLint("RestrictedApi")
     override fun dispatchKeyEvent(event: KeyEvent): Boolean {
+        Log.e("event",""+event)
         if (event.action == KeyEvent.ACTION_DOWN) {//只处理按下的动画,抬起的动作忽略
             Log.v("yhd-", "event:$event")
             //按键事件向Fragment分发

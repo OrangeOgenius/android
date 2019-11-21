@@ -12,7 +12,9 @@ import com.orange.tpms.Callback.Sign_In_C
 import com.orange.tpms.Callback.Update_C
 import com.orange.tpms.HttpCommand.Fuction
 import com.orange.tpms.R
+import com.orange.tpms.bean.PublicBean
 import com.orange.tpms.helper.WifiConnectHelper
+import com.orange.tpms.ue.activity.KtActivity
 import com.orange.tpms.utils.FileDowload
 import com.orange.tpms.widget.LoadingWidget
 import kotlinx.android.synthetic.main.activity_sign_in.view.*
@@ -55,6 +57,9 @@ class Sign_in : RootFragement(), Update_C,Sign_In_C {
                 val profilePreferences = act.getSharedPreferences("Setting", Context.MODE_PRIVATE)
                 profilePreferences.edit().putString("admin",admin.text.toString()).putString("password",password.text.toString()).commit()
                 act.ChangePage(Frag_home(),R.id.frage,"Frag_home",false)
+                PublicBean.admin=admin.text.toString()
+                PublicBean.password=password.text.toString()
+                Thread{ Fuction.AddIfNotValid("SP:"+PublicBean.OG_SerialNum, "OGenius", activity as KtActivity) }.start()
             }else{
                 WifiConnectHelper().switchWifi(act,false)
                 act.Toast(resources.getString(R.string.updatefault))

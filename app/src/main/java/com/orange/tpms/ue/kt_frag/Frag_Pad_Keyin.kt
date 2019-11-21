@@ -56,6 +56,7 @@ class Frag_Pad_Keyin : RootFragement() {
     ): View? {
         rootview=inflater.inflate(R.layout.fragment_frag__pad__keyin, container, false)
 super.onCreateView(inflater, container, savedInstanceState)
+        rootview.mmy_text6.text="${PublicBean.SelectMake}/${PublicBean.SelectModel}/${PublicBean.SelectYear}"
         vibMediaUtil = VibMediaUtil(activity)
         rootview.Lft.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(need))
         rootview.Lft.addTextChangedListener(CustomTextWatcherForpad(rootview.Lft,need))

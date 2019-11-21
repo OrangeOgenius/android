@@ -80,7 +80,7 @@ class Frag_Pad_Program_Detail : RootFragement() {
             WriteLr=WriteLrtmp.replace("XX",WriteLr.substring(6,8)).replace("YY",WriteLr.substring(2,4))
             WriteRR=WriteRRtmp.replace("XX",WriteRR.substring(6,8)).replace("YY",WriteRR.substring(2,4))
         }
-        Thread{(activity as KtActivity).BleCommand.Setserial(act) }.start()
+        Thread{(activity as KtActivity).BleCommand.Setserial(activity as KtActivity) }.start()
     }
     fun getMem(str: String, m: String): Int {
         var str = str
@@ -212,8 +212,6 @@ class Frag_Pad_Program_Detail : RootFragement() {
             }catch (e: Exception){e.printStackTrace()}
 //            first=false
         }).start()
-
-
     }
     fun UpdateUi(position:Int,situation:Int){
         when(position){

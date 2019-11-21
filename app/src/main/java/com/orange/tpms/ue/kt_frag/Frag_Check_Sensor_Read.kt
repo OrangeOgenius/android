@@ -54,6 +54,7 @@ class Frag_Check_Sensor_Read : RootFragement() {
         }
         run = true
         vibMediaUtil.playVibrate()
+        rootview.scw_tips.visibility=View.GONE
         lwLoading.show(resources.getString(R.string.app_data_reading))
         Thread {
             val a = Command.GetId(ObdHex, "00")

@@ -1,9 +1,13 @@
 package com.orange.tpms.utils;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
-import com.orange.tpms.Callback.Copy_C;
-import com.orange.tpms.Callback.Program_C;
+import android.widget.TextView;
+import com.orange.blelibrary.blelibrary.BleActivity;
+import com.orange.tpms.Callback.*;
+import com.orange.tpms.R;
 import com.orange.tpms.bean.PublicBean;
 import com.orange.tpms.bean.SensorData;
 import com.orange.tpms.lib.hardware.HardwareApp;
@@ -15,6 +19,8 @@ import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
+import static com.orange.tpms.utils.BleCommand.addcheckbyte;
 
 public class Command {
     public static String Rx = "";
@@ -316,7 +322,133 @@ public static boolean ProgramCheck(String data){
         Send("0A 14 00 0E 00 00 00 00 00 00 00 00 00 00 00 00 ff f5".replace(" ", ""));
         return true;
     }
-//    0a 11 00 0e 12 34 56 78 08 34 dd c0 8b 08 00 00 bf f5
+public static boolean reboot(){
+    try{
+        String data="0A0D00030000F5";
+        Send(data);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS");
+        Date past = sdf.parse(sdf.format(new Date()));
+        while(true){
+            Date now = sdf.parse(sdf.format(new Date()));
+            double time = getDatePoor(now, past);
+            if (time > 20 || Rx.equals(GetCrcString("F51C000301000A")) || Rx.equals(GetCrcString("F51C000302000A"))) {
+                if(time > 20){ReOpen();}
+                return false;
+            }
+            if(Rx.length()==14){return true;}
+            Thread.currentThread().sleep(1000);
+        }
+    }catch (Exception e){e.printStackTrace();return  false;}
+}
+public static void GetVerion(Version_C caller){
+try {
+    String data="0A0A000EFFFFFFFFFFFFFFFFFFFFFFFF00F5";
+    Send(data);
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS");
+    Date past = sdf.parse(sdf.format(new Date()));
+    while(true) {
+        Date now = sdf.parse(sdf.format(new Date()));
+        double time = getDatePoor(now, past);
+        if (time > 15 || Rx.equals(GetCrcString("F51C000301000A")) || Rx.equals(GetCrcString("F51C000302000A"))) {
+            if(time > 15){ReOpen();}
+            caller.version("",false);
+            return ;
+        }
+        if(Rx.length()>=36){
+            caller.version(Rx.substring(8,16),true);
+            return ;}
+    }
+}catch (Exception e){e.printStackTrace();}
+}
+    public static  void WriteBootloader(BleActivity act, int Ind, String filename,Update_C caller){
+        try{
+//            FileInputStream fo=new FileInputStream(context.getApplicationContext().getFilesDir().getPath()+"/"+filename+".s2");
+            SharedPreferences profilePreferences =act.getSharedPreferences("Setting", Context.MODE_PRIVATE);
+            InputStreamReader fr = new InputStreamReader((profilePreferences.getString("muc","no").equals("no")) ? act.getAssets().open("update.x2"):new FileInputStream(act.getApplicationContext().getFilesDir().getPath()+"/update.x2"));
+            BufferedReader br = new BufferedReader(fr);
+            StringBuilder sb = new StringBuilder();
+            while (br.ready()) {
+                String s=br.readLine();
+                s=s.replace("null","");
+                sb.append(s);
+            }
+            int Long=0;
+            if(sb.length()%Ind == 0){Long=sb.length()/Ind;
+            }else{Long=sb.length()/Ind+1;}
+            Log.d("總行數",""+Long);
+            for(int i=0;i<Long;i++){
+                if(i==Long-1){
+                    Log.d("行數",""+i);
+                    String data=bytesToHex(sb.substring(i*Ind, sb.length()).getBytes());
+                    int length=Ind+2;
+                    check(Convvvert(data,Integer.toHexString(length)));
+                    caller.Updateing(100);
+                    caller.Finish(true);
+                }else{
+                    String data=bytesToHex(sb.substring(i*Ind, i*Ind+Ind).getBytes());
+                    Log.d("行數",""+i);
+                    int length=Ind+2;
+                    caller.Updateing(i*100/Long);
+                    if(!check(Convvvert(data,Integer.toHexString(length)))){
+                        caller.Finish(false);
+                    }
+                }
+            }
+            fr.close();
+            caller.Finish(true);
+        }catch(Exception e){e.printStackTrace();caller.Finish(false);}}
+    public  static String Convvvert(String data,String length){
+        String command="0A02LX00F5";
+        while(length.length()<4){
+            length="0"+length;
+        }
+        command= (command.replace("L",length).replace("X", data));
+        return command;
+    }
+    public  static boolean check(String data){
+        try{
+            SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS");
+            Date past=sdf.parse(sdf.format(new Date()));
+            int fal=0;
+            Send(data);
+            while(fal<5){
+                Date now=sdf.parse(sdf.format(new Date()));
+                double time=getDatePoor(now,past);
+                if(time>0.3){
+                    past=sdf.parse(sdf.format(new Date()));
+                    Send(data);
+                    fal++;
+                }
+                if(Rx.length()>=14&&Rx.equals(GetCrcString("F502000300F40A"))||Rx.equals(GetCrcString("F50B000301F70A"))){
+                    return true;
+                }
+                Thread.currentThread().sleep(100);
+            }
+            return false;
+        }catch (Exception e){e.printStackTrace();return false;}
+    }
+    public static void HandShake(Hanshake_C caller){
+        try{
+            String data="0A0000030000F5";
+            Send(data);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS");
+            Date past = sdf.parse(sdf.format(new Date()));
+            while(true){
+                Date now = sdf.parse(sdf.format(new Date()));
+                double time = getDatePoor(now, past);
+                if (time > 15 || Rx.equals(GetCrcString("F51C000301000A")) || Rx.equals(GetCrcString("F51C000302000A"))) {
+                    if(time > 15){ReOpen();}
+                    caller.result(-1);
+                    return;
+                }
+                if(Rx.length()>=14){
+                    if(Rx.contains(GetCrcString("F500000302F40A"))){caller.result(2);}
+                    if(Rx.contains(GetCrcString("F500000301F40A"))){caller.result(1);}
+                    return;}
+                Thread.currentThread().sleep(100);
+            }
+        }catch (Exception e){e.printStackTrace();  caller.result(-1);}
+    }
     public static void IdCopy(Copy_C caller){
     try{
         for(int i=0;i<PublicBean.SensorList.size();i++){

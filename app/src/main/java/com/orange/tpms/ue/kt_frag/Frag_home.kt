@@ -4,16 +4,19 @@ package com.orange.tpms.ue.kt_frag
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.orange.blelibrary.blelibrary.RootFragement
+import com.orange.tpms.HttpCommand.Fuction
 import com.orange.tpms.HttpCommand.SensorRecord
 import com.orange.tpms.R
 import com.orange.tpms.bean.PublicBean
 import com.orange.tpms.mmySql.ItemDAO
 import com.orange.tpms.ue.activity.KtActivity
+import com.orange.tpms.utils.Command
 import kotlinx.android.synthetic.main.activity_frag_home.view.*
 
 
@@ -59,12 +62,19 @@ class Frag_home : RootFragement() {
         }
         rootview.bt_pad_program.setOnClickListener {
             PublicBean.position=PublicBean.PAD_PROGRAM
-            act.ChangePage(Frag_Pad_IdCopy(),R.id.frage,"Frag_Pad_IdCopy",true)
+            act.ChangePage(Frag_Pad_IdCopy(),R.id.frage,"Frag_Pad_Program",true)
 
+        }
+        rootview.bt_shopping.setOnClickListener {
+            PublicBean.position=PublicBean.Go_Web
+            act.ChangePage(Frag_WebView(),R.id.frage,"Frag_WebView",true)
         }
         (activity as KtActivity).itemDAO = ItemDAO(activity!!);
          val mmyname=GetPro("mmyname","nodata")
          SensorRecord.DB_Version = if (mmyname.length > 19) mmyname.substring(16) else mmyname
+//        Thread{Command.reboot()}.start()
+        Log.e("version_internet",GetPro("mcu","no").replace(".x2",""))
+        Log.e("version_local",GetPro("Version","no"))
         return rootview
     }
 

@@ -355,7 +355,7 @@ public class Frag_program_detail extends Frag_base {
             linearLayoutManager = new LinearLayoutManager(activity);
         }
         rvProgram.setLayoutManager(linearLayoutManager);
-        programAdapter = new ProgramAdapter(activity);
+//        programAdapter = new ProgramAdapter(activity);
         rvProgram.setAdapter(programAdapter);
         //数据源
         for (int i = 0; i < 12; i++) {

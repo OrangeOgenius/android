@@ -85,7 +85,7 @@
                             android:layout_width="140dp"
                             android:layout_height="140dp" app:srcCompat="@mipmap/btn_pad_idcopy"
                             android:id="@+id/imageView23" android:layout_centerInParent="false"
-                            android:layout_centerHorizontal="true"/>
+                            android:layout_centerHorizontal="true" android:alpha="0.7"/>
                     <TextView
                             android:text="ID copy by OBD"
                             android:layout_width="match_parent"
@@ -107,7 +107,7 @@
                             android:layout_width="140dp"
                             android:layout_height="140dp" app:srcCompat="@drawable/bt_obdii_relearn_selecter"
                             android:id="@+id/imageView23" android:layout_centerInParent="false"
-                            android:layout_centerHorizontal="true"/>
+                            android:layout_centerHorizontal="true" android:alpha="0.7"/>
                     <TextView
                             android:text="@string/app_home_obdii_relearn"
                             android:layout_width="match_parent"
@@ -179,13 +179,13 @@
                     android:layout_height="200dp">
                 <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" android:layout_weight="1">
+                        android:layout_height="match_parent" android:layout_weight="1" android:id="@+id/bt_shopping">
 
                     <ImageView
                             android:layout_width="140dp"
                             android:layout_height="140dp" app:srcCompat="@drawable/bt_online_shopping_selecter"
                             android:id="@+id/imageView23" android:layout_centerInParent="false"
-                            android:layout_centerHorizontal="true" android:alpha="0.7"/>
+                            android:layout_centerHorizontal="true" android:alpha="1"/>
                     <TextView
                             android:text="@string/Online_shopping"
                             android:layout_width="match_parent"
@@ -196,7 +196,24 @@
                 </RelativeLayout>
                 <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" android:layout_weight="1">
+                        android:layout_height="match_parent" android:layout_weight="1" android:id="@+id/bt_setting">
+
+                    <ImageView
+                            android:layout_width="140dp"
+                            android:layout_height="140dp" app:srcCompat="@drawable/bt_setting_selecter"
+                            android:id="@+id/imageView23" android:layout_centerInParent="false"
+                            android:layout_centerHorizontal="true"/>
+                    <TextView
+                            android:text="@string/Setting"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" android:id="@+id/textView14"
+                            android:layout_below="@id/imageView23" android:layout_centerHorizontal="true"
+                            android:textColor="#314A56" android:textSize="20sp" android:gravity="center_horizontal|top"
+                            android:padding="5dp"/>
+                </RelativeLayout>
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" android:layout_weight="1" android:visibility="gone">
 
                     <ImageView
                             android:layout_width="140dp"
@@ -227,23 +244,6 @@
                             android:layout_centerHorizontal="true" android:alpha="0.7"/>
                     <TextView
                             android:text="@string/app_user_manual"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent" android:id="@+id/textView14"
-                            android:layout_below="@id/imageView23" android:layout_centerHorizontal="true"
-                            android:textColor="#314A56" android:textSize="20sp" android:gravity="center_horizontal|top"
-                            android:padding="5dp"/>
-                </RelativeLayout>
-                <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" android:layout_weight="1" android:id="@+id/bt_setting">
-
-                    <ImageView
-                            android:layout_width="140dp"
-                            android:layout_height="140dp" app:srcCompat="@drawable/bt_setting_selecter"
-                            android:id="@+id/imageView23" android:layout_centerInParent="false"
-                            android:layout_centerHorizontal="true"/>
-                    <TextView
-                            android:text="@string/Setting"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" android:id="@+id/textView14"
                             android:layout_below="@id/imageView23" android:layout_centerHorizontal="true"

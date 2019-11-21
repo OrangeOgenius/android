@@ -14,14 +14,16 @@ import com.de.rocket.Rocket;
 import com.de.rocket.ue.injector.BindView;
 import com.orange.tpms.R;
 import com.orange.tpms.bean.IDCopyBean;
+import com.orange.tpms.utils.CustomTextWatcherForpad;
 import com.orange.tpms.utils.KeyboardUtil;
 import com.orange.tpms.utils.NumberUtil;
 import com.orange.tpms.widget.ClearEditText;
 
 public class IDCopyAdapter extends BaseRecyclerAdapter<IDCopyBean, IDCopyAdapter.ViewHolder> {
-
-    public IDCopyAdapter(Context context) {
+int idcount;
+    public IDCopyAdapter(Context context,int idcount) {
         super(context);
+        this.idcount=idcount;
     }
 
     @Override
@@ -37,7 +39,18 @@ public class IDCopyAdapter extends BaseRecyclerAdapter<IDCopyBean, IDCopyAdapter
         //不显示软键盘
         KeyboardUtil.hideEditTextKeyboard(holder.etSensorid);
         //全部大写
-        holder.etSensorid.setFilters(new InputFilter[] {new InputFilter.AllCaps()});
+        if(index==0){
+            holder.etSensorid.setBackgroundColor(mContext.getResources().getColor(R.color.gray));
+            holder.tvPsi.setBackgroundColor(mContext.getResources().getColor(R.color.gray));
+            holder.tvTemp.setBackgroundColor(mContext.getResources().getColor(R.color.gray));
+            holder.tvBat.setBackgroundColor(mContext.getResources().getColor(R.color.gray));
+        }else{
+            holder.etSensorid.setBackgroundColor(mContext.getResources().getColor(R.color.white));
+            holder.tvPsi.setBackgroundColor(mContext.getResources().getColor(R.color.white));
+            holder.tvTemp.setBackgroundColor(mContext.getResources().getColor(R.color.white));
+            holder.tvBat.setBackgroundColor(mContext.getResources().getColor(R.color.white));
+        }
+        holder.etSensorid.setFilters(new InputFilter[] {new InputFilter.LengthFilter(idcount)});
         String batString = getItem(index).getBat();
         if(!TextUtils.isEmpty(batString) && NumberUtil.isNumber(batString)){
             int batLevel = Integer.valueOf(batString);

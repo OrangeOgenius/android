@@ -4,6 +4,7 @@ package com.orange.tpms.ue.kt_frag
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.Callback.Update_C
 import com.orange.tpms.R
 import com.orange.tpms.helper.WifiConnectHelper
+import com.orange.tpms.utils.Command
 import com.orange.tpms.utils.FileDowload
 import kotlinx.android.synthetic.main.fragment_frag__update.view.*
 import java.lang.Exception
@@ -38,6 +40,19 @@ class Frag_Update : RootFragement(), Update_C {
             act.DaiLogDismiss()
             if(a){
                 act.Toast(resources.getString(R.string.update_success))
+                    var internetversion=  GetPro("mcu","no").replace(".x2","")
+                    var localversion=GetPro("Version","no")
+                    Log.e("version_internet",internetversion)
+                    Log.e("version_local",localversion)
+                    if(internetversion!="no"&&internetversion!=localversion){
+                        Thread{
+                            Command.reboot()
+                            handler.post {
+                                val intent2 = context!!.getPackageManager().getLaunchIntentForPackage(context!!.getPackageName())
+                                context!!.startActivity(intent2)
+                            }
+                        }.start()
+                    }
             }else{
                 act.Toast(resources.getString(R.string.updatefault))
             }

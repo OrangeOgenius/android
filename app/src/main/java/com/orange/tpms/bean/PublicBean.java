@@ -12,6 +12,7 @@ public class PublicBean {
     public static String WriteRr="";
     public static String WriteLr="";
     public static String SerialNum="";
+    public static String OG_SerialNum="";
     public static String admin="";
     public static String password="";
     public static int position=1;
@@ -25,6 +26,7 @@ public class PublicBean {
     public final static int 掃描Sensor=7;
     public final static int PAD_COPY=8;
     public final static int PAD_PROGRAM=9;
+    public final static int Go_Web=10;
     public static int ScanType=4;
     public static List<String> SensorList=null;
     public static List<String> NewSensorList=null;

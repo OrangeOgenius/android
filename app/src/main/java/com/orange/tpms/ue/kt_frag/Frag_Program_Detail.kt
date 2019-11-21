@@ -16,6 +16,8 @@ import bean.hardware.SensorDataBean
 import com.de.rocket.Rocket
 import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.Callback.Program_C
+import com.orange.tpms.HttpCommand.Fuction
+import com.orange.tpms.HttpCommand.SensorRecord
 
 import com.orange.tpms.R
 import com.orange.tpms.adapter.ProgramAdapter
@@ -38,8 +40,8 @@ import com.orange.tpms.widget.ScanWidget
 import com.orange.tpms.widget.SensorWayWidget
 import com.orange.tpms.widget.TitleWidget
 import kotlinx.android.synthetic.main.fragment_frag__program__detail.view.*
-import java.util.ArrayList
-import java.util.HashSet
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class Frag_Program_Detail : RootFragement(),Program_C{
@@ -54,7 +56,7 @@ class Frag_Program_Detail : RootFragement(),Program_C{
     override fun Program_Finish(boolean: Boolean) {
         if(!act.NowFrage.equals("Frag_Program_Detail")){return}
         run=false
-
+        endtime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
         if(boolean){
             Log.e("DATA:", "燒錄成功")
             val result = Command.GetPrId(ObdHex, "00")
@@ -70,6 +72,7 @@ class Frag_Program_Detail : RootFragement(),Program_C{
             handler.post { AllFall() }
             Log.e("DATA:", "燒錄失敗")
         }
+        UploadData()
         handler.post {
             lwLoading.hide()
             vibMediaUtil.playBeep()
@@ -84,6 +87,8 @@ class Frag_Program_Detail : RootFragement(),Program_C{
     lateinit var lwLoading: LoadingWidget
     lateinit var btProgram: Button
     lateinit var scwTips: ScanWidget
+    var startime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
+    var endtime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
     lateinit var dataReceiver: HardwareApp.DataReceiver
     var numberList = ArrayList<ProgramItemBean>()
     private var linearLayoutManager: LinearLayoutManager? = null//列表表格布局
@@ -96,13 +101,7 @@ class Frag_Program_Detail : RootFragement(),Program_C{
         rootview.tv_program_title.text="${PublicBean.SelectMake}/${PublicBean.SelectModel}/${PublicBean.SelectYear}"
         rootview.bt_menue.setOnClickListener { GoMenu() }
         rootview.bt_program.setOnClickListener {
-            if(run){return@setOnClickListener}
-            run=true
-            lwLoading.tvLoading.text = "0%"
-            lwLoading.show()
-            Thread{
-                Program("00",ObdHex,Integer.toHexString(PublicBean.ProgramNumber),(activity as KtActivity).itemDAO.getMMY(PublicBean.SelectMake,PublicBean.SelectModel,PublicBean.SelectYear),act,this)
-            }.start()
+            Program()
         }
         scwTips=rootview.findViewById(R.id.scw_tips)
         btProgram=rootview.findViewById(R.id.bt_program)
@@ -125,7 +124,25 @@ class Frag_Program_Detail : RootFragement(),Program_C{
         }
         return rootview
     }
-
+fun Program(){
+    if(run){return}
+    if (checkSelectFinish()) {
+        if (haveSameSensorid()) {
+            act.Toast(R.string.app_duplicate_items)
+            return
+        }
+    } else {
+        act.Toast(R.string.app_fillin_all_sensor_id)
+        return
+    }
+    run=true
+    lwLoading.tvLoading.text = "0%"
+    lwLoading.show()
+    Thread{
+        startime=SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
+        Program("00",ObdHex,Integer.toHexString(PublicBean.ProgramNumber),(activity as KtActivity).itemDAO.getMMY(PublicBean.SelectMake,PublicBean.SelectModel,PublicBean.SelectYear),act,this)
+    }.start()
+}
     override fun onKeyScan() {
         super.onKeyScan()
         if(run){return}
@@ -161,7 +178,7 @@ class Frag_Program_Detail : RootFragement(),Program_C{
             linearLayoutManager = LinearLayoutManager(activity)
         }
         rvProgram.layoutManager = linearLayoutManager
-        programAdapter = ProgramAdapter(activity)
+        programAdapter = ProgramAdapter(activity,(activity as KtActivity).itemDAO.GetCopyId((activity as KtActivity).itemDAO.getMMY(PublicBean.SelectMake,PublicBean.SelectModel,PublicBean.SelectYear)),activity)
         rvProgram.adapter = programAdapter
         //数据源
         for (i in 0..11) {
@@ -232,6 +249,7 @@ class Frag_Program_Detail : RootFragement(),Program_C{
     }
     fun Trigger(){
         if(run){return}
+        if(checkSelectFinish()){Program()}
         run=true
         lwLoading.show()
         act.DaiLogDismiss()
@@ -363,6 +381,35 @@ class Frag_Program_Detail : RootFragement(),Program_C{
             }
         }
         return false
+    }
+    private fun UploadData(){
+        Thread{
+            if (programAdapter.items.size >= PublicBean.ProgramNumber) {
+                val idrecord: ArrayList<SensorRecord> = ArrayList()
+                for (i in 0 until PublicBean.ProgramNumber) {
+                    val programItemBean = programAdapter.items[i]
+                    val b = SensorRecord()
+                    b.SensorID=programItemBean.sensorid
+                    b.IsSuccess = if(programItemBean.state==ProgramItemBean.STATE_FAILED) "false" else "true"
+                    idrecord.add(b)
+                }
+                Fuction.Upload_ProgramRecord(
+                    PublicBean.SelectMake,
+                    PublicBean.SelectModel,
+                    PublicBean.SelectYear,
+                    startime,
+                    endtime,
+                    PublicBean.OG_SerialNum,
+                    "OGenius",
+                    "Program",
+                    idrecord.size,
+                    "ALL",
+                    idrecord,
+                    activity as KtActivity
+                )
+            }
+        }.start()
+
     }
     private fun AllFall(){
         if (programAdapter.items.size >= PublicBean.ProgramNumber) {

@@ -136,7 +136,7 @@ public class BleCommand {
         }catch (Exception e){e.printStackTrace();
             return false;}
     }
-    public boolean Setserial(BleActivity act){
+    public boolean Setserial(KtActivity act){
         try{
             SendData("0A0004000754504D535610F5",32);
             SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS");
@@ -145,17 +145,7 @@ public class BleCommand {
                 if(act.getRXDATA().contains("F50004000B")){
                     String ser="SP:"+act.getRXDATA().substring(14,26);
                     PublicBean.SerialNum=ser;
-                    AddIfNotValid(ser,new Register_C() {
-                        @Override
-                        public void WifiError() {
-
-                        }
-
-                        @Override
-                        public void Result(boolean a) {
-
-                        }
-                    },"USBPad");
+                    AddIfNotValid(ser,"USBPad",act);
                     break;}
                 Date now=sdf.parse(sdf.format(new Date()));
                 double time=getDatePoor(now,past);

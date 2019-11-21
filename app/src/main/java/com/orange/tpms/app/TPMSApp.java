@@ -1,6 +1,7 @@
 package com.orange.tpms.app;
 
 import android.content.Intent;
+import android.util.Log;
 import com.de.rocket.app.RoApplication;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.orange.tpms.lib.hardware.HardwareApp;
@@ -18,6 +19,7 @@ public class TPMSApp extends RoApplication {
     public static String TAG = TPMSApp.class.getSimpleName();
     private Thread.UncaughtExceptionHandler restartHandler = new Thread.UncaughtExceptionHandler() {
         public void uncaughtException(Thread thread, Throwable ex) {
+            Log.e("error",ex.getMessage());
             restartApp();
         }
     };
@@ -31,7 +33,7 @@ public class TPMSApp extends RoApplication {
                 .setEnableHareware(true)   //是否开启硬件功能，可用于关闭调试UI
                 .onCreate();
         //最后统一调用初始化硬件
-        Thread.setDefaultUncaughtExceptionHandler(restartHandler);
+//        Thread.setDefaultUncaughtExceptionHandler(restartHandler);
 //        MTest mTest = new MTest();
 //        mTest.setContext(this);
 //        mTest.setTPMS(this);

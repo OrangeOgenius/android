@@ -39,8 +39,9 @@ public class FileDowload {
     }
     public static void ChechUpdate(Activity activity, Update_C caller){
         try{
-                if(!DownMMy(activity)){caller.Finish(false);} ;
-                if(!DownAllS19(activity,caller)){caller.Finish(false);}
+                if(!DownMMy(activity)){caller.Finish(false);return;} ;
+                if(!DownAllS19(activity,caller)){caller.Finish(false);return;}
+                if(!DownMuc(activity)){caller.Finish(false);return;}
                 caller.Finish(true);
         }catch (Exception e){e.printStackTrace();caller.Finish(false);}
     }
@@ -56,12 +57,13 @@ public class FileDowload {
             return false;
         }
     }
+
     public static boolean DownS19(String Filename,Activity activity){
         return donloads19(Filename,activity);
     }
     public static boolean DownAllS19(Activity activity,Update_C caller){
         try{
-            URL url=new URL("http://bento2.orange-electronic.com/Orange%20Cloud/Database/SensorCode/SIII/");
+            URL url=new URL("https://bento2.orange-electronic.com/Orange%20Cloud/Database/SensorCode/SIII/");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"));
             String line = null;
@@ -85,7 +87,7 @@ return success;
     }
     public static String GetS19Name(String name){
         try{
-            URL url=new URL("http://bento2.orange-electronic.com/Orange%20Cloud/Database/SensorCode/SIII/"+name+"/");
+            URL url=new URL("https://bento2.orange-electronic.com/Orange%20Cloud/Database/SensorCode/SIII/"+name+"/");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"));
             String line = null;
@@ -100,14 +102,51 @@ return success;
         }catch(Exception e){e.printStackTrace();}
         return "nodata";
     }
-
+    public static String GetMucName(){
+        try{
+            URL url=new URL("https://bento2.orange-electronic.com/Orange%20Cloud/Drive/OG/Firmware/");
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"));
+            String line = null;
+            StringBuffer strBuf = new StringBuffer();
+            while ((line = reader.readLine()) != null) {
+                strBuf.append(line);
+            }
+            String[] arg=strBuf.toString().split(" HREF=\"");
+            for(String a : arg){
+                if(a.contains(".x2")){  return (a.substring(a.indexOf(">")+1,a.indexOf("<")));}
+            }
+        }catch(Exception e){e.printStackTrace();}
+        return "nodata";
+    }
+    public static boolean DownMuc(Activity activity){
+        try{
+            String mcu=GetMucName();
+            SharedPreferences profilePreferences = activity.getSharedPreferences("Setting", Context.MODE_PRIVATE);
+            if(profilePreferences.getString("mcu","no").equals(mcu)){ return  true; }
+            URL url=new URL("https://bento2.orange-electronic.com/Orange%20Cloud/Drive/OG/Firmware/"+mcu);
+            InputStream is=url.openStream();
+            FileOutputStream fos=new FileOutputStream(activity.getApplicationContext().getFilesDir().getPath()+"/update.x2");
+            int bufferSize = 8192;
+            byte[] buf = new byte[bufferSize];
+            while(true){
+                int read=is.read(buf);
+                if(read==-1){  break;}
+                fos.write(buf, 0, read);
+            }
+            is.close();
+            fos.close();
+            profilePreferences.edit().putString("mcu",mcu).commit();
+            return true;
+        }catch (Exception e){e.printStackTrace();return false;}
+    }
     public static boolean donloads19(String name,Activity activity){
         if(Internet){
             try{
                 String s19name=GetS19Name(name);
                 SharedPreferences profilePreferences = activity.getSharedPreferences("Setting", Context.MODE_PRIVATE);
                 if(profilePreferences.getString(name,"no").equals(s19name)){ return  true; }
-                URL url=new URL("http://bento2.orange-electronic.com/Orange%20Cloud/Database/SensorCode/SIII/"+name+"/"+s19name);
+                URL url=new URL("https://bento2.orange-electronic.com/Orange%20Cloud/Database/SensorCode/SIII/"+name+"/"+s19name);
                 InputStream is=url.openStream();
                 FileOutputStream fos=new FileOutputStream(activity.getApplicationContext().getFilesDir().getPath()+"/"+name+".s19");
                 int bufferSize = 8192;
@@ -148,8 +187,8 @@ return success;
             SharedPreferences profilePreferences = activity.getSharedPreferences("Setting", Context.MODE_PRIVATE);
             String mmyname=mmyname();
             if(profilePreferences.getString("mmyname","").equals(mmyname)){return true;}
-            URL url=new URL("http://bento2.orange-electronic.com/Orange%20Cloud/Database/MMY/EU/"+mmyname);
-            Log.d("path","http://bento2.orange-electronic.com/Orange%20Cloud/Database/MMY/EU/"+mmyname);
+            URL url=new URL("https://bento2.orange-electronic.com/Orange%20Cloud/Database/MMY/EU/"+mmyname);
+            Log.d("path","https://bento2.orange-electronic.com/Orange%20Cloud/Database/MMY/EU/"+mmyname);
             InputStream is=url.openStream();
             FileOutputStream fos=new FileOutputStream(fileanme);
             int bufferSize = 8192;
@@ -192,7 +231,7 @@ return success;
 
     public static String mmyname(){
         try{
-            URL url=new URL("http://bento2.orange-electronic.com/Orange%20Cloud/Database/MMY/EU/");
+            URL url=new URL("https://bento2.orange-electronic.com/Orange%20Cloud/Database/MMY/EU/");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"));
             String line = null;
@@ -209,7 +248,7 @@ return success;
     }
     public static String McuName(){
         try{
-            URL url=new URL("http://bento2.orange-electronic.com/Orange%20Cloud/Drive/USB%20PAD/Firmware/MCU/");
+            URL url=new URL("https://bento2.orange-electronic.com/Orange%20Cloud/Drive/USB%20PAD/Firmware/MCU/");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"));
             String line = null;

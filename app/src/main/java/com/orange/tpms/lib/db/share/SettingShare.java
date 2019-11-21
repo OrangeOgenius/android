@@ -137,7 +137,7 @@ public class SettingShare {
         }
         return null;
     }
-    private static String getDeviceId(Context context) {
+    public static String getDeviceId(Context context) {
         TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         String deviceId = telephonyManager.getDeviceId();
         return deviceId;

@@ -163,7 +163,7 @@ public class Frag_id_copy_original extends Frag_base {
             linearLayoutManager = new LinearLayoutManager(activity);
         }
         rvIDCopy.setLayoutManager(linearLayoutManager);
-        idCopyAdapter = new IDCopyAdapter(activity);
+//        idCopyAdapter = new IDCopyAdapter(activity);
         rvIDCopy.setAdapter(idCopyAdapter);
         //数据源
         List<IDCopyBean> numberList = new ArrayList<>();

@@ -501,6 +501,7 @@ public class HardwareApp extends BaseHardware {
                             String ss=bytesToHexString(recv);
                             Command.Rx=Command.Rx+ss.replace("75 61 72 74 32 5f 24","").replace(" ","").toUpperCase();
                             Log.e("DATA:", "RX："+ss.replace("75 61 72 74 32 5f 24",""));
+                            Log.d(TAG, "receiver: " + ss.replace("75 61 72 74 32 5f 24",""));
                         }
                     } catch (UnsupportedEncodingException e) {
                         // TODO Auto-generated catch block
@@ -743,6 +744,7 @@ public class HardwareApp extends BaseHardware {
             return;
         if (mComFd > 0) {
             mCommonApi.writeCom(mComFd, data, data.length);
+            Log.d(TAG, "write: " + bytesToHexString(data));
         }
     }
 

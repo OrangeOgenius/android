@@ -11,6 +11,7 @@
     <color name="color_orange">#EC671A</color>
     <color name="color_black">#000000</color>
     <color name="color_grey">#777777</color>
+    <color name="gray">#DCDCDD</color>
     <color name="color_transparent">#00000000</color>
     <color name="color_red">#ff0000</color>
     <color name="color_bg">@color/color_white</color>

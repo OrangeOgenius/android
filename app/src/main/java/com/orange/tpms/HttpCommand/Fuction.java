@@ -276,19 +276,49 @@ public class Fuction {
             activity.SetXml();
         }
     }catch(Exception e){ Log.d("upload",e.getMessage());}}
-    public static void AddIfNotValid(String serialnum,Register_C caller,String type){
+    public static void AddIfNotValid(String serialnum,String type,KtActivity act){
         try{
-            StringBuffer sb = new StringBuffer();
-            sb.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
-                    "<soap12:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap12=\"http://www.w3.org/2003/05/soap-envelope\">\n" +
-                    "  <soap12:Body>\n" +
-                    "    <GetDeviceInfo xmlns=\"http://tempuri.org/\">\n" +
-                    "      <SerialNum>119403980040</SerialNum>\n" +
-                    "    </GetDeviceInfo>\n" +
-                    "  </soap12:Body>\n" +
-                    "</soap12:Envelope>");
-            Fuction.Register(PublicBean.admin,PublicBean.password,serialnum,"Distributor","spare","spare","spare","spare","spare","spare","spare","",caller,type);
-        }catch (Exception e){e.printStackTrace();caller.WifiError();}
+            String data="<soap12:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap12=\"http://www.w3.org/2003/05/soap-envelope\">\n" +
+                    "     <soap12:Body>\n" +
+                    "     <Register xmlns=\"http://tempuri.org/\">\n" +
+                    "     <Reg_UserInfo>\n" +
+                    "     <UserID>"+PublicBean.admin+"</UserID>\n" +
+                    "     <UserPwd>"+PublicBean.password+"</UserPwd>\n" +
+                    "     </Reg_UserInfo>\n" +
+                    "     <Reg_StoreInfo>\n" +
+                    "     <StoreType>Distributor</StoreType>\n" +
+                    "     <CompName>spare</CompName>\n" +
+                    "     <FirstName>spare</FirstName>\n" +
+                    "     <LastName>spare</LastName>\n" +
+                    "     <Contact_Tel>spare</Contact_Tel>\n" +
+                    "     <Continent>spare</Continent>\n" +
+                    "     <Country>spare</Country>\n" +
+                    "     <State>spare</State>\n" +
+                    "     <City>spare</City>\n" +
+                    "     <Street>spare</Street>\n" +
+                    "     <CompTel>spare</CompTel>\n" +
+                    "     </Reg_StoreInfo>\n" +
+                    "     <Reg_DeviceInfo>\n" +
+                    "     <SerialNum>"+serialnum+"</SerialNum>\n" +
+                    "     <DeviceType>"+type+"</DeviceType>\n" +
+                    "     <ModelNum>PA001</ModelNum>\n" +
+                    "     <AreaNo></AreaNo>\n" +
+                    "     <Firmware_1_Copy>EU-1.0</Firmware_1_Copy>\n" +
+                    "     <Firmware_2_Copy>EU-1.0</Firmware_2_Copy>\n" +
+                    "     <Firmware_3_Copy>EU-1.0</Firmware_3_Copy>\n" +
+                    "     <DB_Copy>EU-1.0 </DB_Copy>\n" +
+                    "     <MacAddress>00</MacAddress>\n" +
+                    "     <IpAddress>00</IpAddress>\n" +
+                    "     </Reg_DeviceInfo>\n" +
+                    "     </Register>\n" +
+                    "     </soap12:Body>\n" +
+                    "    </soap12:Envelope>";
+            RetNode response= _req(wsdl,data,timeout);
+            if(response.status==-1){
+                if(!act.xml.contains(data)){act.xml.add(data);}
+                act.SetXml();
+            }
+        }catch (Exception e){e.printStackTrace();}
     }
 
 }
