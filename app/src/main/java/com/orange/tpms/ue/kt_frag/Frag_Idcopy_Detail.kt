@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,14 +18,11 @@ import com.orange.tpms.adapter.IDCopyDetailAdapter
 import com.orange.tpms.bean.IDCopyDetailBean
 import com.orange.tpms.bean.ProgramItemBean
 import com.orange.tpms.bean.PublicBean
-import com.orange.tpms.helper.CopyIDHelper
 import com.orange.tpms.ue.activity.KtActivity
-import com.orange.tpms.utils.Command
-import com.orange.tpms.utils.NumberUtil
+import com.orange.tpms.utils.OgCommand
 import com.orange.tpms.utils.VibMediaUtil
 import com.orange.tpms.widget.CarWidget
 import com.orange.tpms.widget.LoadingWidget
-import com.orange.tpms.widget.TitleWidget
 import kotlinx.android.synthetic.main.fragment_frag__idcopy__detail.view.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -97,7 +93,7 @@ class Frag_Idcopy_Detail : RootFragement(), Copy_C {
         lwLoading.show()
         vibMediaUtil.playVibrate()
         if (checkCanCopy()) {
-            Thread { Command.IdCopy(this) }.start()
+            Thread { OgCommand.IdCopy(this) }.start()
         } else {
             act.Toast(R.string.app_no_data_to_copy)
         }
@@ -210,7 +206,7 @@ class Frag_Idcopy_Detail : RootFragement(), Copy_C {
             "",
             getString(R.string.app_original_id),
             getString(R.string.app_new_sensor),
-            getString(R.string.app_check_up),
+            "CHK",
             IDCopyDetailBean.STATE_HIDE
         )
         val frBean = IDCopyDetailBean("FR", "", "", "", IDCopyDetailBean.STATE_HIDE)

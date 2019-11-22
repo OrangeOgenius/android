@@ -13,7 +13,6 @@ import android.widget.TextView
 import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.R
 import com.orange.tpms.utils.WifiUtils
-import kotlinx.android.synthetic.main.fragment_frag__check__location.view.*
 import kotlinx.android.synthetic.main.fragment_frag__setting.view.*
 
 
@@ -62,12 +61,12 @@ rootview.bt_information.setOnClickListener {
         }
         rootview.bt_ble.setOnClickListener {
             act.ShowDaiLog(R.layout.bledialog,true,true)
-            act.mDialog!!.findViewById<TextView>(R.id.textView14).setOnClickListener {
+            act.mDialog!!.findViewById<TextView>(R.id.no).setOnClickListener {
                adapter.disable()
                 rootview.bleconnect.text=resources.getString(R.string.app_blue_bud_close)
                 act.DaiLogDismiss()
             }
-            act.mDialog!!.findViewById<TextView>(R.id.textView15).setOnClickListener {
+            act.mDialog!!.findViewById<TextView>(R.id.yes).setOnClickListener {
                 adapter.enable()
                 rootview.bleconnect.text=resources.getString(R.string.app_blue_bud_open)
                 act.DaiLogDismiss()
@@ -76,10 +75,10 @@ rootview.bt_information.setOnClickListener {
 rootview.bt_reset.setOnClickListener {
 
     act.ShowDaiLog(R.layout.reset,true,true)
-    act.mDialog!!.findViewById<TextView>(R.id.textView14).setOnClickListener {
+    act.mDialog!!.findViewById<TextView>(R.id.no).setOnClickListener {
         act.DaiLogDismiss()
     }
-    act.mDialog!!.findViewById<TextView>(R.id.textView15).setOnClickListener {
+    act.mDialog!!.findViewById<TextView>(R.id.yes).setOnClickListener {
         act.DaiLogDismiss()
         act.getSharedPreferences("Setting", Context.MODE_PRIVATE).edit().clear().commit()
         act.getSharedPreferences("Favorite", Context.MODE_PRIVATE).edit().clear().commit()

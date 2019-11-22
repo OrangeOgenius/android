@@ -1,10 +1,9 @@
 package com.orange.tpms.bean;
 
+import bean.mmy.MMyBean;
 import com.de.rocket.bean.RoBean;
 
 import java.util.List;
-
-import bean.mmy.MMyBean;
 
 /**
  * IDCopy携带的数据

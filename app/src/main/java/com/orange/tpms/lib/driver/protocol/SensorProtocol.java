@@ -1,7 +1,5 @@
 package com.orange.tpms.lib.driver.protocol;
 
-import android.util.Log;
-
 import com.orange.tpms.lib.utils.StringUtils;
 
 /**

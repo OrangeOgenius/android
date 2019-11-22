@@ -6,14 +6,12 @@ import android.graphics.Color
 import android.graphics.PorterDuff
 import android.media.AudioManager
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
 import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.R
-import com.orange.tpms.widget.TitleWidget
 import kotlinx.android.synthetic.main.fragment_frag__sounds.view.*
 
 class Frag_Sounds : RootFragement() {

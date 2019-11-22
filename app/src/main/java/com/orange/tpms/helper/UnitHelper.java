@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import com.orange.tpms.R;
 import com.orange.tpms.lib.db.share.SettingShare;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

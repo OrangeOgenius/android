@@ -2,7 +2,6 @@ package com.orange.tpms.ue.kt_frag
 
 
 import android.Manifest
-import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -17,17 +16,17 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.ArrayAdapter
+import android.widget.EditText
+import android.widget.Spinner
 import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.R
 import com.orange.tpms.helper.WifiConnectHelper
-import com.orange.tpms.ue.frag.Frag_login
 import com.orange.tpms.ue.receiver.WifiConnectReceiver
 import com.orange.tpms.utils.OggUtils
 import com.orange.tpms.widget.LoadingWidget
 import kotlinx.android.synthetic.main.frag_wifi.view.*
-import org.angmarch.views.NiceSpinner
-import java.util.ArrayList
+import java.util.*
 
 
 /**

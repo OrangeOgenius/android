@@ -1,8 +1,6 @@
 package com.orange.tpms.adapter
 
-import android.app.Activity
 import android.content.Context
-import android.support.v4.app.FragmentManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,7 +12,7 @@ import com.orange.blelibrary.blelibrary.BleActivity
 import com.orange.tpms.R
 import com.orange.tpms.bean.PublicBean
 import com.orange.tpms.ue.kt_frag.*
-import java.util.ArrayList
+import java.util.*
 
 class FavAdapter(private val name: ArrayList<String>, val act: BleActivity,val go:Boolean)
     : RecyclerView.Adapter<FavAdapter.ViewHolder>() {
@@ -50,6 +48,12 @@ class FavAdapter(private val name: ArrayList<String>, val act: BleActivity,val g
                     }
                     PublicBean.PAD_COPY->{
                         act.ChangePage(Frag_Pad_Keyin(), R.id.frage,"Frag_Pad_Keyin",true);
+                    }
+                    PublicBean.ID_COPY_OBD->{
+                        act.ChangePage(Frag_Obd_Copy_Detail(), R.id.frage,"Frag_Obd_Copy_Detail",true);
+                    }
+                    PublicBean.OBD_RELEARM->{
+                        act.ChangePage(Frag_Obd_Copy_Detail(), R.id.frage,"Frag_Obd_Copy_Detail",true);
                     }
                 }
             }}else{

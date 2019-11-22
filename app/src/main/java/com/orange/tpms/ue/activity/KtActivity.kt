@@ -2,8 +2,6 @@ package com.orange.tpms.ue.activity
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.hardware.usb.UsbDevice.getDeviceId
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.util.Log
@@ -12,24 +10,22 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
-import com.de.rocket.Rocket
 import com.orange.blelibrary.blelibrary.BleActivity
 import com.orange.blelibrary.blelibrary.RootFragement
-import com.orange.tpms.Callback.Register_C
 import com.orange.tpms.Callback.Scan_C
 import com.orange.tpms.HttpCommand.Fuction
-import com.orange.tpms.HttpCommand.Fuction.AddIfNotValid
 import com.orange.tpms.R
 import com.orange.tpms.bean.PublicBean
 import com.orange.tpms.lib.db.share.SettingShare
-import com.orange.tpms.lib.hardware.HardwareApp
 import com.orange.tpms.mmySql.ItemDAO
-import com.orange.tpms.ue.frag.Frag_base
 import com.orange.tpms.ue.kt_frag.kt_splash
-import com.orange.tpms.utils.Command
-import com.orange.tpms.utils.Command.StringHexToByte
+import com.orange.tpms.utils.OgCommand
+import com.orange.tpms.utils.OgCommand.StringHexToByte
+import com.orange.tpms.utils.FileDowload.DownMuc
+import com.orange.tpms.utils.FileDowload.Downloadapk
+import com.orange.tpms.utils.HttpDownloader
 import com.orange.tpms.utils.RxCommand
-import kotlinx.android.synthetic.main.fragment_add_favorite.view.*
+import java.io.File
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.concurrent.schedule
@@ -38,6 +34,7 @@ class KtActivity : BleActivity(), Scan_C{
     override fun GetScan(a: String?) {
         if(Fraging != null){ (Fraging as RootFragement).ScanContent(a!!)}
     }
+    var donload= HttpDownloader()
     var BleCommand=com.orange.tpms.utils.BleCommand()
     lateinit var xml:ArrayList<String>
     lateinit var itemDAO: ItemDAO
@@ -53,7 +50,7 @@ if(supportFragmentManager.backStackEntryCount!=0){
     back.visibility=View.VISIBLE
     back.setOnClickListener { GoBack() }
 }else{back.visibility=View.GONE}
-        Command.NowTag="${Fragnumber++}"
+        OgCommand.NowTag="${Fragnumber++}"
         if(Fragnumber>100){Fragnumber=0}
         when(tag){
             "Frag_home"->{tit.text=resources.getString(R.string.app_o_genius)}
@@ -72,6 +69,9 @@ if(supportFragmentManager.backStackEntryCount!=0){
     lateinit var tit:TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val file =  File("/sdcard/update/");
+        while (!file.exists()) {
+            file.mkdirs()}
         xml=ArrayList()
         setContentView(R.layout.activity_kt)
         tit=findViewById(R.id.textView12)
@@ -91,12 +91,14 @@ if(supportFragmentManager.backStackEntryCount!=0){
         BleCommand.act=this
 //        ShowDaiLog(R.layout.dataloading,false,false)
 
-        uploadtimer.schedule(0,1000*60){
+        uploadtimer.schedule(0,1000*600){
             GetXml()
             DataUpload()
+            DownMuc(this@KtActivity)
+            Downloadapk(this@KtActivity)
         }
         PublicBean.OG_SerialNum=SettingShare.getDeviceId(this)
-
+//        Log.e("version",""+PackageUtils.getVersionCode(this))
     }
     override fun LoadingUI(a: String, pass: Int) {
 ShowDaiLog(R.layout.dataloading,false,false)
@@ -121,6 +123,7 @@ ShowDaiLog(R.layout.dataloading,false,false)
     }
     override fun onDestroy() {
         super.onDestroy()
+        timer.cancel()
     }
     override fun onResume(){
         super.onResume()
@@ -161,11 +164,13 @@ fun ShowTitleBar(boolean: Boolean){
         }
     }
     fun DataUpload(){
-        for(i in 0 until xml.size){
-            if(Fuction._req(Fuction.wsdl,xml[i],Fuction.timeout).status!=-1){
-                xml.removeAt(i)
+        val tmp=ArrayList<String>()
+            for(i in 0 until xml.size){
+                if(Fuction._req(Fuction.wsdl,xml[i],Fuction.timeout).status==-1){
+                    tmp.add(xml[i])
+                }
             }
-        }
-        SetXml()
+        xml=tmp
+            SetXml()
     }
 }

@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.R
-import com.orange.blelibrary.blelibrary.tool.LanguageUtil
 import kotlinx.android.synthetic.main.frag_language.view.*
 
 

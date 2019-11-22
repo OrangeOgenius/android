@@ -2,7 +2,6 @@ package com.orange.tpms.ue.kt_frag
 
 
 import android.os.Bundle
-import android.provider.DocumentsContract
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView

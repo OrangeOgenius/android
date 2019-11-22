@@ -3,7 +3,6 @@ package com.orange.tpms.ue.kt_frag
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.Gravity
@@ -13,9 +12,8 @@ import android.view.ViewGroup
 import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.R
 import com.orange.tpms.adapter.FavAdapter
-import com.orange.tpms.ue.activity.KtActivity
 import kotlinx.android.synthetic.main.fragment_my_favorite.view.*
-import java.util.ArrayList
+import java.util.*
 
 
 class Frag_Favorite : RootFragement() {

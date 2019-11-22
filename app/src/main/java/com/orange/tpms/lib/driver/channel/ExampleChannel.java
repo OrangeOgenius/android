@@ -1,13 +1,8 @@
 package com.orange.tpms.lib.driver.channel;
 
 import android.util.Log;
-
-import com.orange.tpms.lib.api.SensorHandler;
 import com.orange.tpms.lib.driver.protocol.SensorProtocol;
-import com.orange.tpms.lib.hardware.HardwareApp;
 import com.orange.tpms.lib.utils.StringUtils;
-
-import java.util.ArrayList;
 
 /**
  * 根据不同的命令码模拟一些硬件响应到前端

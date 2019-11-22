@@ -6,6 +6,7 @@ package com.orange.tpms.lib.db;
  * 				1、异步执行,通过getData返回,以对象重写的方式执行
  * 				2、同步执行,直接返回,以类静态函数的形式执行
  */
+
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -14,12 +15,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-
 import com.orange.tpms.lib.db.core.BasicNameValuePair;
 import com.orange.tpms.lib.db.core.ModelFunc;
 import com.orange.tpms.lib.db.core.MyDBHelper;
 import com.orange.tpms.lib.db.core.Objectable;
-
 import org.json.JSONException;
 
 import java.util.ArrayList;

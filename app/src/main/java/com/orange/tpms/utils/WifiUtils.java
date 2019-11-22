@@ -5,9 +5,8 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
-import java.util.List;
 
-import static android.content.Context.WIFI_SERVICE;
+import java.util.List;
 
 /**
  * Wifi连接的相关类

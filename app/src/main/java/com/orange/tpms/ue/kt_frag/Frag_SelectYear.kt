@@ -8,13 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.orange.blelibrary.blelibrary.RootFragement
-
 import com.orange.tpms.R
+import com.orange.tpms.adapter.ShowYear
 import com.orange.tpms.bean.PublicBean
 import com.orange.tpms.ue.activity.KtActivity
-import com.orange.tpms.adapter.ShowYear
 import kotlinx.android.synthetic.main.frag_car_year.view.*
-import java.util.ArrayList
+import java.util.*
 
 /**
  * A simple [Fragment] subclass.

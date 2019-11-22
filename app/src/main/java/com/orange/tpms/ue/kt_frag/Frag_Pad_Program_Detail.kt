@@ -2,10 +2,6 @@ package com.orange.tpms.ue.kt_frag
 
 
 import android.os.Bundle
-import android.os.Handler
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentTransaction
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -17,9 +13,7 @@ import com.orange.tpms.HttpCommand.SensorRecord
 import com.orange.tpms.R
 import com.orange.tpms.bean.PublicBean
 import com.orange.tpms.ue.activity.KtActivity
-import com.orange.tpms.utils.BleCommand
 import kotlinx.android.synthetic.main.fragment_frag__pad__program__detail.view.*
-import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 

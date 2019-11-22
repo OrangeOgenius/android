@@ -11,26 +11,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
 import android.widget.TextView
-import com.de.rocket.Rocket
 import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.R
 import com.orange.tpms.adapter.IDCopyAdapter
 import com.orange.tpms.bean.IDCopyBean
 import com.orange.tpms.bean.MMYQrCodeBean
 import com.orange.tpms.bean.PublicBean
-import com.orange.tpms.bean.SensorQrCodeBean
-import com.orange.tpms.helper.CopyIDHelper
 import com.orange.tpms.lib.hardware.HardwareApp
 import com.orange.tpms.ue.activity.KtActivity
-import com.orange.tpms.ue.frag.Frag_id_copy_new
-import com.orange.tpms.utils.Command
+import com.orange.tpms.utils.OgCommand
 import com.orange.tpms.utils.VibMediaUtil
 import com.orange.tpms.widget.LoadingWidget
-import com.orange.tpms.widget.SensorWayWidget
-import com.orange.tpms.widget.TitleWidget
 import kotlinx.android.synthetic.main.fragment_frag__idcopy_original.view.*
-import java.util.ArrayList
-import java.util.HashSet
+import java.util.*
 
 
 /**
@@ -45,7 +38,6 @@ class Frag_Idcopy_original : RootFragement() {
     var idcount=0
     lateinit var idCopyAdapter: IDCopyAdapter//适配器
     lateinit var linearLayoutManager: LinearLayoutManager//列表表格布局
-    lateinit var copyIDHelper: CopyIDHelper
     lateinit var dataReceiver: HardwareApp.DataReceiver
     lateinit var vibMediaUtil: VibMediaUtil//音效与振动
     override fun onCreateView(
@@ -65,8 +57,10 @@ class Frag_Idcopy_original : RootFragement() {
             vibMediaUtil.playVibrate()
             if (checkHasSensor()) {
                 if (!haveSameSensorid()) {
-                    HardwareApp.getInstance().switchScan(false)
-                    HardwareApp.getInstance().removeDataReceiver(dataReceiver)
+                    try{
+                        HardwareApp.getInstance().switchScan(false)
+                        HardwareApp.getInstance().removeDataReceiver(dataReceiver)
+                    }catch (e:Exception){e.printStackTrace()}
                     PublicBean.SensorList = getSensoridList()
                     act.ChangePage(Frag_Idcopy_New(),R.id.frage,"Frag_Idcopy_New",true)
                 } else {
@@ -119,7 +113,7 @@ class Frag_Idcopy_original : RootFragement() {
         run=true
         lwLoading.show(getResources().getString(R.string.app_data_reading))
         Thread{
-            val a = Command.GetId(ObdHex, "00")
+            val a = OgCommand.GetId(ObdHex, "00")
             handler.post {
                 run = false
                 if(!act.NowFrage.equals("Frag_Idcopy_original")){return@post}

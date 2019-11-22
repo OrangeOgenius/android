@@ -10,7 +10,7 @@ import android.widget.ArrayAdapter
 import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.R
 import kotlinx.android.synthetic.main.fragment_frag__auto__lock.view.*
-import java.util.ArrayList
+import java.util.*
 
 
 class Frag_Auto_Lock : RootFragement() {

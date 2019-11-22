@@ -2,7 +2,6 @@ package com.orange.tpms.ue.kt_frag
 
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
@@ -13,32 +12,22 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.RelativeLayout
 import bean.hardware.SensorDataBean
-import com.de.rocket.Rocket
 import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.Callback.Program_C
 import com.orange.tpms.HttpCommand.Fuction
 import com.orange.tpms.HttpCommand.SensorRecord
-
 import com.orange.tpms.R
 import com.orange.tpms.adapter.ProgramAdapter
 import com.orange.tpms.bean.MMYQrCodeBean
 import com.orange.tpms.bean.ProgramItemBean
 import com.orange.tpms.bean.PublicBean
-import com.orange.tpms.bean.SensorQrCodeBean
-import com.orange.tpms.helper.ProgramSensorHelper
 import com.orange.tpms.lib.hardware.HardwareApp
 import com.orange.tpms.ue.activity.KtActivity
-import com.orange.tpms.ue.activity.MainActivity
-import com.orange.tpms.ue.frag.Frag_program_detail
-import com.orange.tpms.utils.Command
-import com.orange.tpms.utils.Command.Program
-import com.orange.tpms.utils.Command.ProgramFirst
-import com.orange.tpms.utils.NumberUtil
+import com.orange.tpms.utils.OgCommand
+import com.orange.tpms.utils.OgCommand.Program
 import com.orange.tpms.utils.VibMediaUtil
 import com.orange.tpms.widget.LoadingWidget
 import com.orange.tpms.widget.ScanWidget
-import com.orange.tpms.widget.SensorWayWidget
-import com.orange.tpms.widget.TitleWidget
 import kotlinx.android.synthetic.main.fragment_frag__program__detail.view.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -59,7 +48,7 @@ class Frag_Program_Detail : RootFragement(),Program_C{
         endtime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
         if(boolean){
             Log.e("DATA:", "燒錄成功")
-            val result = Command.GetPrId(ObdHex, "00")
+            val result = OgCommand.GetPrId(ObdHex, "00")
             if(!act.NowFrage.equals("Frag_Program_Detail")){return}
                 handler.post {
                     AllFall()
@@ -80,7 +69,6 @@ class Frag_Program_Detail : RootFragement(),Program_C{
 
         }
     }
-    lateinit var programSensorHelper: ProgramSensorHelper
     lateinit var vibMediaUtil: VibMediaUtil
     lateinit var programAdapter: ProgramAdapter
     lateinit var rvProgram: RecyclerView
@@ -257,7 +245,7 @@ fun Program(){
             scwTips.hide()
         }
         Thread{
-            val a = Command.GetId(ObdHex, "00")
+            val a = OgCommand.GetId(ObdHex, "00")
             handler.post {
                 run = false
                 if(!act.NowFrage.equals("Frag_Program_Detail")){return@post}
@@ -275,21 +263,7 @@ fun Program(){
             }
         }.start()
     }
-    /**
-     * 烧录
-     */
-    private fun program() {
-        vibMediaUtil.playVibrate()
-        if (checkSelectFinish()) {
-            if (!haveSameSensorid()) {
-            programSensorHelper.writeSensor(PublicBean.ProgramNumber,ObdHex,(activity as KtActivity).itemDAO.getMMY(PublicBean.SelectMake,PublicBean.SelectModel,PublicBean.SelectYear));
-            } else {
-                act.Toast(R.string.app_duplicate_items)
-            }
-        } else {
-            act.Toast(R.string.app_fillin_all_sensor_id)
-        }
-    }
+
     /**
      * 检测是否有重复的
      */

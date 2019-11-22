@@ -1,7 +1,8 @@
 package com.orange.tpms.ue.kt_frag
 
 
-import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.util.Log
@@ -12,11 +13,11 @@ import android.widget.TextView
 import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.Callback.Update_C
 import com.orange.tpms.R
-import com.orange.tpms.helper.WifiConnectHelper
-import com.orange.tpms.utils.Command
+import com.orange.tpms.utils.OgCommand
 import com.orange.tpms.utils.FileDowload
+import com.orange.tpms.utils.PackageUtils
 import kotlinx.android.synthetic.main.fragment_frag__update.view.*
-import java.lang.Exception
+import java.io.File
 
 /**
  * A simple [Fragment] subclass.
@@ -33,27 +34,43 @@ class Frag_Update : RootFragement(), Update_C {
             }
         }catch (e: Exception){e.printStackTrace()}  }
     }
-
+    fun CheckApk(){
+        val version= PackageUtils.getVersionCode(act)
+        Log.e("Version_APP",GetPro("apk", ""+ PackageUtils.getVersionCode(act)).replace(".apk",""))
+        Log.e("Version_APP",""+version)
+        if(GetPro("apk", "$version").replace(".apk","")!="$version"){
+            handler.post {
+                try{
+                    val intent =  Intent(Intent.ACTION_VIEW);
+                    intent.setDataAndType(Uri.fromFile(File("/sdcard/update/update.apk")), "application/vnd.android.package-archive");//image/*
+                    startActivity(intent);//此处可能会产生异常（比如说你的MIME类型是打开视频，但是你手机里面没装视频播放器，就会报错）
+                }catch (e:Exception){e.printStackTrace()}
+            }
+        }
+    }
     override fun Finish(a: Boolean) {
         run=false
         handler.post {
-            act.DaiLogDismiss()
             if(a){
-                act.Toast(resources.getString(R.string.update_success))
-                    var internetversion=  GetPro("mcu","no").replace(".x2","")
+                    var internetversion= GetPro("mcu","no").replace(".x2","")
                     var localversion=GetPro("Version","no")
                     Log.e("version_internet",internetversion)
                     Log.e("version_local",localversion)
                     if(internetversion!="no"&&internetversion!=localversion){
                         Thread{
-                            Command.reboot()
+                            OgCommand.reboot()
                             handler.post {
+                                act.DaiLogDismiss()
                                 val intent2 = context!!.getPackageManager().getLaunchIntentForPackage(context!!.getPackageName())
                                 context!!.startActivity(intent2)
                             }
                         }.start()
-                    }
+                    }else{
+                        CheckApk()
+                        act.DaiLogDismiss()
+                        act.Toast(resources.getString(R.string.update_success))}
             }else{
+                act.DaiLogDismiss()
                 act.Toast(resources.getString(R.string.updatefault))
             }
         }

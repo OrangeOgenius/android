@@ -1,7 +1,6 @@
 package com.orange.tpms.bean;
 
 import android.text.TextUtils;
-
 import com.de.rocket.bean.RoBean;
 
 public class SensorQrCodeBean extends RoBean {

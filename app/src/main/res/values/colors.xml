@@ -17,6 +17,7 @@
     <color name="color_bg">@color/color_white</color>
     <color name="color_yt">#005bac</color>
     <color name="color_loading_bg">#ea5404</color>
+    <color name="green">#117110</color>
     <!--其他颜色-->
     <color name="color_FFFCFCFC">#fffcfcfc</color>
     <color name="color_FF2F81DA">#FF2F81DA</color>

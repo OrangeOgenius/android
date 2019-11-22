@@ -5,10 +5,7 @@ import android.util.Log;
 import com.de.rocket.app.RoApplication;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.orange.tpms.lib.hardware.HardwareApp;
-import com.orange.tpms.lib.test.MTest;
 import com.orange.tpms.ue.activity.KtActivity;
-import com.orange.tpms.utils.Command;
-import com.orange.tpms.utils.CrashHandler;
 
 /**
  * 进程唯一的Application

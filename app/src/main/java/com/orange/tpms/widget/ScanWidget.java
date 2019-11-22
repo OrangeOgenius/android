@@ -3,7 +3,6 @@ package com.orange.tpms.widget;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
-
 import com.de.rocket.Rocket;
 import com.de.rocket.ue.injector.BindView;
 import com.de.rocket.ue.layout.PercentLinearLayout;

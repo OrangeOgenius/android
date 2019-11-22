@@ -1,28 +1,15 @@
 package com.orango.electronic.orangetxusb.Adapter
 
-import android.os.Bundle
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentTransaction
-
 import android.support.v7.widget.RecyclerView
-
 import android.view.LayoutInflater
-
 import android.view.View
-
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import com.orange.blelibrary.blelibrary.BleActivity
 import com.orange.tpms.R
 import com.orange.tpms.bean.PublicBean
-import com.orange.tpms.ue.activity.KtActivity
-import com.orange.tpms.ue.activity.MainActivity
-import com.orange.tpms.ue.frag.Frag_base
-import com.orange.tpms.ue.frag.Frag_car_model
-import com.orange.tpms.ue.frag.Frag_car_year
 import com.orange.tpms.ue.kt_frag.Frag_SelectYear
-import java.util.ArrayList
+import java.util.*
 
 
 class ShowModel(private val models: ArrayList<String>,private val navigationActivity:BleActivity)

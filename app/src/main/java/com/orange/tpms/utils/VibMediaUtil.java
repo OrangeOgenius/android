@@ -8,17 +8,16 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
-import android.util.Log;
-
 import com.orange.tpms.R;
 
 import java.io.IOException;
+
+import static android.os.VibrationEffect.DEFAULT_AMPLITUDE;
 
 /**
  * 媒体与音效,不做单例，因为持有activity的应用会造成内存泄漏
  * Created by haide.yin() on 2019/2/25 10:20.
  */
-import static android.os.VibrationEffect.DEFAULT_AMPLITUDE;
 
 public class VibMediaUtil {
 

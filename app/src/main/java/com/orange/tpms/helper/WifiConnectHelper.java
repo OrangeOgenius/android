@@ -4,7 +4,6 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.ScanResult;
-
 import com.orange.tpms.ue.receiver.WifiConnectReceiver;
 import com.orange.tpms.utils.WifiUtils;
 

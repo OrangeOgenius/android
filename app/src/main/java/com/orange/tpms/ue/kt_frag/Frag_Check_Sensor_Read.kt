@@ -2,20 +2,15 @@ package com.orange.tpms.ue.kt_frag
 
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import com.orange.blelibrary.blelibrary.RootFragement
-
 import com.orange.tpms.R
 import com.orange.tpms.bean.PublicBean
-import com.orange.tpms.helper.ReadSensorHelper
 import com.orange.tpms.ue.activity.KtActivity
-import com.orange.tpms.ue.frag.Frag_home
-import com.orange.tpms.utils.Command
+import com.orange.tpms.utils.OgCommand
 import com.orange.tpms.utils.VibMediaUtil
 import com.orange.tpms.widget.LoadingWidget
 import kotlinx.android.synthetic.main.fragment_frag__check__sensor__read.view.*
@@ -57,7 +52,7 @@ class Frag_Check_Sensor_Read : RootFragement() {
         rootview.scw_tips.visibility=View.GONE
         lwLoading.show(resources.getString(R.string.app_data_reading))
         Thread {
-            val a = Command.GetId(ObdHex, "00")
+            val a = OgCommand.GetId(ObdHex, "00")
             handler.post {
                 run = false
                 if(!act.NowFrage.equals("Frag_Check_Sensor_Read")){return@post}

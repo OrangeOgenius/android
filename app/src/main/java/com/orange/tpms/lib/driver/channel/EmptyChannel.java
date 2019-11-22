@@ -1,7 +1,5 @@
 package com.orange.tpms.lib.driver.channel;
 
-import com.orange.tpms.lib.hardware.HardwareApp;
-
 /**
  * 空通道
  */

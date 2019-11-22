@@ -1,11 +1,10 @@
 package com.orange.tpms.utils;
 
-import com.orange.blelibrary.blelibrary.BleActivity;
 import com.orange.tpms.ue.activity.KtActivity;
 
 import java.util.ArrayList;
 
-import static com.orange.tpms.utils.Command.bytesToHex;
+import static com.orange.tpms.utils.OgCommand.bytesToHex;
 
 public class RxCommand {
 //    public static String GetText(byte data[]){

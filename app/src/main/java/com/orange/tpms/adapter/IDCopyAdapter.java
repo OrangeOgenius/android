@@ -9,12 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.de.rocket.Rocket;
 import com.de.rocket.ue.injector.BindView;
 import com.orange.tpms.R;
 import com.orange.tpms.bean.IDCopyBean;
-import com.orange.tpms.utils.CustomTextWatcherForpad;
 import com.orange.tpms.utils.KeyboardUtil;
 import com.orange.tpms.utils.NumberUtil;
 import com.orange.tpms.widget.ClearEditText;

@@ -8,18 +8,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.de.rocket.Rocket
 import com.orange.blelibrary.blelibrary.RootFragement
-
 import com.orange.tpms.R
-import com.orange.tpms.bean.MMYQrCodeBean
 import com.orange.tpms.bean.PublicBean
 import com.orange.tpms.lib.hardware.HardwareApp
 import com.orange.tpms.ue.activity.KtActivity
-import com.orange.tpms.ue.frag.Frag_scan_info
 import com.orange.tpms.widget.LoadingWidget
 import kotlinx.android.synthetic.main.fragment_frag__scan.view.*
-import java.lang.Exception
 
 
 /**

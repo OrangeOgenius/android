@@ -10,7 +10,6 @@ import android.widget.Button
 import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.R
 import com.orange.tpms.ue.kt_frag.Frag_Wifi
-import com.orange.tpms.ue.kt_frag.Sign_in
 
 
 // TODO: Rename parameter arguments, choose names that match

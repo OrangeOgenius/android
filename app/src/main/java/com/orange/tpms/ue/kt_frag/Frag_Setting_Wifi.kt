@@ -29,8 +29,7 @@ import com.orange.tpms.helper.WifiConnectHelper
 import com.orange.tpms.ue.receiver.WifiConnectReceiver
 import com.orange.tpms.widget.EditDialogWidget
 import com.orange.tpms.widget.LoadingWidget
-import com.orange.tpms.widget.TitleWidget
-import java.util.ArrayList
+import java.util.*
 
 
 /**
@@ -73,6 +72,7 @@ class Frag_Setting_Wifi : RootFragement() {
             initHelper()
         }
         checkPermissions()
+        super.onCreateView(inflater, container, savedInstanceState)
         return rootview
     }
 

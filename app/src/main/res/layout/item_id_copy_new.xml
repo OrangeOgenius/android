@@ -1,75 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.de.rocket.ue.layout.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:gravity="center"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+                                               xmlns:tools="http://schemas.android.com/tools"
+                                               xmlns:app="http://schemas.android.com/apk/res-auto"
+                                               android:layout_width="match_parent"
+                                               android:layout_height="wrap_content"
+                                               android:gravity="center"
+>
 
     <com.de.rocket.ue.layout.PercentRelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/color_white"
-        app:layout_heightPercent="6%sh"
-        app:layout_widthPercent="80%w"
-        tools:layout_heightPercent="5%h">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/color_white"
+            app:layout_heightPercent="7.5%sh"
+            app:layout_widthPercent="90%w"
+            tools:layout_heightPercent="5%h">
 
         <TextView
-            android:id="@+id/tv_position"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textColor="@color/color_black"
-            android:gravity="center"
-            app:layout_widthPercent="100%h"/>
+                android:id="@+id/tv_position"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@color/color_black"
+                android:gravity="center"
+                app:layout_widthPercent="100%h" android:background="@color/gray"/>
 
         <com.de.rocket.ue.layout.PercentRelativeLayout
-            android:id="@+id/rv_check"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:gravity="center"
-            app:layout_widthPercent="180%h">
-
-            <ImageView
-                android:id="@+id/iv_check"
-                android:src="@drawable/iv_square_selecter"
+                android:id="@+id/rv_check"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                app:layout_heightPercent="70%h"
-                app:layout_widthPercent="70%h"/>
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:gravity="center"
+                app:layout_widthPercent="180%h">
 
             <TextView
-                android:id="@+id/tv_check"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:textColor="@color/color_black"/>
+                    android:id="@+id/tv_check"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:textColor="@color/color_black"/>
+            <ImageView
+                    android:id="@+id/iv_check"
+                    android:src="@drawable/iv_square_selecter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    app:layout_heightPercent="70%h"
+                    app:layout_widthPercent="70%h"/>
 
 
         </com.de.rocket.ue.layout.PercentRelativeLayout>
 
         <com.de.rocket.ue.layout.PercentLinearLayout
-            android:id="@+id/ll_id"
-            android:layout_toStartOf="@+id/rv_check"
-            android:layout_toEndOf="@+id/tv_position"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:gravity="center">
+                android:id="@+id/ll_id"
+                android:layout_toStartOf="@+id/rv_check"
+                android:layout_toEndOf="@+id/tv_position"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center">
 
             <TextView
-                android:id="@+id/tv_originalid"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:textColor="@color/color_black"
-                android:layout_weight="1"
-                android:gravity="center"/>
+                    android:id="@+id/tv_originalid"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/color_black"
+                    android:layout_weight="1"
+                    android:gravity="center" android:background="@color/gray"/>
 
             <View
-                android:layout_width="0.5dp"
-                android:layout_height="match_parent"
-                android:background="@color/color_black"/>
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/color_black"/>
 
             <TextView
                     android:id="@+id/tv_newid"
@@ -82,52 +82,52 @@
         </com.de.rocket.ue.layout.PercentLinearLayout>
         <!--上边框-->
         <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/color_black"/>
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/color_black"/>
 
         <!--左边框-->
         <View
-            android:layout_width="0.5dp"
-            android:layout_height="match_parent"
-            android:background="@color/color_black"/>
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="@color/color_black"/>
 
         <!--左一边框-->
         <View
-            android:layout_width="0.5dp"
-            android:layout_toEndOf="@+id/tv_position"
-            android:layout_height="match_parent"
-            android:background="@color/color_black"/>
+                android:layout_width="0.5dp"
+                android:layout_toEndOf="@+id/tv_position"
+                android:layout_height="match_parent"
+                android:background="@color/color_black"/>
 
         <!--右一边框-->
         <View
-            android:layout_width="0.5dp"
-            android:layout_toEndOf="@+id/ll_id"
-            android:layout_height="match_parent"
-            android:background="@color/color_black"/>
+                android:layout_width="0.5dp"
+                android:layout_toEndOf="@+id/ll_id"
+                android:layout_height="match_parent"
+                android:background="@color/color_black"/>
 
         <!--右三边框-->
         <View
-            android:layout_width="0.5dp"
-            android:layout_toEndOf="@+id/tv_id"
-            android:layout_height="match_parent"
-            android:background="@color/color_black"/>
+                android:layout_width="0.5dp"
+                android:layout_toEndOf="@+id/tv_id"
+                android:layout_height="match_parent"
+                android:background="@color/color_black"/>
 
         <!--右边框-->
         <View
-            android:layout_width="0.5dp"
-            android:layout_alignParentEnd="true"
-            android:layout_height="match_parent"
-            android:background="@color/color_black"/>
+                android:layout_width="0.5dp"
+                android:layout_alignParentEnd="true"
+                android:layout_height="match_parent"
+                android:background="@color/color_black"/>
 
         <!--下边框-->
         <View
-            android:id="@+id/v_bottom_sep"
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_alignParentBottom="true"
-            android:layout_height="0.5dp"
-            android:background="@color/color_black"/>
+                android:id="@+id/v_bottom_sep"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_alignParentBottom="true"
+                android:layout_height="0.5dp"
+                android:background="@color/color_black"/>
 
     </com.de.rocket.ue.layout.PercentRelativeLayout>
 

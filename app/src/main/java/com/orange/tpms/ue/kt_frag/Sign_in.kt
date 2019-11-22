@@ -6,7 +6,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.TextView
 import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.Callback.Sign_In_C
 import com.orange.tpms.Callback.Update_C
@@ -18,7 +21,6 @@ import com.orange.tpms.ue.activity.KtActivity
 import com.orange.tpms.utils.FileDowload
 import com.orange.tpms.widget.LoadingWidget
 import kotlinx.android.synthetic.main.activity_sign_in.view.*
-import java.lang.Exception
 
 
 class Sign_in : RootFragement(), Update_C,Sign_In_C {

@@ -2,36 +2,26 @@ package com.orange.tpms.ue.kt_frag
 
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentTransaction
 import android.text.InputFilter
-import android.text.InputType
+import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
-import android.widget.Toast
-import com.orange.blelibrary.blelibrary.BleActivity
-import com.orange.blelibrary.blelibrary.RootFragement
-
-import com.orange.tpms.bean.PublicBean
-import com.orange.tpms.ue.activity.KtActivity
-import com.orange.tpms.utils.CustomTextWatcherForpad
-import kotlinx.android.synthetic.main.fragment_frag__pad__keyin.view.*
-import java.lang.Exception
-import android.content.Context.INPUT_METHOD_SERVICE
-import android.support.v4.content.ContextCompat.getSystemService
-import android.text.TextUtils
-import android.util.Log
-import android.widget.EditText
-import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
+import android.widget.Toast
+import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.R
 import com.orange.tpms.bean.MMYQrCodeBean
+import com.orange.tpms.bean.PublicBean
 import com.orange.tpms.lib.hardware.HardwareApp
-import com.orange.tpms.utils.Command
+import com.orange.tpms.ue.activity.KtActivity
+import com.orange.tpms.utils.OgCommand
+import com.orange.tpms.utils.CustomTextWatcherForpad
 import com.orange.tpms.utils.KeyboardUtil.hideEditTextKeyboard
 import com.orange.tpms.utils.VibMediaUtil
+import kotlinx.android.synthetic.main.fragment_frag__pad__keyin.view.*
 
 
 class Frag_Pad_Keyin : RootFragement() {
@@ -180,7 +170,7 @@ super.onCreateView(inflater, container, savedInstanceState)
         act.ShowDaiLog(R.layout.normal_dialog,true,true)
         act.mDialog!!.findViewById<TextView>(R.id.tit).text=resources.getString(R.string.app_scaning)
         Thread{
-            val a = Command.GetId(ObdHex, "00")
+            val a = OgCommand.GetId(ObdHex, "00")
             handler.post {
                 run = false
                 if(!act.NowFrage.equals("Frag_Pad_Keyin")){return@post}

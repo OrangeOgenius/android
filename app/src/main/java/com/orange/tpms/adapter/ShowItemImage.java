@@ -1,22 +1,11 @@
 package com.orange.tpms.adapter;
 
 
-
-import android.app.Activity;
-import android.net.Uri;
-import android.os.Bundle;
 import android.os.Handler;
-
 import android.os.Message;
-
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
-
 import android.view.LayoutInflater;
-
 import android.view.View;
-
 import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -24,10 +13,6 @@ import com.orange.blelibrary.blelibrary.BleActivity;
 import com.orange.tpms.R;
 import com.orange.tpms.bean.PublicBean;
 import com.orange.tpms.mmySql.Item;
-import com.orange.tpms.ue.activity.KtActivity;
-import com.orange.tpms.ue.activity.MainActivity;
-import com.orange.tpms.ue.frag.Frag_base;
-import com.orange.tpms.ue.frag.Frag_car_model;
 import com.orange.tpms.ue.kt_frag.Frag_SelectModle;
 
 import java.util.ArrayList;

@@ -41,7 +41,10 @@
                 <category android:name="android.intent.category.HOME"/>
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
-                <action android:name="com.orange.tpms.ue.activity.MainActivity"/>
+                <!--<action android:name="android.intent.action.MAIN" />-->
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+                <!--<category android:name="android.intent.category.DEFAULT" />-->
+                <!--<action android:name="com.orange.tpms.ue.activity.MainActivity"/>-->
             </intent-filter>
         </activity>
         <!--<receiver android:name=".Brocast.BootBroadcastReceiver">-->

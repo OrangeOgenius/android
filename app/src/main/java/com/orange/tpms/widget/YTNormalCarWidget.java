@@ -5,7 +5,6 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.de.rocket.Rocket;
 import com.de.rocket.ue.injector.BindView;
 import com.de.rocket.ue.layout.PercentRelativeLayout;

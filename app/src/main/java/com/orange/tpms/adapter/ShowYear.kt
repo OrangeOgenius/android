@@ -1,20 +1,16 @@
 package com.orange.tpms.adapter
 
 import android.content.Context
-
 import android.support.v7.widget.RecyclerView
-
 import android.view.LayoutInflater
-
 import android.view.View
-
 import android.view.ViewGroup
 import android.widget.TextView
 import com.orange.blelibrary.blelibrary.BleActivity
 import com.orange.tpms.R
 import com.orange.tpms.bean.PublicBean
 import com.orange.tpms.ue.kt_frag.*
-import java.util.ArrayList
+import java.util.*
 
 
 class ShowYear(private val years: ArrayList<String>, private val navigationActivity: BleActivity)
@@ -48,6 +44,12 @@ class ShowYear(private val years: ArrayList<String>, private val navigationActiv
             }
             PublicBean.PAD_COPY->{
                 navigationActivity.ChangePage(Frag_Pad_Keyin(), R.id.frage,"Frag_Pad_Keyin",true);
+            }
+            PublicBean.ID_COPY_OBD->{
+                navigationActivity.ChangePage(Frag_Obd_Copy_Detail(), R.id.frage,"Frag_Obd_Copy_Detail",true);
+            }
+            PublicBean.OBD_RELEARM->{
+                navigationActivity.ChangePage(Frag_Obd_Copy_Detail(), R.id.frage,"Frag_Obd_Copy_Detail",true);
             }
         }
 

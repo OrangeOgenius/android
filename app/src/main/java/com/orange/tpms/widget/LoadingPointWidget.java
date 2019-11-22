@@ -2,15 +2,9 @@ package com.orange.tpms.widget;
 
 import android.content.Context;
 import android.os.Handler;
-import android.support.annotation.DrawableRes;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.LinearInterpolator;
-import android.view.animation.RotateAnimation;
-import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.de.rocket.Rocket;
 import com.de.rocket.ue.injector.BindView;
 import com.de.rocket.ue.layout.PercentRelativeLayout;

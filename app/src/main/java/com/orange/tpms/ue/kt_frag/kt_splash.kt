@@ -9,17 +9,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.orange.blelibrary.blelibrary.BleActivity
 import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.Callback.Hanshake_C
 import com.orange.tpms.Callback.Update_C
 import com.orange.tpms.Callback.Version_C
 import com.orange.tpms.R
-import com.orange.tpms.lib.hardware.HardwareApp
 import com.orange.tpms.ue.activity.KtActivity
-import com.orange.tpms.utils.Command
+import com.orange.tpms.utils.OgCommand
 import com.orango.electronic.orangetxusb.SettingPagr.Set_Languages
-import java.lang.Exception
 import java.lang.Thread.sleep
 
 
@@ -34,7 +31,7 @@ class kt_splash : RootFragement(),Hanshake_C, Update_C, Version_C {
             Log.e("版本號",a)
             ListenFinish()
         }else{
-            Command.HandShake(this)
+            OgCommand.HandShake(this)
         }
     }
 
@@ -56,7 +53,8 @@ class kt_splash : RootFragement(),Hanshake_C, Update_C, Version_C {
                 ListenFinish()
             }
         }else{
-            Command.HandShake(this)
+            OgCommand.HandShake(this)
+            OgCommand.GetHard()
         }
 
     }
@@ -65,9 +63,12 @@ class kt_splash : RootFragement(),Hanshake_C, Update_C, Version_C {
         when(position){
             1->{
                 handler.post { act.ShowDaiLog(R.layout.update_dialog,false,false)  }
-                Command.WriteBootloader(act,132,"",this)}
-            -1->{Command.HandShake(this)}
-            2->{Command.GetVerion(this)}
+                OgCommand.WriteBootloader(act,132,"",this)}
+            -1->{
+                OgCommand.HandShake(this)
+                }
+            2->{
+                OgCommand.GetVerion(this)}
         }
     }
 
@@ -77,7 +78,7 @@ class kt_splash : RootFragement(),Hanshake_C, Update_C, Version_C {
     ): View? {
         rootview=inflater.inflate(R.layout.frag_splash, container, false)
         super.onCreateView(inflater, container, savedInstanceState)
-        Thread{Command.HandShake(this)}.start()
+        Thread{ OgCommand.HandShake(this)}.start()
         return rootview
     }
     fun ListenFinish(){

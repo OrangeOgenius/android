@@ -11,12 +11,11 @@
         <TextView
                 android:text="@string/app_bluetooth"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:id="@+id/textView16"
-                android:gravity="center" android:layout_marginTop="10dp" android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp" android:layout_marginBottom="10dp"
-                android:textColor="@android:color/background_light" android:textSize="36sp"
+                android:layout_height="match_parent" android:id="@+id/tit"
+                android:gravity="center"
+                android:textColor="@android:color/background_light" android:textSize="24sp"
                 android:layout_centerInParent="true"
-                android:translationY="-40dp"/>
+                android:layout_above="@id/re" android:layout_margin="5dp"/>
         <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="1dp" app:srcCompat="@android:color/darker_gray"
@@ -24,13 +23,13 @@
         <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="80dp" android:layout_alignParentBottom="true" android:id="@+id/re">
+                android:layout_height="60dp" android:layout_alignParentBottom="true" android:id="@+id/re">
             <TextView
                     android:text="@string/app_blue_bud_close"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" android:id="@+id/textView14" android:layout_weight="1"
+                    android:layout_height="match_parent" android:id="@+id/no" android:layout_weight="1"
                     android:gravity="center" android:textColor="@android:color/background_light"
-                    android:onClick="onclick" android:textSize="30sp"/>
+                    android:onClick="onclick" android:textSize="24sp"/>
             <ImageView
                     android:layout_width="1dp"
                     android:layout_height="match_parent" app:srcCompat="@android:color/darker_gray"
@@ -38,9 +37,9 @@
             <TextView
                     android:text="@string/app_blue_bud_open"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" android:id="@+id/textView15" android:layout_weight="1"
+                    android:layout_height="match_parent" android:id="@+id/yes" android:layout_weight="1"
                     android:gravity="center" android:onClick="onclick"
-                    android:textColor="@android:color/background_light" android:textSize="30sp"/>
+                    android:textColor="@android:color/background_light" android:textSize="24sp"/>
         </LinearLayout>
     </RelativeLayout>
 </RelativeLayout>

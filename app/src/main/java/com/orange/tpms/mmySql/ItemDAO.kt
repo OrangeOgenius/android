@@ -4,26 +4,15 @@ import android.app.Activity
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
-import android.os.Bundle
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentTransaction
 import android.util.Log
 import com.orange.blelibrary.blelibrary.BleActivity
-import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.R
 import com.orange.tpms.bean.PublicBean
-import com.orange.tpms.mmySql.Item
-import com.orange.tpms.ue.activity.KtActivity
-import com.orange.tpms.ue.frag.Frag_base
-import com.orange.tpms.ue.frag.Frag_check_sensor_information
-import com.orange.tpms.ue.frag.Frag_id_copy_original
-import com.orange.tpms.ue.frag.Frag_program_number_choice
 import com.orange.tpms.ue.kt_frag.*
 import com.orange.tpms.utils.FileDowload
-import java.lang.Exception
-import java.util.ArrayList
+import java.util.*
 
-class ItemDAO(context: Context) {
+class ItemDAO(context: Activity) {
     companion object {
         val TAG = "ItemDAO"
         // 編號表格欄位名稱，固定不變
@@ -42,10 +31,17 @@ class ItemDAO(context: Context) {
 
     init {
         dbHelper.createDataBase()
-        if(dbHelper.checkDataBase())
+        if(dbHelper.checkDataBase()){
             Log.d(TAG, "checkDataBase: true")
             dbHelper.openDataBase()
-            db = dbHelper.db
+            db = dbHelper.db}else{
+            Log.d(TAG, "checkDataBase: false")
+            context.getSharedPreferences("Setting", Context.MODE_PRIVATE).edit().clear().commit()
+            context.getSharedPreferences("Favorite", Context.MODE_PRIVATE).edit().clear().commit()
+            context.finish()
+            val intent2 = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName())
+            context.startActivity(intent2)
+        }
     }
 
 
@@ -128,6 +124,12 @@ fun GoOk(code:String,navigationActivity: BleActivity){
                 }
                 PublicBean.PAD_COPY->{
                     navigationActivity.ChangePage(Frag_Pad_Keyin(), R.id.frage,"Frag_Pad_Keyin",true);
+                }
+                PublicBean.ID_COPY_OBD->{
+                    navigationActivity.ChangePage(Frag_Obd_Copy_Detail(), R.id.frage,"Frag_Obd_Copy_Detail",true);
+                }
+                PublicBean.OBD_RELEARM->{
+                    navigationActivity.ChangePage(Frag_Obd_Copy_Detail(), R.id.frage,"Frag_Obd_Copy_Detail",true);
                 }
             }
         }while (result.moveToNext())

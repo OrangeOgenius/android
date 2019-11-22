@@ -11,8 +11,6 @@ import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
-import android.util.Log;
-
 import com.orange.tpms.utils.WifiUtils;
 
 import java.util.ArrayList;

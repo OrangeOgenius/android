@@ -1,7 +1,6 @@
 package com.orange.tpms.helper;
 
 import android.content.Context;
-
 import com.orange.tpms.R;
 import com.orange.tpms.bean.InformationBean;
 import com.orange.tpms.lib.db.share.SettingShare;

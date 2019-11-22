@@ -1,7 +1,6 @@
 package com.orange.tpms.lib.db.share;
 
 import android.content.Context;
-
 import com.orange.tpms.lib.utils.SharedPreferencesUtils;
 
 /**

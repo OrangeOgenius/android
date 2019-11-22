@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.de.rocket.Rocket;
 import com.de.rocket.ue.injector.BindView;
 import com.orange.tpms.R;
@@ -27,6 +26,23 @@ public class IDCopyDetailAdapter extends BaseRecyclerAdapter<IDCopyDetailBean, I
 
     @Override
     protected void onBindView(ViewHolder holder, int index) {
+        if(index==0){
+            holder.tvPosition.setBackground(holder.itemView.getContext().getResources().getDrawable(R.color.gray));
+            holder.tvOriginalID.setBackground(holder.itemView.getContext().getResources().getDrawable(R.color.gray));
+            holder.tvNewID.setBackground(holder.itemView.getContext().getResources().getDrawable(R.color.color_orange));
+            holder.tvNewID.setTextColor(holder.itemView.getContext().getResources().getColor(R.color.white));
+            holder.tvCheck.setBackground(holder.itemView.getContext().getResources().getDrawable(R.color.green));
+            holder.tvCheck.setTextColor(holder.itemView.getContext().getResources().getColor(R.color.white));
+            holder.ivCheck.setVisibility(View.GONE);
+        }else{
+            holder.tvPosition.setBackground(holder.itemView.getContext().getResources().getDrawable(R.color.gray));
+            holder.tvOriginalID.setBackground(holder.itemView.getContext().getResources().getDrawable(R.color.white));
+            holder.tvNewID.setBackground(holder.itemView.getContext().getResources().getDrawable(R.color.white));
+            holder.tvNewID.setTextColor(holder.itemView.getContext().getResources().getColor(R.color.color_orange));
+            holder.tvCheck.setBackground(holder.itemView.getContext().getResources().getDrawable(R.color.white));
+            holder.tvCheck.setTextColor(holder.itemView.getContext().getResources().getColor(R.color.white));
+            holder.ivCheck.setVisibility(View.VISIBLE);
+        }
         if(index == getItemCount()-1){
             holder.vBottomSep.setVisibility(View.VISIBLE);
         }
@@ -40,6 +56,7 @@ public class IDCopyDetailAdapter extends BaseRecyclerAdapter<IDCopyDetailBean, I
         if(state == IDCopyDetailBean.STATE_NORMAL){
             holder.ivCheck.setImageResource(R.mipmap.iv_square);
         }else if(state == IDCopyDetailBean.STATE_SUCCESS){
+            holder.tvNewID.setTextColor(holder.itemView.getContext().getResources().getColor(R.color.color_black));
             holder.ivCheck.setImageResource(R.mipmap.iv_square_select);
         }else if(state == IDCopyDetailBean.STATE_FAILED){
             holder.ivCheck.setImageResource(R.mipmap.iv_check_fail);

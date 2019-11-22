@@ -2,8 +2,6 @@ package com.orange.tpms.bean;
 
 import com.de.rocket.bean.RoBean;
 
-import bean.mmy.MMyBean;
-
 public class ProgramItemBean extends RoBean {
 
     public static int STATE_NORMAL = 0;//正常状态

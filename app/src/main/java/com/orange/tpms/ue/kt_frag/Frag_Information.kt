@@ -2,14 +2,12 @@ package com.orange.tpms.ue.kt_frag
 
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.orange.blelibrary.blelibrary.RootFragement
-
 import com.orange.tpms.R
 import com.orange.tpms.adapter.InformationAdapter
 import com.orange.tpms.helper.InformationHelper

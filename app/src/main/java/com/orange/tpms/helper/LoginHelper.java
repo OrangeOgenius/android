@@ -1,12 +1,7 @@
 package com.orange.tpms.helper;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.util.Log;
-
 import com.de.rocket.utils.SharePreUtil;
-import com.orange.tpms.lib.api.Server;
-import bean.server.req.LoginBeanReq;
 
 public class LoginHelper extends BaseHelper {
 

@@ -2,14 +2,14 @@ package com.orange.tpms.ue.kt_frag
 
 
 import android.content.Context
-import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.ArrayAdapter
+import android.widget.EditText
+import android.widget.Spinner
+import android.widget.TextView
 import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.Callback.Register_C
 import com.orange.tpms.Callback.Update_C
@@ -20,8 +20,7 @@ import com.orange.tpms.helper.WifiConnectHelper
 import com.orange.tpms.ue.activity.KtActivity
 import com.orange.tpms.utils.FileDowload
 import kotlinx.android.synthetic.main.fragment_frag__register.view.*
-import java.lang.Exception
-import java.util.ArrayList
+import java.util.*
 
 
 class Frag_Register : RootFragement(), Register_C, Update_C {

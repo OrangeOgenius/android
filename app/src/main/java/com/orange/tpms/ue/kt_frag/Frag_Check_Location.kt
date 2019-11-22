@@ -2,21 +2,18 @@ package com.orange.tpms.ue.kt_frag
 
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import bean.hardware.SensorDataBean
 import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.R
 import com.orange.tpms.bean.PublicBean
 import com.orange.tpms.bean.SensorData
-import com.orange.tpms.helper.ReadSensorHelper
 import com.orange.tpms.ue.activity.KtActivity
-import com.orange.tpms.utils.Command
+import com.orange.tpms.utils.OgCommand
 import com.orange.tpms.utils.ImageUtil
 import com.orange.tpms.utils.VibMediaUtil
 import com.orange.tpms.widget.CarWidget
@@ -94,7 +91,7 @@ class Frag_Check_Location : RootFragement() {
         vibMediaUtil.playVibrate()
         lwLoading.show(getResources().getString(R.string.app_data_reading))
         Thread{
-            val a = Command.GetId(ObdHex, "00")
+            val a = OgCommand.GetId(ObdHex, "00")
             handler.post {
                 run = false
                 if(!act.NowFrage.equals("Frag_Check_Location")){return@post}

@@ -19,7 +19,7 @@ import static android.support.constraint.Constraints.TAG;
 
 public class Fuction {
     public static final int timeout=10000;
-    public static final String wsdl = "http://bento2.orange-electronic.com/App_Asmx/ToolApp.asmx";
+    public static final String wsdl = "https://bento2.orange-electronic.com/App_Asmx/ToolApp.asmx";
     public static RetNode _req(String url_String, String data, int timeout) {
         try{ Log.d(TAG + "_post", "url: " + url_String);
             Log.d(TAG + "_post", "data: " + data);

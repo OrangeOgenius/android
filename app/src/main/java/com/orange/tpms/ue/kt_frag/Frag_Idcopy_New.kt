@@ -11,30 +11,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
 import android.widget.TextView
-import com.de.rocket.Rocket
 import com.orange.blelibrary.blelibrary.RootFragement
-
 import com.orange.tpms.R
 import com.orange.tpms.adapter.IDCopyAdapter
 import com.orange.tpms.bean.IDCopyBean
 import com.orange.tpms.bean.MMYQrCodeBean
 import com.orange.tpms.bean.PublicBean
-import com.orange.tpms.bean.SensorQrCodeBean
-import com.orange.tpms.helper.CopyIDHelper
 import com.orange.tpms.lib.hardware.HardwareApp
 import com.orange.tpms.ue.activity.KtActivity
-import com.orange.tpms.ue.frag.Frag_id_copy_detail
-import com.orange.tpms.utils.Command
+import com.orange.tpms.utils.OgCommand
 import com.orange.tpms.utils.VibMediaUtil
 import com.orange.tpms.widget.LoadingWidget
 import com.orange.tpms.widget.ScanWidget
-import com.orange.tpms.widget.SensorWayWidget
 import kotlinx.android.synthetic.main.fragment_frag__idcopy__new.view.*
-import kotlinx.android.synthetic.main.fragment_frag__idcopy__new.view.bt_menue
-import kotlinx.android.synthetic.main.fragment_frag__idcopy__new.view.tv_content
-import kotlinx.android.synthetic.main.fragment_frag__idcopy_original.view.*
-import java.util.ArrayList
-import java.util.HashSet
+import java.util.*
 
 
 /**
@@ -111,7 +101,7 @@ class Frag_Idcopy_New : RootFragement() {
         run=true
         lwLoading.show(getResources().getString(R.string.app_data_reading))
         Thread{
-            val a = Command.GetId(ObdHex, "00")
+            val a = OgCommand.GetId(ObdHex, "00")
             handler.post {
                 run = false
                 if(!act.NowFrage.equals("Frag_Idcopy_New")){return@post}

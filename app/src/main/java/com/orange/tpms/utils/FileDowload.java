@@ -1,20 +1,16 @@
 package com.orange.tpms.utils;
 
 
-import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.util.Log;
 import com.orange.tpms.Callback.Update_C;
+
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class FileDowload {
     public static boolean Internet=true;
@@ -34,6 +30,10 @@ public class FileDowload {
                 Log.d("下載","下載s19 ok");
                 if(!DownAllS19(activity,caller)){caller.Finish(false);}
             }
+            if(profilePreferences.getString("muc","no").equals("no")){
+                Log.d("下載","下載s19 ok");
+                if(!DownMuc(activity)){caller.Finish(false);}
+            }
             caller.Finish(true);
         }catch (Exception e){e.printStackTrace();caller.Finish(false);}
     }
@@ -42,9 +42,11 @@ public class FileDowload {
                 if(!DownMMy(activity)){caller.Finish(false);return;} ;
                 if(!DownAllS19(activity,caller)){caller.Finish(false);return;}
                 if(!DownMuc(activity)){caller.Finish(false);return;}
+                if(!Downloadapk(activity)){caller.Finish(false);return;}
                 caller.Finish(true);
         }catch (Exception e){e.printStackTrace();caller.Finish(false);}
     }
+
     public static boolean DownMMy( Activity activity) {
         try {
             File DB_PATH = activity.getDatabasePath("usb_tx_mmy.db");
@@ -65,6 +67,7 @@ public class FileDowload {
         try{
             URL url=new URL("https://bento2.orange-electronic.com/Orange%20Cloud/Database/SensorCode/SIII/");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setConnectTimeout(1000*30);
             BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"));
             String line = null;
             StringBuffer strBuf = new StringBuffer();
@@ -119,13 +122,32 @@ return success;
         }catch(Exception e){e.printStackTrace();}
         return "nodata";
     }
+    public static String GetApkName(){
+        try{
+            URL url=new URL("https://bento2.orange-electronic.com/Orange%20Cloud/Drive/OG/APP%20Software/");
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"));
+            String line = null;
+            StringBuffer strBuf = new StringBuffer();
+            while ((line = reader.readLine()) != null) {
+                strBuf.append(line);
+            }
+            String[] arg=strBuf.toString().split(" HREF=\"");
+            for(String a : arg){
+                if(a.contains(".apk")){  return (a.substring(a.indexOf(">")+1,a.indexOf("<")));}
+            }
+        }catch(Exception e){e.printStackTrace();}
+        return "nodata";
+    }
     public static boolean DownMuc(Activity activity){
         try{
             String mcu=GetMucName();
             SharedPreferences profilePreferences = activity.getSharedPreferences("Setting", Context.MODE_PRIVATE);
             if(profilePreferences.getString("mcu","no").equals(mcu)){ return  true; }
             URL url=new URL("https://bento2.orange-electronic.com/Orange%20Cloud/Drive/OG/Firmware/"+mcu);
-            InputStream is=url.openStream();
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setConnectTimeout(30*1000);
+            InputStream is=conn.getInputStream();
             FileOutputStream fos=new FileOutputStream(activity.getApplicationContext().getFilesDir().getPath()+"/update.x2");
             int bufferSize = 8192;
             byte[] buf = new byte[bufferSize];
@@ -140,6 +162,34 @@ return success;
             return true;
         }catch (Exception e){e.printStackTrace();return false;}
     }
+    public static boolean Downloadapk(Activity activity){
+        try{
+            String apk=GetApkName();
+            SharedPreferences profilePreferences = activity.getSharedPreferences("Setting", Context.MODE_PRIVATE);
+            if(profilePreferences.getString("apk",PackageUtils.getVersionCode(activity)+".apk").equals(apk)){ return  true; }
+            URL url=new URL("https://bento2.orange-electronic.com/Orange%20Cloud/Drive/OG/APP%20Software/"+apk);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setConnectTimeout(300*1000);
+            InputStream is=conn.getInputStream();
+            FileOutputStream fos=new FileOutputStream("/sdcard/update/update.apk");
+            int bufferSize = 8192;
+            byte[] buf = new byte[bufferSize];
+            int size=0;
+            profilePreferences.edit().putString("apk",PackageUtils.getVersionCode(activity)+"");
+            while(true){
+                int read=is.read(buf);
+                if(read==-1){  break;}
+                fos.write(buf, 0, read);
+                size+=read;
+                Log.e("apkdown","progress"+size);
+            }
+            is.close();
+            fos.close();
+            profilePreferences.edit().putString("apk",apk).commit();
+            Log.e("apkdown","下載完成");
+            return true;
+        }catch (Exception e){e.printStackTrace();return false;}
+    }
     public static boolean donloads19(String name,Activity activity){
         if(Internet){
             try{
@@ -147,7 +197,9 @@ return success;
                 SharedPreferences profilePreferences = activity.getSharedPreferences("Setting", Context.MODE_PRIVATE);
                 if(profilePreferences.getString(name,"no").equals(s19name)){ return  true; }
                 URL url=new URL("https://bento2.orange-electronic.com/Orange%20Cloud/Database/SensorCode/SIII/"+name+"/"+s19name);
-                InputStream is=url.openStream();
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setConnectTimeout(30*1000);
+                InputStream is=conn.getInputStream();
                 FileOutputStream fos=new FileOutputStream(activity.getApplicationContext().getFilesDir().getPath()+"/"+name+".s19");
                 int bufferSize = 8192;
                 byte[] buf = new byte[bufferSize];
@@ -188,8 +240,10 @@ return success;
             String mmyname=mmyname();
             if(profilePreferences.getString("mmyname","").equals(mmyname)){return true;}
             URL url=new URL("https://bento2.orange-electronic.com/Orange%20Cloud/Database/MMY/EU/"+mmyname);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setConnectTimeout(30*1000);
             Log.d("path","https://bento2.orange-electronic.com/Orange%20Cloud/Database/MMY/EU/"+mmyname);
-            InputStream is=url.openStream();
+            InputStream is=conn.getInputStream();
             FileOutputStream fos=new FileOutputStream(fileanme);
             int bufferSize = 8192;
             byte[] buf = new byte[bufferSize];

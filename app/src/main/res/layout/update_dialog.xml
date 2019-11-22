@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
-            android:layout_width="200dp"
+            android:layout_width="170dp"
             android:layout_height="200dp" android:id="@+id/load"
             android:background="@drawable/corner" android:alpha="0.9" android:layout_centerInParent="true">
 
@@ -15,9 +15,9 @@
                 android:layout_marginBottom="-20dp"/>
         <TextView
                 android:text="@string/app_updating"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:id="@+id/tit" android:layout_centerInParent="true"
-                android:textColor="@android:color/white" android:textSize="28sp" android:translationY="20dp"
+                android:textColor="@android:color/white" android:textSize="20sp" android:translationY="20dp"
                 android:gravity="center"/>
         <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/animation_view"

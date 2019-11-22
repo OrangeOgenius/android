@@ -1,8 +1,9 @@
 package com.orange.tpms.lib.driver.source;
 
 import android.util.Log;
-
-import com.orange.tpms.lib.driver.channel.ExampleChannel;
+import bean.hardware.SensorDataBean;
+import bean.hardware.SensorVersionBean;
+import bean.hardware.SensorWriteInfoBean;
 import com.orange.tpms.lib.driver.channel.IChannel;
 import com.orange.tpms.lib.driver.channel.UARTChannel;
 import com.orange.tpms.lib.driver.protocol.SensorProtocol;
@@ -12,14 +13,9 @@ import com.orange.tpms.lib.utils.StringUtils;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import bean.hardware.SensorDataBean;
-import bean.hardware.SensorVersionBean;
-import bean.hardware.SensorWriteInfoBean;
-import com.orange.tpms.utils.Command;
-
 import static com.orange.tpms.lib.utils.StringUtils.byteArrayToHexStr;
-import static com.orange.tpms.utils.Command.StringHexToByte;
-import static com.orange.tpms.utils.Command.bytesToHex;
+import static com.orange.tpms.utils.OgCommand.StringHexToByte;
+import static com.orange.tpms.utils.OgCommand.bytesToHex;
 
 /**
  * 传感器抽象类

@@ -8,14 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.orange.blelibrary.blelibrary.RootFragement
-
 import com.orange.tpms.R
 import com.orange.tpms.bean.PublicBean
 import com.orange.tpms.ue.activity.KtActivity
-import com.orange.tpms.ue.activity.MainActivity
 import com.orango.electronic.orangetxusb.Adapter.ShowModel
 import kotlinx.android.synthetic.main.fragment_frag__select_modle.view.*
-import java.util.ArrayList
+import java.util.*
 
 
 /**

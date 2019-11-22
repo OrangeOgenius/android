@@ -9,15 +9,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.orange.blelibrary.blelibrary.RootFragement
-
 import com.orange.tpms.R
 import com.orange.tpms.bean.PublicBean
-import com.orange.tpms.ue.frag.Frag_program_detail
-import com.orange.tpms.utils.CustomTextWatcherForpad
 import com.orange.tpms.utils.KeyboardUtil
 import com.orange.tpms.utils.OggUtils
 import com.orange.tpms.utils.number_filter
-import kotlinx.android.synthetic.main.fragment_frag__pad__keyin.view.*
 import kotlinx.android.synthetic.main.fragment_frag__program__sensor_information.view.*
 import java.util.regex.Pattern
 

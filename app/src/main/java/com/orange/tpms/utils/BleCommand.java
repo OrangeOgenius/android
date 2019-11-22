@@ -1,10 +1,7 @@
 package com.orange.tpms.utils;
 
-import android.content.Context;
 import android.util.Log;
 import com.orange.blelibrary.blelibrary.BleActivity;
-import com.orange.tpms.Callback.Register_C;
-import com.orange.tpms.R;
 import com.orange.tpms.bean.PublicBean;
 import com.orange.tpms.ue.activity.KtActivity;
 
@@ -17,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import static com.orange.tpms.HttpCommand.Fuction.AddIfNotValid;
-import static com.orange.tpms.utils.Command.*;
+import static com.orange.tpms.utils.OgCommand.*;
 
 public class BleCommand {
     public BleActivity act;

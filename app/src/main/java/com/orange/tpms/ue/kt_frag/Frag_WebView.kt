@@ -1,21 +1,15 @@
 package com.orange.tpms.ue.kt_frag
 
 
-import android.content.Context
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.ClientCertRequest
-import android.webkit.HttpAuthHandler
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.R
 import kotlinx.android.synthetic.main.fragment_frag__web_view.view.*
-import android.webkit.WebView
-import android.webkit.WebViewClient
-
-
 
 
 class Frag_WebView : RootFragement() {

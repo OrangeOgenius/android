@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.R
 import com.orange.tpms.bean.PublicBean
-import com.orange.tpms.bean.ScanQrCodeBean
 import kotlinx.android.synthetic.main.fragment_frag__id__copy.view.*
 
 

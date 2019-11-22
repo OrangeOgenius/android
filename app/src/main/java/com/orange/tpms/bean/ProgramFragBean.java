@@ -1,8 +1,7 @@
 package com.orange.tpms.bean;
 
-import com.de.rocket.bean.RoBean;
-
 import bean.mmy.MMyBean;
+import com.de.rocket.bean.RoBean;
 
 /**
  * 烧录传感器页面传递消息体

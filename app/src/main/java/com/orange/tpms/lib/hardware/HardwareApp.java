@@ -1,12 +1,5 @@
 package com.orange.tpms.lib.hardware;
 
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Application;
@@ -18,14 +11,17 @@ import android.media.MediaPlayer;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.widget.Toast;
-
 import android.zyapi.CommonApi;
-
 import com.orange.tpms.Callback.Scan_C;
 import com.orange.tpms.R;
-import com.orange.tpms.lib.api.SensorHandler;
-import com.orange.tpms.utils.Command;
+import com.orange.tpms.utils.OgCommand;
+
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by john on 2019/6/22.
@@ -39,7 +35,6 @@ public class HardwareApp extends BaseHardware {
 
     static HardwareApp instance = null;
 
-    public SensorHandler sensorHandler = null;
     public static boolean isCanSend = true;
     public static Scan_C scan_c=null;
     private final int MAX_RECV_BUF_SIZE = 1024;
@@ -256,7 +251,6 @@ public class HardwareApp extends BaseHardware {
         // 监听广播
         initReceiver ();
 
-        this.sensorHandler = new SensorHandler(this);
 
         // 初始化配置
     }
@@ -311,10 +305,6 @@ public class HardwareApp extends BaseHardware {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    sensorHandler.ping(ret -> activity.runOnUiThread(() -> {
-                        ifInitCb = true;        // 有回调
-                        cb.pingReceive(ret);
-                    }));
                 }).start();
             }).start();
         }else{
@@ -499,7 +489,7 @@ public class HardwareApp extends BaseHardware {
                         Log.e("RX:", "22数据："+strRead);
                         if(strRead.contains("uart2_$")){
                             String ss=bytesToHexString(recv);
-                            Command.Rx=Command.Rx+ss.replace("75 61 72 74 32 5f 24","").replace(" ","").toUpperCase();
+                            OgCommand.Rx= OgCommand.Rx+ss.replace("75 61 72 74 32 5f 24","").replace(" ","").toUpperCase();
                             Log.e("DATA:", "RX："+ss.replace("75 61 72 74 32 5f 24",""));
                             Log.d(TAG, "receiver: " + ss.replace("75 61 72 74 32 5f 24",""));
                         }

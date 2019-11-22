@@ -2,7 +2,6 @@ package com.orange.tpms.helper;
 
 import android.content.Context;
 import android.content.res.Resources;
-
 import com.de.rocket.Rocket;
 import com.orange.tpms.R;
 import com.orange.tpms.bean.LanguageBean;

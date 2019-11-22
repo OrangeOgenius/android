@@ -1,9 +1,7 @@
 package com.orange.tpms.lib.driver.channel;
 
 import android.util.Log;
-
 import com.orange.tpms.lib.hardware.HardwareApp;
-import com.orange.tpms.lib.test.HardTest;
 import com.orange.tpms.lib.utils.StringUtils;
 
 /**

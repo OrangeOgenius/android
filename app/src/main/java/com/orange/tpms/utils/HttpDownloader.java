@@ -4,12 +4,7 @@ import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -108,50 +103,68 @@ public class HttpDownloader {
     public void download (String path, String dir, String fileName, FileUtil.FilePrograss filePrograss) {
         new Thread(() -> {
             try {
-                Log.d(TAG, "download: "+path+",dir:"+dir+",fileName:"+fileName);
-                URL url = new URL(path);
-                HttpURLConnection con = (HttpURLConnection) url.openConnection();
-                con.setReadTimeout(25000);
-                con.setConnectTimeout(5000);
-                con.setRequestProperty("Charset", "UTF-8");
-                con.setRequestMethod("GET");
-                con.connect();
-
-                if (con.getResponseCode() == 200) {
-                    InputStream is = con.getInputStream();//获取输入流
-                    FileOutputStream fileOutputStream = null;//文件输出流
-                    if (is != null) {
-                        File dirFile = new File (ROOT_DIR+dir);
-                        if (!dirFile.exists()) {
-                            dirFile.mkdir();
-                        }
-                        String filePath = ROOT_DIR+dir+fileName;
-                        Log.d(TAG, "download filePath:"+filePath);
-
-                        File fileHandler = new File (filePath);
-
-                        fileOutputStream = new FileOutputStream(fileHandler);//指定文件保存路径，代码看下一步
-                        byte[] buf = new byte[1024];
-                        int ch;
-                        int total = con.getContentLength();
-                        filePrograss.start(total);
-                        int hasReadByte = 0;        // 已经完成的字节数
-
-                        while ((ch = is.read(buf)) != -1) {
-                            hasReadByte+=ch;
-                            fileOutputStream.write(buf, 0, ch);//将获取到的流写入文件中
-                            filePrograss.progress(total, hasReadByte);
-                        }
-
-                        filePrograss.finish(total);
-                    }
-                    if (fileOutputStream != null) {
-                        fileOutputStream.flush();
-                        fileOutputStream.close();
-                    }
-                } else {
-                    filePrograss.fail(con.getResponseCode()+"");
+                URL url=new URL(path);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setConnectTimeout(240*1000);
+                InputStream is=conn.getInputStream();
+                String filePath = ROOT_DIR+dir+fileName;
+                Log.d(TAG, "download filePath:"+filePath);
+                File fileHandler = new File (filePath);
+                FileOutputStream fos=new FileOutputStream(fileHandler);
+                int bufferSize = 8192;
+                byte[] buf = new byte[bufferSize];
+                int pass=0;
+                while(true){
+                    int read=is.read(buf);
+                    pass+=read;
+                    if(read==-1){  break;}
+                    fos.write(buf, 0, read);
+                    filePrograss.progress(19*1024,pass);
                 }
+                is.close();
+                fos.close();
+                filePrograss.finish(19*1024);
+//                Log.d(TAG, "download: "+path+",dir:"+dir+",fileName:"+fileName);
+//                URL url = new URL(path);
+//                HttpURLConnection con = (HttpURLConnection) url.openConnection();
+//                con.setReadTimeout(1000*300);
+//                con.setConnectTimeout(1000*300);
+//                con.connect();
+//                if (con.getResponseCode() == 200) {
+//                    InputStream is = con.getInputStream();//获取输入流
+//                    FileOutputStream fileOutputStream = null;//文件输出流
+//                    if (is != null) {
+//                        File dirFile = new File (ROOT_DIR+dir);
+//                        if (!dirFile.exists()) {
+//                            dirFile.mkdir();
+//                        }
+//                        String filePath = ROOT_DIR+dir+fileName;
+//                        Log.d(TAG, "download filePath:"+filePath);
+//
+//                        File fileHandler = new File (filePath);
+//
+//                        fileOutputStream = new FileOutputStream(fileHandler);//指定文件保存路径，代码看下一步
+//                        byte[] buf = new byte[8192];
+//                        int total = is.available();
+//                        filePrograss.start(total);
+//                        int pass=0;
+//                        while (true) {
+//                            int read=is.read(buf);
+//                            pass+=read;
+//                            if(read==-1){  break;}
+//                            fileOutputStream.write(buf, 0, read);
+//                            filePrograss.progress(total,pass);
+//                        }
+//
+//                        filePrograss.finish(total);
+//                    }
+//                    if (fileOutputStream != null) {
+//                        fileOutputStream.flush();
+//                        fileOutputStream.close();
+//                    }
+//                } else {
+//                    filePrograss.fail(con.getResponseCode()+"");
+//                }
             } catch (Exception e) {
                 filePrograss.fail(e.getMessage());
                 e.printStackTrace();
