@@ -137,7 +137,42 @@ public class OgCommand {
             return array;
         }
     }
-
+    //    public static Read
+    public static ArrayList<SensorData> GetPr(String Lf,int count) {
+        ArrayList<SensorData> response = new ArrayList<SensorData>();
+        try {
+            String co=Integer.toHexString(count);
+            while(co.length()<2){co="0"+co;}
+            Send("0A 10 000E 01 00 LF 00 00 00 00 00 count 00 00 00 39 F5".replace(" ", "").replace("LF", Lf).replace("count",co));
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS");
+            Date past = sdf.parse(sdf.format(new Date()));
+            while (true) {
+                Date now = sdf.parse(sdf.format(new Date()));
+                double time = getDatePoor(now, past);
+                if (time > 20 || Rx.equals(GetCrcString("F51C000301000A")) || Rx.equals(GetCrcString("F51C000302000A"))) {
+                    if(time > 20){ReOpen();}
+                    return response;
+                }
+                if (Rx.length() >= 36) {
+                    SensorData data=new SensorData();
+                    data.id = Rx.substring(16 - 8, 16);
+                    data.bat = getBit(StringHexToByte(Rx.substring(28,30))[0]).substring(3,4);
+                    data.kpa=byte2ToINT(StringHexToByte(Rx.substring(22,26)));
+                    byte[] bytes=StringHexToByte(Rx.substring(18 , 22));
+                    data.c=bytes[1]-bytes[0];
+                    data.vol=22+(StringHexToByte(Rx.substring(26 , 28))[0]&0x0F);
+                    data.success = true;
+                    response.add(data);
+                    Rx=Rx.substring(36);
+                    if(response.size()==count){return response;}
+                }
+                Thread.currentThread().sleep(100);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return response;
+        }
+    }
 //    public static Read
     public static SensorData GetId(String hex, String Lf) {
         SensorData data = new SensorData();
@@ -409,7 +444,7 @@ try {
             while(fal<5){
                 Date now=sdf.parse(sdf.format(new Date()));
                 double time=getDatePoor(now,past);
-                if(time>0.3){
+                if(time>2){
                     past=sdf.parse(sdf.format(new Date()));
                     Send(data);
                     fal++;
@@ -462,6 +497,7 @@ try {
                 if(Rx.length()>=14){
                     if(Rx.contains(GetCrcString("F500000302F40A"))){caller.result(2);}
                     if(Rx.contains(GetCrcString("F500000301F40A"))){caller.result(1);}
+                    if(Rx.contains(GetCrcString("F501000300F70A"))){caller.result(1);}
                     return;}
                 Thread.currentThread().sleep(100);
             }

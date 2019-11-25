@@ -27,7 +27,11 @@ class Frag_SelectModle : RootFragement() {
         savedInstanceState: Bundle?
     ): View? {
         rootview=inflater.inflate(R.layout.fragment_frag__select_modle, container, false)
-        modle = (activity as KtActivity).itemDAO!!.getModel(PublicBean.SelectMake)!!
+        if(PublicBean.position==PublicBean.ID_COPY_OBD||PublicBean.position==PublicBean.OBD_RELEARM){
+            modle=(activity as KtActivity).itemDAO.getobdmodel(PublicBean.SelectMake)
+        }else{
+            modle = (activity as KtActivity).itemDAO.getModel(PublicBean.SelectMake)
+        }
         rootview.rv_model.layoutManager= LinearLayoutManager(activity)
         rootview.rv_model.adapter=ShowModel(modle,act)
         return rootview

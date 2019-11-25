@@ -109,9 +109,7 @@ fun CheckMcuUpdate(){
                     context!!.startActivity(intent2)
                 }
             }.start()}
-
-    }else{CheckApk()}
-
+     }else{CheckApk()}
 }
 fun CheckApk(){
     val version=PackageUtils.getVersionCode(act)

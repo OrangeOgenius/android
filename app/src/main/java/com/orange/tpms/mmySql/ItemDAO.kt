@@ -159,7 +159,31 @@ fun GoOk(code:String,navigationActivity: BleActivity){
             return null
         }
     }
-    fun getMake(act:Activity): ArrayList<Item>?{
+    fun getobdmake(): ArrayList<Item>{
+        val makes = arrayListOf<Item>()
+        val result = db.rawQuery(
+            "select distinct `Make`,`Make_img` from `Summary table` where `Make` IS NOT NULL and `Make_img` not in('NA') and `OBD1` not in('NA') order by `Make` asc",null)
+        if(result.count > 0){
+            result.moveToFirst()
+            do{
+
+                val module = Item()
+                module.make = result.getString(0)
+                module.makeImg=result.getString(1)
+                Log.d("make",result.getString(0));
+                Log.d("image",result.getString(1));
+                makes.add(module)
+            }while (result.moveToNext())
+            // 關閉Cursor物件
+            result.close()
+            // 回傳結果
+            return makes
+        }else{
+            result.close()
+            return arrayListOf<Item>()
+        }
+    }
+    fun getMake(act:Activity): ArrayList<Item>{
         try{
             val makes = arrayListOf<Item>()
             var sql="select distinct $MAKE_COLUMN , $MAKE_IMG_COLUMN from `Summary table` where `Direct Fit` not in($notin) and `$MAKE_COLUMN`  IS NOT NULL and `$MAKE_IMG_COLUMN` not in('NA') order by $MAKE_COLUMN asc"
@@ -182,11 +206,29 @@ fun GoOk(code:String,navigationActivity: BleActivity){
                 return makes
             }else{
                 result.close()
-                return null
+                return arrayListOf<Item>()
             }
-        }catch (e:Exception){act.getSharedPreferences("Setting", Context.MODE_PRIVATE).edit().putString("mmyname","").commit();return null}
+        }catch (e:Exception){act.getSharedPreferences("Setting", Context.MODE_PRIVATE).edit().putString("mmyname","").commit();return arrayListOf<Item>()}
     }
-    fun getModel(make: String): ArrayList<String>?{
+    fun getobdmodel(name:String): ArrayList<String>{
+        val models = arrayListOf<String>()
+        val result = db.rawQuery(
+            "select distinct model from `Summary table` where make='$name' and `OBD1` not in('NA') order by model asc",null)
+        if(result.count > 0){
+            result.moveToFirst()
+            do{
+                models.add(result.getString(0))
+            }while (result.moveToNext())
+            // 關閉Cursor物件
+            result.close()
+            // 回傳結果
+            return models
+        }else{
+            result.close()
+            return arrayListOf<String>()
+        }
+    }
+    fun getModel(make: String): ArrayList<String>{
         val models = arrayListOf<String>()
         val result = db. rawQuery(
             "select distinct $MODEL_COLUMN from `Summary table` where $MAKE_COLUMN = '$make' and  `Direct Fit` not in($notin) order by $MODEL_COLUMN asc",
@@ -203,7 +245,7 @@ fun GoOk(code:String,navigationActivity: BleActivity){
             return models
         }else{
             result.close()
-            return null
+            return arrayListOf<String>()
         }
     }
 
@@ -263,7 +305,7 @@ fun GoOk(code:String,navigationActivity: BleActivity){
             return "0"
         }
     }
-    fun getYear(make: String,model: String): ArrayList<String>?{
+    fun getYear(make: String,model: String): ArrayList<String>{
         val years = arrayListOf<String>()
 
         val result = db. rawQuery(
@@ -281,7 +323,62 @@ fun GoOk(code:String,navigationActivity: BleActivity){
             return years
         }else{
             result.close()
-            return null
+            return arrayListOf<String>()
+        }
+    }
+    fun IsFiveTire(name:String):Boolean{
+        val result = db.rawQuery("select `Wheel_Count` from `Summary table` where `OBD1`='$name' and `Wheel_Count` not in('NA') limit 0,1", null)
+        if(result.count > 0 ){
+            result.moveToFirst()
+            do{
+                val count=result.getString(0)
+                return if (count.contains("5")) true else false
+            }while (result.moveToNext())
+        }else{
+            result.close()
+            return false
+        }
+    }
+
+    fun  getPart(make:String,model:String,year:String):String{
+        var data="";
+        val result = db. rawQuery(
+            "select `OBD1` from `Summary table` where Make='$make' and Model='$model' and year='$year' and `OBD1` not in('NA') limit 0,1",
+            null)
+
+        if(result.count > 0){
+            result.moveToFirst()
+            do{
+                data= result.getString(0)
+            }while (result.moveToNext())
+            // 關閉Cursor物件
+            result.close()
+            // 回傳結果
+            return data
+        }else{
+            result.close()
+            return ""
+        }
+    }
+    fun getObdYear(make: String,model: String): ArrayList<String>{
+        val years = arrayListOf<String>()
+
+        val result = db. rawQuery(
+            "select distinct Year from `Summary table` where model='$model' and make='$make' and `OBD1` not in('NA') order by Year asc",
+            null)
+
+        if(result.count > 0){
+            result.moveToFirst()
+            do{
+                years.add(result.getString(0))
+            }while (result.moveToNext())
+            // 關閉Cursor物件
+            result.close()
+            // 回傳結果
+            return years
+        }else{
+            result.close()
+            return arrayListOf<String>()
         }
     }
     fun getS19(s19: String): Boolean{

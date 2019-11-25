@@ -292,7 +292,7 @@
     <string name="app_module_is_empty">Module is empty!</string>
     <string name="app_year_is_empty">Year is empty!</string>
     <string name="app_read_failed">Read failed,please read again!</string>
-
+    <string name="Programming">Programming</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

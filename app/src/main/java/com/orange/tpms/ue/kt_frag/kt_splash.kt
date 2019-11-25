@@ -96,7 +96,6 @@ class kt_splash : RootFragement(),Hanshake_C, Update_C, Version_C {
                 }
             }
         }.start()
-
     }
 
 

@@ -9,7 +9,7 @@
 	<string name="app_sign_in">登入</string>
 	<string name="app_registration">註冊</string>
 	<string name="app_forgot_password">忘記密碼</string>
-
+	<string name="Programming">燒錄中</string>
 	<string name="app_menue">主選單</string>
 	<string name="app_home_check_sensor">檢查感測器</string>
 	<string name="app_trigger">觸發</string>

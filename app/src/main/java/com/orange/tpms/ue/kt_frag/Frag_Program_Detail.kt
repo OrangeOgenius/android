@@ -245,17 +245,15 @@ fun Program(){
             scwTips.hide()
         }
         Thread{
-            val a = OgCommand.GetId(ObdHex, "00")
+            val a = OgCommand.GetPr("00", PublicBean.ProgramNumber)
             handler.post {
                 run = false
                 if(!act.NowFrage.equals("Frag_Program_Detail")){return@post}
                 vibMediaUtil.playBeep()
                 lwLoading.hide()
-                if(a.success){
-                    if (!haveSameSensorid(a.id)) {
-                        updateSensorid(a.id)
-                    } else {
-                        act.Toast(R.string.app_sensor_repeated)
+                if(PublicBean.ProgramNumber==a.size){
+                    for(i in a){
+                        updateSensorid(i.id)
                     }
                 }else{
                     act.Toast(resources.getString(R.string.app_read_failed))

@@ -26,11 +26,13 @@ class Frag_SelectYear : RootFragement() {
         savedInstanceState: Bundle?
     ): View? {
         rootview=inflater.inflate(R.layout.fragment_frag__select_year, container, false)
-        year = (activity as KtActivity).itemDAO.getYear(PublicBean.SelectMake, PublicBean.SelectModel)!!
+        if(PublicBean.position==PublicBean.ID_COPY_OBD||PublicBean.position==PublicBean.OBD_RELEARM){
+            year = (activity as KtActivity).itemDAO.getObdYear(PublicBean.SelectMake, PublicBean.SelectModel)
+        }else{
+            year = (activity as KtActivity).itemDAO.getYear(PublicBean.SelectMake, PublicBean.SelectModel)
+        }
         rootview.rv_year.layoutManager=LinearLayoutManager(act)
         rootview.rv_year.adapter= ShowYear(year,act);
         return rootview
     }
-
-
 }

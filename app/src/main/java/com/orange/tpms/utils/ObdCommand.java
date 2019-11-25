@@ -3,6 +3,7 @@ package com.orange.tpms.utils;
 import android.content.Context;
 import android.os.Handler;
 import android.util.Log;
+import android.widget.TextView;
 import com.orange.tpms.R;
 import com.orange.tpms.bean.ID_Beans;
 import com.orange.tpms.ue.activity.KtActivity;
@@ -22,6 +23,7 @@ public class ObdCommand {
     public static String VERIFY_FAIL = "F502000303F70A";
     public KtActivity act;
     public String AppVersion="";
+    public  String donloads19 = "OBDB_APP_TO001_191030";
     //自動設定checkbyteF5020005000000F20A
     public String addcheckbyte(String com) {
         byte a[] = StringHexToByte(com);
@@ -117,33 +119,32 @@ public class ObdCommand {
         }
     }
 
-    private static Handler handler = new Handler();
-//    public boolean WriteVersion(){
-//        try{
-//            byte [] command=GetXOR("0ACA0015DDFFF5".replace("DD",bytesToHex(FtpManager.donloads19.replace(".srec","").getBytes())));
-//            act.getBleServiceControl().WriteCmd(command,14);
-//            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS");
-//            Date past = sdf.parse(sdf.format(new Date()));
-//            int fal = 0;
-//            while (true) {
-//                Date now = sdf.parse(sdf.format(new Date()));
-//                double time = getDatePoor(now, past);
-//                if (time > 1) {
-//                    if(fal==1){return false;}
-//                    past = sdf.parse(sdf.format(new Date()));
-//                    act.getBleServiceControl().WriteCmd(command,14);
-//                    fal++;
-//                }
-//                if (act.getRXDATA().length()==14) {
-//                    Log.d("BLEDATA","寫入版本");
-//                    return true;
-//                }
-//            }
-//        }catch (Exception e){
-//            e.printStackTrace();
-//            return false;
-//        }
-//    }
+    public boolean WriteVersion(){
+        try{
+            byte [] command=GetXOR("0ACA0015DDFFF5".replace("DD",bytesToHex(donloads19.replace(".srec","").getBytes())));
+            act.getBleServiceControl().WriteCmd(command,14);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS");
+            Date past = sdf.parse(sdf.format(new Date()));
+            int fal = 0;
+            while (true) {
+                Date now = sdf.parse(sdf.format(new Date()));
+                double time = getDatePoor(now, past);
+                if (time > 1) {
+                    if(fal==1){return false;}
+                    past = sdf.parse(sdf.format(new Date()));
+                    act.getBleServiceControl().WriteCmd(command,14);
+                    fal++;
+                }
+                if (act.getRXDATA().length()==14) {
+                    Log.d("BLEDATA","寫入版本");
+                    return true;
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
 
     public boolean GoBootloader(){
         try{
@@ -173,15 +174,14 @@ public class ObdCommand {
     // 燒寫&amp;驗證Flash
     public boolean WriteFlash(final Context context, final String FileName, final int Ind, final KtActivity act) {
         try {
-
-            FileInputStream fo = new FileInputStream(context.getApplicationContext().getFilesDir().getPath() + "/" + FileName + ".s19");
-            InputStreamReader fr = new InputStreamReader(context.getAssets().open("TO001.srec"));
+            FileInputStream fo = new FileInputStream(context.getApplicationContext().getFilesDir().getPath() + "/" + FileName + ".srec");
+            InputStreamReader fr = new InputStreamReader(fo);
             BufferedReader br = new BufferedReader(fr);
             StringBuilder sb = new StringBuilder();
             while (br.ready()) {
                 String s = br.readLine();
-                s = s.replace("null", "");
-                sb.append(s);
+                if(s!=null){ s = s.replace("null", "");
+                    sb.append(s);}
             }
             int Long = 0;
             if (sb.length() % Ind == 0) {
@@ -208,7 +208,9 @@ public class ObdCommand {
                     act.getHandler().post(new Runnable() {
                         @Override
                         public void run() {
-//                            act.LoadingUI(act.getResources().getString(R.string.Programming), 100);
+                            act.ShowDaiLog(R.layout.normal_dialog,false,true);
+                            TextView text=act.getMDialog().findViewById(R.id.tit);
+                            text.setText(act.getResources().getString(R.string.Programming)+"..."+100+"%");
                         }
                     });
                     return true;
@@ -219,12 +221,14 @@ public class ObdCommand {
                     if (!check(Convvvert(data, Integer.toHexString(length), cont))) {
                         return false;
                     }
-                    final float finalI = i;
-                    final float finalLong = Long;
+                    final int finalI = i;
+                    final int finalLong = Long;
                     act.getHandler().post(new Runnable() {
                         @Override
                         public void run() {
-//                            act.LoadingUI(act.getResources().getString(R.string.Programming), (int) (finalI / finalLong * 100));
+                            act.ShowDaiLog(R.layout.normal_dialog,false,true);
+                            TextView text=act.getMDialog().findViewById(R.id.tit);
+                            text.setText(act.getResources().getString(R.string.Programming)+"..."+finalI*100/finalLong+"%");
                         }
                     });
                 }

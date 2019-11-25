@@ -14,7 +14,7 @@
                 android:layout_height="wrap_content" android:id="@+id/tit"
                 android:gravity="center" android:layout_marginTop="10dp" android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp" android:layout_marginBottom="10dp"
-                android:textColor="@android:color/background_light" android:textSize="36sp"
+                android:textColor="@android:color/background_light" android:textSize="24sp"
                 android:layout_centerInParent="true"
                 android:translationY="-40dp"/>
         <ImageView
@@ -30,7 +30,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" android:id="@+id/no" android:layout_weight="1"
                     android:gravity="center" android:textColor="@android:color/background_light"
-                    android:onClick="onclick" android:textSize="30sp"/>
+                    android:onClick="onclick" android:textSize="24sp"/>
             <ImageView
                     android:layout_width="1dp"
                     android:layout_height="match_parent" app:srcCompat="@android:color/darker_gray"
@@ -40,7 +40,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" android:id="@+id/yes" android:layout_weight="1"
                     android:gravity="center" android:onClick="onclick"
-                    android:textColor="@android:color/background_light" android:textSize="30sp"/>
+                    android:textColor="@android:color/background_light" android:textSize="24sp"/>
         </LinearLayout>
     </RelativeLayout>
 </RelativeLayout>

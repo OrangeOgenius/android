@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.R
 import com.orange.tpms.adapter.ShowItemImage
+import com.orange.tpms.bean.PublicBean
 import com.orange.tpms.mmySql.Item
 import com.orange.tpms.ue.activity.KtActivity
 import kotlinx.android.synthetic.main.fragment_frag__select_make.view.*
@@ -27,7 +28,10 @@ class Frag_SelectMake : RootFragement() {
         savedInstanceState: Bundle?
     ): View? {
         rootview=inflater.inflate(R.layout.fragment_frag__select_make, container, false)
-        make=(activity as KtActivity).itemDAO!!.getMake(activity!!);
+        if(PublicBean.position==PublicBean.ID_COPY_OBD||PublicBean.position==PublicBean.OBD_RELEARM){
+            make=(activity as KtActivity).itemDAO.getobdmake();
+        }else{make=(activity as KtActivity).itemDAO.getMake(activity!!);}
+
         val carLogoAdapter = ShowItemImage(act, make)
         rootview.rv_makes.layoutManager=GridLayoutManager(activity, 2)
         rootview.rv_makes.adapter= carLogoAdapter

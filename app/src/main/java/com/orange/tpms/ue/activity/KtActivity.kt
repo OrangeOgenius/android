@@ -36,6 +36,7 @@ class KtActivity : BleActivity(), Scan_C{
     }
     var donload= HttpDownloader()
     var BleCommand=com.orange.tpms.utils.BleCommand()
+    var ObdCommand=com.orange.tpms.utils.ObdCommand()
     lateinit var xml:ArrayList<String>
     lateinit var itemDAO: ItemDAO
     lateinit var back: ImageView
@@ -98,6 +99,7 @@ if(supportFragmentManager.backStackEntryCount!=0){
             Downloadapk(this@KtActivity)
         }
         PublicBean.OG_SerialNum=SettingShare.getDeviceId(this)
+        ObdCommand.act=this
 //        Log.e("version",""+PackageUtils.getVersionCode(this))
     }
     override fun LoadingUI(a: String, pass: Int) {
