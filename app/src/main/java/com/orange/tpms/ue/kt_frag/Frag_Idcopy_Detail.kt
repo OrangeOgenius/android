@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -152,7 +153,8 @@ class Frag_Idcopy_Detail : RootFragement(), Copy_C {
                         val b = SensorRecord()
                         b.Car_SensorID = idCopyDetailBean.originalid
                         b.SensorID = idCopyDetailBean.newid
-                        b.IsSuccess = if (idCopyDetailBean.state == ProgramItemBean.STATE_FAILED) "false" else "true"
+                        Log.e("copy",""+idCopyDetailBean.state)
+                        b.IsSuccess = if (idCopyDetailBean.state == IDCopyDetailBean.STATE_SUCCESS) "true" else "false"
                         idrecord.add(b)
                     }
                 }

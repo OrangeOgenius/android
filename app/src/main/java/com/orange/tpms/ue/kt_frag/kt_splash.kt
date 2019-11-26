@@ -50,7 +50,8 @@ class kt_splash : RootFragement(),Hanshake_C, Update_C, Version_C {
         if(a){
             handler.post {
                 act.DaiLogDismiss()
-                ListenFinish()
+                val intent2 = context!!.getPackageManager().getLaunchIntentForPackage(context!!.getPackageName())
+                context!!.startActivity(intent2)
             }
         }else{
             OgCommand.HandShake(this)
@@ -63,12 +64,13 @@ class kt_splash : RootFragement(),Hanshake_C, Update_C, Version_C {
         when(position){
             1->{
                 handler.post { act.ShowDaiLog(R.layout.update_dialog,false,false)  }
-                OgCommand.WriteBootloader(act,132,"",this)}
+                OgCommand.WriteBootloader(act,132,GetPro("mcu","no").replace(".x2",""),this)}
             -1->{
                 OgCommand.HandShake(this)
                 }
             2->{
-                OgCommand.GetVerion(this)}
+                OgCommand.GetVerion(this)
+            }
         }
     }
 

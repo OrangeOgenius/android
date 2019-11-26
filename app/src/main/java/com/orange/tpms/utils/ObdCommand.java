@@ -14,7 +14,6 @@ import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
 import static com.orange.blelibrary.blelibrary.tool.FormatConvert.StringHexToByte;
 
 public class ObdCommand {

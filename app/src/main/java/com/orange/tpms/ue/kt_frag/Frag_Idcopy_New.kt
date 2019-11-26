@@ -46,6 +46,9 @@ class Frag_Idcopy_New : RootFragement() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        if(isInitialized()){
+            return rootview
+        }
         rootview=inflater.inflate(R.layout.fragment_frag__idcopy__new, container, false)
         rootview.tv_content.text="${PublicBean.SelectMake}/${PublicBean.SelectModel}/${PublicBean.SelectYear}"
         idcount=(activity as KtActivity).itemDAO.GetCopyId((activity as KtActivity).itemDAO.getMMY(PublicBean.SelectMake,PublicBean.SelectModel,PublicBean.SelectYear))

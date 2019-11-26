@@ -362,6 +362,7 @@ fun Program(){
                     val programItemBean = programAdapter.items[i]
                     val b = SensorRecord()
                     b.SensorID=programItemBean.sensorid
+                    Log.e("copy",""+programItemBean.state)
                     b.IsSuccess = if(programItemBean.state==ProgramItemBean.STATE_FAILED) "false" else "true"
                     idrecord.add(b)
                 }

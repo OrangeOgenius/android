@@ -44,6 +44,9 @@ class Frag_Idcopy_original : RootFragement() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        if(isInitialized()){
+            return rootview
+        }
         rootview=inflater.inflate(R.layout.fragment_frag__idcopy_original, container, false)
         ObdHex=(activity as KtActivity).itemDAO.GetHex(PublicBean.SelectMake,PublicBean.SelectModel,PublicBean.SelectYear)
         idcount=(activity as KtActivity).itemDAO.GetCopyId((activity as KtActivity).itemDAO.getMMY(PublicBean.SelectMake,PublicBean.SelectModel,PublicBean.SelectYear))

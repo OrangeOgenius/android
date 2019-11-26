@@ -98,7 +98,7 @@ if(supportFragmentManager.backStackEntryCount!=0){
             DownMuc(this@KtActivity)
             Downloadapk(this@KtActivity)
         }
-        PublicBean.OG_SerialNum=SettingShare.getDeviceId(this)
+        PublicBean.OG_SerialNum="SP:"+SettingShare.getDeviceId(this)
         ObdCommand.act=this
 //        Log.e("version",""+PackageUtils.getVersionCode(this))
     }
@@ -129,7 +129,7 @@ ShowDaiLog(R.layout.dataloading,false,false)
     }
     override fun onResume(){
         super.onResume()
-        SetNaVaGation(true)
+        SetNaVaGation(false)
     }
     override fun RX(a:String){
         Log.w("BLEDATA", "RX:$a")

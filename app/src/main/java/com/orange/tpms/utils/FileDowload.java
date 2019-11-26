@@ -32,11 +32,11 @@ public class FileDowload {
                 if(!DownAllS19(activity,caller)){success=false;}
             }
             if(profilePreferences.getString("muc","no").equals("no")){
-                Log.d("下載","下載s19 ok");
+                Log.d("下載","下載muc ok");
                 if(!DownMuc(activity)){success=false;}
             }
             if(profilePreferences.getString("obdinit","no").equals("no")){
-                if(!DownAllObd(activity)){success=false;Log.e("下載","下載Obd 失敗");}
+                if(!DownAllObd(activity,caller)){success=false;Log.e("下載","下載Obd 失敗");}
             }
             caller.Finish(success);
         }catch (Exception e){e.printStackTrace();caller.Finish(false);}
@@ -47,7 +47,7 @@ public class FileDowload {
                 if(!DownAllS19(activity,caller)){caller.Finish(false);return;}
                 if(!DownMuc(activity)){caller.Finish(false);return;}
                 if(!Downloadapk(activity)){caller.Finish(false);return;}
-                if(!DownAllObd(activity)){caller.Finish(false);return;}
+                if(!DownAllObd(activity,caller)){caller.Finish(false);return;}
                 caller.Finish(true);
         }catch (Exception e){e.printStackTrace();caller.Finish(false);}
     }
@@ -63,7 +63,7 @@ public class FileDowload {
             return false;
         }
     }
-    public static boolean DownAllObd(Activity activity){
+    public static boolean DownAllObd(Activity activity,Update_C caller){
         try{
             String response=GetText("http://bento2.orange-electronic.com/Orange%20Cloud/Drive/OBD%20DONGLE/",10);
             if(response.equals("nodata")){return false;}
@@ -74,6 +74,7 @@ public class FileDowload {
                     Log.e("obd",arg[i].substring(arg[i].indexOf(">")+1,arg[i].indexOf("<")));
                     if(!DonloadObd(arg[i].substring(arg[i].indexOf(">")+1,arg[i].indexOf("<")),activity)){success=false;};
                 }
+                caller.Updateing(i*100/arg.length/2+50);
             }
             SharedPreferences profilePreferences = activity.getSharedPreferences("Setting", Context.MODE_PRIVATE);
             profilePreferences.edit().putString("obdinit",success ? "yes" : "no").commit();
@@ -129,7 +130,7 @@ public class FileDowload {
                 if(arg[i].contains("SIII")&&arg[i].contains("&lt;dir")){
                     if(!donloads19(arg[i].substring(arg[i].indexOf(">")+1,arg[i].indexOf("<")),activity)){success=false;};
                 }
-                caller.Updateing(i*100/arg.length);
+                caller.Updateing(i*100/arg.length/2);
             }
             SharedPreferences profilePreferences = activity.getSharedPreferences("Setting", Context.MODE_PRIVATE);
             profilePreferences.edit().putString("s19init",success ? "yes" : "no").commit();

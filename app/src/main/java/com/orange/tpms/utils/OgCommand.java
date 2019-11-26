@@ -393,8 +393,7 @@ try {
     public static  void WriteBootloader(BleActivity act, int Ind, String filename,Update_C caller){
         try{
 //            FileInputStream fo=new FileInputStream(context.getApplicationContext().getFilesDir().getPath()+"/"+filename+".s2");
-            SharedPreferences profilePreferences =act.getSharedPreferences("Setting", Context.MODE_PRIVATE);
-            InputStreamReader fr = new InputStreamReader((profilePreferences.getString("muc","no").equals("no")) ? act.getAssets().open("update.x2"):new FileInputStream(act.getApplicationContext().getFilesDir().getPath()+"/update.x2"));
+            InputStreamReader fr = new InputStreamReader((filename.equals("no")) ? act.getAssets().open("update.x2"):new FileInputStream(act.getApplicationContext().getFilesDir().getPath()+"/update.x2"));
             BufferedReader br = new BufferedReader(fr);
             StringBuilder sb = new StringBuilder();
             while (br.ready()) {

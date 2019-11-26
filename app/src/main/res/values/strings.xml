@@ -304,4 +304,5 @@
     <string name="updatefault">update false,Please reconnect wifi and try again!</string>
     <string name="enginer">Engineering mode</string>
     <string name="maxsize">max size is 12</string>
+    <string name="wantreprogram">Do you want to Re-Program?</string>
 </resources>
