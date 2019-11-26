@@ -129,7 +129,7 @@ ShowDaiLog(R.layout.dataloading,false,false)
     }
     override fun onResume(){
         super.onResume()
-        SetNaVaGation(false)
+        SetNaVaGation(true)
     }
     override fun RX(a:String){
         Log.w("BLEDATA", "RX:$a")

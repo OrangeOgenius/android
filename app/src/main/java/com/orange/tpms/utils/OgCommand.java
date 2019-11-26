@@ -502,15 +502,16 @@ try {
             }
         }catch (Exception e){e.printStackTrace();  caller.result(-1);}
     }
-    public static void IdCopy(Copy_C caller){
+    public static void IdCopy(Copy_C caller,String hex){
     try{
+        while(hex.length()<2){hex="0"+hex;}
         for(int i=0;i<PublicBean.SensorList.size();i++){
             int Original_Long=PublicBean.SensorList.get(i).length();
             int New_Long=PublicBean.NewSensorList.get(i).length();
             String Original_ID=PublicBean.SensorList.get(i);while(Original_ID.length()<8){Original_ID="0"+Original_ID;}
             String New_ID=PublicBean.NewSensorList.get(i) ; while(New_ID.length()<8){New_ID="0"+New_ID;}
-            String data="0A 11 00 0E Original_ID Original_Long New_ID New_Long 00 00 ff f5".replace(" ", "").replace("Original_Long","0"+Original_Long)
-                    .replace("New_Long","0"+New_Long).replace("Original_ID",Original_ID).replace("New_ID",New_ID);
+            String data="0A 11 00 0E Original_ID Original_Long New_ID New_Long hex 00 ff f5".replace(" ", "").replace("Original_Long","0"+Original_Long)
+                    .replace("New_Long","0"+New_Long).replace("Original_ID",Original_ID).replace("New_ID",New_ID).replace("hex",hex);
             Log.e("DATA:","Prepare:"+data);
             Send(data);
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS");

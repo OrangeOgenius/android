@@ -51,7 +51,7 @@ class Frag_Idcopy_Detail : RootFragement(), Copy_C {
         endtime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
         upload()
     }
-
+    var ObdHex = "00"
     var startime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
     var endtime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
     lateinit var rvIDCopyDetail: RecyclerView
@@ -66,6 +66,7 @@ class Frag_Idcopy_Detail : RootFragement(), Copy_C {
     ): View? {
         rootview = inflater.inflate(R.layout.fragment_frag__idcopy__detail, container, false)
         rootview.tv_content.text = "${PublicBean.SelectMake}/${PublicBean.SelectModel}/${PublicBean.SelectYear}"
+        ObdHex=(activity as KtActivity).itemDAO.GetHex(PublicBean.SelectMake,PublicBean.SelectModel,PublicBean.SelectYear)
         run = false
         rvIDCopyDetail = rootview.findViewById(R.id.rv_id_copy_neww)
         lwLoading = rootview.findViewById(R.id.ldw_loading)
@@ -94,7 +95,7 @@ class Frag_Idcopy_Detail : RootFragement(), Copy_C {
         lwLoading.show()
         vibMediaUtil.playVibrate()
         if (checkCanCopy()) {
-            Thread { OgCommand.IdCopy(this) }.start()
+            Thread { OgCommand.IdCopy(this,ObdHex) }.start()
         } else {
             act.Toast(R.string.app_no_data_to_copy)
         }

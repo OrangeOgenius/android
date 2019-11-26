@@ -412,6 +412,21 @@ fun GoOk(code:String,navigationActivity: BleActivity){
             return ""
         }
     }
+    fun GetLf(make: String, model: String, year:String): String{
+        val result = db.rawQuery(
+            "select  `LF Power` from `Summary table` " +
+                    "where $MAKE_COLUMN = '$make' " +
+                    "and $MODEL_COLUMN = '$model' " +
+                    "and $YEAR_COLUMN = '$year'  limit 0,1",
+            null)
+        if(result.count > 0 ){
+            result.moveToFirst()
+            return result.getString(0)
+        }else{
+            result.close()
+            return ""
+        }
+    }
     fun GetHex(make: String, model: String, year:String): String{
         val result = db.rawQuery(
             "select  `OBD Product No. (hex)` from `Summary table` " +

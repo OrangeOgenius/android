@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.fragment_frag__check__sensor__read.view.*
 
 class Frag_Check_Sensor_Read : RootFragement() {
     internal var ObdHex = "00"
+    var lf="00"
     lateinit var vibMediaUtil: VibMediaUtil
     lateinit var lwLoading: LoadingWidget
     override fun onCreateView(
@@ -33,6 +34,7 @@ class Frag_Check_Sensor_Read : RootFragement() {
             act.supportFragmentManager!!.popBackStack(null, 1)
         }
         ObdHex=(activity as KtActivity).itemDAO.GetHex(PublicBean.SelectMake,PublicBean.SelectModel,PublicBean.SelectYear)
+        lf=(activity as KtActivity).itemDAO.GetLf(PublicBean.SelectMake,PublicBean.SelectModel,PublicBean.SelectYear)
         while(ObdHex.length<2){ObdHex="0"+ObdHex}
         Log.e("Hex",ObdHex)
         rootview.tv_content.setText("${PublicBean.SelectMake}/${PublicBean.SelectModel}/${PublicBean.SelectYear}")
@@ -52,7 +54,7 @@ class Frag_Check_Sensor_Read : RootFragement() {
         rootview.scw_tips.visibility=View.GONE
         lwLoading.show(resources.getString(R.string.app_data_reading))
         Thread {
-            val a = OgCommand.GetId(ObdHex, "00")
+            val a = OgCommand.GetId(ObdHex, lf)
             handler.post {
                 run = false
                 if(!act.NowFrage.equals("Frag_Check_Sensor_Read")){return@post}

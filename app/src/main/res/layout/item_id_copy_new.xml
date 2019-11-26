@@ -71,13 +71,13 @@
                     android:layout_height="match_parent"
                     android:background="@color/color_black"/>
 
-            <TextView
+            <EditText
                     android:id="@+id/tv_newid"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:textColor="?attr/colorError"
                     android:layout_weight="1"
-                    android:gravity="center"/>
+                    android:gravity="center" android:background="@null" android:textSize="14sp"/>
 
         </com.de.rocket.ue.layout.PercentLinearLayout>
         <!--上边框-->
