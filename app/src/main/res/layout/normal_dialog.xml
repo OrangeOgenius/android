@@ -5,7 +5,7 @@
 
     <RelativeLayout
             android:layout_width="200dp"
-            android:layout_height="150dp" android:id="@+id/load"
+            android:layout_height="100dp" android:id="@+id/load"
             android:background="@drawable/corner" android:alpha="0.9" android:layout_centerInParent="true">
 
         <TextView
@@ -14,18 +14,17 @@
                 android:layout_height="match_parent" android:id="@+id/tit" android:layout_centerInParent="false"
                 android:textColor="@android:color/white" android:textSize="24sp"
                 android:layout_marginBottom="50dp" android:gravity="center"/>
-        <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/animation_view"
-                android:layout_width="274dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:lottie_autoPlay="true"
-                app:lottie_fileName="loadwhite.json"
-                app:lottie_loop="true"
-                android:visibility="visible"
-                android:layout_alignParentBottom="true" android:layout_marginBottom="10dp"
-                android:translationY="40dp"/>
     </RelativeLayout>
+    <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_view"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="loadwhite.json"
+            app:lottie_loop="true"
+            android:visibility="visible"
+            android:layout_centerInParent="true" android:translationY="20dp"/>
 </RelativeLayout>

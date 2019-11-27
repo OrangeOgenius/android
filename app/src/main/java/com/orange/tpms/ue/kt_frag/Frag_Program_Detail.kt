@@ -34,6 +34,7 @@ import java.util.*
 
 
 class Frag_Program_Detail : RootFragement(),Program_C{
+
     override fun Program_Progress(i: Int) {
         if(!act.NowFrage.equals("Frag_Program_Detail")){return}
         handler.post{   if (lwLoading.visibility != View.VISIBLE) {
@@ -48,7 +49,7 @@ class Frag_Program_Detail : RootFragement(),Program_C{
         endtime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
         if(boolean){
             Log.e("DATA:", "燒錄成功")
-            val result = OgCommand.GetPrId(ObdHex, "00")
+            val result = OgCommand.GetPrId(ObdHex, LF)
             if(!act.NowFrage.equals("Frag_Program_Detail")){return}
                 handler.post {
                     AllFall()
@@ -69,6 +70,8 @@ class Frag_Program_Detail : RootFragement(),Program_C{
 
         }
     }
+    var idcount=8;
+    var LF="00"
     lateinit var vibMediaUtil: VibMediaUtil
     lateinit var programAdapter: ProgramAdapter
     lateinit var rvProgram: RecyclerView
@@ -86,6 +89,7 @@ class Frag_Program_Detail : RootFragement(),Program_C{
         savedInstanceState: Bundle?
     ): View? {
         rootview=inflater.inflate(R.layout.fragment_frag__program__detail, container, false)
+        LF=(activity as KtActivity).itemDAO.GetLf(PublicBean.SelectMake,PublicBean.SelectModel,PublicBean.SelectYear)
         rootview.tv_program_title.text="${PublicBean.SelectMake}/${PublicBean.SelectModel}/${PublicBean.SelectYear}"
         rootview.bt_menue.setOnClickListener { GoMenu() }
         rootview.bt_program.setOnClickListener {
@@ -110,6 +114,7 @@ class Frag_Program_Detail : RootFragement(),Program_C{
             act.DaiLogDismiss()
             updateEditable()
         }
+        idcount=(activity as KtActivity).itemDAO.GetCopyId((activity as KtActivity).itemDAO.getMMY(PublicBean.SelectMake,PublicBean.SelectModel,PublicBean.SelectYear))
         return rootview
     }
 fun Program(){
@@ -237,7 +242,8 @@ fun Program(){
     }
     fun Trigger(){
         if(run){return}
-        if(checkSelectFinish()){Program()}
+        if(checkSelectFinish()){Program()
+        return}
         run=true
         lwLoading.show()
         act.DaiLogDismiss()
@@ -253,7 +259,7 @@ fun Program(){
                 lwLoading.hide()
                 if(PublicBean.ProgramNumber==a.size){
                     for(i in a){
-                        updateSensorid(i.id)
+                        updateSensorid(i.id.substring(8-idcount))
                     }
                 }else{
                     act.Toast(resources.getString(R.string.app_read_failed))
@@ -408,7 +414,7 @@ fun Program(){
                     while(compareid.length<8){compareid="0"+compareid}
                     if (sensorid.substring(8-lo+2) == compareid.substring(8-lo+2)) {
                         Log.e("sensorid", sensorid.substring(8-8+lo)+":"+programItemBean.sensorid.substring(8-8+lo))
-                        programItemBean.sensorid=sensorid
+                        programItemBean.sensorid=sensorid.substring(8-idcount)
                         programItemBean.state = state
                     }
                 }

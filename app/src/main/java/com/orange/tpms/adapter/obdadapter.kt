@@ -1,6 +1,7 @@
 package com.orange.tpms.adapter
 
 import android.text.InputFilter
+import android.util.Log
 import android.view.View
 import com.orange.blelibrary.blelibrary.Adapter.RootAdapter
 import com.orange.tpms.R
@@ -13,9 +14,10 @@ import kotlinx.android.synthetic.main.fragment_frag__pad__keyin.view.*
 import kotlinx.android.synthetic.main.fragment_frag__program__sensor_information.view.*
 import kotlinx.android.synthetic.main.item_id_copy_new.view.*
 
-class obdadapter(val beans: ObdBeans) : RootAdapter(R.layout.item_id_copy_new) {
+class obdadapter(public val beans: ObdBeans) : RootAdapter(R.layout.item_id_copy_new) {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if (position == 0) {
+            holder.mView.tv_newid.filters= arrayOf<InputFilter>(InputFilter.LengthFilter(30))
             holder.mView.tv_position.setBackground(holder.mView.context.resources.getDrawable(R.color.gray))
             holder.mView.tv_originalid.setBackground(holder.mView.context.resources.getDrawable(R.color.gray))
             holder.mView.tv_newid.setBackground(holder.mView.context.resources.getDrawable(R.color.color_orange))
@@ -63,9 +65,6 @@ class obdadapter(val beans: ObdBeans) : RootAdapter(R.layout.item_id_copy_new) {
                 }
             }
         }
-        KeyboardUtil.hideEditTextKeyboard(holder.mView.tv_newid)
-        holder.mView.tv_newid.filters= arrayOf<InputFilter>(InputFilter.LengthFilter(beans.idcount))
-        holder.mView.tv_newid.addTextChangedListener(ObdFilter(holder.mView.tv_newid,beans.idcount))
         if (position - 1 < beans.OldSemsor.size) {
             holder.mView.tv_originalid.text = beans.OldSemsor[position - 1]
             holder.mView.tv_newid.setText(beans.NewSensor[position - 1])
@@ -81,9 +80,15 @@ class obdadapter(val beans: ObdBeans) : RootAdapter(R.layout.item_id_copy_new) {
                 ObdBeans.PROGRAM_SUCCESS -> {
                     holder.mView.iv_check.setVisibility(View.VISIBLE)
                     holder.mView.iv_check.setImageResource(R.mipmap.iv_square_select)
-                    holder.mView.tv_newid.setTextColor(holder.itemView.getContext().getResources().getColor(R.color.color_black));
+                    holder.mView.tv_newid.setTextColor(holder.itemView.context.resources.getColor(R.color.color_black));
                 }
             }
+        }
+        KeyboardUtil.hideEditTextKeyboard(holder.mView.tv_newid)
+
+        holder.mView.tv_newid.filters= arrayOf<InputFilter>(InputFilter.LengthFilter(beans.idcount))
+        holder.mView.tv_newid.setClearStatusListener {
+            if(!holder.mView.tv_newid.text.toString().contains("New")){ beans.NewSensor[position-1]=holder.mView.tv_newid.text.toString()}
         }
     }
 

@@ -71,7 +71,7 @@
                     android:layout_height="match_parent"
                     android:background="@color/color_black"/>
 
-            <EditText
+            <com.orange.tpms.widget.ClearEditText
                     android:id="@+id/tv_newid"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"

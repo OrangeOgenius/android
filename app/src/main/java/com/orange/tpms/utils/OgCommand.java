@@ -155,7 +155,9 @@ public class OgCommand {
                 }
                 if (Rx.length() >= 36) {
                     SensorData data=new SensorData();
-                    data.id = Rx.substring(16 - 8, 16);
+                    int idcount = Integer.parseInt(Rx.substring(17, 18));
+                    data.idcount=idcount;
+                    data.id = Rx.substring(8, 16);
                     data.bat = getBit(StringHexToByte(Rx.substring(28,30))[0]).substring(3,4);
                     data.kpa=byte2ToINT(StringHexToByte(Rx.substring(22,26)));
                     byte[] bytes=StringHexToByte(Rx.substring(18 , 22));
@@ -192,6 +194,7 @@ public class OgCommand {
                     int idcount = Integer.parseInt(Rx.substring(17, 18));
                     data.idcount=idcount;
                     data.id = Rx.substring(16 - idcount, 16);
+//                    data.id=Rx.substring(8, 16);
                     data.bat = getBit(StringHexToByte(Rx.substring(28,30))[0]).substring(3,4);
                     data.kpa=byte2ToINT(StringHexToByte(Rx.substring(22,26)));
                     byte[] bytes=StringHexToByte(Rx.substring(18 , 22));

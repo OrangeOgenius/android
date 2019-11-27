@@ -97,6 +97,7 @@ class Frag_Idcopy_Detail : RootFragement(), Copy_C {
         if (checkCanCopy()) {
             Thread { OgCommand.IdCopy(this,ObdHex) }.start()
         } else {
+            run=false
             act.Toast(R.string.app_no_data_to_copy)
         }
     }

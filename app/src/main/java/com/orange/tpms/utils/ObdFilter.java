@@ -6,6 +6,8 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.widget.EditText;
 import com.orange.tpms.R;
+import com.orange.tpms.adapter.obdadapter;
+import com.orange.tpms.bean.ObdBeans;
 
 /**
  * The <code>CustomTextWatcher</code> class is used to add a TextWatcher to the
@@ -24,9 +26,9 @@ public class ObdFilter implements TextWatcher {
 
     private int mSelection;
     private int count;
-
+    private int position;
     private String mLastText;
-
+    private obdadapter obdadapter;
     /**
      * The editText to edit text.
      */
@@ -38,13 +40,15 @@ public class ObdFilter implements TextWatcher {
      * @param editText
      *        the editText to edit text.
      */
-    public ObdFilter(EditText editText, int count) {
+    public ObdFilter(EditText editText, int count, obdadapter obdadapter,int position) {
 
         super();
+        this.obdadapter=obdadapter;
         mFormat = false;
         mInvalid = false;
         this.count=count;
         mLastText = "";
+        this.position=position;
         this.mEditText = editText;
         this.mEditText.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
     }
@@ -135,6 +139,9 @@ public class ObdFilter implements TextWatcher {
                 text.append(editable.toString().replace(" ", ""));
                 mLastText = text.toString();
                 mEditText.setText(text);
+                Log.e("changetext",text.toString());
+//                obdadapter.getBeans().NewSensor.set(1,text.toString());
+//                obdadapter.notifyDataSetChanged();
             }
         } catch (Exception e) {
             Log.i(TAG, e.toString());

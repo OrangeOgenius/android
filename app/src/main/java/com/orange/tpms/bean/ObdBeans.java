@@ -11,7 +11,7 @@ public class ObdBeans {
     public ArrayList<String> OldSemsor=new ArrayList<>();
     public ArrayList<String> NewSensor=new ArrayList<>();
     public ArrayList<Integer> state=new ArrayList<>();
-    public boolean CanEdit=true;
+    public boolean CanEdit=false;
     public void add(String OldSemsor,String NewSensor,int state){
         this.OldSemsor.add(OldSemsor);
         this.NewSensor.add(NewSensor);
