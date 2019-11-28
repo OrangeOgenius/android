@@ -110,10 +110,13 @@ ShowDaiLog(R.layout.dataloading,false,false)
     }
     override fun ConnectSituation(b:Boolean){
         super.ConnectSituation(b)
+
         if(!b){
             when(PublicBean.position){
                 PublicBean.PAD_PROGRAM->{GoMenu()}
                 PublicBean.PAD_COPY->{GoMenu()}
+                PublicBean.OBD_RELEARM->{GoBack("Frag_Obd")}
+                PublicBean.ID_COPY_OBD->{GoBack("Frag_Obd")}
             }
         }else{
             BleCommand.act=this
@@ -166,6 +169,7 @@ fun ShowTitleBar(boolean: Boolean){
         }
     }
     fun DataUpload(){
+        while(xml.size>100){xml.removeAt(0)}
         val tmp=ArrayList<String>()
             for(i in 0 until xml.size){
                 if(Fuction._req(Fuction.wsdl,xml[i],Fuction.timeout).status==-1){

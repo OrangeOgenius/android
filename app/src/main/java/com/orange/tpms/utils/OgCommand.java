@@ -263,15 +263,19 @@ public static void ReOpen(){
         Log.e("DATA:","重新上電");
         HardwareApp.getInstance().open5V(false);
         Thread.sleep(500);
-        HardwareApp.getInstance().open5V(false);
+        HardwareApp.getInstance().open9V(false);
         Thread.sleep(500);
-        HardwareApp.getInstance().open5V(false);
+        HardwareApp.getInstance().openPB5(false);
         Thread.sleep(500);
-        HardwareApp.getInstance().open5V(true);
-        Thread.sleep(500);
-        HardwareApp.getInstance().open5V(true);
+        HardwareApp.getInstance().setGpio1V(false);
         Thread.sleep(500);
         HardwareApp.getInstance().open5V(true);
+        Thread.sleep(500);
+        HardwareApp.getInstance().open9V(true);
+        Thread.sleep(500);
+        HardwareApp.getInstance().openPB5(true);
+        Thread.sleep(500);
+        HardwareApp.getInstance().setGpio1V(true);
         Thread.sleep(500);
     }catch (Exception e){e.printStackTrace();}
 }

@@ -14,6 +14,7 @@ import android.widget.TextView
 import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.blelibrary.blelibrary.tool.FormatConvert
 import com.orange.tpms.Callback.Copy_C
+import com.orange.tpms.Callback.Obd_C
 import com.orange.tpms.R
 import com.orange.tpms.adapter.obdadapter
 import com.orange.tpms.bean.MMYQrCodeBean
@@ -76,7 +77,6 @@ class Frag_Obd_Copy_Detail : RootFragement() , Copy_C {
         adapter = obdadapter(beans)
         rootview.rv_id_copy_neww.layoutManager = LinearLayoutManager(act)
         rootview.rv_id_copy_neww.adapter = adapter
-
         super.onCreateView(inflater, container, savedInstanceState)
         initview()
         rootview.bt_menue.setOnClickListener {
@@ -207,12 +207,44 @@ fun Program(){
     PublicBean.NewSensorList=beans.NewSensor
     PublicBean.SensorList=beans.OldSemsor
     if (Check_Complete()) {
-        Thread { OgCommand.IdCopy(this,ObdHex) }.start()
+        when(PublicBean.position){
+            PublicBean.ID_COPY_OBD->{Thread {
+                OgCommand.IdCopy(this,ObdHex) }.start()}
+            PublicBean.OBD_RELEARM->{
+                Thread{ (activity!! as KtActivity).ObdCommand.setTireId(beans.NewSensor) {
+                    handler.post {
+                        run=false
+                        if(it){
+                            AllSuccess()
+                        }else{
+                            Allfalse()
+                        }
+                    }
+                }
+                }.start()
+            }
+        }
     } else {
+        act.DaiLogDismiss()
         run=false
         act.Toast(R.string.app_no_data_to_copy)
     }
 }
+fun Allfalse(){
+    for(i in 0 until beans.state.size){
+        beans.state[i]=ObdBeans.PROGRAM_FALSE
+    }
+    adapter.notifyDataSetChanged()
+    act.DaiLogDismiss()
+}
+    fun AllSuccess(){
+        beans.OldSemsor=beans.NewSensor
+        for(i in 0 until beans.state.size){
+            beans.state[i]=ObdBeans.PROGRAM_SUCCESS
+        }
+        adapter.notifyDataSetChanged()
+        act.DaiLogDismiss()
+    }
     fun Trigger() {
         if (run) {
             return
@@ -305,6 +337,7 @@ fun Program(){
         Thread {
             val a = (activity!! as KtActivity).ObdCommand.GetId(if (beans.rowcount == 6) "05" else "04");
             handler.post {
+                act.DaiLogDismiss()
                 if (a.success) {
                     beans.add(a.LF, "", ObdBeans.PROGRAM_WAIT)
                     beans.add(a.RF, "", ObdBeans.PROGRAM_WAIT)
@@ -319,12 +352,11 @@ fun Program(){
                     Log.e("ID", a.LR)
                     Log.e("ID", a.RR)
                     Log.e("ID", a.SP)
-//                    rootview.program.setOnClickListener {    act.ChangePage(Key_ID(),R.id.frage,"Key_ID",true)}
                 } else {
+                    act.DaiLogDismiss()
                     act.Toast("車種選擇錯誤")
                     act.GoBack("Frag_Obd")
                 }
-                act.LoadingSuccessUI()
             }
         }.start()
     }
@@ -336,6 +368,7 @@ fun Program(){
     }
 
     fun Check_Complete(): Boolean {
+        if(beans.NewSensor.size<beans.rowcount-1){return false}
         for (i in 0 until beans.rowcount - 1) {
             if (beans.NewSensor[i] == "") {
                 return false

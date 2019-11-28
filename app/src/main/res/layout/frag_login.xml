@@ -50,7 +50,7 @@
             android:layout_marginStart="0dp"
             android:layout_toEndOf="@+id/iv_user"
             android:gravity="start|center"
-            android:hint="@string/app_email"
+            android:hint="@string/E_mail"
             android:textColorHint="@color/color_grey"
             android:textColor="@color/color_black"
             android:background="@null"
@@ -93,7 +93,7 @@
             android:layout_marginStart="0dp"
             android:layout_toEndOf="@+id/iv_password"
             android:gravity="start|center"
-            android:hint="@string/app_password"
+            android:hint="@string/Password"
             android:textColorHint="@color/color_grey"
             android:textColor="@color/color_black"
             android:background="@null"
@@ -134,7 +134,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:focusable="true"
-            android:text="@string/app_forget_password"
+            android:text="@string/Forgot_password"
             android:textColor="@color/tv_black_oringe_selecter"
             app:layout_textSizePercent="5%h"/>
 

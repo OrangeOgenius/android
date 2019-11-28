@@ -682,7 +682,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:layout_centerVertical="true"
-                        android:text="@string/app_update"
+                        android:text="@string/update"
                         app:layout_marginLeftPercent="3%w"
                         app:layout_marginRightPercent="5%w"
                         app:layout_textSizePercent="30%h"/>
@@ -736,7 +736,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:layout_centerVertical="true"
-                        android:text="@string/app_privacy_policy"
+                        android:text="@string/Privacy_Policy"
                         app:layout_marginLeftPercent="3%w"
                         app:layout_marginRightPercent="5%w"
                         app:layout_textSizePercent="30%h"/>

@@ -257,9 +257,9 @@ fun Program(){
                 if(!act.NowFrage.equals("Frag_Program_Detail")){return@post}
                 vibMediaUtil.playBeep()
                 lwLoading.hide()
-                if(PublicBean.ProgramNumber==a.size){
+                if(a.size>=0){
                     for(i in a){
-                        updateSensorid(i.id.substring(8-idcount))
+                        if(!haveSameSensorid(i.id.substring(8-idcount))){updateSensorid(i.id.substring(8-idcount))}
                     }
                 }else{
                     act.Toast(resources.getString(R.string.app_read_failed))

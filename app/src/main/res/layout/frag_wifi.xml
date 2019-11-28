@@ -78,7 +78,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_toEndOf="@+id/iv_password"
                 android:gravity="start|center_vertical"
-                android:hint="@string/app_password"
+                android:hint="@string/Password"
                 android:textColorHint="@color/color_grey"
                 android:textColor="@color/color_black"
                 android:background="@null"

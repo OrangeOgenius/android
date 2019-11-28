@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.util.Log;
 import android.widget.TextView;
+import com.orange.tpms.Callback.Obd_C;
 import com.orange.tpms.R;
 import com.orange.tpms.bean.ID_Beans;
 import com.orange.tpms.ue.activity.KtActivity;
@@ -147,20 +148,20 @@ public class ObdCommand {
 
     public boolean GoBootloader(){
         try{
-            act.getBleServiceControl().WriteCmd(GetXOR("0ACD010100FFF5"),14);
+            act.getBleServiceControl().WriteCmd(GetXOR("0ACD010100FFF5"),26);
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS");
             Date past = sdf.parse(sdf.format(new Date()));
             int fal = 0;
             while (true) {
                 Date now = sdf.parse(sdf.format(new Date()));
                 double time = getDatePoor(now, past);
-                if (time > 1) {
+                if (time > 10                                                                                                                                                                                        ) {
                     if(fal==1){return false;}
                     past = sdf.parse(sdf.format(new Date()));
-                    act.getBleServiceControl().WriteCmd(GetXOR("0ACD010100FFF5"),14);
+                    act.getBleServiceControl().WriteCmd(GetXOR("0ACD010100FFF5"),26);
                     fal++;
                 }
-                if (act.getRXDATA().contains("F5CD010100CD0A")) {
+                if (act.getRXDATA().contains("F5CD010100CD0A01000300F70A")) {
                     Log.d("BLEDATA","進入燒錄");
                     return true;
                 }
@@ -241,43 +242,39 @@ public class ObdCommand {
     }
 
     //設定tireid
-    public boolean setTireId(final ArrayList<String> Id) {
-        ArrayList<String> tmpsend = new ArrayList<>();
-        tmpsend.add("60A200FFFFFFFFC20A");
-        int i = 1;
-        for (String id : Id) {
-            id = AddEmpty(id);
-            if (id != null) {
-                tmpsend.add(addcheckbyte("60A20XidFF0A".replace("id", id).replace("X", "" + i)));
-            }
-            i++;
-        }
-        tmpsend.add("60A2FFFFFFFFFF3D0A");
-        for (String a : tmpsend) {
-            try {
-                act.getBleServiceControl().WriteCmd(a, 18);
-                Thread.currentThread().sleep(50);
-            } catch (Exception e) {
-                Log.d("CommandError", e.getMessage());
-            }
-        }
-        try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS");
-            Date past = sdf.parse(sdf.format(new Date()));
-            while (true) {
-                Date now = sdf.parse(sdf.format(new Date()));
-                double time = getDatePoor(now, past);
-                if (time > 10) {
-                    return false;
+    public void setTireId(final ArrayList<String> Id, Obd_C caller) {
+        try{
+            ArrayList<String> tmpsend = new ArrayList<>();
+            tmpsend.add("60A200FFFFFFFFC20A");
+            int i = 1;
+            for (String id : Id) {
+                id = AddEmpty(id);
+                if (id != null) {
+                    tmpsend.add(addcheckbyte("60A20XidFF0A".replace("id", id).replace("X", "" + i)));
                 }
-                if (act.getRXDATA().equals("60B201FFFFFFFFD30A")) {
-                    return true;
-                }
+                i++;
             }
-        } catch (Exception d) {
-            d.printStackTrace();
-            return false;
-        }
+            tmpsend.add("60A2FFFFFFFFFF3D0A");
+            for (String a : tmpsend) {
+                    act.getBleServiceControl().WriteCmd(a, 18);
+                    Thread.currentThread().sleep(50);
+            }
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS");
+                Date past = sdf.parse(sdf.format(new Date()));
+                while (true) {
+                    Date now = sdf.parse(sdf.format(new Date()));
+                    double time = getDatePoor(now, past);
+                    if (time > 10) {
+                        caller.result_C(false);
+                        break;
+                    }
+                    if (act.getRXDATA().equals("60B201FFFFFFFFD30A")) {
+                        caller.result_C(true);
+                        break;
+                    }
+                }
+        }catch (Exception e){e.printStackTrace();caller.result_C(false);}
+
     }
 
     public static String AddEmpty(String a) {

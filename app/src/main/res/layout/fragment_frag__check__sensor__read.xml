@@ -15,27 +15,10 @@
                 android:layout_height="90dp" android:layout_alignParentBottom="true"
         >
             <Button
-                    android:id="@+id/bt_tigger"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="@string/app_tigger"
-                    android:textAllCaps="false"
-                    android:gravity="center"
-                    android:layout_centerHorizontal="true"
-                    android:layout_below="@+id/iv_scan_tips"
-                    android:textColor="@color/color_white"
-                    app:layout_widthPercent="35%w" android:layout_weight="1" android:background="@color/buttoncolor"
-                    android:textSize="17sp"/>
-            <ImageView
-                    android:layout_width="0.5dp"
-                    android:layout_height="match_parent" app:srcCompat="@android:color/white"
-                    android:id="@+id/imageView13"
-                    android:background="@color/color_white"/>
-            <Button
                     android:id="@+id/bt_menue"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="@string/app_menue"
+                    android:text="@string/MENU"
                     android:textAllCaps="false"
                     android:gravity="center"
                     android:layout_centerHorizontal="true"
@@ -43,6 +26,23 @@
                     android:textColor="@color/color_white"
                     app:layout_widthPercent="35%w"
                     app:layout_marginLeftPercent="8%w" android:layout_weight="1" android:background="@color/buttoncolor"
+                    android:textSize="17sp"/>
+            <ImageView
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent" app:srcCompat="@android:color/white"
+                    android:id="@+id/imageView13"
+                    android:background="@color/color_white"/>
+            <Button
+                    android:id="@+id/bt_tigger"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/app_trigger"
+                    android:textAllCaps="false"
+                    android:gravity="center"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/iv_scan_tips"
+                    android:textColor="@color/color_white"
+                    app:layout_widthPercent="35%w" android:layout_weight="1" android:background="@color/buttoncolor"
                     android:textSize="17sp"/>
         </LinearLayout>
         <com.de.rocket.ue.layout.PercentLinearLayout
@@ -64,7 +64,7 @@
                     app:layout_textSizePercent="5%h" android:textSize="20sp"/>
 
             <TextView
-                    android:text="Not all of the OE sensor contains the temperature,Battery and Voltage status"
+                    android:text="@string/Notall"
                     android:layout_width="match_parent"
                     android:layout_height="60dp" android:id="@+id/textView10" android:textColor="#E94F06"
                     android:gravity="center" android:padding="10dp" android:textSize="15sp"/>
@@ -275,12 +275,6 @@
 
         </com.de.rocket.ue.layout.PercentLinearLayout>
 
-        <com.orange.tpms.widget.ScanWidget
-                android:visibility="visible"
-                android:id="@+id/scw_tips"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
         <!--loading-->
         <com.orange.tpms.widget.LoadingWidget
                 android:id="@+id/ldw_loading"
@@ -296,6 +290,27 @@
                 android:id="@+id/editText" android:layout_above="@id/ldw_loading"
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="100dp" android:visibility="gone"/>
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp" android:layout_centerInParent="true" android:layout_marginStart="80dp"
+                android:alpha="0.8" android:id="@+id/press">
+
+            <ImageView
+                    android:src="@drawable/bg_32414e_r8"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" android:id="@+id/imageView30"/>
+            <ImageView
+                    android:src="@mipmap/icon_press_trigger"
+                    android:layout_width="150dp"
+                    android:layout_height="100dp" android:id="@+id/imageView29"
+                    android:layout_centerHorizontal="true"/>
+            <TextView
+                    android:text="@string/app_to_trigger_sensor"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" android:id="@+id/textView13"
+                    android:layout_below="@id/imageView29" android:gravity="center" android:textSize="20sp"
+                    android:textColor="@android:color/white" android:translationY="-20dp"/>
+        </RelativeLayout>
 
     </RelativeLayout>
 </RelativeLayout>

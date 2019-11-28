@@ -25,6 +25,7 @@ class obdadapter(public val beans: ObdBeans) : RootAdapter(R.layout.item_id_copy
             holder.mView.tv_check.setBackground(holder.mView.context.resources.getDrawable(R.color.green))
             holder.mView.tv_check.setTextColor(holder.mView.context.resources.getColor(R.color.white))
             holder.mView.iv_check.setVisibility(View.GONE)
+            holder.mView.tv_originalid.setTextColor(holder.mView.context.resources.getColor(R.color.color_black))
             holder.mView.tv_position.text = "WH"
             holder.mView.tv_originalid.text = "Original ID"
             holder.mView.tv_newid.isEnabled=false
@@ -32,10 +33,18 @@ class obdadapter(public val beans: ObdBeans) : RootAdapter(R.layout.item_id_copy
             holder.mView.tv_check.text = "CHK"
             return
         } else {
+            if(PublicBean.position==PublicBean.OBD_RELEARM){
+                holder.mView.tv_newid.setTextColor(holder.mView.context.resources.getColor(R.color.color_black))
+                holder.mView.tv_newid.setBackground(holder.mView.context.resources.getDrawable(R.color.white))
+                holder.mView.tv_originalid.setBackground(holder.mView.context.resources.getDrawable(R.color.white))
+                holder.mView.tv_originalid.setTextColor(holder.mView.context.resources.getColor(R.color.color_orange))
+            }else{
+                holder.mView.tv_newid.setTextColor(holder.mView.context.resources.getColor(R.color.color_orange))
+                holder.mView.tv_newid.setBackground(holder.mView.context.resources.getDrawable(R.color.white))
+                holder.mView.tv_originalid.setBackground(holder.mView.context.resources.getDrawable(R.color.white))
+                holder.mView.tv_originalid.setTextColor(holder.mView.context.resources.getColor(R.color.color_black))
+            }
             holder.mView.tv_position.setBackground(holder.mView.context.resources.getDrawable(R.color.gray))
-            holder.mView.tv_originalid.setBackground(holder.mView.context.resources.getDrawable(R.color.white))
-            holder.mView.tv_newid.setBackground(holder.mView.context.resources.getDrawable(R.color.white))
-            holder.mView.tv_newid.setTextColor(holder.mView.context.resources.getColor(R.color.color_orange))
             holder.mView.tv_check.setBackground(holder.mView.context.resources.getDrawable(R.color.white))
             holder.mView.tv_check.setTextColor(holder.mView.context.resources.getColor(R.color.white))
             holder.mView.iv_check.setVisibility(View.VISIBLE)
@@ -80,12 +89,16 @@ class obdadapter(public val beans: ObdBeans) : RootAdapter(R.layout.item_id_copy
                 ObdBeans.PROGRAM_SUCCESS -> {
                     holder.mView.iv_check.setVisibility(View.VISIBLE)
                     holder.mView.iv_check.setImageResource(R.mipmap.iv_square_select)
-                    holder.mView.tv_newid.setTextColor(holder.itemView.context.resources.getColor(R.color.color_black));
+                    if(PublicBean.position==PublicBean.OBD_RELEARM){
+                        holder.mView.tv_originalid.setTextColor(holder.itemView.context.resources.getColor(R.color.color_black));
+                    }else{
+                        holder.mView.tv_newid.setTextColor(holder.itemView.context.resources.getColor(R.color.color_black));
+                    }
+
                 }
             }
         }
         KeyboardUtil.hideEditTextKeyboard(holder.mView.tv_newid)
-
         holder.mView.tv_newid.filters= arrayOf<InputFilter>(InputFilter.LengthFilter(beans.idcount))
         holder.mView.tv_newid.setClearStatusListener {
             if(!holder.mView.tv_newid.text.toString().contains("New")){ beans.NewSensor[position-1]=holder.mView.tv_newid.text.toString()}

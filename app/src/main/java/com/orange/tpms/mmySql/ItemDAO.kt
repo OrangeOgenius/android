@@ -437,7 +437,8 @@ fun GoOk(code:String,navigationActivity: BleActivity){
 
         if(result.count > 0 ){
             result.moveToFirst()
-            return result.getString(0)
+            val hex=result.getString(0)
+           if(hex.length==4){return hex.substring(2,4)}else{return "00"}
         }else{
             result.close()
             return ""

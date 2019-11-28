@@ -74,6 +74,7 @@ class Frag_Idcopy_original : RootFragement() {
             }
         }
         act.ShowDaiLog(R.layout.sensor_way_dialog,false,false)
+        act.mDialog!!.findViewById<TextView>(R.id.tit).setText(resources.getString(R.string.app_original_sensor))
         act.mDialog!!.findViewById<RelativeLayout>(R.id.scan).setOnClickListener {
             act.DaiLogDismiss()
         }

@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/edit_border_bg"
             android:padding="2dp"
-            android:hint="@string/app_email"
+            android:hint="@string/E_mail"
             android:textColorHint="@color/color_grey"
             android:textColor="@color/color_black"
             app:layout_paddingPercent="1%sh"

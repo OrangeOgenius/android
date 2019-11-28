@@ -13,14 +13,20 @@
         android:layout_centerInParent="true"
         android:visibility="gone" />-->
 
-    <com.orange.tpms.widget.LoadingPointWidget
-        android:id="@+id/ldw_loading"
-        app:layout_paddingTopPercent="15%h"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"/>
-
     <!--loading-->
+    <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_view3"
+            android:layout_width="274dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="loadwhite.json"
+            app:lottie_loop="true"
+            android:visibility="visible"
+
+            android:layout_centerInParent="true" android:translationY="50dp"/>
     <com.orange.tpms.widget.LoadingWidget
         android:id="@+id/ldw_update_loading"
         android:layout_width="match_parent"
