@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
 import android.widget.TextView
+import com.orange.blelibrary.blelibrary.Callback.DaiSetUp
 import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.blelibrary.blelibrary.tool.FormatConvert
 import com.orange.tpms.Callback.Copy_C
@@ -82,20 +83,22 @@ class Frag_Obd_Copy_Detail : RootFragement() , Copy_C {
         rootview.bt_menue.setOnClickListener {
             act.GoMenu()
         }
-        act.ShowDaiLog(R.layout.sensor_way_dialog,false,false)
-        act.mDialog!!.findViewById<RelativeLayout>(R.id.scan).setOnClickListener {
-            act.DaiLogDismiss()
-            Downs19()
-        }
-        act.mDialog!!.findViewById<RelativeLayout>(R.id.trigger).setOnClickListener {
-            act.DaiLogDismiss()
-            Downs19()
-        }
-        act.mDialog!!.findViewById<RelativeLayout>(R.id.keyin).setOnClickListener {
-            act.DaiLogDismiss()
-            Downs19()
-            beans.CanEdit=true
-        }
+        act.ShowDaiLog(R.layout.sensor_way_dialog,false,false, DaiSetUp {
+            it.findViewById<RelativeLayout>(R.id.scan).setOnClickListener {
+                act.DaiLogDismiss()
+                Downs19()
+            }
+            it.findViewById<RelativeLayout>(R.id.trigger).setOnClickListener {
+                act.DaiLogDismiss()
+                Downs19()
+            }
+            it.findViewById<RelativeLayout>(R.id.keyin).setOnClickListener {
+                act.DaiLogDismiss()
+                Downs19()
+                beans.CanEdit=true
+            }
+        })
+
         rootview.bt_program.setOnClickListener {
             if(Check_Complete()){
                 Program()
@@ -151,8 +154,9 @@ class Frag_Obd_Copy_Detail : RootFragement() , Copy_C {
         super.onKeyScan()
         if(run){return}
         run=true
-        act.ShowDaiLog(R.layout.normal_dialog, false, true)
-        act.mDialog!!.tit.text = act.resources.getString(R.string.app_data_reading)
+        act.ShowDaiLog(R.layout.normal_dialog, false, true, DaiSetUp {
+            it.tit.text= act.resources.getString(R.string.app_data_reading)
+        })
         HardwareApp.getInstance().scan()
         Thread{
             Thread.sleep(3000)
@@ -200,8 +204,9 @@ fun Program(){
         return
     }
     run = true
-    act.ShowDaiLog(R.layout.normal_dialog, false, true)
-    act.mDialog!!.tit.text = act.resources.getString(R.string.Programming)
+    act.ShowDaiLog(R.layout.normal_dialog, false, true, DaiSetUp{
+        it.tit.text = act.resources.getString(R.string.Programming)
+    })
     startime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
     vibMediaUtil.playVibrate()
     PublicBean.NewSensorList=beans.NewSensor
@@ -252,8 +257,9 @@ fun Allfalse(){
         if(Check_Complete()){Program()
         return}
         run = true
-        act.ShowDaiLog(R.layout.normal_dialog, false, true)
-        act.mDialog!!.tit.text = act.resources.getString(R.string.app_data_reading)
+        act.ShowDaiLog(R.layout.normal_dialog, false, true, DaiSetUp {
+            it.tit.text=act.resources.getString(R.string.app_data_reading)
+        })
         Thread {
             val a = OgCommand.GetId(ObdHex, "00")
             handler.post {
@@ -274,8 +280,9 @@ fun Allfalse(){
     }
 
     fun Downs19() {
-        act.ShowDaiLog(R.layout.normal_dialog, false, true)
-        act.mDialog!!.tit.text = act.resources.getString(R.string.Programming)
+        act.ShowDaiLog(R.layout.normal_dialog, false, true, DaiSetUp {
+            it.tit.text = act.resources.getString(R.string.Programming)
+        })
         handler.post { (activity!! as KtActivity).back.isEnabled = false }
         Thread {
             if (!(activity!! as KtActivity).ObdCommand.HandShake()) {
@@ -300,10 +307,11 @@ fun Allfalse(){
                 if (!(activity!! as KtActivity).ObdCommand.WriteVersion() || !(activity!! as KtActivity).ObdCommand.GoBootloader()) {
                     handler.post {
                         act.Toast("燒錄失敗")
-                        act.ShowDaiLog(R.layout.program_false, false, false);
-                        act.mDialog!!.findViewById<TextView>(R.id.ok).setOnClickListener { act.DaiLogDismiss()
-                        act.GoBack("Frag_Obd")}
-                        act.mDialog!!.findViewById<TextView>(R.id.yes).setOnClickListener { Downs19() }
+                        act.ShowDaiLog(R.layout.program_false, false, false, DaiSetUp {
+                            it.findViewById<TextView>(R.id.ok).setOnClickListener { act.DaiLogDismiss()
+                                act.GoBack("Frag_Obd")}
+                            it.findViewById<TextView>(R.id.yes).setOnClickListener { Downs19() }
+                        });
                         (activity!! as KtActivity).back.isEnabled = true
                     }
                     return@Thread
@@ -322,18 +330,21 @@ fun Allfalse(){
                     SetId()
                 } else {
                     act.Toast("燒錄失敗")
-                    act.ShowDaiLog(R.layout.program_false, false, false);
-                    act.mDialog!!.findViewById<TextView>(R.id.ok).setOnClickListener { act.DaiLogDismiss()
-                        act.GoBack("Frag_Obd")}
-                    act.mDialog!!.findViewById<TextView>(R.id.yes).setOnClickListener { Downs19() }
+                    act.ShowDaiLog(R.layout.program_false, false, false, DaiSetUp {
+                        it.findViewById<TextView>(R.id.ok).setOnClickListener { act.DaiLogDismiss()
+                            act.GoBack("Frag_Obd")}
+                        it.findViewById<TextView>(R.id.yes).setOnClickListener { Downs19() }
+                    });
+
                 }
             }
         }.start()
     }
 
     fun SetId() {
-        act.ShowDaiLog(R.layout.normal_dialog, false, true)
-        act.mDialog!!.tit.text = act.resources.getString(R.string.app_data_reading)
+        act.ShowDaiLog(R.layout.normal_dialog, false, true, DaiSetUp {
+            it.tit.text= act.resources.getString(R.string.app_data_reading)
+        })
         Thread {
             val a = (activity!! as KtActivity).ObdCommand.GetId(if (beans.rowcount == 6) "05" else "04");
             handler.post {

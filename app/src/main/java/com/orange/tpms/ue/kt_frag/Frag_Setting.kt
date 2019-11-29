@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.TextView
+import com.orange.blelibrary.blelibrary.Callback.DaiSetUp
 import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.R
 import com.orange.tpms.utils.WifiUtils
@@ -60,32 +61,36 @@ rootview.bt_information.setOnClickListener {
             act.ChangePage(Frag_Policy(),R.id.frage,"Frag_Policy",true)
         }
         rootview.bt_ble.setOnClickListener {
-            act.ShowDaiLog(R.layout.bledialog,true,true)
-            act.mDialog!!.findViewById<TextView>(R.id.no).setOnClickListener {
-               adapter.disable()
-                rootview.bleconnect.text=resources.getString(R.string.app_blue_bud_close)
-                act.DaiLogDismiss()
-            }
-            act.mDialog!!.findViewById<TextView>(R.id.yes).setOnClickListener {
-                adapter.enable()
-                rootview.bleconnect.text=resources.getString(R.string.app_blue_bud_open)
-                act.DaiLogDismiss()
-            }
+            act.ShowDaiLog(R.layout.bledialog,true,true, DaiSetUp {
+                it.findViewById<TextView>(R.id.no).setOnClickListener {
+                    adapter.disable()
+                    rootview.bleconnect.text=resources.getString(R.string.app_blue_bud_close)
+                    act.DaiLogDismiss()
+                }
+                it.findViewById<TextView>(R.id.yes).setOnClickListener {
+                    adapter.enable()
+                    rootview.bleconnect.text=resources.getString(R.string.app_blue_bud_open)
+                    act.DaiLogDismiss()
+                }
+            })
+
         }
 rootview.bt_reset.setOnClickListener {
 
-    act.ShowDaiLog(R.layout.reset,true,true)
-    act.mDialog!!.findViewById<TextView>(R.id.no).setOnClickListener {
-        act.DaiLogDismiss()
-    }
-    act.mDialog!!.findViewById<TextView>(R.id.yes).setOnClickListener {
-        act.DaiLogDismiss()
-        act.getSharedPreferences("Setting", Context.MODE_PRIVATE).edit().clear().commit()
-        act.getSharedPreferences("Favorite", Context.MODE_PRIVATE).edit().clear().commit()
-        act.finish()
-        val intent2 = context!!.getPackageManager().getLaunchIntentForPackage(context!!.getPackageName())
-        context!!.startActivity(intent2)
-    }
+    act.ShowDaiLog(R.layout.reset,true,true, DaiSetUp {
+        it.findViewById<TextView>(R.id.no).setOnClickListener {
+            act.DaiLogDismiss()
+        }
+        it.findViewById<TextView>(R.id.yes).setOnClickListener {
+            act.DaiLogDismiss()
+            act.getSharedPreferences("Setting", Context.MODE_PRIVATE).edit().clear().commit()
+            act.getSharedPreferences("Favorite", Context.MODE_PRIVATE).edit().clear().commit()
+            act.finish()
+            val intent2 = context!!.getPackageManager().getLaunchIntentForPackage(context!!.getPackageName())
+            context!!.startActivity(intent2)
+        }
+    })
+
 }
         BleUpdate()
         act.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);

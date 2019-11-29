@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
+import com.orange.blelibrary.blelibrary.Callback.DaiSetUp
 import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.R
 import com.orange.tpms.bean.MMYQrCodeBean
@@ -82,17 +83,17 @@ super.onCreateView(inflater, container, savedInstanceState)
             PublicBean.WriteRr=Rr
             act.ChangePage(Frag_Pad_Program_Detail(), R.id.frage,"Frag_Pad_Program_Detail",false);
         }
-        act.ShowDaiLog(R.layout.sensor_way_dialog,false,false)
-        act.mDialog!!.findViewById<RelativeLayout>(R.id.scan).setOnClickListener {
-            act.DaiLogDismiss()
-        }
-        act.mDialog!!.findViewById<RelativeLayout>(R.id.trigger).setOnClickListener {
-            act.DaiLogDismiss()
-        }
-        act.mDialog!!.findViewById<RelativeLayout>(R.id.keyin).setOnClickListener {
-            act.DaiLogDismiss()
-            rootview.Lft
-        }
+        act.ShowDaiLog(R.layout.sensor_way_dialog,false,false, DaiSetUp {
+            it.findViewById<RelativeLayout>(R.id.scan).setOnClickListener {
+                act.DaiLogDismiss()
+            }
+            it.findViewById<RelativeLayout>(R.id.trigger).setOnClickListener {
+                act.DaiLogDismiss()
+            }
+            it.findViewById<RelativeLayout>(R.id.keyin).setOnClickListener {
+                act.DaiLogDismiss()
+            }
+        })
         ObdHex=(activity as KtActivity).itemDAO.GetHex(PublicBean.SelectMake,PublicBean.SelectModel,PublicBean.SelectYear)
         while(ObdHex.length<2){ObdHex="0"+ObdHex}
         HardwareApp.getInstance().switchScan(true)
@@ -144,8 +145,9 @@ super.onCreateView(inflater, container, savedInstanceState)
         run=true
         act.DaiLogDismiss()
         HardwareApp.getInstance().scan()
-        act.ShowDaiLog(R.layout.normal_dialog,true,true)
-        act.mDialog!!.findViewById<TextView>(R.id.tit).text=resources.getString(R.string.app_scaning)
+        act.ShowDaiLog(R.layout.normal_dialog,true,true, DaiSetUp {
+            it.findViewById<TextView>(R.id.tit).text=resources.getString(R.string.app_scaning)
+        })
         Thread{
             Thread.sleep(3000)
             handler.post {act.DaiLogDismiss()  }
@@ -167,8 +169,9 @@ super.onCreateView(inflater, container, savedInstanceState)
     fun Trigger(){
         if(run){return}
         run=true
-        act.ShowDaiLog(R.layout.normal_dialog,true,true)
-        act.mDialog!!.findViewById<TextView>(R.id.tit).text=resources.getString(R.string.app_scaning)
+        act.ShowDaiLog(R.layout.normal_dialog,true,true, DaiSetUp {
+            it.findViewById<TextView>(R.id.tit).text=resources.getString(R.string.app_scaning)
+        })
         Thread{
             val a = OgCommand.GetId(ObdHex, "00")
             handler.post {

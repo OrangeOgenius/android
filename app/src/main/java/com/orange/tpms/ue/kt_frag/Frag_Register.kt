@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TextView
+import com.orange.blelibrary.blelibrary.Callback.DaiSetUp
 import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.Callback.Register_C
 import com.orange.tpms.Callback.Update_C
@@ -36,19 +37,17 @@ class Frag_Register : RootFragement(), Register_C, Update_C {
     override fun Result(a: Boolean) {
         handler.post { act.DaiLogDismiss() }
         if(a){
-            handler.post { act.ShowDaiLog(R.layout.update_dialog,false,false) }
+            handler.post { act.ShowDaiLog(R.layout.update_dialog,false,false, DaiSetUp {
+            }) }
             FileDowload.HaveData(act,this)
         }else{handler.post { act.Toast(resources.getString(R.string.be_register)) }
             run=false}
     }
     override fun Updateing(progress: Int) {
         handler.post {  try{
-            if(act.mDialog!!.isShowing){
-                act.mDialog!!.findViewById<TextView>(R.id.tit).text=resources.getString(R.string.app_updating)+"$progress%"
-            }else{
-                act.ShowDaiLog(R.layout.update_dialog,false,false)
-                act.mDialog!!.findViewById<TextView>(R.id.tit).text=resources.getString(R.string.app_updating)+"$progress%"
-            }
+            act.ShowDaiLog(R.layout.update_dialog,false,false, DaiSetUp {
+                it.findViewById<TextView>(R.id.tit).text=resources.getString(R.string.app_updating)+"$progress%"
+            })
         }catch (e: Exception){e.printStackTrace()}  }
     }
 
@@ -147,7 +146,7 @@ fun register(){
         return
     }
     run=true
-    act.ShowDaiLog(R.layout.normal_dialog,false,false)
+    act.ShowDaiLog(R.layout.normal_dialog,false,false, DaiSetUp {  })
     Thread{
         if(storetype.equals(getString(R.string.Distributor))){
             Fuction.Register(email,password,serialnumber,"Distributor",company,firstname,lastname,phone,state,city,streat,zpcode,this,"OGenius")

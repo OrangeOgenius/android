@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
 import android.widget.TextView
+import com.orange.blelibrary.blelibrary.Callback.DaiSetUp
 import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.R
 import com.orange.tpms.adapter.IDCopyAdapter
@@ -73,17 +74,19 @@ class Frag_Idcopy_New : RootFragement() {
         }
         initView()
         ObdHex=(activity as KtActivity).itemDAO.GetHex(PublicBean.SelectMake,PublicBean.SelectModel,PublicBean.SelectYear)
-        act.ShowDaiLog(R.layout.sensor_way_dialog,false,false)
-        act.mDialog!!.findViewById<RelativeLayout>(R.id.scan).setOnClickListener {
-            act.DaiLogDismiss()
-        }
-        act.mDialog!!.findViewById<RelativeLayout>(R.id.trigger).setOnClickListener {
-            act.DaiLogDismiss()
-        }
-        act.mDialog!!.findViewById<RelativeLayout>(R.id.keyin).setOnClickListener {
-            act.DaiLogDismiss()
-            updateEditable()
-        }
+        act.ShowDaiLog(R.layout.sensor_way_dialog,false,false, DaiSetUp {
+            it.findViewById<RelativeLayout>(R.id.scan).setOnClickListener {
+                act.DaiLogDismiss()
+            }
+            it.findViewById<RelativeLayout>(R.id.trigger).setOnClickListener {
+                act.DaiLogDismiss()
+            }
+            it.findViewById<RelativeLayout>(R.id.keyin).setOnClickListener {
+                act.DaiLogDismiss()
+                updateEditable()
+            }
+        })
+       
         return rootview
     }
 

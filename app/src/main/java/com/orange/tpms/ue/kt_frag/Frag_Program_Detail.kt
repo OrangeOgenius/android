@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.RelativeLayout
 import bean.hardware.SensorDataBean
+import com.orange.blelibrary.blelibrary.Callback.DaiSetUp
 import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.Callback.Program_C
 import com.orange.tpms.HttpCommand.Fuction
@@ -103,17 +104,19 @@ class Frag_Program_Detail : RootFragement(),Program_C{
         while(ObdHex.length<2){ObdHex="0"+ObdHex}
         initView()
         updateList(PublicBean.ProgramNumber)
-        act.ShowDaiLog(R.layout.sensor_way_dialog,false,false)
-        act.mDialog!!.findViewById<RelativeLayout>(R.id.scan).setOnClickListener {
-            act.DaiLogDismiss()
-        }
-        act.mDialog!!.findViewById<RelativeLayout>(R.id.trigger).setOnClickListener {
-            act.DaiLogDismiss()
-        }
-        act.mDialog!!.findViewById<RelativeLayout>(R.id.keyin).setOnClickListener {
-            act.DaiLogDismiss()
-            updateEditable()
-        }
+        act.ShowDaiLog(R.layout.sensor_way_dialog,false,false, DaiSetUp {
+            it.findViewById<RelativeLayout>(R.id.scan).setOnClickListener {
+                act.DaiLogDismiss()
+            }
+            it.findViewById<RelativeLayout>(R.id.trigger).setOnClickListener {
+                act.DaiLogDismiss()
+            }
+            it.findViewById<RelativeLayout>(R.id.keyin).setOnClickListener {
+                act.DaiLogDismiss()
+                updateEditable()
+            }
+        })
+
         idcount=(activity as KtActivity).itemDAO.GetCopyId((activity as KtActivity).itemDAO.getMMY(PublicBean.SelectMake,PublicBean.SelectModel,PublicBean.SelectYear))
         return rootview
     }

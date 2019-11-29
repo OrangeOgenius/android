@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.orange.blelibrary.blelibrary.Callback.DaiSetUp
 import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.Callback.Update_C
 import com.orange.tpms.R
@@ -26,12 +27,9 @@ import java.io.File
 class Frag_Update : RootFragement(), Update_C {
     override fun Updateing(progress: Int) {
         handler.post {  try{
-            if(act.mDialog!!.isShowing){
-                act.mDialog!!.findViewById<TextView>(R.id.tit).text=resources.getString(R.string.app_updating)+"$progress%"
-            }else{
-                act.ShowDaiLog(R.layout.update_dialog,false,false)
-                act.mDialog!!.findViewById<TextView>(R.id.tit).text=resources.getString(R.string.app_updating)+"$progress%"
-            }
+            act.ShowDaiLog(R.layout.update_dialog,false,false, DaiSetUp {
+                it.findViewById<TextView>(R.id.tit).text=resources.getString(R.string.app_updating)+"$progress%"
+            })
         }catch (e: Exception){e.printStackTrace()}  }
     }
     fun CheckApk(){
@@ -91,7 +89,7 @@ class Frag_Update : RootFragement(), Update_C {
                 return@setOnClickListener
             }
             run=true
-            act.ShowDaiLog(R.layout.update_dialog,false,false)
+            act.ShowDaiLog(R.layout.update_dialog,false,false, DaiSetUp {  })
             Thread{
                 FileDowload.ChechUpdate(act,this)
             }.start()

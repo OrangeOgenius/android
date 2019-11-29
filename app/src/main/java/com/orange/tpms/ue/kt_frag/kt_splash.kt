@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.orange.blelibrary.blelibrary.Callback.DaiSetUp
 import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.Callback.Hanshake_C
 import com.orange.tpms.Callback.Update_C
@@ -36,13 +37,11 @@ class kt_splash : RootFragement(),Hanshake_C, Update_C, Version_C {
     }
 
     override fun Updateing(progress: Int) {
-        handler.post {  try{
-            if(act.mDialog!!.isShowing){
-                act.mDialog!!.findViewById<TextView>(R.id.tit).text=resources.getString(R.string.app_updating)+"$progress%"
-            }else{
-                act.ShowDaiLog(R.layout.update_dialog,false,false)
-                act.mDialog!!.findViewById<TextView>(R.id.tit).text=resources.getString(R.string.app_updating)+"$progress%"
-            }
+        handler.post {
+            try{
+                act.ShowDaiLog(R.layout.update_dialog,false,false, DaiSetUp {
+                    it.findViewById<TextView>(R.id.tit).text=resources.getString(R.string.app_updating)+"$progress%"
+                })
         }catch (e: Exception){e.printStackTrace()}  }
     }
 
@@ -63,7 +62,7 @@ class kt_splash : RootFragement(),Hanshake_C, Update_C, Version_C {
     override fun result(position: Int) {
         when(position){
             1->{
-                handler.post { act.ShowDaiLog(R.layout.update_dialog,false,false)  }
+                handler.post { act.ShowDaiLog(R.layout.update_dialog,false,false, DaiSetUp {  })  }
                 OgCommand.WriteBootloader(act,132,GetPro("mcu","no").replace(".x2",""),this)}
             -1->{
                 OgCommand.HandShake(this)

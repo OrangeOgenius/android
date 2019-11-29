@@ -1,9 +1,11 @@
 package com.orange.tpms.utils;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Handler;
 import android.util.Log;
 import android.widget.TextView;
+import com.orange.blelibrary.blelibrary.Callback.DaiSetUp;
 import com.orange.tpms.Callback.Obd_C;
 import com.orange.tpms.R;
 import com.orange.tpms.bean.ID_Beans;
@@ -208,9 +210,11 @@ public class ObdCommand {
                     act.getHandler().post(new Runnable() {
                         @Override
                         public void run() {
-                            act.ShowDaiLog(R.layout.normal_dialog,false,true);
-                            TextView text=act.getMDialog().findViewById(R.id.tit);
-                            text.setText(act.getResources().getString(R.string.Programming)+"..."+100+"%");
+                            act.ShowDaiLog(R.layout.normal_dialog,false,true, dialog -> {
+                                TextView text=dialog.findViewById(R.id.tit);
+                                text.setText(act.getResources().getString(R.string.Programming)+"..."+100+"%");
+                            });
+
                         }
                     });
                     return true;
@@ -226,9 +230,11 @@ public class ObdCommand {
                     act.getHandler().post(new Runnable() {
                         @Override
                         public void run() {
-                            act.ShowDaiLog(R.layout.normal_dialog,false,true);
-                            TextView text=act.getMDialog().findViewById(R.id.tit);
-                            text.setText(act.getResources().getString(R.string.Programming)+"..."+finalI*100/finalLong+"%");
+                            act.ShowDaiLog(R.layout.normal_dialog,false,true, dialog -> {
+                                TextView text=dialog.findViewById(R.id.tit);
+                                text.setText(act.getResources().getString(R.string.Programming)+"..."+finalI*100/finalLong+"%");
+                            });
+
                         }
                     });
                 }

@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import com.orange.blelibrary.blelibrary.Callback.DaiSetUp
 import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.Callback.Sign_In_C
 import com.orange.tpms.Callback.Update_C
@@ -35,7 +36,9 @@ class Sign_in : RootFragement(), Update_C,Sign_In_C {
     override fun result(a: Boolean) {
         handler.post { lwLoading.hide() }
         if(a){
-            handler.post { act.ShowDaiLog(R.layout.update_dialog,false,false) }
+            handler.post { act.ShowDaiLog(R.layout.update_dialog,false,false, DaiSetUp { 
+                
+            }) }
             FileDowload.HaveData(act,this)
         }else{handler.post { act.Toast(resources.getString(R.string.signfall)) }
             run=false}
@@ -43,12 +46,9 @@ class Sign_in : RootFragement(), Update_C,Sign_In_C {
 
     override fun Updateing(progress: Int) {
         handler.post {  try{
-            if(act.mDialog!!.isShowing){
-                act.mDialog!!.findViewById<TextView>(R.id.tit).text=resources.getString(R.string.app_updating)+"$progress%"
-            }else{
-                act.ShowDaiLog(R.layout.update_dialog,false,false)
-                act.mDialog!!.findViewById<TextView>(R.id.tit).text=resources.getString(R.string.app_updating)+"$progress%"
-            }
+            act.ShowDaiLog(R.layout.update_dialog,false,false, DaiSetUp {
+                it.findViewById<TextView>(R.id.tit).text=resources.getString(R.string.app_updating)+"$progress%"
+            })
         }catch (e:Exception){e.printStackTrace()}  }
     }
 
@@ -79,7 +79,7 @@ class Sign_in : RootFragement(), Update_C,Sign_In_C {
         admin=rootview.findViewById(R.id.editText3)
         password=rootview.findViewById(R.id.editText4)
         lwLoading=rootview.findViewById(R.id.ldw_loading)
-        lwLoading.tvLoading.setText(R.string.app_loading)
+        lwLoading.tvLoading.setText(R.string.Data_Loading)
         (rootview.findViewById(R.id.button4) as Button).setOnClickListener {
             if(run){
                 return@setOnClickListener

@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import com.orange.blelibrary.blelibrary.BleActivity
+import com.orange.blelibrary.blelibrary.Callback.DaiSetUp
 import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.Callback.Scan_C
 import com.orange.tpms.HttpCommand.Fuction
@@ -25,6 +26,7 @@ import com.orange.tpms.utils.FileDowload.DownMuc
 import com.orange.tpms.utils.FileDowload.Downloadapk
 import com.orange.tpms.utils.HttpDownloader
 import com.orange.tpms.utils.RxCommand
+import kotlinx.android.synthetic.main.dataloading.*
 import java.io.File
 import java.util.*
 import kotlin.collections.ArrayList
@@ -103,7 +105,9 @@ if(supportFragmentManager.backStackEntryCount!=0){
 //        Log.e("version",""+PackageUtils.getVersionCode(this))
     }
     override fun LoadingUI(a: String, pass: Int) {
-ShowDaiLog(R.layout.dataloading,false,false)
+ShowDaiLog(R.layout.dataloading,false,false, DaiSetUp {
+    it.tit.text=a
+})
     }
     override fun LoadingSuccessUI(){
         DaiLogDismiss()

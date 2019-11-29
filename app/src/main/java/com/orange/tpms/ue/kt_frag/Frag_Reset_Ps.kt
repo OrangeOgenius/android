@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.orange.blelibrary.blelibrary.Callback.DaiSetUp
 import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.Callback.Reset_C
 import com.orange.tpms.HttpCommand.Fuction
@@ -36,8 +37,9 @@ act.ChangePage(Frag_GoReset(),R.id.frage,"Frag_GoReset",false)
             if(admin.isEmpty()){act.Toast(R.string.app_content_empty)
             return@setOnClickListener}
             run=true
-            act.ShowDaiLog(R.layout.update_dialog,false,false)
-            act.mDialog!!.findViewById<TextView>(R.id.tit).text=resources.getString(R.string.app_data_uploading)
+            act.ShowDaiLog(R.layout.update_dialog,false,false, DaiSetUp {
+                it.findViewById<TextView>(R.id.tit).text=resources.getString(R.string.app_data_uploading)
+            })
             Thread{Fuction.ResetPassword(admin,this)}.start()
         }
         return rootview

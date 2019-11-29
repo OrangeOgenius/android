@@ -40,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/color_DEFFFFFF"
-            android:text="@string/app_loading"
+            android:text="@string/Data_Loading"
             android:gravity="center"
             app:layout_maxWidthPercent="33%sw"
             tools:layout_maxWidthPercent="100%w"/>

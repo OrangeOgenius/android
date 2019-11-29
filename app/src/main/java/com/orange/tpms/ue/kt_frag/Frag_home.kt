@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.orange.blelibrary.blelibrary.Callback.DaiSetUp
 import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.HttpCommand.SensorRecord
 import com.orange.tpms.R
@@ -95,23 +96,25 @@ class Frag_home : RootFragement() {
         val internetversion = GetPro("mcu", "no").replace(".x2", "")
         val localversion = GetPro("Version", "no")
         if (internetversion != "no" && internetversion != localversion) {
-            act.ShowDaiLog(R.layout.bledialog, false, false)
-            act.mDialog!!.tit.text = resources.getString(R.string.app_new_version_detect)
-            act.mDialog!!.yes.text = resources.getString(R.string.app_ok)
-            act.mDialog!!.no.setOnClickListener { act.DaiLogDismiss() }
-            act.mDialog!!.yes.setOnClickListener {
-                act.DaiLogDismiss()
-                act.ShowDaiLog(R.layout.update_dialog, false, false)
-                Thread {
-                    OgCommand.reboot()
-                    handler.post {
-                        act.DaiLogDismiss()
-                        val intent2 =
-                            context!!.getPackageManager().getLaunchIntentForPackage(context!!.getPackageName())
-                        context!!.startActivity(intent2)
-                    }
-                }.start()
-            }
+            act.ShowDaiLog(R.layout.bledialog, false, false, DaiSetUp {
+                it.tit.text = resources.getString(R.string.app_new_version_detect)
+                it.yes.text = resources.getString(R.string.app_ok)
+                it.no.setOnClickListener { act.DaiLogDismiss() }
+                it.yes.setOnClickListener {
+                    act.DaiLogDismiss()
+                    act.ShowDaiLog(R.layout.update_dialog, false, false, DaiSetUp {  })
+                    Thread {
+                        OgCommand.reboot()
+                        handler.post {
+                            act.DaiLogDismiss()
+                            val intent2 =
+                                context!!.getPackageManager().getLaunchIntentForPackage(context!!.getPackageName())
+                            context!!.startActivity(intent2)
+                        }
+                    }.start()
+                }
+            })
+           
         } else {
             CheckApk()
         }
