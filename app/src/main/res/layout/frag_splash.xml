@@ -27,12 +27,6 @@
             android:visibility="visible"
 
             android:layout_centerInParent="true" android:translationY="50dp"/>
-    <com.orange.tpms.widget.LoadingWidget
-        android:id="@+id/ldw_update_loading"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        android:visibility="gone" />
 
     <com.orange.tpms.widget.NormalDialogWidget
         android:id="@+id/ndw_tip"

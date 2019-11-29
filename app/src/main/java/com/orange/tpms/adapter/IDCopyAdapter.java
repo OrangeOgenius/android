@@ -76,7 +76,7 @@ int idcount;
             holder.etSensorid.requestFocus();
         }
         holder.etSensorid.setClearStatusListener(empty -> {
-            getItem(index).setSensorid(holder.etSensorid.getText().toString());
+            getItem(index).setSensorid(holder.etSensorid.getText().toString().toUpperCase());
         });
     }
 

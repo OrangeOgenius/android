@@ -13,7 +13,7 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="90dp" android:layout_alignParentBottom="true"
-        >
+                android:id="@+id/li">
             <Button
                     android:id="@+id/bt_menue"
                     android:layout_width="wrap_content"
@@ -276,20 +276,15 @@
         </com.de.rocket.ue.layout.PercentLinearLayout>
 
         <!--loading-->
-        <com.orange.tpms.widget.LoadingWidget
-                android:id="@+id/ldw_loading"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone" android:layout_centerVertical="true" android:layout_centerHorizontal="true"/>
         <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
                 android:text="00"
                 android:ems="10"
-                android:id="@+id/editText" android:layout_above="@id/ldw_loading"
+                android:id="@+id/editText"
                 android:layout_alignParentBottom="true"
-                android:layout_marginBottom="100dp" android:visibility="gone"/>
+                android:layout_marginBottom="100dp" android:visibility="gone" android:layout_above="@id/li"/>
         <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="150dp" android:layout_centerInParent="true" android:layout_marginStart="80dp"

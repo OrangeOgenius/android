@@ -20,8 +20,8 @@ import com.orange.tpms.bean.PublicBean
 import com.orange.tpms.helper.WifiConnectHelper
 import com.orange.tpms.ue.activity.KtActivity
 import com.orange.tpms.utils.FileDowload
-import com.orange.tpms.widget.LoadingWidget
 import kotlinx.android.synthetic.main.activity_sign_in.view.*
+import kotlinx.android.synthetic.main.data_loading.*
 
 
 class Sign_in : RootFragement(), Update_C,Sign_In_C {
@@ -34,7 +34,7 @@ class Sign_in : RootFragement(), Update_C,Sign_In_C {
     }
 
     override fun result(a: Boolean) {
-        handler.post { lwLoading.hide() }
+        handler.post { act.DaiLogDismiss() }
         if(a){
             handler.post { act.ShowDaiLog(R.layout.update_dialog,false,false, DaiSetUp { 
                 
@@ -72,14 +72,11 @@ class Sign_in : RootFragement(), Update_C,Sign_In_C {
 
     lateinit var admin:EditText
     lateinit var password:EditText
-    lateinit var lwLoading: LoadingWidget
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         rootview=inflater.inflate(R.layout.activity_sign_in, container, false)
         admin=rootview.findViewById(R.id.editText3)
         password=rootview.findViewById(R.id.editText4)
-        lwLoading=rootview.findViewById(R.id.ldw_loading)
-        lwLoading.tvLoading.setText(R.string.Data_Loading)
         (rootview.findViewById(R.id.button4) as Button).setOnClickListener {
             if(run){
                 return@setOnClickListener
@@ -87,7 +84,10 @@ class Sign_in : RootFragement(), Update_C,Sign_In_C {
             run=true
             val admin=admin.text.toString()
             val password=password.text.toString()
-            lwLoading.show(getResources().getString(R.string.app_sign_ing))
+            act.ShowDaiLog(R.layout.data_loading,false,true, DaiSetUp {
+                it.pass.visibility=View.VISIBLE
+                it.pass.text=resources.getString(R.string.app_sign_ing)
+            })
             Thread{
                Fuction.ValidateUser(admin,password,this)
             }.start()

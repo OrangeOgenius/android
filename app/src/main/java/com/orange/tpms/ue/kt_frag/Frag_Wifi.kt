@@ -19,12 +19,13 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Spinner
+import com.orange.blelibrary.blelibrary.Callback.DaiSetUp
 import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.R
 import com.orange.tpms.helper.WifiConnectHelper
 import com.orange.tpms.ue.receiver.WifiConnectReceiver
 import com.orange.tpms.utils.OggUtils
-import com.orange.tpms.widget.LoadingWidget
+import kotlinx.android.synthetic.main.data_loading.*
 import kotlinx.android.synthetic.main.frag_wifi.view.*
 import java.util.*
 
@@ -39,7 +40,6 @@ class Frag_Wifi : RootFragement() {
         Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION)
     private val permissionRequestCode = 1001
     lateinit var wifiHelper: WifiConnectHelper
-    lateinit var lwLoading: LoadingWidget
     private var isStartConnected: Boolean = false
     lateinit var spWifiName: Spinner
     lateinit var etWifiPassword: EditText //密码
@@ -52,7 +52,6 @@ class Frag_Wifi : RootFragement() {
         savedInstanceState: Bundle?
     ): View? {
         rootview=inflater.inflate(R.layout.frag_wifi, container, false)
-        lwLoading=rootview.findViewById(R.id.ldw_loading)
         spWifiName=rootview.findViewById(R.id.sp_wifi_name)
         etWifiPassword=rootview.findViewById(R.id.et_wifi_password)
          arrayAdapter = ArrayAdapter<String>(act, R.layout.spinner, WifiList)
@@ -138,14 +137,13 @@ class Frag_Wifi : RootFragement() {
         wifiHelper = WifiConnectHelper()
         //开始连接
         wifiHelper.setOnPreRequestListener {
-            lwLoading.show(
-                R.mipmap.img_wifi_connection,
-                resources.getString(R.string.app_wifi_connecting),
-                true
-            )
+            act.ShowDaiLog(R.layout.data_loading,false,true, DaiSetUp {
+                it.pass.visibility=View.VISIBLE
+                it.pass.text=resources.getString(R.string.app_wifi_connecting)
+            })
         }
         //连接完成
-        wifiHelper.setOnFinishRequestListener { lwLoading.hide() }
+        wifiHelper.setOnFinishRequestListener { act.DaiLogDismiss() }
         //连接成功
         wifiHelper.setOnConnecteSuccessListener {
             act.Toast(R.string.app_wifi_connected)
@@ -153,7 +151,7 @@ class Frag_Wifi : RootFragement() {
         }
         //连接失败
         wifiHelper.setOnConnecteFailedListener {
-            lwLoading.hide()
+            act.DaiLogDismiss()
             if (isStartConnected) {
                 act.Toast(R.string.app_connected_failed)
                 isStartConnected = false

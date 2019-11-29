@@ -58,12 +58,18 @@ class kt_splash : RootFragement(),Hanshake_C, Update_C, Version_C {
         }
 
     }
-
+var fal=0;
     override fun result(position: Int) {
         when(position){
             1->{
                 handler.post { act.ShowDaiLog(R.layout.update_dialog,false,false, DaiSetUp {  })  }
-                OgCommand.WriteBootloader(act,132,GetPro("mcu","no").replace(".x2",""),this)}
+                var mcu=GetPro("mcu","no").replace(".x2","")
+
+                if(fal>5){mcu="no"
+                    Log.e("update","update重臨開始")}
+                OgCommand.WriteBootloader(act,132,mcu,this)
+                fal++;
+            }
             -1->{
                 OgCommand.HandShake(this)
                 }

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import com.orange.blelibrary.blelibrary.Callback.DaiSetUp
 import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.R
 import com.orange.tpms.bean.PublicBean
@@ -17,7 +18,6 @@ import com.orange.tpms.utils.OgCommand
 import com.orange.tpms.utils.ImageUtil
 import com.orange.tpms.utils.VibMediaUtil
 import com.orange.tpms.widget.CarWidget
-import com.orange.tpms.widget.LoadingWidget
 import kotlinx.android.synthetic.main.fragment_frag__check__location.view.*
 
 class Frag_Check_Location : RootFragement() {
@@ -30,7 +30,6 @@ class Frag_Check_Location : RootFragement() {
     lateinit var ivBottomRightStatus: ImageView//RRStatua
     lateinit var ivBottomLeftStatus: ImageView//LLStatua
     lateinit var ivTopLeftStatus: ImageView//FLStatua
-    lateinit var lwLoading: LoadingWidget//Loading
     lateinit var tvContent: TextView//Title
     lateinit var tvTips: TextView//Title
     lateinit var btCheck: Button//Title
@@ -58,7 +57,6 @@ class Frag_Check_Location : RootFragement() {
         ivBottomRightStatus=rootview.findViewById(R.id.iv_rr_status)
         ivBottomLeftStatus=rootview.findViewById(R.id.iv_rl_status)
         ivTopLeftStatus=rootview.findViewById(R.id.iv_fl_status)
-        lwLoading=rootview.findViewById(R.id.ldw_loading)
         tvContent=rootview.findViewById(R.id.tv_content)
         btCheck=rootview.findViewById(R.id.bt_check)
         rootview.bt_menue.setOnClickListener { GoMenu() }
@@ -89,14 +87,14 @@ class Frag_Check_Location : RootFragement() {
         run=true
         clearViewIfFailed()
         vibMediaUtil.playVibrate()
-        lwLoading.show(getResources().getString(R.string.app_data_reading))
+        act.ShowDaiLog(R.layout.data_loading,false,true, DaiSetUp {  })
         Thread{
             val a = OgCommand.GetId(ObdHex, "00")
             handler.post {
                 run = false
                 if(!act.NowFrage.equals("Frag_Check_Location")){return@post}
                 vibMediaUtil.playBeep()
-                lwLoading.hide()
+                act.DaiLogDismiss()
                 if(a.success){
                     updateSensorbean(a,true);
                 }else{
@@ -202,7 +200,6 @@ class Frag_Check_Location : RootFragement() {
                 cwCar.setCarStatus(carLocation, CarWidget.CAR_STATUS.NORMAL)
                 updateView(tvTopLeft, ivTopLeftStatus, sensorDataBean!!.id, CHECK_STATUS.STCCESS)
                 failedOneTime = false
-                ImageUtil.toBagroundGrey(btCheck)
                 btCheck.isEnabled = false
             } else {
                 cwCar.setCarStatus(carLocation, CarWidget.CAR_STATUS.BAD)
@@ -210,7 +207,6 @@ class Frag_Check_Location : RootFragement() {
                 if (failedOneTime) {
                     failedOneTime = false
                     btCheck.isEnabled = false
-                    ImageUtil.toBagroundGrey(btCheck)
                 } else {
                     failedOneTime = true
                 }

@@ -4,50 +4,25 @@
                 android:layout_height="match_parent"
                 tools:context="com.orange.tpms.ue.kt_frag.Frag_Check_Location"
                 android:background="@android:color/white">
-    <com.de.rocket.ue.layout.PercentLinearLayout
+    <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:background="@color/color_FF314A56"
-            app:layout_heightPercent="12%h"
-            android:orientation="vertical"
             android:gravity="center" android:id="@+id/tit">
 
         <TextView
                 android:id="@+id/tv_content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:textColor="@color/color_white"
                 android:text=""
-                app:layout_textSizePercent="3.3%sh"
-                tools:layout_textSizePercent="27%h"/>
+                android:textSize="20sp" android:gravity="center"/>
 
-        <TextView
-                android:id="@+id/tv_tips"
-                android:layout_marginTop="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/color_FFFFC300"
-                android:text="@string/app_show_last_information"
-                app:layout_textSizePercent="2.8%sh"
-                tools:layout_textSizePercent="22%h"/>
-
-    </com.de.rocket.ue.layout.PercentLinearLayout>
+    </RelativeLayout>
     <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="70dp" android:layout_alignParentBottom="true" android:id="@+id/bt">
-        <Button
-                android:id="@+id/bt_check"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="@string/app_check"
-                android:textAllCaps="false"
-                android:gravity="center"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@+id/iv_scan_tips"
-                android:textColor="@color/color_white"
-                android:background="@color/buttoncolor"
-                app:layout_widthPercent="35%w" android:layout_weight="1" android:layout_marginEnd="0.5dp"/>
         <Button
                 android:id="@+id/bt_menue"
                 android:layout_width="wrap_content"
@@ -60,7 +35,19 @@
                 android:textColor="@color/color_white"
                 android:background="@color/buttoncolor"
                 app:layout_widthPercent="35%w"
-                android:layout_weight="1" android:layout_marginStart="0.5dp"/>
+                android:layout_weight="1" android:layout_marginEnd="0.5dp"/>
+        <Button
+                android:id="@+id/bt_check"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/app_trigger"
+                android:textAllCaps="false"
+                android:gravity="center"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/iv_scan_tips"
+                android:textColor="@color/color_white"
+                android:background="@color/buttoncolor"
+                app:layout_widthPercent="35%w" android:layout_weight="1" android:layout_marginStart="0.5dp"/>
     </LinearLayout>
     <com.de.rocket.ue.layout.PercentLinearLayout
             android:layout_width="match_parent"
@@ -431,9 +418,5 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/tit" android:layout_above="@id/li"/>
-    <com.orange.tpms.widget.LoadingWidget
-            android:id="@+id/ldw_loading"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone"/>
+
 </RelativeLayout>

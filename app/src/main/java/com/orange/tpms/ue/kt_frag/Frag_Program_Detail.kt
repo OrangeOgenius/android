@@ -27,8 +27,8 @@ import com.orange.tpms.ue.activity.KtActivity
 import com.orange.tpms.utils.OgCommand
 import com.orange.tpms.utils.OgCommand.Program
 import com.orange.tpms.utils.VibMediaUtil
-import com.orange.tpms.widget.LoadingWidget
 import com.orange.tpms.widget.ScanWidget
+import kotlinx.android.synthetic.main.data_loading.*
 import kotlinx.android.synthetic.main.fragment_frag__program__detail.view.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -38,10 +38,11 @@ class Frag_Program_Detail : RootFragement(),Program_C{
 
     override fun Program_Progress(i: Int) {
         if(!act.NowFrage.equals("Frag_Program_Detail")){return}
-        handler.post{   if (lwLoading.visibility != View.VISIBLE) {
-            lwLoading.show()
+        handler.post{   act.ShowDaiLog(R.layout.data_loading,false,true, DaiSetUp {
+            it.pass.visibility=View.VISIBLE
+            it.pass.text="$i%"
+        })
         }
-            lwLoading.tvLoading.text = "$i%"}
     }
 
     override fun Program_Finish(boolean: Boolean) {
@@ -64,8 +65,9 @@ class Frag_Program_Detail : RootFragement(),Program_C{
             Log.e("DATA:", "燒錄失敗")
         }
         UploadData()
+
         handler.post {
-            lwLoading.hide()
+            act.DaiLogDismiss()
             vibMediaUtil.playBeep()
             btProgram.setText(R.string.app_re_program)
 
@@ -76,7 +78,6 @@ class Frag_Program_Detail : RootFragement(),Program_C{
     lateinit var vibMediaUtil: VibMediaUtil
     lateinit var programAdapter: ProgramAdapter
     lateinit var rvProgram: RecyclerView
-    lateinit var lwLoading: LoadingWidget
     lateinit var btProgram: Button
     lateinit var scwTips: ScanWidget
     var startime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
@@ -98,7 +99,6 @@ class Frag_Program_Detail : RootFragement(),Program_C{
         }
         scwTips=rootview.findViewById(R.id.scw_tips)
         btProgram=rootview.findViewById(R.id.bt_program)
-        lwLoading=rootview.findViewById(R.id.ldw_loading)
         rvProgram=rootview.findViewById(R.id.rv_program)
         ObdHex=(activity as KtActivity).itemDAO.GetHex(PublicBean.SelectMake,PublicBean.SelectModel,PublicBean.SelectYear)
         while(ObdHex.length<2){ObdHex="0"+ObdHex}
@@ -116,8 +116,9 @@ class Frag_Program_Detail : RootFragement(),Program_C{
                 updateEditable()
             }
         })
-
         idcount=(activity as KtActivity).itemDAO.GetCopyId((activity as KtActivity).itemDAO.getMMY(PublicBean.SelectMake,PublicBean.SelectModel,PublicBean.SelectYear))
+        val s19=GetPro((activity as KtActivity).itemDAO.getMMY(PublicBean.SelectMake,PublicBean.SelectModel,PublicBean.SelectYear),"nodata")
+        SensorRecord.SensorCode_Version = s19
         return rootview
     }
 fun Program(){
@@ -132,8 +133,10 @@ fun Program(){
         return
     }
     run=true
-    lwLoading.tvLoading.text = "0%"
-    lwLoading.show()
+    act.ShowDaiLog(R.layout.data_loading,false,true, DaiSetUp {
+        it.pass.visibility=View.VISIBLE
+        it.pass.text="0%"
+    })
     Thread{
         startime=SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
         Program("00",ObdHex,Integer.toHexString(PublicBean.ProgramNumber),(activity as KtActivity).itemDAO.getMMY(PublicBean.SelectMake,PublicBean.SelectModel,PublicBean.SelectYear),act,this)
@@ -147,8 +150,11 @@ fun Program(){
             scwTips.hide()
         }
         HardwareApp.getInstance().scan()
-        lwLoading.hide()
-        lwLoading.show(resources.getString(R.string.app_scaning))
+        act.DaiLogDismiss()
+        act.ShowDaiLog(R.layout.data_loading,false,true, DaiSetUp {
+            it.pass.visibility=View.VISIBLE
+            it.pass.text=resources.getString(R.string.app_scaning)
+        })
         Thread{
             Thread.sleep(3000)
             run=false
@@ -189,7 +195,7 @@ fun Program(){
             }
 
             override fun scanMsgReceive(content: String) {
-                lwLoading.hide()
+                act.DaiLogDismiss()
                 Log.v("yhd-", "content:$content")
                 //兼容三种
                 if (!content.contains(":") && !content.contains("*")) {
@@ -248,8 +254,8 @@ fun Program(){
         if(checkSelectFinish()){Program()
         return}
         run=true
-        lwLoading.show()
-        act.DaiLogDismiss()
+        act.ShowDaiLog(R.layout.data_loading,false,true, DaiSetUp {
+        })
         if (scwTips.isShown()) {
             scwTips.hide()
         }
@@ -259,7 +265,7 @@ fun Program(){
                 run = false
                 if(!act.NowFrage.equals("Frag_Program_Detail")){return@post}
                 vibMediaUtil.playBeep()
-                lwLoading.hide()
+                act.DaiLogDismiss()
                 if(a.size>=0){
                     for(i in a){
                         if(!haveSameSensorid(i.id.substring(8-idcount))){updateSensorid(i.id.substring(8-idcount))}

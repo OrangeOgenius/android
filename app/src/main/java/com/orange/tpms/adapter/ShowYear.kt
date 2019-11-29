@@ -24,8 +24,8 @@ class ShowYear(private val years: ArrayList<String>, private val navigationActiv
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
     holder.text_item.text=years[position]
     holder.mView.setOnClickListener{
-        AddFavorite()
         PublicBean.SelectYear=years[position]
+        AddFavorite()
         when(PublicBean.position){
             PublicBean.檢查傳感器->{
                 navigationActivity.ChangePage(Frag_Check_Sensor_Information(),R.id.frage,"Frag_Check_Sensor_Information",true)

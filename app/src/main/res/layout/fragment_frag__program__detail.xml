@@ -16,39 +16,11 @@
                 android:layout_below="@+id/v_title_bar"
                 android:id="@+id/tv_program_title"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:textColor="@color/color_white"
                 android:gravity="center"
                 android:text=""
-        />
-
-        <com.de.rocket.ue.layout.PercentLinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center">
-
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/color_FFFFC300"
-                    android:text="@string/app_press"
-                    android:layout_marginEnd="5dp"
-            />
-
-            <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:src="@mipmap/icon_tigger_y"/>
-
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/color_FFFFC300"
-                    android:text="@string/app_to_program_sensor"
-                    android:layout_marginStart="5dp"/>
-
-        </com.de.rocket.ue.layout.PercentLinearLayout>
+                android:textSize="20sp"/>
 
     </com.de.rocket.ue.layout.PercentLinearLayout>
     <android.support.v7.widget.RecyclerView
@@ -97,9 +69,5 @@
             android:id="@+id/scw_tips"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-    <com.orange.tpms.widget.LoadingWidget
-            android:id="@+id/ldw_loading"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone" android:layout_centerInParent="true"/>
+
 </RelativeLayout>

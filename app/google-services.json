@@ -1,0 +1,155 @@
+{
+  "project_info": {
+    "project_number": "951056911376",
+    "firebase_url": "https://orange-testserver.firebaseio.com",
+    "project_id": "orange-testserver",
+    "storage_bucket": "orange-testserver.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:951056911376:android:e8b8c3951e99f9c98f4e95",
+        "android_client_info": {
+          "package_name": "com.orange.E_Talking"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "951056911376-u3h58a8bqr4lquian6t3104q3oju1pmn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKiISgwVZEVXb12G57cv6g-kfP7V9e34E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "951056911376-u3h58a8bqr4lquian6t3104q3oju1pmn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "951056911376-j9540mr9h0v5a3kv4apff62rii0stlgl.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.orange.txusb"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:951056911376:android:59eb38f71d22369a8f4e95",
+        "android_client_info": {
+          "package_name": "com.orange.homescreem"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "951056911376-u3h58a8bqr4lquian6t3104q3oju1pmn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKiISgwVZEVXb12G57cv6g-kfP7V9e34E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "951056911376-u3h58a8bqr4lquian6t3104q3oju1pmn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "951056911376-j9540mr9h0v5a3kv4apff62rii0stlgl.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.orange.txusb"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:951056911376:android:dd18698e6bc023798f4e95",
+        "android_client_info": {
+          "package_name": "com.orange.obd"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "951056911376-u3h58a8bqr4lquian6t3104q3oju1pmn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKiISgwVZEVXb12G57cv6g-kfP7V9e34E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "951056911376-u3h58a8bqr4lquian6t3104q3oju1pmn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "951056911376-j9540mr9h0v5a3kv4apff62rii0stlgl.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.orange.txusb"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:951056911376:android:8414e1ac46a00bdf8f4e95",
+        "android_client_info": {
+          "package_name": "com.orango.electronic.orangetxusb"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "951056911376-u3h58a8bqr4lquian6t3104q3oju1pmn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKiISgwVZEVXb12G57cv6g-kfP7V9e34E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "951056911376-u3h58a8bqr4lquian6t3104q3oju1pmn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "951056911376-j9540mr9h0v5a3kv4apff62rii0stlgl.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.orange.txusb"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

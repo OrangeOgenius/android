@@ -57,12 +57,7 @@
 
         </com.de.rocket.ue.layout.PercentLinearLayout>
 
-        <!--loading-->
-        <com.orange.tpms.widget.LoadingWidget
-                android:id="@+id/ldw_loading"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone" android:layout_centerVertical="true" android:layout_centerHorizontal="true"/>
+
         <LinearLayout
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"

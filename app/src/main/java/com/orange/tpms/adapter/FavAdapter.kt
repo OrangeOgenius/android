@@ -30,6 +30,7 @@ class FavAdapter(private val name: ArrayList<String>, val act: BleActivity,val g
                 PublicBean.SelectYear=name[position].split("☆")[2]
                 PublicBean.SelectModel=name[position].split("☆")[1]
                 PublicBean.SelectMake=name[position].split("☆")[0]
+                Log.e("select",PublicBean.SelectMake+PublicBean.SelectModel+PublicBean.SelectYear)
                 when(PublicBean.position){
                     PublicBean.檢查傳感器->{
                         act.ChangePage(Frag_Check_Sensor_Information(),R.id.frage,"Frag_Check_Sensor_Information",true)

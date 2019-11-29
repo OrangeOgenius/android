@@ -66,6 +66,15 @@ if(supportFragmentManager.backStackEntryCount!=0){
             "Frag_Pad_IdCopy"->{tit.text="${resources.getString(R.string.Program_USB_PAD)}(${resources.getString(R.string.ID_COPY)})"}
             "Frag_Pad_Program"->{tit.text="${resources.getString(R.string.Program_USB_PAD)}(${resources.getString(R.string.Program)})"}
             "Frag_WebView"->{tit.text=resources.getString(R.string.Online_shopping)}
+            "Frag_Obd"->{
+                when(PublicBean.position){
+                    PublicBean.OBD_RELEARM->{tit.text=resources.getString(R.string.app_home_obdii_relearn)}
+                    PublicBean.ID_COPY_OBD->{tit.text=resources.getString(R.string.idcopyobd)}
+                }
+                }
+            "Frag_Setting"->{
+                tit.text=resources.getString(R.string.app_setting)
+            }
         }
     }
     lateinit var titlebar:RelativeLayout

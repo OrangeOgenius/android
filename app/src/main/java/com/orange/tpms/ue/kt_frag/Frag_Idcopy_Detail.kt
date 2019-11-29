@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.orange.blelibrary.blelibrary.Callback.DaiSetUp
 import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.Callback.Copy_C
 import com.orange.tpms.HttpCommand.Fuction
@@ -23,7 +24,7 @@ import com.orange.tpms.ue.activity.KtActivity
 import com.orange.tpms.utils.OgCommand
 import com.orange.tpms.utils.VibMediaUtil
 import com.orange.tpms.widget.CarWidget
-import com.orange.tpms.widget.LoadingWidget
+import kotlinx.android.synthetic.main.data_loading.*
 import kotlinx.android.synthetic.main.fragment_frag__idcopy__detail.view.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -39,14 +40,17 @@ class Frag_Idcopy_Detail : RootFragement(), Copy_C {
     override fun Copy_Next(success: Boolean, position: Int) {
         handler.post {
             vibMediaUtil.playBeep()
-            lwLoading.tvLoading.setText("${position * 100 / PublicBean.SensorList.size}%")
+            act.ShowDaiLog(R.layout.data_loading,false,true, DaiSetUp {
+                it.pass.visibility=View.VISIBLE
+                it.pass.text="${position * 100 / PublicBean.SensorList.size}%"
+            })
             copySuccess(position, success)
         }
 
     }
 
     override fun Copy_Finish() {
-        handler.post { lwLoading.hide() }
+        handler.post { act.DaiLogDismiss() }
         run = false
         endtime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
         upload()
@@ -55,7 +59,6 @@ class Frag_Idcopy_Detail : RootFragement(), Copy_C {
     var startime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
     var endtime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
     lateinit var rvIDCopyDetail: RecyclerView
-    lateinit var lwLoading: LoadingWidget//Loading
     lateinit var cwCar: CarWidget//CarWidget
     lateinit var idCopyDetailAdapter: IDCopyDetailAdapter//适配器
     lateinit var linearLayoutManager: LinearLayoutManager//列表表格布局
@@ -69,12 +72,13 @@ class Frag_Idcopy_Detail : RootFragement(), Copy_C {
         ObdHex=(activity as KtActivity).itemDAO.GetHex(PublicBean.SelectMake,PublicBean.SelectModel,PublicBean.SelectYear)
         run = false
         rvIDCopyDetail = rootview.findViewById(R.id.rv_id_copy_neww)
-        lwLoading = rootview.findViewById(R.id.ldw_loading)
         cwCar = rootview.findViewById(R.id.cw_car)
         rootview.bt_program.setOnClickListener { program() }
         rootview.bt_menue.setOnClickListener { GoMenu() }
         initView()
         updateView()
+        val s19=GetPro((activity as KtActivity).itemDAO.getMMY(PublicBean.SelectMake,PublicBean.SelectModel,PublicBean.SelectYear),"nodata")
+        SensorRecord.SensorCode_Version = s19
         return rootview
     }
 
@@ -91,8 +95,9 @@ class Frag_Idcopy_Detail : RootFragement(), Copy_C {
             return
         }
         run = true
+        act.ShowDaiLog(R.layout.data_loading,false,true, DaiSetUp {
+        })
         startime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
-        lwLoading.show()
         vibMediaUtil.playVibrate()
         if (checkCanCopy()) {
             Thread { OgCommand.IdCopy(this,ObdHex) }.start()

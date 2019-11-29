@@ -9,7 +9,7 @@
             android:id="@+id/bt_start"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:text="@string/app_enter"
+            android:text="@string/app_program"
             android:textAllCaps="false"
             android:gravity="center"
             app:layout_marginTopPercent="4%h"

@@ -114,7 +114,6 @@ class Frag_home : RootFragement() {
                     }.start()
                 }
             })
-           
         } else {
             CheckApk()
         }

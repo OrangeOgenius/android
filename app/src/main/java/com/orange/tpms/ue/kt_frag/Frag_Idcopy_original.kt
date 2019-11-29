@@ -22,7 +22,7 @@ import com.orange.tpms.lib.hardware.HardwareApp
 import com.orange.tpms.ue.activity.KtActivity
 import com.orange.tpms.utils.OgCommand
 import com.orange.tpms.utils.VibMediaUtil
-import com.orange.tpms.widget.LoadingWidget
+import kotlinx.android.synthetic.main.data_loading.*
 import kotlinx.android.synthetic.main.fragment_frag__idcopy_original.view.*
 import java.util.*
 
@@ -34,7 +34,6 @@ import java.util.*
 class Frag_Idcopy_original : RootFragement() {
     lateinit var rvIDCopy: RecyclerView//IDCopy
     lateinit var tvContent: TextView//title
-    lateinit var lwLoading: LoadingWidget//Loading
     var ObdHex = "00"
     var idcount=0
     lateinit var idCopyAdapter: IDCopyAdapter//适配器
@@ -55,7 +54,6 @@ class Frag_Idcopy_original : RootFragement() {
         rootview.bt_menue.setOnClickListener { GoMenu() }
         rvIDCopy=rootview.findViewById(R.id.rv_id_copy)
         tvContent=rootview.findViewById(R.id.tv_content)
-        lwLoading=rootview.findViewById(R.id.ldw_loading)
         initView()
         rootview.bt_new_sensor_list.setOnClickListener {
             vibMediaUtil.playVibrate()
@@ -94,10 +92,12 @@ class Frag_Idcopy_original : RootFragement() {
         if(run){return}
         act.DaiLogDismiss()
         HardwareApp.getInstance().scan()
-        lwLoading.hide()
-        lwLoading.show(resources.getString(R.string.app_scaning))
+        act.ShowDaiLog(R.layout.data_loading,false,true, DaiSetUp {
+            it.pass.visibility=View.VISIBLE
+            it.pass.text=resources.getString(R.string.app_scaning)
+        })
         Thread{
-            handler.post { lwLoading.hide() }
+            handler.post { act.DaiLogDismiss()}
             Thread.sleep(3000)
             run=false
         }.start()
@@ -117,14 +117,15 @@ class Frag_Idcopy_original : RootFragement() {
     fun Trigger(){
         if(run){return}
         run=true
-        lwLoading.show(getResources().getString(R.string.app_data_reading))
+        act.ShowDaiLog(R.layout.data_loading,false,true, DaiSetUp {
+        })
         Thread{
             val a = OgCommand.GetId(ObdHex, "00")
             handler.post {
                 run = false
                 if(!act.NowFrage.equals("Frag_Idcopy_original")){return@post}
                 vibMediaUtil.playBeep()
-                lwLoading.hide()
+                act.DaiLogDismiss()
                 if(a.success){
                     if (!haveSameSensorid(a.id)) {
                         updateSensorid(a.id,""+a.kpa,""+a.c,""+a.vol);
@@ -177,7 +178,7 @@ class Frag_Idcopy_original : RootFragement() {
             }
 
             override fun scanMsgReceive(content: String) {
-                lwLoading.hide()
+                act.DaiLogDismiss()
                 if (!content.contains(":") && !content.contains("*")) {
                     if (content != "nofound") {
                         act.Toast(R.string.app_invalid_sensor_qrcode)

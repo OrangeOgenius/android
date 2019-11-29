@@ -82,12 +82,6 @@
         android:layout_marginBottom="10dp"
         app:layout_widthPercent="90%w"/>
 
-    <com.orange.tpms.widget.LoadingWidget
-        android:id="@+id/lw_loading"
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-    </com.orange.tpms.widget.LoadingWidget>
 
 </com.de.rocket.ue.layout.PercentRelativeLayout>

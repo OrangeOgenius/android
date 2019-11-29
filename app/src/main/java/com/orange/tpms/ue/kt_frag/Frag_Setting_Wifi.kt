@@ -22,13 +22,14 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.de.rocket.ue.layout.PercentRelativeLayout
+import com.orange.blelibrary.blelibrary.Callback.DaiSetUp
 import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.R
 import com.orange.tpms.adapter.WifiAdapter
 import com.orange.tpms.helper.WifiConnectHelper
 import com.orange.tpms.ue.receiver.WifiConnectReceiver
 import com.orange.tpms.widget.EditDialogWidget
-import com.orange.tpms.widget.LoadingWidget
+import kotlinx.android.synthetic.main.data_loading.*
 import java.util.*
 
 
@@ -45,7 +46,6 @@ class Frag_Setting_Wifi : RootFragement() {
     lateinit var tvConnectedWifi: TextView//ConnectedWifi
     lateinit var rvWifi: RecyclerView//Wifi列表
     lateinit var ivWifiCheck: ImageView//Wifi开关
-    lateinit var lwLoading: LoadingWidget//Loading
     lateinit var edwPassword: EditDialogWidget//Loading
     lateinit var ivAskCheck: ImageView//Ask开关
     lateinit var wifiAdapter: WifiAdapter//适配器
@@ -61,7 +61,6 @@ class Frag_Setting_Wifi : RootFragement() {
         rvWifi=rootview.findViewById(R.id.rv_wifi)
         ivWifiCheck=rootview.findViewById(R.id.iv_check)
         ivAskCheck=rootview.findViewById(R.id.iv_check_auto)
-        lwLoading=rootview.findViewById(R.id.ldw_loading)
         edwPassword=rootview.findViewById(R.id.edw_password)
         initView()
         if (!isGPSOpen()) {
@@ -164,14 +163,13 @@ class Frag_Setting_Wifi : RootFragement() {
         wifiConnectHelper = WifiConnectHelper()
         //开始请求
         wifiConnectHelper.setOnPreRequestListener {
-            lwLoading.show(
-                R.mipmap.img_wifi_connection,
-                resources.getString(R.string.app_wifi_connecting),
-                true
-            )
+            act.ShowDaiLog(R.layout.data_loading,false,true, DaiSetUp {
+                it.pass.visibility=View.VISIBLE
+                it.pass.text=resources.getString(R.string.app_wifi_connecting)
+            })
         }
         //结束请求
-        wifiConnectHelper.setOnFinishRequestListener { lwLoading.hide() }
+        wifiConnectHelper.setOnFinishRequestListener { act.DaiLogDismiss() }
         //wifi连接成功
         wifiConnectHelper.setOnConnecteFailedListener {
 

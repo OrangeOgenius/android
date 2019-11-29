@@ -7,12 +7,7 @@
         android:layout_height="match_parent"
         android:background="@android:color/white">
 
-    <com.orange.tpms.widget.LoadingWidget
-            android:id="@+id/ldw_loading"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:visibility="gone"/>
+
     <ImageView
             android:id="@+id/imageView14"
             android:layout_width="match_parent"

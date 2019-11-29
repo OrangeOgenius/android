@@ -155,7 +155,7 @@ class Frag_Obd_Copy_Detail : RootFragement() , Copy_C {
         if(run){return}
         run=true
         act.ShowDaiLog(R.layout.normal_dialog, false, true, DaiSetUp {
-            it.tit.text= act.resources.getString(R.string.app_data_reading)
+            it.tit.text= act.resources.getString(R.string.Data_Loading)
         })
         HardwareApp.getInstance().scan()
         Thread{
@@ -258,7 +258,7 @@ fun Allfalse(){
         return}
         run = true
         act.ShowDaiLog(R.layout.normal_dialog, false, true, DaiSetUp {
-            it.tit.text=act.resources.getString(R.string.app_data_reading)
+            it.tit.text=act.resources.getString(R.string.Data_Loading)
         })
         Thread {
             val a = OgCommand.GetId(ObdHex, "00")
@@ -343,7 +343,7 @@ fun Allfalse(){
 
     fun SetId() {
         act.ShowDaiLog(R.layout.normal_dialog, false, true, DaiSetUp {
-            it.tit.text= act.resources.getString(R.string.app_data_reading)
+            it.tit.text= act.resources.getString(R.string.Data_Loading)
         })
         Thread {
             val a = (activity!! as KtActivity).ObdCommand.GetId(if (beans.rowcount == 6) "05" else "04");

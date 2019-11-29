@@ -22,8 +22,8 @@ import com.orange.tpms.lib.hardware.HardwareApp
 import com.orange.tpms.ue.activity.KtActivity
 import com.orange.tpms.utils.OgCommand
 import com.orange.tpms.utils.VibMediaUtil
-import com.orange.tpms.widget.LoadingWidget
 import com.orange.tpms.widget.ScanWidget
+import kotlinx.android.synthetic.main.data_loading.*
 import kotlinx.android.synthetic.main.fragment_frag__idcopy__new.view.*
 import java.util.*
 
@@ -35,7 +35,6 @@ import java.util.*
 class Frag_Idcopy_New : RootFragement() {
     lateinit var rvIDCopy: RecyclerView//IDCopy
     lateinit var tvContent: TextView//title
-    lateinit var lwLoading: LoadingWidget//Loading
     lateinit var scwTips: ScanWidget//Tips
     var idcount=0
     lateinit var idCopyAdapter: IDCopyAdapter//适配器
@@ -55,7 +54,6 @@ class Frag_Idcopy_New : RootFragement() {
         idcount=(activity as KtActivity).itemDAO.GetCopyId((activity as KtActivity).itemDAO.getMMY(PublicBean.SelectMake,PublicBean.SelectModel,PublicBean.SelectYear))
         rvIDCopy=rootview.findViewById(R.id.rv_id_copy)
         tvContent=rootview.findViewById(R.id.tv_content)
-        lwLoading=rootview.findViewById(R.id.ldw_loading)
         scwTips=rootview.findViewById(R.id.scw_tips)
         rootview.bt_menue.setOnClickListener { GoMenu()}
         rootview.bt_program.setOnClickListener {
@@ -105,14 +103,15 @@ class Frag_Idcopy_New : RootFragement() {
     fun Trigger(){
         if(run){return}
         run=true
-        lwLoading.show(getResources().getString(R.string.app_data_reading))
+        act.ShowDaiLog(R.layout.data_loading,false,true, DaiSetUp {
+        })
         Thread{
             val a = OgCommand.GetId(ObdHex, "00")
             handler.post {
                 run = false
                 if(!act.NowFrage.equals("Frag_Idcopy_New")){return@post}
                 vibMediaUtil.playBeep()
-                lwLoading.hide()
+                act.DaiLogDismiss()
                 if(a.success){
                     if (!haveSameSensorid(a.id)) {
                         updateSensorid(a.id,""+a.kpa,""+a.c,""+a.vol);
@@ -130,10 +129,12 @@ class Frag_Idcopy_New : RootFragement() {
         if(run){return}
        act.DaiLogDismiss()
         HardwareApp.getInstance().scan()
-        lwLoading.hide()
-        lwLoading.show(resources.getString(R.string.app_scaning))
+        act.ShowDaiLog(R.layout.data_loading,false,true, DaiSetUp {
+            it.pass.visibility=View.VISIBLE
+            it.pass.text=resources.getString(R.string.app_scaning)
+        })
         Thread{
-            handler.post { lwLoading.hide() }
+            handler.post { act.DaiLogDismiss()}
             Thread.sleep(3000)
             run=false
         }.start()
@@ -178,7 +179,7 @@ class Frag_Idcopy_New : RootFragement() {
 
             }
             override fun scanMsgReceive(content: String) {
-                lwLoading.hide()
+                act.DaiLogDismiss()
                 if (!content.contains(":") && !content.contains("*")) {
                     if (content != "nofound") {
                         act.Toast(R.string.app_invalid_sensor_qrcode)

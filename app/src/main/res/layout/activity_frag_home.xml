@@ -87,7 +87,7 @@
                             android:id="@+id/imageView23" android:layout_centerInParent="false"
                             android:layout_centerHorizontal="true" android:alpha="1" android:clickable="false"/>
                     <TextView
-                            android:text="ID copy by OBD"
+                            android:text="@string/idcopyobd"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" android:id="@+id/no"
                             android:layout_below="@id/imageView23" android:layout_centerHorizontal="true"
@@ -149,7 +149,7 @@
                             android:id="@+id/imageView23" android:layout_centerInParent="false"
                             android:layout_centerHorizontal="true"/>
                     <TextView
-                            android:text="@string/Program_USB_PAD"
+                            android:text="@string/prusbpad"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" android:id="@+id/no"
                             android:layout_below="@id/imageView23" android:layout_centerHorizontal="true"
@@ -166,7 +166,7 @@
                             android:id="@+id/imageView23" android:layout_centerInParent="false"
                             android:layout_centerHorizontal="true"/>
                     <TextView
-                            android:text="ID Copy by USB PAD  "
+                            android:text="@string/idusbpad"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" android:id="@+id/no"
                             android:layout_below="@id/imageView23" android:layout_centerHorizontal="true"

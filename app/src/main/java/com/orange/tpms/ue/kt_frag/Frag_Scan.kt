@@ -8,12 +8,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.orange.blelibrary.blelibrary.Callback.DaiSetUp
 import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.R
 import com.orange.tpms.bean.PublicBean
 import com.orange.tpms.lib.hardware.HardwareApp
 import com.orange.tpms.ue.activity.KtActivity
-import com.orange.tpms.widget.LoadingWidget
+import kotlinx.android.synthetic.main.data_loading.*
 import kotlinx.android.synthetic.main.fragment_frag__scan.view.*
 
 
@@ -23,13 +24,11 @@ import kotlinx.android.synthetic.main.fragment_frag__scan.view.*
  */
 class Frag_Scan : RootFragement() {
     private var dataReceiver: HardwareApp.DataReceiver? = null
-    internal var lwLoading: LoadingWidget? = null//Loading
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         rootview=inflater.inflate(R.layout.fragment_frag__scan, container, false)
-        lwLoading=rootview.findViewById(R.id.ldw_loading)
 
         when(PublicBean.ScanType){
             PublicBean.掃描Mmy->{
@@ -49,11 +48,15 @@ class Frag_Scan : RootFragement() {
         if(run){return}
         run=true
         HardwareApp.getInstance().scan()
-        lwLoading!!.hide()
-        lwLoading!!.show(resources.getString(R.string.app_scaning))
+        act.DaiLogDismiss()
+        act.ShowDaiLog(R.layout.data_loading,false,true, DaiSetUp {
+            it.pass.visibility=View.VISIBLE
+            it.pass.text=resources.getString(R.string.app_scaning)
+        })
+
         Thread{
             Thread.sleep(5000)
-            handler.post { lwLoading!!.hide() }
+            handler.post { act.DaiLogDismiss() }
             run=false
         }.start()
     }
@@ -64,8 +67,8 @@ fun init(){
 
         }
         override fun scanMsgReceive(content: String) {
-            lwLoading!!.hide()
-                Log.v("yhd-", "backToLastFrag:$content")
+            act.DaiLogDismiss()
+            Log.v("yhd-", "backToLastFrag:$content")
                 GoOk(content)
         }
 
