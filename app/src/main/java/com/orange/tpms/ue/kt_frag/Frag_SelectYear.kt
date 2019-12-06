@@ -12,6 +12,7 @@ import com.orange.tpms.R
 import com.orange.tpms.adapter.ShowYear
 import com.orange.tpms.bean.PublicBean
 import com.orange.tpms.ue.activity.KtActivity
+import kotlinx.android.synthetic.main.fragment_frag__select_modle.view.*
 import kotlinx.android.synthetic.main.fragment_frag__select_year.view.*
 import java.util.*
 
@@ -21,6 +22,7 @@ import java.util.*
  */
 class Frag_SelectYear : RootFragement() {
     private var year: ArrayList<String> = ArrayList()
+    lateinit var adapter:ShowYear
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,7 +34,27 @@ class Frag_SelectYear : RootFragement() {
             year = (activity as KtActivity).itemDAO.getYear(PublicBean.SelectMake, PublicBean.SelectModel)
         }
         rootview.rv_year.layoutManager=LinearLayoutManager(act)
-        rootview.rv_year.adapter= ShowYear(year,act);
+        adapter=ShowYear(year,act);
+        rootview.rv_year.adapter= adapter
         return rootview
+    }
+    override fun onTop() {
+        FocusReset(-1)
+    }
+    override fun onDown() {
+        FocusReset(1)
+    }
+    fun FocusReset(re:Int){
+        if(adapter.focus+re>=0&&adapter.focus+re<year.size){
+            adapter.focus+=re
+        }
+        rootview.rv_year.scrollToPosition(adapter.focus)
+        adapter.notifyDataSetChanged()
+    }
+
+    override fun enter() {
+        PublicBean.SelectYear = year.get(adapter.focus)
+        adapter.AddFavorite()
+        adapter.ChangePage()
     }
 }

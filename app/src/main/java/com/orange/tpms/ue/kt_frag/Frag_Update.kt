@@ -14,6 +14,7 @@ import com.orange.blelibrary.blelibrary.Callback.DaiSetUp
 import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.Callback.Update_C
 import com.orange.tpms.R
+import com.orange.tpms.bean.PublicBean
 import com.orange.tpms.utils.OgCommand
 import com.orange.tpms.utils.FileDowload
 import com.orange.tpms.utils.PackageUtils
@@ -30,7 +31,7 @@ class Frag_Update : RootFragement(), Update_C {
             act.ShowDaiLog(R.layout.update_dialog,false,false, DaiSetUp {
                 it.findViewById<TextView>(R.id.tit).text=resources.getString(R.string.app_updating)+"$progress%"
             })
-        }catch (e: Exception){e.printStackTrace()}  }
+        }catch (e:Exception){e.printStackTrace()}  }
     }
     fun CheckApk(){
         val version= PackageUtils.getVersionCode(act)
@@ -44,6 +45,8 @@ class Frag_Update : RootFragement(), Update_C {
                     startActivity(intent);//此处可能会产生异常（比如说你的MIME类型是打开视频，但是你手机里面没装视频播放器，就会报错）
                 }catch (e:Exception){e.printStackTrace()}
             }
+        }else{
+            SetPro("Firebasetitle","nodata")
         }
     }
     override fun Finish(a: Boolean) {
@@ -87,6 +90,16 @@ class Frag_Update : RootFragement(), Update_C {
         rootview.check.setOnClickListener{
             if(run){
                 return@setOnClickListener
+            }
+            run=true
+            act.ShowDaiLog(R.layout.update_dialog,false,false, DaiSetUp {  })
+            Thread{
+                FileDowload.ChechUpdate(act,this)
+            }.start()
+        }
+        if(PublicBean.Update){
+            if(run){
+                return rootview
             }
             run=true
             act.ShowDaiLog(R.layout.update_dialog,false,false, DaiSetUp {  })

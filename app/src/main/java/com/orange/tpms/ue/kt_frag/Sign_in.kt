@@ -75,6 +75,7 @@ class Sign_in : RootFragement(), Update_C,Sign_In_C {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         rootview=inflater.inflate(R.layout.activity_sign_in, container, false)
+        SetPro("Firebasetitle","")
         admin=rootview.findViewById(R.id.editText3)
         password=rootview.findViewById(R.id.editText4)
         (rootview.findViewById(R.id.button4) as Button).setOnClickListener {
@@ -86,7 +87,7 @@ class Sign_in : RootFragement(), Update_C,Sign_In_C {
             val password=password.text.toString()
             act.ShowDaiLog(R.layout.data_loading,false,true, DaiSetUp {
                 it.pass.visibility=View.VISIBLE
-                it.pass.text=resources.getString(R.string.app_sign_ing)
+                it.pass.text=resources.getString(R.string.Sign_in)
             })
             Thread{
                Fuction.ValidateUser(admin,password,this)

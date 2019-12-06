@@ -37,12 +37,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" android:layout_weight="1" android:id="@+id/b1">
 
-                <ImageView
-                        android:layout_width="140dp"
-                        android:layout_height="140dp"
-                        android:src="@mipmap/scan_code" android:id="@+id/imageView"
-                        android:layout_centerVertical="true"
-                />
+                 <ImageView
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
+                    android:src="@drawable/bt_scan_code_selecter" android:id="@+id/imageView"
+                    android:layout_centerVertical="true"
+            />
                 <TextView
                         android:text="@string/Scan_Code"
                         android:layout_width="match_parent"
@@ -81,9 +81,9 @@
                     android:layout_height="match_parent" android:layout_weight="1" android:id="@+id/b3">
 
                 <ImageView
-                        android:layout_width="140dp"
-                        android:layout_height="140dp" android:src="@mipmap/my_favorites" android:id="@+id/imageView3"
-                        android:layout_centerVertical="true"/>
+                    android:layout_width="140dp"
+                    android:layout_height="140dp" android:src="@drawable/bt_favorite_selecter" android:id="@+id/imageView3"
+                    android:layout_centerVertical="true"/>
                 <TextView
                         android:text="@string/app_my_favorite"
                         android:layout_width="match_parent"

@@ -34,7 +34,7 @@ class PrivaryPolicy : RootFragement() {
         }
         (rootview.findViewById(R.id.button6) as Button).setOnClickListener {
             if(place==0){
-                act.ChangePage(Frag_Wifi(),R.id.frage,"Sign_in",false)
+                act.ChangePage(Frag_Wifi(),R.id.frage,"Frag_Wifi",false)
             }else{
                 act.GoBack()
             }

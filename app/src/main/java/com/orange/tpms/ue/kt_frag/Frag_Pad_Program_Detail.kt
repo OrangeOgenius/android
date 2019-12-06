@@ -397,7 +397,7 @@ class Frag_Pad_Program_Detail : RootFragement() {
                 var condition:Boolean
                 if(WriteLf.length==8&&WriteLr.length==8&&WriteRR.length==8&&WriteRf.length==8){
                     val startime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
-                    condition=navActivity.BleCommand.ProgramAll(activity!!.getApplicationContext().filesDir.path + "/" + mmyNum + ".s19",WriteLf,WriteLr,WriteRf,WriteRR,Lf)
+                    condition=navActivity.BleCommand.ProgramAll("/sdcard/files19/" + mmyNum + ".s19",WriteLf,WriteLr,WriteRf,WriteRR,Lf)
                     val endtime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
                     val idrecord: ArrayList<SensorRecord> = ArrayList()
                     if (!WriteLf.equals("00000000")){
@@ -431,7 +431,7 @@ class Frag_Pad_Program_Detail : RootFragement() {
                     Upload_IDCopyRecord(make,model,year,startime,endtime,PublicBean.SerialNum, "USBPad", "IDCOPY", idrecord.size, "ALL", idrecord,activity as KtActivity)
                 }else{
                     val startime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
-                    condition=navActivity.BleCommand.ProgramAll(activity!!.getApplicationContext().filesDir.path + "/" + mmyNum + ".s19",Lf)
+                    condition=navActivity.BleCommand.ProgramAll("/sdcard/files19/" + mmyNum + ".s19",Lf)
                     val idrecord: ArrayList<SensorRecord> = ArrayList()
                     val endtime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
                     for (i in 0 until navActivity.BleCommand.CHANNEL_BLE.size){

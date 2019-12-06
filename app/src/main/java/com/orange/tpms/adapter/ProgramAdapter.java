@@ -49,7 +49,6 @@ public class ProgramAdapter extends BaseRecyclerAdapter<ProgramItemBean, Program
         //全部大写
         holder.etTitle.setFilters(new InputFilter[] {new InputFilter.AllCaps(),new InputFilter.LengthFilter(count)});
         holder.etTitle.setText(getItem(index).getSensorid());
-        holder.etTitle.addTextChangedListener(new ProgramFilter(holder.etTitle,count,activity));
         holder.tvNumber.setText(String.valueOf(index+1));
         if(!getItem(index).isShowIndex()){
             holder.tvNumber.setVisibility(View.INVISIBLE);
@@ -70,12 +69,12 @@ public class ProgramAdapter extends BaseRecyclerAdapter<ProgramItemBean, Program
             holder.ivNormal.setImageResource(R.mipmap.iv_check_fail);
         }
         holder.etTitle.setEnabled(getItem(index).isEditable());
-        if(getItem(index).isEditable() && index == 0){
-            //强制获取焦点
-            holder.etTitle.setFocusable(true);
-            holder.etTitle.setFocusableInTouchMode(true);
-            holder.etTitle.requestFocus();
-        }
+//        if(getItem(index).isEditable() && index == 0){
+//            //强制获取焦点
+//            holder.etTitle.setFocusable(true);
+//            holder.etTitle.setFocusableInTouchMode(true);
+//            holder.etTitle.requestFocus();
+//        }
         holder.itemView.setOnClickListener(v -> {
             int temp = select;
             select = index;

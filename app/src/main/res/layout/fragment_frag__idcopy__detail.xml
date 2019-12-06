@@ -32,15 +32,6 @@
                         app:layout_textSizePercent="3.3%sh"
                         tools:layout_textSizePercent="27%h"/>
 
-                <TextView
-                        android:id="@+id/tv_tips"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/color_FFFFC300"
-                        android:text="@string/app_show_last_information"
-                        app:layout_textSizePercent="2.8%sh"
-                        tools:layout_textSizePercent="22%h"/>
-
             </com.de.rocket.ue.layout.PercentLinearLayout>
 
             <com.orange.tpms.widget.CarWidget

@@ -23,10 +23,13 @@ import com.orange.blelibrary.blelibrary.Callback.DaiSetUp
 import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.R
 import com.orange.tpms.helper.WifiConnectHelper
+import com.orange.tpms.ue.activity.KtActivity
 import com.orange.tpms.ue.receiver.WifiConnectReceiver
 import com.orange.tpms.utils.OggUtils
+import com.orange.tpms.utils.WifiUtils
 import kotlinx.android.synthetic.main.data_loading.*
 import kotlinx.android.synthetic.main.frag_wifi.view.*
+import kotlinx.android.synthetic.main.fragment_frag__setting.view.*
 import java.util.*
 
 
@@ -35,6 +38,7 @@ import java.util.*
  *
  */
 class Frag_Wifi : RootFragement() {
+    var cango=false
     private val Permissions = arrayOf(
         Manifest.permission.WRITE_EXTERNAL_STORAGE,
         Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION)
@@ -51,6 +55,8 @@ class Frag_Wifi : RootFragement() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        cango=false
+        if(isInitialized()){return rootview}
         rootview=inflater.inflate(R.layout.frag_wifi, container, false)
         spWifiName=rootview.findViewById(R.id.sp_wifi_name)
         etWifiPassword=rootview.findViewById(R.id.et_wifi_password)
@@ -70,8 +76,14 @@ class Frag_Wifi : RootFragement() {
         }
         rootview.bt_select.setOnClickListener {
             if (!TextUtils.isEmpty(rootview.sp_wifi_name.selectedItem.toString()) && !OggUtils.isEmpty(etWifiPassword)) {
-                wifiHelper.connectWifi(activity,rootview.sp_wifi_name.selectedItem.toString() , etWifiPassword.getText().toString())
-                isStartConnected = true
+                val connetedWifi = WifiUtils.getInstance(activity).connectedSSID
+                if(connetedWifi==rootview.sp_wifi_name.selectedItem.toString()){
+                    act.ChangePage(Sign_in(), R.id.frage,"Sign_in",false)
+                }else{
+                    cango=true
+                    wifiHelper.connectWifi(activity,rootview.sp_wifi_name.selectedItem.toString() , etWifiPassword.getText().toString())
+                    isStartConnected = true
+                }
             } else {
                 act.Toast(R.string.app_content_empty)
             }
@@ -147,7 +159,7 @@ class Frag_Wifi : RootFragement() {
         //连接成功
         wifiHelper.setOnConnecteSuccessListener {
             act.Toast(R.string.app_wifi_connected)
-            act.ChangePage(Sign_in(), R.id.frage,"Sign_in",false)
+            if(cango&&(act as KtActivity).NowFrage!="Sign_in"){act.ChangePage(Sign_in(), R.id.frage,"Sign_in",false)}
         }
         //连接失败
         wifiHelper.setOnConnecteFailedListener {
@@ -159,7 +171,6 @@ class Frag_Wifi : RootFragement() {
         }
         //wifi扫描失败
         wifiHelper.setOnScanFailedListener { wifiList ->
-
 //            Log.d("wifi",""+wifiList)
 //            act.Toast(R.string.app_wiFi_scan_failed)
 //            spWifiName.setVisibility(View.GONE)
@@ -198,14 +209,16 @@ class Frag_Wifi : RootFragement() {
             }
         }
         //初始化注册广播
-        if (WifiConnectHelper.isNetworkConnected(activity)) {
-            act.ChangePage(Sign_in(), R.id.frage,"Sign_in",false)
-        } else {
-            //注册广播
-            wifiHelper.initViewFinish(activity)
-            //打开wifi
-            wifiHelper.switchWifi(activity, true)
-        }
+        wifiHelper.initViewFinish(activity)
+        wifiHelper.switchWifi(activity, true)
+//        if (WifiConnectHelper.isNetworkConnected(activity)) {
+//            act.ChangePage(Sign_in(), R.id.frage,"Sign_in",false)
+//        } else {
+//            //注册广播
+//            wifiHelper.initViewFinish(activity)
+//            //打开wifi
+//            wifiHelper.switchWifi(activity, true)
+//        }
     }
 
     override fun onDestroy() {

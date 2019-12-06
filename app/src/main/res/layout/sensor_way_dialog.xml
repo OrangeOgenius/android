@@ -67,7 +67,8 @@
                 android:layout_height="1dp" android:id="@+id/view2" android:background="@android:color/white"/>
         <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" android:layout_weight="1" android:id="@+id/trigger">
+                android:layout_height="match_parent" android:layout_weight="1" android:id="@+id/trigger"
+                android:alpha="0.5">
             <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
@@ -101,7 +102,8 @@
                 android:layout_height="1dp" android:id="@+id/view3" android:background="@android:color/white"/>
         <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" android:layout_weight="1" android:id="@+id/keyin">
+                android:layout_height="match_parent" android:layout_weight="1" android:id="@+id/keyin"
+                android:alpha="0.5">
 
             <LinearLayout
                     android:orientation="horizontal"

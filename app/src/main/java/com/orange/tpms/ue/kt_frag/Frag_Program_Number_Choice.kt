@@ -35,17 +35,42 @@ class Frag_Program_Number_Choice : RootFragement() {
         KeyboardUtil.hideEditTextKeyboard(rootview.et_number)
         rootview.bt_start.setOnClickListener {
             OggUtils.hideKeyBoard(activity)
-            val result = rootview.et_number.getText().toString()
-            val pattern = Pattern.compile("[0-9]*")
-            if (!TextUtils.isEmpty(result) && pattern.matcher(result).matches()) {//有可能扫描出来的是一串数字
-                PublicBean.ProgramNumber = Integer.valueOf(result)
+            if(rootview.et_number.text.isEmpty()){
+                PublicBean.ProgramNumber = 1
                 act.ChangePage(Frag_Program_Detail(),R.id.frage,"Frag_Program_Detail",true)
-            } else {
-                act.Toast(R.string.app_wrong_format)
+            }else{
+                PublicBean.ProgramNumber = Integer.valueOf(rootview.et_number.text.toString())
+                act.ChangePage(Frag_Program_Detail(),R.id.frage,"Frag_Program_Detail",true)
             }
         }
+
+        rootview.et_number.requestFocus()
         return rootview
     }
 
+    override fun onTop() {
+        rootview.et_number.requestFocus()
+    }
 
+    override fun onDown() {
+        rootview.et_number.requestFocus()
+    }
+    override fun onLeft() {
+        rootview.et_number.requestFocus()
+        rootview.et_number.setSelection(0)
+    }
+    override fun onRight() {
+        rootview.et_number.requestFocus()
+        rootview.et_number.setSelection(rootview.et_number.text.toString().length)
+    }
+    override fun enter() {
+        OggUtils.hideKeyBoard(activity)
+        if(rootview.et_number.text.isEmpty()){
+            PublicBean.ProgramNumber = 1
+            act.ChangePage(Frag_Program_Detail(),R.id.frage,"Frag_Program_Detail",true)
+        }else{
+            PublicBean.ProgramNumber = Integer.valueOf(rootview.et_number.text.toString())
+            act.ChangePage(Frag_Program_Detail(),R.id.frage,"Frag_Program_Detail",true)
+        }
+    }
 }

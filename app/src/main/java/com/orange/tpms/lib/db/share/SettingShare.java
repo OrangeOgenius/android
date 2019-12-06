@@ -6,6 +6,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.telephony.TelephonyManager;
 import com.orange.tpms.lib.utils.SharedPreferencesUtils;
+import com.orange.tpms.utils.PackageUtils;
 
 /**
  * 存储Setting配置
@@ -119,7 +120,7 @@ public class SettingShare {
         info.systemName = "O-GENIUS";
         info.sysModule = "v1";
         info.serialNumber = getDeviceId(context);
-        info.version = getVersionName(context);
+        info.version = ""+PackageUtils.getVersionCode(context);
         info.dataVersion = profilePreferences.getString("mmyname","MMY_EU_list_V0.5_191113").substring(12,17);
         return info;
     }

@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
@@ -74,18 +75,46 @@ class Frag_Idcopy_original : RootFragement() {
         }
         act.ShowDaiLog(R.layout.sensor_way_dialog,false,false, DaiSetUp {
             it.findViewById<TextView>(R.id.tit).setText(resources.getString(R.string.app_original_sensor))
-            it.findViewById<RelativeLayout>(R.id.scan).setOnClickListener {
-                act.DaiLogDismiss()
+            it.findViewById<RelativeLayout>(R.id.scan).setOnTouchListener { v, event ->
+                if(event.getAction() == MotionEvent.ACTION_MOVE){
+                    v.alpha = 1F;
+                }else{
+                    v.alpha = 0.5F;
+                }
+                if(event.action == MotionEvent.ACTION_UP){
+                    act.DaiLogDismiss()
+                }
+                true
             }
-            it.findViewById<RelativeLayout>(R.id.trigger).setOnClickListener {
-                act.DaiLogDismiss()
+            it.findViewById<RelativeLayout>(R.id.trigger).setOnTouchListener { v, event ->
+                if(event.getAction() == MotionEvent.ACTION_MOVE){
+                    v.alpha = 1F;
+                }else{
+                    v.alpha = 0.5F;
+                }
+                if(event.action == MotionEvent.ACTION_UP){
+                    act.DaiLogDismiss()
+                }
+                true
             }
-            it.findViewById<RelativeLayout>(R.id.keyin).setOnClickListener {
-                act.DaiLogDismiss()
-                updateEditable()
+            it.findViewById<RelativeLayout>(R.id.keyin).setOnTouchListener { v, event ->
+                if(event.getAction() == MotionEvent.ACTION_MOVE){
+                    v.alpha = 1F;
+                }else{
+                    v.alpha = 0.5F;
+                }
+                if(event.action == MotionEvent.ACTION_UP){
+                    act.DaiLogDismiss()
+                    updateEditable()
+                }
+                true
             }
         })
         return rootview
+    }
+
+    override fun enter() {
+        rootview.bt_new_sensor_list.performClick()
     }
     override fun onKeyScan() {
         super.onKeyScan()
@@ -254,7 +283,7 @@ class Frag_Idcopy_original : RootFragement() {
     /**
      * 刷新是否能够编辑的状态
      */
-    private fun updateEditable() {
+     fun updateEditable() {
         for (i in 1 until idCopyAdapter.items.size) {
             val idCopyBean = idCopyAdapter.items[i]
             idCopyBean.isEditable = true

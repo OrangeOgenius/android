@@ -5,7 +5,7 @@
 
     <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp" android:background="@drawable/bg_32414e_r8"
+            android:layout_height="150dp" android:background="@drawable/corner"
             android:layout_marginStart="40dp" android:layout_marginEnd="40dp" android:layout_centerInParent="true">
 
         <TextView

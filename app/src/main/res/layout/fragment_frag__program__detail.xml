@@ -41,7 +41,7 @@
                 android:id="@+id/bt_program"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="@string/app_program"
+                android:text="@string/app_trigger"
                 android:textAllCaps="false"
                 android:gravity="center"
                 android:textColor="@color/color_white"

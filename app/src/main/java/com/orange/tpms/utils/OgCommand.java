@@ -215,7 +215,7 @@ public class OgCommand {
     public static void Program(String Lf, String Hex, String count, String s19, Activity activity, Program_C caller){
         try{
             P_Callback=caller;
-            FileInputStream fo=new FileInputStream(activity.getApplicationContext().getFilesDir().getPath()+"/"+s19+".s19");
+            FileInputStream fo=new FileInputStream("/sdcard/files19/"+s19+".s19");
             InputStreamReader fr = new InputStreamReader(fo);
             BufferedReader br = new BufferedReader(fr);
             StringBuilder sb = new StringBuilder();

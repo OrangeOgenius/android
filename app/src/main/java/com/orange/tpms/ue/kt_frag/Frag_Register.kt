@@ -57,6 +57,7 @@ class Frag_Register : RootFragement(), Register_C, Update_C {
             if(a){
                 val profilePreferences = act.getSharedPreferences("Setting", Context.MODE_PRIVATE)
                 profilePreferences.edit().putString("admin",email.text.toString()).putString("password",password.text.toString()).commit()
+                SetPro("Firebasetitle","")
                 act.ChangePage(Frag_home(),R.id.frage,"Frag_home",false)
                 PublicBean.admin=email.text.toString()
                 PublicBean.password=password.text.toString()

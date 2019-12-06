@@ -5,7 +5,7 @@
     <color name="colorPrimaryDark">#BF360C</color>
     <color name="colorAccent">#FF6E40</color>
     <!--常用颜色-->
-    <color name="color_unite_bg">#FF324A56</color><!--统一的风格颜色-->
+    <color name="color_unite_bg">#40606F</color><!--统一的风格颜色-->
     <color name="color_title_bg">@color/color_orange</color><!--统一的标题栏颜色-->
     <color name="color_white">#FFFFFF</color>
     <color name="color_orange">#EC671A</color>
@@ -55,7 +55,7 @@
     <color name="color_FFFFC300">#FFFFC300</color>
     <color name="color_FF0076FF">#FF0076FF</color>
     <color name="color_FF3C80B5">#FF3C80B5</color>
-    <color name="color_FFDCDCDD">#FFDCDCDD</color>
+    <color name="color_FFDCDCDD">#DCDCDD</color>
     <color name="color_FF0A75C6">#FF0A75C6</color>
     <color name="btnback">#40606F01</color>
 

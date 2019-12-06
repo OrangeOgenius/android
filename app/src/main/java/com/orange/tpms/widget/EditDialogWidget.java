@@ -16,7 +16,6 @@ import com.orange.tpms.utils.ViewVisibleUtils;
  * Created by haide.yin() on 2019/3/11 10:38.
  */
 public class EditDialogWidget extends PercentRelativeLayout {
-
     @BindView(R.id.tv_title)
     private TextView tvTitle;//标题
     @BindView(R.id.tv_click_ok)

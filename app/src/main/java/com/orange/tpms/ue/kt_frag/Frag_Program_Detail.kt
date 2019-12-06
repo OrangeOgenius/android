@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
@@ -34,33 +35,40 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class Frag_Program_Detail : RootFragement(),Program_C{
+class Frag_Program_Detail : RootFragement(), Program_C {
 
     override fun Program_Progress(i: Int) {
-        if(!act.NowFrage.equals("Frag_Program_Detail")){return}
-        handler.post{   act.ShowDaiLog(R.layout.data_loading,false,true, DaiSetUp {
-            it.pass.visibility=View.VISIBLE
-            it.pass.text="$i%"
-        })
+        if (!act.NowFrage.equals("Frag_Program_Detail")) {
+            return
+        }
+        handler.post {
+            act.ShowDaiLog(R.layout.data_loading, false, true, DaiSetUp {
+                it.pass.visibility = View.VISIBLE
+                it.pass.text = "$i%"
+            })
         }
     }
 
     override fun Program_Finish(boolean: Boolean) {
-        if(!act.NowFrage.equals("Frag_Program_Detail")){return}
-        run=false
+        if (!act.NowFrage.equals("Frag_Program_Detail")) {
+            return
+        }
+        run = false
         endtime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
-        if(boolean){
+        if (boolean) {
             Log.e("DATA:", "燒錄成功")
             val result = OgCommand.GetPrId(ObdHex, LF)
-            if(!act.NowFrage.equals("Frag_Program_Detail")){return}
-                handler.post {
-                    AllFall()
-                    for(i in result){
-                    updateProgramState(i.id, ProgramItemBean.STATE_SUCCESS,i.idcount)
-                        Log.e("DATA:", "成功id:"+i.id)
-                    }
+            if (!act.NowFrage.equals("Frag_Program_Detail")) {
+                return
             }
-        }else{
+            handler.post {
+                AllFall()
+                for (i in result) {
+                    updateProgramState(i.id, ProgramItemBean.STATE_SUCCESS, i.idcount)
+                    Log.e("DATA:", "成功id:" + i.id)
+                }
+            }
+        } else {
             handler.post { AllFall() }
             Log.e("DATA:", "燒錄失敗")
         }
@@ -73,8 +81,9 @@ class Frag_Program_Detail : RootFragement(),Program_C{
 
         }
     }
-    var idcount=8;
-    var LF="00"
+
+    var idcount = 8;
+    var LF = "00"
     lateinit var vibMediaUtil: VibMediaUtil
     lateinit var programAdapter: ProgramAdapter
     lateinit var rvProgram: RecyclerView
@@ -90,84 +99,147 @@ class Frag_Program_Detail : RootFragement(),Program_C{
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        rootview=inflater.inflate(R.layout.fragment_frag__program__detail, container, false)
-        LF=(activity as KtActivity).itemDAO.GetLf(PublicBean.SelectMake,PublicBean.SelectModel,PublicBean.SelectYear)
-        rootview.tv_program_title.text="${PublicBean.SelectMake}/${PublicBean.SelectModel}/${PublicBean.SelectYear}"
+        rootview = inflater.inflate(R.layout.fragment_frag__program__detail, container, false)
+        LF = (activity as KtActivity).itemDAO.GetLf(PublicBean.SelectMake, PublicBean.SelectModel, PublicBean.SelectYear)
+        rootview.tv_program_title.text = "${PublicBean.SelectMake}/${PublicBean.SelectModel}/${PublicBean.SelectYear}"
         rootview.bt_menue.setOnClickListener { GoMenu() }
         rootview.bt_program.setOnClickListener {
             Program()
         }
-        scwTips=rootview.findViewById(R.id.scw_tips)
-        btProgram=rootview.findViewById(R.id.bt_program)
-        rvProgram=rootview.findViewById(R.id.rv_program)
-        ObdHex=(activity as KtActivity).itemDAO.GetHex(PublicBean.SelectMake,PublicBean.SelectModel,PublicBean.SelectYear)
-        while(ObdHex.length<2){ObdHex="0"+ObdHex}
+        scwTips = rootview.findViewById(R.id.scw_tips)
+        btProgram = rootview.findViewById(R.id.bt_program)
+        rvProgram = rootview.findViewById(R.id.rv_program)
+        ObdHex = (activity as KtActivity).itemDAO.GetHex(
+            PublicBean.SelectMake,
+            PublicBean.SelectModel,
+            PublicBean.SelectYear
+        )
+        while (ObdHex.length < 2) {
+            ObdHex = "0" + ObdHex
+        }
         initView()
         updateList(PublicBean.ProgramNumber)
-        act.ShowDaiLog(R.layout.sensor_way_dialog,false,false, DaiSetUp {
-            it.findViewById<RelativeLayout>(R.id.scan).setOnClickListener {
-                act.DaiLogDismiss()
+        act.ShowDaiLog(R.layout.sensor_way_dialog, false, false, DaiSetUp {
+            it.findViewById<RelativeLayout>(R.id.scan).setOnTouchListener { v, event ->
+                if(event.getAction() == MotionEvent.ACTION_MOVE){
+                    v.alpha = 1F;
+                }else{
+                    v.alpha = 0.5F;
+                }
+                if(event.action == MotionEvent.ACTION_UP){
+                    act.DaiLogDismiss()
+                }
+                true
             }
-            it.findViewById<RelativeLayout>(R.id.trigger).setOnClickListener {
-                act.DaiLogDismiss()
+            it.findViewById<RelativeLayout>(R.id.trigger).setOnTouchListener { v, event ->
+                if(event.getAction() == MotionEvent.ACTION_MOVE){
+                    v.alpha = 1F;
+                }else{
+                    v.alpha = 0.5F;
+                }
+                if(event.action == MotionEvent.ACTION_UP){
+                    act.DaiLogDismiss()
+                }
+                true
             }
-            it.findViewById<RelativeLayout>(R.id.keyin).setOnClickListener {
-                act.DaiLogDismiss()
-                updateEditable()
+            it.findViewById<RelativeLayout>(R.id.keyin).setOnTouchListener { v, event ->
+                if(event.getAction() == MotionEvent.ACTION_MOVE){
+                    v.alpha = 1F;
+                }else{
+                    v.alpha = 0.5F;
+                }
+                if(event.action == MotionEvent.ACTION_UP){
+                    act.DaiLogDismiss()
+                    updateEditable()
+                }
+                true
             }
         })
-        idcount=(activity as KtActivity).itemDAO.GetCopyId((activity as KtActivity).itemDAO.getMMY(PublicBean.SelectMake,PublicBean.SelectModel,PublicBean.SelectYear))
-        val s19=GetPro((activity as KtActivity).itemDAO.getMMY(PublicBean.SelectMake,PublicBean.SelectModel,PublicBean.SelectYear),"nodata")
+        idcount = (activity as KtActivity).itemDAO.GetCopyId(
+            (activity as KtActivity).itemDAO.getMMY(
+                PublicBean.SelectMake,
+                PublicBean.SelectModel,
+                PublicBean.SelectYear
+            )
+        )
+        val s19 = GetPro(
+            (activity as KtActivity).itemDAO.getMMY(
+                PublicBean.SelectMake,
+                PublicBean.SelectModel,
+                PublicBean.SelectYear
+            ), "nodata"
+        )
         SensorRecord.SensorCode_Version = s19
         return rootview
     }
-fun Program(){
-    if(run){return}
-    if (checkSelectFinish()) {
-        if (haveSameSensorid()) {
-            act.Toast(R.string.app_duplicate_items)
+
+    fun Program() {
+        if (run) {
             return
         }
-    } else {
-        act.Toast(R.string.app_fillin_all_sensor_id)
-        return
+        if (checkSelectFinish()) {
+            if (haveSameSensorid()) {
+                act.Toast(R.string.app_duplicate_items)
+                return
+            }
+        } else {
+           Trigger()
+            return
+        }
+        run = true
+        act.ShowDaiLog(R.layout.data_loading, false, true, DaiSetUp {
+            it.pass.visibility = View.VISIBLE
+            it.pass.text = "0%"
+        })
+        Thread {
+            startime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
+            Program(
+                "00",
+                ObdHex,
+                Integer.toHexString(PublicBean.ProgramNumber),
+                (activity as KtActivity).itemDAO.getMMY(
+                    PublicBean.SelectMake,
+                    PublicBean.SelectModel,
+                    PublicBean.SelectYear
+                ),
+                act,
+                this
+            )
+        }.start()
     }
-    run=true
-    act.ShowDaiLog(R.layout.data_loading,false,true, DaiSetUp {
-        it.pass.visibility=View.VISIBLE
-        it.pass.text="0%"
-    })
-    Thread{
-        startime=SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
-        Program("00",ObdHex,Integer.toHexString(PublicBean.ProgramNumber),(activity as KtActivity).itemDAO.getMMY(PublicBean.SelectMake,PublicBean.SelectModel,PublicBean.SelectYear),act,this)
-    }.start()
-}
+
     override fun onKeyScan() {
         super.onKeyScan()
-        if(run){return}
+        if (run) {
+            return
+        }
         act.DaiLogDismiss()
         if (scwTips.isShown) {
             scwTips.hide()
         }
         HardwareApp.getInstance().scan()
         act.DaiLogDismiss()
-        act.ShowDaiLog(R.layout.data_loading,false,true, DaiSetUp {
-            it.pass.visibility=View.VISIBLE
-            it.pass.text=resources.getString(R.string.app_scaning)
+        act.ShowDaiLog(R.layout.data_loading, false, true, DaiSetUp {
+            it.pass.visibility = View.VISIBLE
+            it.pass.text = resources.getString(R.string.app_scaning)
         })
-        Thread{
+        Thread {
             Thread.sleep(3000)
-            run=false
+            run = false
         }.start()
     }
+
     override fun onPause() {
         super.onPause()
         vibMediaUtil.release()
-        try{
+        try {
             HardwareApp.getInstance().switchScan(false)
             HardwareApp.getInstance().removeDataReceiver(dataReceiver)
-        }catch (e:Exception){e.printStackTrace()}
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
+
     /**
      * 初始化页面
      */
@@ -180,7 +252,17 @@ fun Program(){
             linearLayoutManager = LinearLayoutManager(activity)
         }
         rvProgram.layoutManager = linearLayoutManager
-        programAdapter = ProgramAdapter(activity,(activity as KtActivity).itemDAO.GetCopyId((activity as KtActivity).itemDAO.getMMY(PublicBean.SelectMake,PublicBean.SelectModel,PublicBean.SelectYear)),activity)
+        programAdapter = ProgramAdapter(
+            activity,
+            (activity as KtActivity).itemDAO.GetCopyId(
+                (activity as KtActivity).itemDAO.getMMY(
+                    PublicBean.SelectMake,
+                    PublicBean.SelectModel,
+                    PublicBean.SelectYear
+                )
+            ),
+            activity
+        )
         rvProgram.adapter = programAdapter
         //数据源
         for (i in 0..11) {
@@ -206,12 +288,12 @@ fun Program(){
                     }
                     return
                 }
-                var sensorid=""
+                var sensorid = ""
                 if (content.contains("**")) {
                     sensorid = MMYQrCodeBean.toQRcodeBean(content).mmyNumber
                 } else {
-                    if(content.split(":","*").size>=3){
-                        sensorid=content.split(":","*")[1]
+                    if (content.split(":", "*").size >= 3) {
+                        sensorid = content.split(":", "*")[1]
                     }
                 }
                 if (TextUtils.isEmpty(sensorid)) {
@@ -232,10 +314,11 @@ fun Program(){
         }
         HardwareApp.getInstance().addDataReceiver(dataReceiver)
     }
+
     /**
      * 刷新是否能够编辑的状态
      */
-    private fun updateEditable() {
+     fun updateEditable() {
         //数目要对上
         if (programAdapter.items.size >= PublicBean.ProgramNumber) {
             for (i in 0 until PublicBean.ProgramNumber) {
@@ -246,31 +329,41 @@ fun Program(){
             rvProgram.adapter = programAdapter
         }
     }
+
     override fun onKeyTrigger() {
         Trigger()
     }
-    fun Trigger(){
-        if(run){return}
-        if(checkSelectFinish()){Program()
-        return}
-        run=true
-        act.ShowDaiLog(R.layout.data_loading,false,true, DaiSetUp {
+
+    fun Trigger() {
+        if (run) {
+            return
+        }
+        if (checkSelectFinish()) {
+            Program()
+            return
+        }
+        run = true
+        act.ShowDaiLog(R.layout.data_loading, false, true, DaiSetUp {
         })
         if (scwTips.isShown()) {
             scwTips.hide()
         }
-        Thread{
+        Thread {
             val a = OgCommand.GetPr("00", PublicBean.ProgramNumber)
             handler.post {
                 run = false
-                if(!act.NowFrage.equals("Frag_Program_Detail")){return@post}
+                if (!act.NowFrage.equals("Frag_Program_Detail")) {
+                    return@post
+                }
                 vibMediaUtil.playBeep()
                 act.DaiLogDismiss()
-                if(a.size>=0){
-                    for(i in a){
-                        if(!haveSameSensorid(i.id.substring(8-idcount))){updateSensorid(i.id.substring(8-idcount))}
+                if (a.size >= 0) {
+                    for (i in a) {
+                        if (!haveSameSensorid(i.id.substring(8 - idcount))) {
+                            updateSensorid(i.id.substring(8 - idcount))
+                        }
                     }
-                }else{
+                } else {
                     act.Toast(resources.getString(R.string.app_read_failed))
                 }
             }
@@ -282,6 +375,7 @@ fun Program(){
      */
     private fun haveSameSensorid(): Boolean {
         //数目要对上
+        Log.e("size","${programAdapter.getItems().size}/"+PublicBean.ProgramNumber)
         if (programAdapter.getItems().size >= PublicBean.ProgramNumber) {
             val set = HashSet<String>()
             val exist = HashSet<String>()
@@ -299,27 +393,32 @@ fun Program(){
         }
         return false
     }
+
     /**
      * 插入传感器id
      */
     private fun updateSensorid(sensorid: String) {
         //数目要对上
         if (programAdapter.items.size >= PublicBean.ProgramNumber) {
-            for (i in 0 until PublicBean.ProgramNumber) {
+            for (i in 0..PublicBean.ProgramNumber) {
+                Log.e("size","${i}")
                 val programItemBean = programAdapter.items[i]
                 //sensorid为空才插入
-                if (TextUtils.isEmpty(programItemBean.sensorid)) {
+                if (TextUtils.isEmpty(programItemBean.sensorid.trim())) {
                     programItemBean.isShowIndex = true
                     programItemBean.sensorid = sensorid
                     programItemBean.state = ProgramItemBean.STATE_NORMAL
                     programAdapter.setItem(i, programItemBean)
                     rvProgram.setAdapter(programAdapter)
-                    checkSelectFinish()
+                    if(checkSelectFinish()){
+                        rootview.bt_program.text=resources.getString(R.string.app_program)
+                    }
                     return
                 }
             }
         }
     }
+
     private fun updateList(number: Int) {
         //数目要对上
         if (programAdapter.items.size >= number && number > 0) {
@@ -346,18 +445,20 @@ fun Program(){
             for (i in 0 until PublicBean.ProgramNumber) {
                 val programItemBean = programAdapter.items[i]
                 //sensorid都不为空才行
-                if (TextUtils.isEmpty(programItemBean.sensorid)) {
+                if (TextUtils.isEmpty(programItemBean.sensorid.trim())) {
                     finish = false
                 }
             }
         }
         return finish
     }
+
     /**
      * 检测是否有重复的
      */
     private fun haveSameSensorid(sensorid: String): Boolean {
         //数目要对上
+
         if (programAdapter.items.size >= PublicBean.ProgramNumber && !TextUtils.isEmpty(sensorid)) {
             for (i in 0 until PublicBean.ProgramNumber) {
                 val programItemBean = programAdapter.items[i]
@@ -369,16 +470,17 @@ fun Program(){
         }
         return false
     }
-    private fun UploadData(){
-        Thread{
+
+    private fun UploadData() {
+        Thread {
             if (programAdapter.items.size >= PublicBean.ProgramNumber) {
                 val idrecord: ArrayList<SensorRecord> = ArrayList()
                 for (i in 0 until PublicBean.ProgramNumber) {
                     val programItemBean = programAdapter.items[i]
                     val b = SensorRecord()
-                    b.SensorID=programItemBean.sensorid
-                    Log.e("copy",""+programItemBean.state)
-                    b.IsSuccess = if(programItemBean.state==ProgramItemBean.STATE_FAILED) "false" else "true"
+                    b.SensorID = programItemBean.sensorid
+                    Log.e("copy", "" + programItemBean.state)
+                    b.IsSuccess = if (programItemBean.state == ProgramItemBean.STATE_FAILED) "false" else "true"
                     idrecord.add(b)
                 }
                 Fuction.Upload_ProgramRecord(
@@ -399,31 +501,38 @@ fun Program(){
         }.start()
 
     }
-    private fun AllFall(){
+
+    private fun AllFall() {
         if (programAdapter.items.size >= PublicBean.ProgramNumber) {
-        for (i in 0 until PublicBean.ProgramNumber) {
-            val programItemBean = programAdapter.items[i]
+            for (i in 0 until PublicBean.ProgramNumber) {
+                val programItemBean = programAdapter.items[i]
                 programAdapter.setItem(i, programItemBean)
-                 programItemBean.state=ProgramItemBean.STATE_FAILED
-            programAdapter.setItem(i, programItemBean)
+                programItemBean.state = ProgramItemBean.STATE_FAILED
+                programAdapter.setItem(i, programItemBean)
             }
             rvProgram.adapter = programAdapter
         }
     }
+
     /**
      * 更新状态
      */
-    private fun updateProgramState(sensorid: String, state: Int,lo:Int) {
+    private fun updateProgramState(sensorid: String, state: Int, lo: Int) {
         //数目要对上
         if (programAdapter.items.size >= PublicBean.ProgramNumber) {
             for (i in 0 until PublicBean.ProgramNumber) {
                 val programItemBean = programAdapter.items[i]
                 if (!TextUtils.isEmpty(sensorid) && !TextUtils.isEmpty(programItemBean.sensorid)) {
-                    var compareid=programItemBean.sensorid
-                    while(compareid.length<8){compareid="0"+compareid}
-                    if (sensorid.substring(8-lo+2) == compareid.substring(8-lo+2)) {
-                        Log.e("sensorid", sensorid.substring(8-8+lo)+":"+programItemBean.sensorid.substring(8-8+lo))
-                        programItemBean.sensorid=sensorid.substring(8-idcount)
+                    var compareid = programItemBean.sensorid
+                    while (compareid.length < 8) {
+                        compareid = "0" + compareid
+                    }
+                    if (sensorid.substring(8 - lo + 2) == compareid.substring(8 - lo + 2)) {
+                        Log.e(
+                            "sensorid",
+                            sensorid.substring(8 - 8 + lo) + ":" + programItemBean.sensorid.substring(8 - 8 + lo)
+                        )
+                        programItemBean.sensorid = sensorid.substring(8 - idcount)
                         programItemBean.state = state
                     }
                 }
@@ -435,6 +544,7 @@ fun Program(){
             rvProgram.adapter = programAdapter
         }
     }
+
     /**
      * 设置更新状态
      */
@@ -471,4 +581,7 @@ fun Program(){
             rvProgram.adapter = programAdapter
         }
     }
+
+
+
 }

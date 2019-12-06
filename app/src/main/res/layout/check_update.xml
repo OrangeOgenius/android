@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <RelativeLayout
+            android:layout_width="250dp"
+            android:layout_height="wrap_content" android:layout_centerInParent="true" android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp" android:background="@drawable/corner">
+
+        <TextView
+                android:text="@string/Version_update"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/textView14" android:gravity="center"
+                android:textColor="@android:color/white" android:textSize="26sp" android:textStyle="bold"
+                android:padding="5dp"/>
+        <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp" android:id="@+id/view6" android:layout_below="@id/textView14"
+                android:background="@color/white"/>
+        <TextView
+                android:text="@string/app_new_version_detect"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/textView15"
+                android:layout_below="@id/textView14" android:gravity="center" android:textSize="18sp"
+                android:textColor="@android:color/white" android:padding="10dp"/>
+        <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:layout_below="@id/textView15" android:id="@+id/scr"
+        >
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:orientation="vertical">
+                <TextView
+                        android:text="Android Studio 3.4.1 Build #AI-183.6156.11.34.5522156, built on May 2, 2019 JRE: 1.8.0_152-release-1343-b01 amd64 JVM: OpenJDK 64-Bit Server VM by JetBrains s.r.o Windows 10 10.0"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:id="@+id/content" android:padding="10dp"
+                        android:lineSpacingMultiplier="1.2" android:background="@drawable/stroke"
+                        android:textColor="@android:color/black" android:layout_margin="5dp"/>
+                <View
+                        android:layout_width="wrap_content"
+                        android:layout_height="1dp" android:id="@+id/view7"
+                        android:background="@color/white"/>
+                <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/li">
+                    <TextView
+                            android:text="@string/cancel"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp" android:id="@+id/cancel" android:layout_weight="1"
+                            android:gravity="center" android:textColor="@android:color/white" android:textSize="17sp"
+                            android:textStyle="bold"/>
+                    <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent" android:id="@+id/view8" android:layout_below="@id/scr"
+                            android:background="@color/white"/>
+                    <TextView
+                            android:text="@string/Yes"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp" android:id="@+id/yes" android:layout_weight="1"
+                            android:gravity="center" android:textColor="@android:color/white" android:textSize="17sp"
+                            android:textStyle="bold"/>
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
+</RelativeLayout>

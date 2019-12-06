@@ -3,6 +3,7 @@ package com.orange.tpms.ue.kt_frag
 
 import android.content.Context
 import android.content.Intent
+import android.media.Image
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -10,6 +11,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.RelativeLayout
 import com.orange.blelibrary.blelibrary.Callback.DaiSetUp
 import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.HttpCommand.SensorRecord
@@ -20,21 +23,58 @@ import com.orange.tpms.ue.activity.KtActivity
 import com.orange.tpms.utils.OgCommand
 import com.orange.tpms.utils.PackageUtils
 import kotlinx.android.synthetic.main.activity_frag_home.view.*
-import kotlinx.android.synthetic.main.bledialog.*
+import kotlinx.android.synthetic.main.check_update.*
 import java.io.File
 
 
-/**
- * A simple [Fragment] subclass.
- *
- */
 class Frag_home : RootFragement() {
-
+    var focus=0
+    var butt=ArrayList<ImageView>()
+    var FuBt=ArrayList<RelativeLayout>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        if(!GetPro("Firebasetitle","nodata").equals("nodata")){
+            act.ShowDaiLog(R.layout.check_update, false, false, DaiSetUp {
+                it.content.text=GetPro("Firebasebody","nodata")
+                it.cancel.setOnClickListener { act.DaiLogDismiss() }
+                it.yes.setOnClickListener {
+                    PublicBean.Update=true
+                    act.ChangePage(Frag_Update(),R.id.frage,"Frag_Update",true)
+                }
+                if(GetPro("Firebasebody","nodata").trim().isEmpty()||GetPro("Firebasebody","nodata").trim().equals("nodata")){
+                    it.content.visibility=View.GONE
+                }
+            })
+        }
+        if(isInitialized()){return rootview}
         rootview = inflater.inflate(R.layout.activity_frag_home, container, false)
+        rootview.i1.isSelected=true
+        butt.add(rootview.i1)
+        butt.add(rootview.i2)
+        butt.add(rootview.i3)
+        butt.add(rootview.i4)
+        butt.add(rootview.i5)
+        butt.add(rootview.i6)
+        butt.add(rootview.i7)
+        butt.add(rootview.i8)
+        butt.add(rootview.i9)
+        butt.add(rootview.i10)
+        butt.add(rootview.i11)
+        butt.add(rootview.i12)
+        FuBt.add(rootview.bt_check_sensor)
+        FuBt.add(rootview.bt_program_sensor)
+        FuBt.add(rootview.bt_sensor_idcopy)
+        FuBt.add(rootview.btn_idcopy_obd)
+        FuBt.add(rootview.btn_obd_relearm)
+        FuBt.add(rootview.btn_relearn)
+        FuBt.add(rootview.bt_pad_program)
+        FuBt.add(rootview.bt_pad_copy)
+        FuBt.add(rootview.bt_shopping)
+        FuBt.add(rootview.bt_setting)
+        FuBt.add(rootview.bt_could)
+        FuBt.add(rootview.bt_manual)
         Laninit()
         SleepInit()
         val profilePreferences = act.getSharedPreferences("Setting", Context.MODE_PRIVATE)
@@ -88,54 +128,33 @@ class Frag_home : RootFragement() {
         Log.e("version_internet", GetPro("mcu", "no").replace(".x2", ""))
         Log.e("version_local", GetPro("Version", "no"))
         Log.e("Version_APP", GetPro("apk", "" + PackageUtils.getVersionCode(act)).replace(".apk", ""))
-        CheckMcuUpdate()
         return rootview
     }
 
-    fun CheckMcuUpdate() {
-        val internetversion = GetPro("mcu", "no").replace(".x2", "")
-        val localversion = GetPro("Version", "no")
-        if (internetversion != "no" && internetversion != localversion) {
-            act.ShowDaiLog(R.layout.bledialog, false, false, DaiSetUp {
-                it.tit.text = resources.getString(R.string.app_new_version_detect)
-                it.yes.text = resources.getString(R.string.app_ok)
-                it.no.setOnClickListener { act.DaiLogDismiss() }
-                it.yes.setOnClickListener {
-                    act.DaiLogDismiss()
-                    act.ShowDaiLog(R.layout.update_dialog, false, false, DaiSetUp {  })
-                    Thread {
-                        OgCommand.reboot()
-                        handler.post {
-                            act.DaiLogDismiss()
-                            val intent2 =
-                                context!!.getPackageManager().getLaunchIntentForPackage(context!!.getPackageName())
-                            context!!.startActivity(intent2)
-                        }
-                    }.start()
-                }
-            })
-        } else {
-            CheckApk()
-        }
+    override fun onLeft() {
+        FocusReset(-1)
     }
-
-    fun CheckApk() {
-        val version = PackageUtils.getVersionCode(act)
-        Log.e("Version_APP", GetPro("apk", "" + PackageUtils.getVersionCode(act)).replace(".apk", ""))
-        Log.e("Version_APP", "" + version)
-        if (GetPro("apk", "$version").replace(".apk", "") != "$version") {
-            handler.post {
-                try {
-                    val intent = Intent(Intent.ACTION_VIEW);
-                    intent.setDataAndType(
-                        Uri.fromFile(File("/sdcard/update/update.apk")),
-                        "application/vnd.android.package-archive"
-                    );//image/*
-                    startActivity(intent);//此处可能会产生异常（比如说你的MIME类型是打开视频，但是你手机里面没装视频播放器，就会报错）
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
-            }
+    override fun onRight() {
+        FocusReset(1)
+    }
+    override fun onTop() {
+        FocusReset(-2)
+    }
+    override fun onDown() {
+        FocusReset(2)
+    }
+    fun FocusReset(re:Int){
+        if(focus+re>=0&&focus+re<butt.size){
+            focus+=re
         }
+        if(focus<4){rootview.sc.scrollY=0}
+        rootview.sc.scrollY=focus/2*200
+        for (i in butt){
+            i.isSelected=false
+        }
+        butt[focus].isSelected=true
+    }
+    override fun enter(){
+        FuBt[focus].performClick()
     }
 }

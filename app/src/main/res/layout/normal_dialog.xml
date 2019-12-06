@@ -9,10 +9,10 @@
             android:background="@drawable/corner" android:alpha="0.9" android:layout_centerInParent="true">
 
         <TextView
-                android:text="@string/app_sign_ing"
+                android:text="@string/Sign_in"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" android:id="@+id/tit" android:layout_centerInParent="false"
-                android:textColor="@android:color/white" android:textSize="24sp"
+                android:textColor="@android:color/white" android:textSize="20sp"
                 android:layout_marginBottom="50dp" android:gravity="center"/>
     </RelativeLayout>
     <com.airbnb.lottie.LottieAnimationView

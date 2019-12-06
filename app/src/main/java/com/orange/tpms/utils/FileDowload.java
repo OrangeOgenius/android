@@ -68,9 +68,9 @@ public class FileDowload {
             String response=GetText("http://bento2.orange-electronic.com/Orange%20Cloud/Drive/OBD%20DONGLE/",10);
             if(response.equals("nodata")){return false;}
             boolean success=true;
-            String[] arg=response.split(" HREF=\"");
+            String[] arg=response.split("HREF=\"");
             for(int i=0;i<arg.length;i++){
-                if(i !=1 && arg[i].contains("&lt;dir")){
+                if(i !=1 && arg[i].contains("OBD%20DONGLE")){
                     Log.e("obd",arg[i].substring(arg[i].indexOf(">")+1,arg[i].indexOf("<")));
                     if(!DonloadObd(arg[i].substring(arg[i].indexOf(">")+1,arg[i].indexOf("<")),activity)){success=false;};
                 }
@@ -125,16 +125,16 @@ public class FileDowload {
             String response=GetText("https://bento2.orange-electronic.com/Orange%20Cloud/Database/SensorCode/SIII/",10);
             if(response.equals("nodata")){return false;}
             boolean success=true;
-            String[] arg=response.toString().split(" HREF=\"");
+            String[] arg=response.toString().split("HREF=\"");
             for(int i=0;i<arg.length;i++){
-                if(arg[i].contains("SIII")&&arg[i].contains("&lt;dir")){
+                if(i !=0 && arg[i].contains("SIII")){
                     if(!donloads19(arg[i].substring(arg[i].indexOf(">")+1,arg[i].indexOf("<")),activity)){success=false;};
                 }
                 caller.Updateing(i*100/arg.length/2);
             }
             SharedPreferences profilePreferences = activity.getSharedPreferences("Setting", Context.MODE_PRIVATE);
             profilePreferences.edit().putString("s19init",success ? "yes" : "no").commit();
-return success;
+            return success;
         }catch(Exception e){e.printStackTrace(); return false;}
     }
     public static String GetS19Name(String name){
@@ -197,7 +197,7 @@ return success;
                 String s19name=GetS19Name(name);
                 SharedPreferences profilePreferences = activity.getSharedPreferences("Setting", Context.MODE_PRIVATE);
                 if(profilePreferences.getString(name,"no").equals(s19name)){ return  true; }
-                boolean result=FileDonload(activity.getApplicationContext().getFilesDir().getPath()+"/"+name+".s19","https://bento2.orange-electronic.com/Orange%20Cloud/Database/SensorCode/SIII/"+name+"/"+s19name,30);
+                boolean result=FileDonload("/sdcard/files19/"+name+".s19","https://bento2.orange-electronic.com/Orange%20Cloud/Database/SensorCode/SIII/"+name+"/"+s19name,30);
                 if(result){profilePreferences.edit().putString(name,s19name).commit();}
                 return result;
             }catch (Exception e){e.printStackTrace(); return false;}
@@ -237,6 +237,7 @@ public static boolean FileDonload(String path,String url,int timeout){
             conn.setConnectTimeout(1000*timeout);
             InputStream is =conn.getInputStream();
             FileOutputStream fos = new FileOutputStream(path);
+            Log.e("contentsizt",""+is.available());
             int bufferSize = 8192;
             byte[] buf = new byte[bufferSize];
             while (true) {
@@ -253,6 +254,30 @@ public static boolean FileDonload(String path,String url,int timeout){
         Log.e("錯誤",e.getMessage());
         return false;}
 }
+    public static boolean FileDonload(String path,String url,int timeout,Update_C caller){
+        try{
+            Log.d("path",path);
+            HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
+            conn.setConnectTimeout(1000*timeout);
+            InputStream is =conn.getInputStream();
+            FileOutputStream fos = new FileOutputStream(path);
+
+            int bufferSize = 8192;
+            byte[] buf = new byte[bufferSize];
+            while (true) {
+                int read = is.read(buf);
+                if (read == -1) {
+                    break;
+                }
+                fos.write(buf, 0, read);
+            }
+            is.close();
+            fos.close();
+            return true;
+        }catch (Exception e){e.printStackTrace();
+            Log.e("錯誤",e.getMessage());
+            return false;}
+    }
 public static String GetText(String url,int timeout){
         try{
             HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();

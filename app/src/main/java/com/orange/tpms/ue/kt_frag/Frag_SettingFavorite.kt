@@ -33,6 +33,7 @@ class Frag_SettingFavorite : RootFragement() {
         re=rootview.findViewById(R.id.adapter)
         re.layoutManager=LinearLayoutManager(activity,1,true)
         re.adapter=adapter
+        (re.layoutManager as LinearLayoutManager).scrollToPosition(data.size)
         return rootview
     }
     fun SetModel(){
