@@ -18,6 +18,7 @@ import com.orange.tpms.HttpCommand.Fuction
 import com.orange.tpms.R
 import com.orange.tpms.bean.PublicBean
 import com.orange.tpms.helper.WifiConnectHelper
+import com.orange.tpms.lib.db.share.SettingShare
 import com.orange.tpms.ue.activity.KtActivity
 import com.orange.tpms.utils.FileDowload
 import kotlinx.android.synthetic.main.fragment_frag__register.view.*
@@ -132,7 +133,7 @@ fun register(){
     val email=email.text.toString()
     val password=password.text.toString()
     val repeatpassword=repeatpassword.text.toString()
-    val serialnumber=serialnumber.text.toString()
+//    val serialnumber=serialnumber.text.toString()
     val firstname=firstname.text.toString()
     val lastname=lastname.text.toString()
     val company=company.text.toString()
@@ -150,9 +151,9 @@ fun register(){
     act.ShowDaiLog(R.layout.normal_dialog,false,false, DaiSetUp {  })
     Thread{
         if(storetype.equals(getString(R.string.Distributor))){
-            Fuction.Register(email,password,serialnumber,"Distributor",company,firstname,lastname,phone,state,city,streat,zpcode,this,"OGenius")
+            Fuction.Register(email,password, ""+SettingShare.getSystemInformation(act),"Distributor",company,firstname,lastname,phone,state,city,streat,zpcode,this,"OGenius")
         }else{
-            Fuction.Register(email,password,serialnumber,"Retailer",company,firstname,lastname,phone,state,city,streat,zpcode,this,"OGenius")
+            Fuction.Register(email,password,""+SettingShare.getSystemInformation(act),"Retailer",company,firstname,lastname,phone,state,city,streat,zpcode,this,"OGenius")
         }
     }.start()
 }

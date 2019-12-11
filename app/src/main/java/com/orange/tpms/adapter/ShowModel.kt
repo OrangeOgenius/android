@@ -2,7 +2,6 @@ package com.orango.electronic.orangetxusb.Adapter
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -11,7 +10,6 @@ import android.widget.TextView
 import com.orange.blelibrary.blelibrary.BleActivity
 import com.orange.tpms.R
 import com.orange.tpms.bean.PublicBean
-import com.orange.tpms.ue.kt_frag.Frag_SelectModle
 import com.orange.tpms.ue.kt_frag.Frag_SelectYear
 import java.util.*
 

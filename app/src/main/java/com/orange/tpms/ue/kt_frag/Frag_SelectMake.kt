@@ -7,16 +7,13 @@ import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RelativeLayout
 import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.R
 import com.orange.tpms.adapter.ShowItemImage
 import com.orange.tpms.bean.PublicBean
 import com.orange.tpms.mmySql.Item
 import com.orange.tpms.ue.activity.KtActivity
-import kotlinx.android.synthetic.main.activity_frag_home.view.*
 import kotlinx.android.synthetic.main.fragment_frag__select_make.view.*
-import kotlinx.android.synthetic.main.fragment_my_favorite.*
 import java.util.*
 
 

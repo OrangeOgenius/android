@@ -549,7 +549,7 @@
     <string name="autolock">Changing the Sleep Timer Settings</string>
     <string name="updatefault">update false,Please reconnect wifi and try again!</string>
     <string name="enginer">工程模式</string>
-    <string name="maxsize">max size is 12</string>
+    <string name="maxsize">max size is 4</string>
     <string name="wantreprogram">Do you want to Re-Program?</string>
     <string name="app_blue_bud_close">Close</string>
     <string name="app_unit">显示单位</string>

@@ -5,9 +5,7 @@ import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.widget.EditText;
-import com.orange.tpms.R;
 import com.orange.tpms.adapter.obdadapter;
-import com.orange.tpms.bean.ObdBeans;
 
 /**
  * The <code>CustomTextWatcher</code> class is used to add a TextWatcher to the

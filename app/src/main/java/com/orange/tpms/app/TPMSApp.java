@@ -14,11 +14,9 @@ import com.orange.tpms.ue.activity.KtActivity;
 public class TPMSApp extends RoApplication {
 
     public static String TAG = TPMSApp.class.getSimpleName();
-    private Thread.UncaughtExceptionHandler restartHandler = new Thread.UncaughtExceptionHandler() {
-        public void uncaughtException(Thread thread, Throwable ex) {
-            Log.e("error",ex.getMessage());
-            restartApp();
-        }
+    private Thread.UncaughtExceptionHandler restartHandler = (thread, ex) -> {
+        Log.e("error",ex.getMessage());
+        restartApp();
     };
     @Override
     public void onCreate() {

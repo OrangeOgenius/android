@@ -18,9 +18,9 @@ import com.orange.tpms.bean.MMYQrCodeBean
 import com.orange.tpms.bean.PublicBean
 import com.orange.tpms.lib.hardware.HardwareApp
 import com.orange.tpms.ue.activity.KtActivity
-import com.orange.tpms.utils.OgCommand
 import com.orange.tpms.utils.CustomTextWatcherForpad
 import com.orange.tpms.utils.KeyboardUtil.hideEditTextKeyboard
+import com.orange.tpms.utils.OgCommand
 import com.orange.tpms.utils.VibMediaUtil
 import kotlinx.android.synthetic.main.fragment_frag__pad__keyin.view.*
 

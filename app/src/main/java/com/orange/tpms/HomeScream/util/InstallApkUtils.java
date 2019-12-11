@@ -1,9 +1,7 @@
 package com.orange.tpms.HomeScream.util;
 
-import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.util.Log;
 
 import java.io.File;

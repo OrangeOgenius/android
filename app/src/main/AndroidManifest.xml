@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools"
+          android:sharedUserId="android.uid.system"
           package="com.orange.tpms">
     <!-- 摄像头 -->
+
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.FLASHLIGHT"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
@@ -19,6 +21,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.SHUTDOWN" tools:ignore="ProtectedPermissions"/>
 
     <application
             android:name=".app.TPMSApp"
@@ -34,6 +37,7 @@
         <activity
                 android:name=".ue.activity.KtActivity"
                 android:screenOrientation="portrait"
+                android:sharedUserId="android.uid.system"
                 android:theme="@style/MainAppTheme"
                 android:windowSoftInputMode="adjustPan">
             <intent-filter>

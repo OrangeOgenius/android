@@ -74,7 +74,7 @@
                 android:layout_height="match_parent"
                 android:textColor="@color/color_black"
                 android:gravity="center"
-                app:layout_widthPercent="100%h" android:hint="@string/app_original_id"/>
+                app:layout_widthPercent="100%h" android:hint="@string/app_sensor_info_read"/>
 
         <!--上边框-->
         <View

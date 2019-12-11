@@ -2,10 +2,8 @@ package com.orange.tpms.adapter;
 
 
 import android.content.Context;
-import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,7 +11,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
-import com.facebook.drawee.components.DraweeEventTracker;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.orange.blelibrary.blelibrary.BleActivity;
 import com.orange.tpms.R;

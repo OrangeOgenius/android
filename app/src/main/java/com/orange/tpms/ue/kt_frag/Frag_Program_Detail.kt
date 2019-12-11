@@ -29,6 +29,7 @@ import com.orange.tpms.utils.OgCommand
 import com.orange.tpms.utils.OgCommand.Program
 import com.orange.tpms.utils.VibMediaUtil
 import com.orange.tpms.widget.ScanWidget
+import kotlinx.android.synthetic.main.activity_kt.*
 import kotlinx.android.synthetic.main.data_loading.*
 import kotlinx.android.synthetic.main.fragment_frag__program__detail.view.*
 import java.text.SimpleDateFormat
@@ -78,7 +79,6 @@ class Frag_Program_Detail : RootFragement(), Program_C {
             act.DaiLogDismiss()
             vibMediaUtil.playBeep()
             btProgram.setText(R.string.app_re_program)
-
         }
     }
 
@@ -99,6 +99,7 @@ class Frag_Program_Detail : RootFragement(), Program_C {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        if(isInitialized()){return rootview}
         rootview = inflater.inflate(R.layout.fragment_frag__program__detail, container, false)
         LF = (activity as KtActivity).itemDAO.GetLf(PublicBean.SelectMake, PublicBean.SelectModel, PublicBean.SelectYear)
         rootview.tv_program_title.text = "${PublicBean.SelectMake}/${PublicBean.SelectModel}/${PublicBean.SelectYear}"
@@ -150,7 +151,6 @@ class Frag_Program_Detail : RootFragement(), Program_C {
                 }
                 if(event.action == MotionEvent.ACTION_UP){
                     act.DaiLogDismiss()
-                    updateEditable()
                 }
                 true
             }
@@ -170,6 +170,7 @@ class Frag_Program_Detail : RootFragement(), Program_C {
             ), "nodata"
         )
         SensorRecord.SensorCode_Version = s19
+        updateEditable(true)
         return rootview
     }
 
@@ -187,6 +188,10 @@ class Frag_Program_Detail : RootFragement(), Program_C {
             return
         }
         run = true
+        rootview.bt_menue.text=resources.getString(R.string.Relearn_Procedure)
+        rootview.bt_menue.setOnClickListener { act.ChangePage(Frag_Relearm_Detail(),R.id.frage,"Frag_Relearm_Detail",true) }
+        act.back.setImageResource(R.mipmap.menu)
+        act.back.setOnClickListener { GoMenu() }
         act.ShowDaiLog(R.layout.data_loading, false, true, DaiSetUp {
             it.pass.visibility = View.VISIBLE
             it.pass.text = "0%"
@@ -302,7 +307,9 @@ class Frag_Program_Detail : RootFragement(), Program_C {
                 }
                 vibMediaUtil.playBeep()
                 if (!haveSameSensorid(sensorid)) {
+                    updateEditable(false)
                     updateSensorid(sensorid)
+                    updateEditable(true)
                 } else {
                     act.Toast(R.string.app_sensor_repeated)
                 }
@@ -318,12 +325,12 @@ class Frag_Program_Detail : RootFragement(), Program_C {
     /**
      * 刷新是否能够编辑的状态
      */
-     fun updateEditable() {
+     fun updateEditable( a:Boolean) {
         //数目要对上
         if (programAdapter.items.size >= PublicBean.ProgramNumber) {
             for (i in 0 until PublicBean.ProgramNumber) {
                 val programItemBean = programAdapter.items[i]
-                programItemBean.isEditable = true
+                programItemBean.isEditable = a
                 programAdapter.setItem(i, programItemBean)
             }
             rvProgram.adapter = programAdapter
@@ -343,6 +350,7 @@ class Frag_Program_Detail : RootFragement(), Program_C {
             return
         }
         run = true
+        updateEditable(false)
         act.ShowDaiLog(R.layout.data_loading, false, true, DaiSetUp {
         })
         if (scwTips.isShown()) {
@@ -366,6 +374,7 @@ class Frag_Program_Detail : RootFragement(), Program_C {
                 } else {
                     act.Toast(resources.getString(R.string.app_read_failed))
                 }
+                updateEditable(true)
             }
         }.start()
     }

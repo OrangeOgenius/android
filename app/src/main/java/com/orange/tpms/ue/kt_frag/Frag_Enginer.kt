@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.testlauncher.Frage.HomeScreem
 import com.orange.tpms.R
-import com.orange.tpms.ue.activity.KtActivity
 import kotlinx.android.synthetic.main.fragment_frag__enginer.view.*
 
 class Frag_Enginer : RootFragement() {

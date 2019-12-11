@@ -29,7 +29,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/color_white"
                         android:text=""
-                        app:layout_textSizePercent="3.3%sh"
+                        app:layout_textSizePercent="4%sh"
                         tools:layout_textSizePercent="27%h"/>
 
             </com.de.rocket.ue.layout.PercentLinearLayout>
@@ -60,23 +60,6 @@
 
             <Button
                     android:focusable="true"
-                    android:id="@+id/bt_program"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="@string/app_program"
-                    android:textAllCaps="false"
-                    android:gravity="center"
-                    android:textColor="@color/color_white"
-                    android:background="@color/buttoncolor"
-                    android:layout_weight="1"/>
-
-            <ImageView
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent" app:srcCompat="@android:color/white"
-                    android:id="@+id/imageView17"
-                    android:background="@android:color/white"/>
-            <Button
-                    android:focusable="true"
                     android:id="@+id/bt_menue"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -85,7 +68,24 @@
                     android:gravity="center"
                     android:textColor="@color/color_white"
                     android:background="@color/buttoncolor"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" android:textSize="18sp"/>
+
+            <ImageView
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent" app:srcCompat="@android:color/white"
+                    android:id="@+id/imageView17"
+                    android:background="@android:color/white"/>
+            <Button
+                    android:focusable="true"
+                    android:id="@+id/bt_program"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/app_program"
+                    android:textAllCaps="false"
+                    android:gravity="center"
+                    android:textColor="@color/color_white"
+                    android:background="@color/buttoncolor"
+                    android:layout_weight="1" android:textSize="18sp"/>
 
         </LinearLayout>
 

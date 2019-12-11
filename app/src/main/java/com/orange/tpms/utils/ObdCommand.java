@@ -1,11 +1,8 @@
 package com.orange.tpms.utils;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.os.Handler;
 import android.util.Log;
 import android.widget.TextView;
-import com.orange.blelibrary.blelibrary.Callback.DaiSetUp;
 import com.orange.tpms.Callback.Obd_C;
 import com.orange.tpms.R;
 import com.orange.tpms.bean.ID_Beans;
@@ -17,6 +14,7 @@ import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
 import static com.orange.blelibrary.blelibrary.tool.FormatConvert.StringHexToByte;
 
 public class ObdCommand {

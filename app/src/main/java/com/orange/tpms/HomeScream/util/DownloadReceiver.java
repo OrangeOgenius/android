@@ -7,8 +7,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 
-import java.io.File;
-
 public class DownloadReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {

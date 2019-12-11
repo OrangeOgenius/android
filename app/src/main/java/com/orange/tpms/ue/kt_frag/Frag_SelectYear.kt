@@ -12,7 +12,6 @@ import com.orange.tpms.R
 import com.orange.tpms.adapter.ShowYear
 import com.orange.tpms.bean.PublicBean
 import com.orange.tpms.ue.activity.KtActivity
-import kotlinx.android.synthetic.main.fragment_frag__select_modle.view.*
 import kotlinx.android.synthetic.main.fragment_frag__select_year.view.*
 import java.util.*
 

@@ -15,6 +15,7 @@ import com.orange.tpms.Callback.Hanshake_C
 import com.orange.tpms.Callback.Update_C
 import com.orange.tpms.Callback.Version_C
 import com.orange.tpms.R
+import com.orange.tpms.bean.PublicBean
 import com.orange.tpms.ue.activity.KtActivity
 import com.orange.tpms.utils.OgCommand
 import com.orango.electronic.orangetxusb.SettingPagr.Set_Languages
@@ -94,6 +95,7 @@ var fal=0;
             handler.post {
                 (activity as KtActivity).ShowTitleBar(true)
 //            act.ChangePage(Set_Languages(), R.id.frage, "Set_Languages", false)
+                PublicBean.MCU_NUMBER=GetPro("mcu","no")
                 val profilePreferences =act.getSharedPreferences("Setting", Context.MODE_PRIVATE)
                 if (profilePreferences.getString("admin", "nodata").equals("nodata")) {
                     Set_Languages.place = 0

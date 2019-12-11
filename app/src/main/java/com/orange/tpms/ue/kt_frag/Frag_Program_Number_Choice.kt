@@ -4,7 +4,6 @@ package com.orange.tpms.ue.kt_frag
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.text.InputFilter
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +14,6 @@ import com.orange.tpms.utils.KeyboardUtil
 import com.orange.tpms.utils.OggUtils
 import com.orange.tpms.utils.number_filter
 import kotlinx.android.synthetic.main.fragment_frag__program__sensor_information.view.*
-import java.util.regex.Pattern
 
 
 /**

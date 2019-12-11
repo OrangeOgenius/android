@@ -15,8 +15,8 @@ import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.Callback.Update_C
 import com.orange.tpms.R
 import com.orange.tpms.bean.PublicBean
-import com.orange.tpms.utils.OgCommand
 import com.orange.tpms.utils.FileDowload
+import com.orange.tpms.utils.OgCommand
 import com.orange.tpms.utils.PackageUtils
 import kotlinx.android.synthetic.main.fragment_frag__update.view.*
 import java.io.File
@@ -40,6 +40,7 @@ class Frag_Update : RootFragement(), Update_C {
         if(GetPro("apk", "$version").replace(".apk","")!="$version"){
             handler.post {
                 try{
+                    SetPro("Firebasetitle","nodata")
                     val intent =  Intent(Intent.ACTION_VIEW);
                     intent.setDataAndType(Uri.fromFile(File("/sdcard/update/update.apk")), "application/vnd.android.package-archive");//image/*
                     startActivity(intent);//此处可能会产生异常（比如说你的MIME类型是打开视频，但是你手机里面没装视频播放器，就会报错）
@@ -82,6 +83,9 @@ class Frag_Update : RootFragement(), Update_C {
         savedInstanceState: Bundle?
     ): View? {
         rootview=inflater.inflate(R.layout.fragment_frag__update, container, false)
+        val tmpInfo = act.getPackageManager().getApplicationInfo("com.orange.homescreem", -1)
+        val size = File(tmpInfo.sourceDir).length()
+        rootview.size.text="$size"
         rootview.iv_check.isSelected=GetPro("AutoUpdate",true)
         rootview.iv_check.setOnClickListener {
             if(GetPro("AutoUpdate",true)){SetPro("AutoUpdate",false)}else{SetPro("AutoUpdate",true)}

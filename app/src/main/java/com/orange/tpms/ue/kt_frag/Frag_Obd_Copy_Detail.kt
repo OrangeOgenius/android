@@ -2,7 +2,6 @@ package com.orange.tpms.ue.kt_frag
 
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
 import android.util.Log
@@ -15,7 +14,6 @@ import com.orange.blelibrary.blelibrary.Callback.DaiSetUp
 import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.blelibrary.blelibrary.tool.FormatConvert
 import com.orange.tpms.Callback.Copy_C
-import com.orange.tpms.Callback.Obd_C
 import com.orange.tpms.R
 import com.orange.tpms.adapter.obdadapter
 import com.orange.tpms.bean.MMYQrCodeBean
@@ -23,7 +21,6 @@ import com.orange.tpms.bean.ObdBeans
 import com.orange.tpms.bean.PublicBean
 import com.orange.tpms.lib.hardware.HardwareApp
 import com.orange.tpms.ue.activity.KtActivity
-import com.orange.tpms.utils.ObdCommand
 import com.orange.tpms.utils.OgCommand
 import com.orange.tpms.utils.VibMediaUtil
 import kotlinx.android.synthetic.main.fragment_frag__obd__copy__detail.view.*
@@ -32,7 +29,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class Frag_Obd_Copy_Detail : RootFragement() , Copy_C {
-    override fun Copy_Finish() {
+    override fun Copy_Finish(boolean: Boolean) {
         run=false
         endtime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
         handler.post {act.DaiLogDismiss()}
@@ -49,6 +46,7 @@ class Frag_Obd_Copy_Detail : RootFragement() , Copy_C {
         beans.state[index]=if(success) ObdBeans.PROGRAM_SUCCESS else ObdBeans.PROGRAM_FALSE
         adapter.notifyDataSetChanged()
     }
+
     lateinit var adapter: obdadapter
     lateinit var beans: ObdBeans
     lateinit var dataReceiver: HardwareApp.DataReceiver

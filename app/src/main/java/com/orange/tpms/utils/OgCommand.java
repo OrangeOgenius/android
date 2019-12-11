@@ -1,8 +1,6 @@
 package com.orange.tpms.utils;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.util.Log;
 import com.orange.blelibrary.blelibrary.BleActivity;
 import com.orange.tpms.Callback.*;
@@ -332,13 +330,13 @@ public static boolean ProgramCheck(String data){
                 if(Rx.length()>=36&&Rx.contains("F513000E00")){
                     String check=Rx.substring(12, 20);
                     if(check.equals("7FFFFFFF")||check.equals("000007FF")){
-                        Thread.currentThread().sleep(1000);
                         return true;}else{
                        if(!RePr(getBit(check).substring(1),data)){return false;} ;
                         past = sdf.parse(sdf.format(new Date()));
                         fal++;
                     }
                 }
+                Thread.currentThread().sleep(1000);
             }
         }catch (Exception e){e.printStackTrace();return false;}
 }
@@ -394,6 +392,7 @@ try {
         if(Rx.length()>=36){
             caller.version(Rx.substring(8,16),true);
             return ;}
+        Thread.currentThread().sleep(100);
     }
 }catch (Exception e){e.printStackTrace();}
 }
@@ -528,8 +527,12 @@ try {
                 Date now = sdf.parse(sdf.format(new Date()));
                 double time = getDatePoor(now, past);
                 if (time > 15 || Rx.equals(GetCrcString("F51C000301000A")) || Rx.equals(GetCrcString("F51C000302000A"))) {
-                    if(time > 15){ReOpen();return;}
-                   if(SendTag.equals(NowTag)){caller.Copy_Next(false,i);}
+                    if(time > 15){ReOpen();
+                        caller.Copy_Finish(false);return;}
+                    if(SendTag.equals(NowTag)){
+                        caller.Copy_Finish(false);
+                        return;
+                    }
                     break;
                 }
                 if(Rx.length()>=36){
@@ -538,10 +541,11 @@ try {
                     }else{ if(SendTag.equals(NowTag)){caller.Copy_Next(false,i);} }
                     break;
                 }
+                Thread.currentThread().sleep(100);
             }
         }
-        if(SendTag.equals(NowTag)){caller.Copy_Finish();}
-    }catch (Exception e){e.printStackTrace();caller.Copy_Finish();}
+        if(SendTag.equals(NowTag)){caller.Copy_Finish(true);}
+    }catch (Exception e){e.printStackTrace();caller.Copy_Finish(false);}
     }
     public static String reverseBySort(String str){
         if(str == null || str.length() == 1){

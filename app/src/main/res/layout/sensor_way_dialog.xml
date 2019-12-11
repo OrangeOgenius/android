@@ -88,7 +88,7 @@
                         android:layout_height="match_parent" android:layout_weight="1">
 
                     <TextView
-                            android:text="@string/app_tigger"
+                            android:text="@string/app_sensor_info_read"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" android:id="@+id/yes"
                             android:textSize="20sp" android:textColor="@color/white"

@@ -36,7 +36,7 @@ class Frag_Idcopy_original : RootFragement() {
     lateinit var rvIDCopy: RecyclerView//IDCopy
     lateinit var tvContent: TextView//title
     var ObdHex = "00"
-    var idcount=0
+    var idcount=8
     lateinit var idCopyAdapter: IDCopyAdapter//适配器
     lateinit var linearLayoutManager: LinearLayoutManager//列表表格布局
     lateinit var dataReceiver: HardwareApp.DataReceiver
@@ -50,7 +50,6 @@ class Frag_Idcopy_original : RootFragement() {
         }
         rootview=inflater.inflate(R.layout.fragment_frag__idcopy_original, container, false)
         ObdHex=(activity as KtActivity).itemDAO.GetHex(PublicBean.SelectMake,PublicBean.SelectModel,PublicBean.SelectYear)
-        idcount=(activity as KtActivity).itemDAO.GetCopyId((activity as KtActivity).itemDAO.getMMY(PublicBean.SelectMake,PublicBean.SelectModel,PublicBean.SelectYear))
         rootview.tv_content.text="${PublicBean.SelectMake}/${PublicBean.SelectModel}/${PublicBean.SelectYear}"
         rootview.bt_menue.setOnClickListener { GoMenu() }
         rvIDCopy=rootview.findViewById(R.id.rv_id_copy)
@@ -71,6 +70,7 @@ class Frag_Idcopy_original : RootFragement() {
                 }
             } else {
                 act.Toast(R.string.app_no_sensor_set)
+//                Trigger()
             }
         }
         act.ShowDaiLog(R.layout.sensor_way_dialog,false,false, DaiSetUp {
@@ -105,11 +105,11 @@ class Frag_Idcopy_original : RootFragement() {
                 }
                 if(event.action == MotionEvent.ACTION_UP){
                     act.DaiLogDismiss()
-                    updateEditable()
                 }
                 true
             }
         })
+        updateEditable(true)
         return rootview
     }
 
@@ -146,6 +146,7 @@ class Frag_Idcopy_original : RootFragement() {
     fun Trigger(){
         if(run){return}
         run=true
+        updateEditable(false)
         act.ShowDaiLog(R.layout.data_loading,false,true, DaiSetUp {
         })
         Thread{
@@ -164,6 +165,7 @@ class Frag_Idcopy_original : RootFragement() {
                 }else{
                     act.Toast(resources.getString(R.string.app_read_failed))
                 }
+                updateEditable(true)
             }
         }.start()
     }
@@ -181,17 +183,17 @@ class Frag_Idcopy_original : RootFragement() {
         //数据源
         val numberList = ArrayList<IDCopyBean>()
         val titleBean = IDCopyBean(
-            "",
-            getString(R.string.app_id_clear),
+            "WH",
+            getString(R.string.app_original_id),
             getString(R.string.app_psi),
             getString(R.string.app_temp),
             getString(R.string.app_bat_clear),
             false
         )
-        val frBean = IDCopyBean("FR", "", "", "", "", false)
-        val rrBean = IDCopyBean("RR", "", "", "", "", false)
-        val rlBean = IDCopyBean("RL", "", "", "", "", false)
-        val flBean = IDCopyBean("FL", "", "", "", "", false)
+        val frBean = IDCopyBean("LF", "", "", "", "", false)
+        val rrBean = IDCopyBean("FR", "", "", "", "", false)
+        val rlBean = IDCopyBean("RR", "", "", "", "", false)
+        val flBean = IDCopyBean("LR", "", "", "", "", false)
         numberList.add(titleBean)
         numberList.add(frBean)
         numberList.add(rrBean)
@@ -230,7 +232,9 @@ class Frag_Idcopy_original : RootFragement() {
                 }
                 vibMediaUtil.playBeep()
                 if (!haveSameSensorid(sensorid)) {
+                    updateEditable(false)
                     updateSensorid(sensorid)
+                    updateEditable(true)
                 } else {
                     act.Toast(R.string.app_sensor_repeated)
                 }
@@ -283,10 +287,10 @@ class Frag_Idcopy_original : RootFragement() {
     /**
      * 刷新是否能够编辑的状态
      */
-     fun updateEditable() {
+     fun updateEditable(a:Boolean) {
         for (i in 1 until idCopyAdapter.items.size) {
             val idCopyBean = idCopyAdapter.items[i]
-            idCopyBean.isEditable = true
+            idCopyBean.isEditable = a
             idCopyAdapter.setItem(i, idCopyBean)
         }
         rvIDCopy.adapter = idCopyAdapter

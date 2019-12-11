@@ -1,14 +1,14 @@
 package com.orange.FireBase
 
-import android.app.*
+import android.app.Notification
+import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Build
 import android.support.v4.app.NotificationCompat
-import android.support.v4.content.ContextCompat.getSystemService
-import android.support.v7.app.AppCompatActivity
 import com.orange.tpms.R
 import com.orange.tpms.ue.activity.KtActivity
 

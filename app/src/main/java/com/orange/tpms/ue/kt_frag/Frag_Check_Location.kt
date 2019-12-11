@@ -15,7 +15,6 @@ import com.orange.tpms.bean.PublicBean
 import com.orange.tpms.bean.SensorData
 import com.orange.tpms.ue.activity.KtActivity
 import com.orange.tpms.utils.OgCommand
-import com.orange.tpms.utils.ImageUtil
 import com.orange.tpms.utils.VibMediaUtil
 import com.orange.tpms.widget.CarWidget
 import kotlinx.android.synthetic.main.fragment_frag__check__location.view.*

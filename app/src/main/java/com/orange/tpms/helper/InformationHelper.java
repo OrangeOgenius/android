@@ -3,6 +3,7 @@ package com.orange.tpms.helper;
 import android.content.Context;
 import com.orange.tpms.R;
 import com.orange.tpms.bean.InformationBean;
+import com.orange.tpms.bean.PublicBean;
 import com.orange.tpms.lib.db.share.SettingShare;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class InformationHelper extends BaseHelper {
         informationList.add(new InformationBean(context.getString(R.string.infomation_serial_number),information.serialNumber));
         informationList.add(new InformationBean(context.getString(R.string.infomation_version),information.version));
         informationList.add(new InformationBean(context.getString(R.string.infomation_data_version),information.dataVersion));
+        informationList.add(new InformationBean("Mcu Version", PublicBean.MCU_NUMBER.replace(".x2","")));
         getInformationNext(informationList);
         finishRequestNext();
     }

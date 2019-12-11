@@ -1,18 +1,20 @@
 package com.orange.tpms.ue.activity
 
 import android.annotation.SuppressLint
-import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.util.Log
 import android.view.KeyEvent
 import android.view.KeyEvent.*
+import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.messaging.FirebaseMessaging
 import com.orange.blelibrary.blelibrary.BleActivity
 import com.orange.blelibrary.blelibrary.Callback.DaiSetUp
 import com.orange.blelibrary.blelibrary.RootFragement
@@ -22,12 +24,13 @@ import com.orange.tpms.R
 import com.orange.tpms.bean.PublicBean
 import com.orange.tpms.lib.db.share.SettingShare
 import com.orange.tpms.mmySql.ItemDAO
-import com.orange.tpms.ue.kt_frag.*
+import com.orange.tpms.ue.kt_frag.Frag_Idcopy_New
+import com.orange.tpms.ue.kt_frag.Frag_Idcopy_original
+import com.orange.tpms.ue.kt_frag.Frag_Program_Detail
+import com.orange.tpms.ue.kt_frag.kt_splash
+import com.orange.tpms.utils.HttpDownloader
 import com.orange.tpms.utils.OgCommand
 import com.orange.tpms.utils.OgCommand.StringHexToByte
-import com.orange.tpms.utils.FileDowload.DownMuc
-import com.orange.tpms.utils.FileDowload.Downloadapk
-import com.orange.tpms.utils.HttpDownloader
 import com.orange.tpms.utils.RxCommand
 import kotlinx.android.synthetic.main.dataloading.*
 import java.io.File
@@ -36,12 +39,16 @@ import kotlin.collections.ArrayList
 import kotlin.concurrent.schedule
 
 class KtActivity : BleActivity(), Scan_C {
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        Log.e("觸控","$event")
+        return super.onTouchEvent(event)
+    }
+
     override fun GetScan(a: String?) {
         if (Fraging != null) {
             (Fraging as RootFragement).ScanContent(a!!)
         }
     }
-
     var donload = HttpDownloader()
     var BleCommand = com.orange.tpms.utils.BleCommand()
     var ObdCommand = com.orange.tpms.utils.ObdCommand()
@@ -54,6 +61,7 @@ class KtActivity : BleActivity(), Scan_C {
     override fun ChangePageListener(tag: String, frag: Fragment) {
         Log.e("switch", tag)
         Log.e("switch", "count:" + supportFragmentManager.backStackEntryCount)
+        back.setImageResource(R.mipmap.back)
         back.setOnClickListener { GoBack() }
         if (supportFragmentManager.backStackEntryCount != 0) {
             back.setImageResource(R.mipmap.back)
@@ -117,6 +125,15 @@ class KtActivity : BleActivity(), Scan_C {
     lateinit var tit: TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        FirebaseInstanceId.getInstance().instanceId
+            .addOnSuccessListener(this) { instanceIdResult ->
+                val mToken = instanceIdResult.token
+                println("printing fcm token: $mToken")
+            }
+        FirebaseMessaging.getInstance().subscribeToTopic("update")
+            .addOnCompleteListener( {
+//             Toast("註冊成功")
+            });
         val file = File("/sdcard/update/");
         val files19 = File("/sdcard/files19/");
         while (!file.exists()) {
@@ -138,7 +155,13 @@ class KtActivity : BleActivity(), Scan_C {
 
         }
         Laninit()
-
+//tit.setOnClickListener {
+//    var intent =  Intent("android.intent.action.ACTION_REQUEST_SHUTDOWN");
+//                intent.putExtra("android.intent.extra.KEY_CONFIRM", false);
+//                //当中false换成true,会弹出是否关机的确认窗体
+//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                startActivity(intent);
+//}
         ShowTitleBar(false)
         ChangePage(kt_splash(), R.id.frage, "kt_splash", false)
         BleCommand.act = this
@@ -233,7 +256,7 @@ class KtActivity : BleActivity(), Scan_C {
                 return false
             }
         }
-        if (event.keyCode == 19 || event.keyCode == 20 || event.keyCode == 21 || event.keyCode == 22) {
+        if (event.keyCode == 19 || event.keyCode == 20 || event.keyCode == 21 || event.keyCode == 22||event.keyCode==66) {
             return false
         }
         return superDispatchKeyEvent(event)
@@ -254,15 +277,15 @@ class KtActivity : BleActivity(), Scan_C {
                         if(focus==2){
                             when(NowFrage){
                                 "Frag_Program_Detail"->{
-                                    (Fraging as Frag_Program_Detail).updateEditable()
+                                    (Fraging as Frag_Program_Detail).updateEditable(true)
                                     DaiLogDismiss()
                                 }
                                 "Frag_Idcopy_original"->{
-                                    (Fraging as Frag_Idcopy_original).updateEditable()
+                                    (Fraging as Frag_Idcopy_original).updateEditable(true)
                                     DaiLogDismiss()
                                 }
                                 "Frag_Idcopy_New"->{
-                                    (Fraging as Frag_Idcopy_New).updateEditable()
+                                    (Fraging as Frag_Idcopy_New).updateEditable(true)
                                     DaiLogDismiss()
                                 }
                             }

@@ -19,10 +19,10 @@
 
             <Button
                     android:focusable="true"
-                    android:id="@+id/bt_new_sensor_list"
+                    android:id="@+id/bt_menue"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="@string/app_new_sensor_list"
+                    android:text="@string/app_menue"
                     android:textAllCaps="false"
                     android:gravity="center"
                     android:textColor="@color/color_white"
@@ -35,10 +35,10 @@
                     android:id="@+id/imageView14" android:background="@color/white"/>
             <Button
                     android:focusable="true"
-                    android:id="@+id/bt_menue"
+                    android:id="@+id/bt_new_sensor_list"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="@string/app_menue"
+                    android:text="@string/Next"
                     android:textAllCaps="false"
                     android:gravity="center"
                     android:textColor="@color/color_white"
@@ -68,7 +68,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/color_white"
                         android:text=""
-                        app:layout_textSizePercent="3.3%sh"
+                        app:layout_textSizePercent="4%sh"
                         tools:layout_textSizePercent="27%h"/>
 
             </com.de.rocket.ue.layout.PercentLinearLayout>

@@ -32,7 +32,7 @@ public boolean newsensoe=false;
 
     @Override
     protected void onBindView(ViewHolder holder, int index) {
-        if(newsensoe){holder.etSensorid.setHint(R.string.app_new_sensor);}
+//        if(newsensoe){holder.etSensorid.setHint(R.string.app_new_sensor);}
         if(index == getItemCount()-1){
             holder.vBottomSep.setVisibility(View.VISIBLE);
         }

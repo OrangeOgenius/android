@@ -3,6 +3,8 @@ package com.orange.tpms.ue.kt_frag
 
 import android.bluetooth.BluetoothAdapter
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -14,8 +16,10 @@ import com.orange.blelibrary.blelibrary.Callback.DaiSetUp
 import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.R
 import com.orange.tpms.bean.PublicBean
+import com.orange.tpms.utils.AssetsUtils
 import com.orange.tpms.utils.WifiUtils
 import kotlinx.android.synthetic.main.fragment_frag__setting.view.*
+import java.io.File
 
 
 /**
@@ -111,12 +115,25 @@ rootview.bt_reset.setOnClickListener {
             act.DaiLogDismiss()
         }
         it.findViewById<TextView>(R.id.yes).setOnClickListener {
-            act.DaiLogDismiss()
-            act.getSharedPreferences("Setting", Context.MODE_PRIVATE).edit().clear().commit()
-            act.getSharedPreferences("Favorite", Context.MODE_PRIVATE).edit().clear().commit()
-            act.finish()
-            val intent2 = context!!.getPackageManager().getLaunchIntentForPackage(context!!.getPackageName())
-            context!!.startActivity(intent2)
+            act.ShowDaiLog(R.layout.data_loading,false,false, DaiSetUp {  })
+            Thread{
+                AssetsUtils.copyFilesFassets(act,"original.apk","/sdcard/update/reset.apk")
+                handler.post {
+                    act.DaiLogDismiss()
+                    act.getSharedPreferences("Setting", Context.MODE_PRIVATE).edit().clear().commit()
+                    act.getSharedPreferences("Favorite", Context.MODE_PRIVATE).edit().clear().commit()
+                    val intent = Intent(Intent.ACTION_VIEW)
+                    intent.setDataAndType(
+                        Uri.fromFile(File("/sdcard/update/reset.apk")),
+                        "application/vnd.android.package-archive"
+                    )//image/*
+                    startActivity(intent)//此处可能会产生异常（比如说你的MIME类型是打开视频，但是你手机里面没装视频播放器，就会报错）
+                }
+            }.start()
+
+//            act.finish()
+//            val intent2 = context!!.getPackageManager().getLaunchIntentForPackage(context!!.getPackageName())
+//            context!!.startActivity(intent2)
         }
     })
 }

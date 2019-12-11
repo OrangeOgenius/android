@@ -1,17 +1,12 @@
 package com.orange.tpms.adapter
 
 import android.text.InputFilter
-import android.util.Log
 import android.view.View
 import com.orange.blelibrary.blelibrary.Adapter.RootAdapter
 import com.orange.tpms.R
 import com.orange.tpms.bean.ObdBeans
 import com.orange.tpms.bean.PublicBean
-import com.orange.tpms.utils.CustomTextWatcherForpad
 import com.orange.tpms.utils.KeyboardUtil
-import com.orange.tpms.utils.ObdFilter
-import kotlinx.android.synthetic.main.fragment_frag__pad__keyin.view.*
-import kotlinx.android.synthetic.main.fragment_frag__program__sensor_information.view.*
 import kotlinx.android.synthetic.main.item_id_copy_new.view.*
 
 class obdadapter(public val beans: ObdBeans) : RootAdapter(R.layout.item_id_copy_new) {

@@ -37,7 +37,7 @@ class Frag_Idcopy_New : RootFragement() {
     lateinit var rvIDCopy: RecyclerView//IDCopy
     lateinit var tvContent: TextView//title
     lateinit var scwTips: ScanWidget//Tips
-    var idcount=0
+    var idcount=8
     lateinit var idCopyAdapter: IDCopyAdapter//适配器
     lateinit var linearLayoutManager: LinearLayoutManager//列表表格布局
      var ObdHex = "00"
@@ -52,7 +52,6 @@ class Frag_Idcopy_New : RootFragement() {
         }
         rootview=inflater.inflate(R.layout.fragment_frag__idcopy__new, container, false)
         rootview.tv_content.text="${PublicBean.SelectMake}/${PublicBean.SelectModel}/${PublicBean.SelectYear}"
-        idcount=(activity as KtActivity).itemDAO.GetCopyId((activity as KtActivity).itemDAO.getMMY(PublicBean.SelectMake,PublicBean.SelectModel,PublicBean.SelectYear))
         rvIDCopy=rootview.findViewById(R.id.rv_id_copy)
         tvContent=rootview.findViewById(R.id.tv_content)
         scwTips=rootview.findViewById(R.id.scw_tips)
@@ -104,12 +103,11 @@ class Frag_Idcopy_New : RootFragement() {
                 }
                 if(event.action == MotionEvent.ACTION_UP){
                     act.DaiLogDismiss()
-                    updateEditable()
                 }
                 true
             }
         })
-       
+        updateEditable(true)
         return rootview
     }
 
@@ -133,22 +131,26 @@ class Frag_Idcopy_New : RootFragement() {
         run=true
         act.ShowDaiLog(R.layout.data_loading,false,true, DaiSetUp {
         })
+        updateEditable(false)
         Thread{
-            val a = OgCommand.GetId(ObdHex, "00")
+            val a = OgCommand.GetPr("00", PublicBean.SensorList.size)
             handler.post {
                 run = false
                 if(!act.NowFrage.equals("Frag_Idcopy_New")){return@post}
                 vibMediaUtil.playBeep()
                 act.DaiLogDismiss()
-                if(a.success){
-                    if (!haveSameSensorid(a.id)) {
-                        updateSensorid(a.id,""+a.kpa,""+a.c,""+a.vol);
-                    } else {
-                        act.Toast(R.string.app_sensor_repeated)
+                if(a.size == PublicBean.SensorList.size){
+                    for(i in a){
+                        if (!haveSameSensorid(i.id)) {
+                            updateSensorid(i.id,""+i.kpa,""+i.c,""+i.vol);
+                        } else {
+                            act.Toast(R.string.app_sensor_repeated)
+                        }
                     }
                 }else{
                     act.Toast(resources.getString(R.string.app_read_failed))
                 }
+                updateEditable(true)
             }
         }.start()
     }
@@ -183,17 +185,17 @@ class Frag_Idcopy_New : RootFragement() {
         //数据源
         val numberList = ArrayList<IDCopyBean>()
         val titleBean = IDCopyBean(
-            "",
-            getString(R.string.app_id_clear),
+            "WH",
+            getString(R.string.app_new_sensor),
             getString(R.string.app_psi),
             getString(R.string.app_temp),
             getString(R.string.app_bat_clear),
             false
         )
-        val frBean = IDCopyBean("FR", "", "", "", "", false)
-        val rrBean = IDCopyBean("RR", "", "", "", "", false)
-        val rlBean = IDCopyBean("RL", "", "", "", "", false)
-        val flBean = IDCopyBean("FL", "", "", "", "", false)
+        val frBean = IDCopyBean("LF", "", "", "", "", false)
+        val rrBean = IDCopyBean("FR", "", "", "", "", false)
+        val rlBean = IDCopyBean("RR", "", "", "", "", false)
+        val flBean = IDCopyBean("LR", "", "", "", "", false)
         numberList.add(titleBean)
         numberList.add(frBean)
         numberList.add(rrBean)
@@ -231,7 +233,9 @@ class Frag_Idcopy_New : RootFragement() {
                 }
                 vibMediaUtil.playBeep()
                 if (!haveSameSensorid(sensorid)) {
+                    updateEditable(false)
                     updateSensorid(sensorid)
+                    updateEditable(true)
                 } else {
                     act.Toast(R.string.app_sensor_repeated)
                 }
@@ -298,10 +302,10 @@ class Frag_Idcopy_New : RootFragement() {
     /**
      * 刷新是否能够编辑的状态
      */
-     fun updateEditable() {
+     fun updateEditable(a:Boolean) {
         for (i in 1 until idCopyAdapter.items.size) {
             val idCopyBean = idCopyAdapter.items[i]
-            idCopyBean.isEditable = true
+            idCopyBean.isEditable = a
             idCopyAdapter.setItem(i, idCopyBean)
         }
         rvIDCopy.adapter = idCopyAdapter

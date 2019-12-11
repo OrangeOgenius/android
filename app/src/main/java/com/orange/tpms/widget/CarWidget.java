@@ -16,9 +16,9 @@ import com.orange.tpms.R;
 public class CarWidget extends PercentRelativeLayout {
 
     @BindView(R.id.iv_wheel_top_left)
-    public ImageView ivRightTopWheel;//左上轮胎
+    public ImageView ivLeftTopWheel;//左上轮胎
     @BindView(R.id.iv_wheel_top_right)
-    public ImageView ivLeftTopWheel;//右上轮胎
+    public ImageView ivRightTopWheel;//右上轮胎
     @BindView(R.id.iv_wheel_bottom_left)
     public ImageView ivLeftBottomWheel;//左下轮胎
     @BindView(R.id.iv_wheel_bottom_right)
@@ -32,8 +32,8 @@ public class CarWidget extends PercentRelativeLayout {
         TOP_RIGHT,
         BOTTOM_LEFT,
         BOTTOM_RIGHT
-    }
 
+    }
     /**
      * 状态枚举
      */

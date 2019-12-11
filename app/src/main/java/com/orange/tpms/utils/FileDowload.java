@@ -6,12 +6,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.util.Log;
+import com.orange.tpms.Callback.Donload_C;
 import com.orange.tpms.Callback.Update_C;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 
 public class FileDowload {
     public static boolean Internet=true;
@@ -46,7 +46,7 @@ public class FileDowload {
                 if(!DownMMy(activity)){caller.Finish(false);return;} ;
                 if(!DownAllS19(activity,caller)){caller.Finish(false);return;}
                 if(!DownMuc(activity)){caller.Finish(false);return;}
-                if(!Downloadapk(activity)){caller.Finish(false);return;}
+                if(!Downloadapk(activity,caller)){caller.Finish(false);return;}
                 if(!DownAllObd(activity,caller)){caller.Finish(false);return;}
                 caller.Finish(true);
         }catch (Exception e){e.printStackTrace();caller.Finish(false);}
@@ -74,7 +74,7 @@ public class FileDowload {
                     Log.e("obd",arg[i].substring(arg[i].indexOf(">")+1,arg[i].indexOf("<")));
                     if(!DonloadObd(arg[i].substring(arg[i].indexOf(">")+1,arg[i].indexOf("<")),activity)){success=false;};
                 }
-                caller.Updateing(i*100/arg.length/2+50);
+                caller.Updateing(i*100/arg.length/3+(100/3)*2);
             }
             SharedPreferences profilePreferences = activity.getSharedPreferences("Setting", Context.MODE_PRIVATE);
             profilePreferences.edit().putString("obdinit",success ? "yes" : "no").commit();
@@ -89,7 +89,9 @@ public class FileDowload {
                 Log.e("obd失敗",name);
                 return false;}
             if(donloadobd.equals(profilePreferences.getString("obd"+name,"nodata"))){return true;}
-            boolean result=FileDonload(activity.getApplicationContext().getFilesDir().getPath() + "/" + name + ".srec","http://bento2.orange-electronic.com/Orange%20Cloud/Drive/OBD%20DONGLE/" + name + "/" + donloadobd,30);
+            boolean result=FileDonload(activity.getApplicationContext().getFilesDir().getPath() + "/" + name + ".srec","http://bento2.orange-electronic.com/Orange%20Cloud/Drive/OBD%20DONGLE/" + name + "/" + donloadobd,30,progress -> {
+
+            });
             if(!result){
                 Log.e("obd失敗",name);
                 return false;}
@@ -130,7 +132,7 @@ public class FileDowload {
                 if(i !=0 && arg[i].contains("SIII")){
                     if(!donloads19(arg[i].substring(arg[i].indexOf(">")+1,arg[i].indexOf("<")),activity)){success=false;};
                 }
-                caller.Updateing(i*100/arg.length/2);
+                caller.Updateing(i*100/arg.length/3);
             }
             SharedPreferences profilePreferences = activity.getSharedPreferences("Setting", Context.MODE_PRIVATE);
             profilePreferences.edit().putString("s19init",success ? "yes" : "no").commit();
@@ -175,18 +177,22 @@ public class FileDowload {
             String mcu=GetMucName();
             SharedPreferences profilePreferences = activity.getSharedPreferences("Setting", Context.MODE_PRIVATE);
             if(profilePreferences.getString("mcu","no").equals(mcu)){ return  true; }
-            boolean result=FileDonload(activity.getApplicationContext().getFilesDir().getPath()+"/update.x2","https://bento2.orange-electronic.com/Orange%20Cloud/Drive/OG/Firmware/"+mcu,30);
+            boolean result=FileDonload(activity.getApplicationContext().getFilesDir().getPath()+"/update.x2","https://bento2.orange-electronic.com/Orange%20Cloud/Drive/OG/Firmware/"+mcu,30,progress -> {
+
+            });
             if(result){profilePreferences.edit().putString("mcu",mcu).commit();}
             return result;
         }catch (Exception e){e.printStackTrace();return false;}
     }
-    public static boolean Downloadapk(Activity activity){
+    public static boolean Downloadapk(Activity activity,Update_C caller){
         try{
             String apk=GetApkName();
             SharedPreferences profilePreferences = activity.getSharedPreferences("Setting", Context.MODE_PRIVATE);
             if(profilePreferences.getString("apk",PackageUtils.getVersionCode(activity)+".apk").equals(apk)){ return  true; }
             profilePreferences.edit().putString("apk",PackageUtils.getVersionCode(activity)+"");
-            boolean result=FileDonload("/sdcard/update/update.apk","https://bento2.orange-electronic.com/Orange%20Cloud/Drive/OG/APP%20Software/"+apk,300);
+            boolean result=FileDonload("/sdcard/update/update.apk","https://bento2.orange-electronic.com/Orange%20Cloud/Drive/OG/APP%20Software/"+apk,1200,progress -> {
+                caller.Updateing(progress/3+33);
+            });
             if(result){profilePreferences.edit().putString("apk",apk).commit();}
             Log.e("apkdown","下載完成");
             return result;
@@ -197,7 +203,9 @@ public class FileDowload {
                 String s19name=GetS19Name(name);
                 SharedPreferences profilePreferences = activity.getSharedPreferences("Setting", Context.MODE_PRIVATE);
                 if(profilePreferences.getString(name,"no").equals(s19name)){ return  true; }
-                boolean result=FileDonload("/sdcard/files19/"+name+".s19","https://bento2.orange-electronic.com/Orange%20Cloud/Database/SensorCode/SIII/"+name+"/"+s19name,30);
+                boolean result=FileDonload("/sdcard/files19/"+name+".s19","https://bento2.orange-electronic.com/Orange%20Cloud/Database/SensorCode/SIII/"+name+"/"+s19name,30,progress -> {
+
+                });
                 if(result){profilePreferences.edit().putString(name,s19name).commit();}
                 return result;
             }catch (Exception e){e.printStackTrace(); return false;}
@@ -207,7 +215,9 @@ public class FileDowload {
             SharedPreferences profilePreferences = activity.getSharedPreferences("Setting", Context.MODE_PRIVATE);
             String mmyname=mmyname();
             if(profilePreferences.getString("mmyname","").equals(mmyname)){return true;}
-            boolean result=FileDonload(fileanme,"https://bento2.orange-electronic.com/Orange%20Cloud/Database/MMY/EU/"+mmyname,30);
+            boolean result=FileDonload(fileanme,"https://bento2.orange-electronic.com/Orange%20Cloud/Database/MMY/EU/"+mmyname,30, progress -> {
+
+            });
             File f= new File(fileanme);
             if (f.exists() && f.isFile()){
                 Log.d("path",""+f.length());
@@ -230,22 +240,25 @@ public class FileDowload {
         }catch(Exception e){e.printStackTrace();}
         return "nodata";
     }
-public static boolean FileDonload(String path,String url,int timeout){
+public static boolean FileDonload(String path, String url, int timeout, Donload_C caller){
         try{
             Log.d("path",path);
             HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
             conn.setConnectTimeout(1000*timeout);
             InputStream is =conn.getInputStream();
             FileOutputStream fos = new FileOutputStream(path);
-            Log.e("contentsizt",""+is.available());
+//            double contentsize=conn.getContentLength();
             int bufferSize = 8192;
+            double prread=0;
             byte[] buf = new byte[bufferSize];
             while (true) {
                 int read = is.read(buf);
+                prread+=read;
                 if (read == -1) {
                     break;
                 }
                 fos.write(buf, 0, read);
+                caller.Updateing((int)(prread*100/33766558));
             }
             is.close();
             fos.close();

@@ -2,10 +2,8 @@ package com.orange.testlauncher.Frage
 
 
 import android.content.Intent
-import android.content.pm.ResolveInfo
 import android.content.res.Resources
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,7 +14,6 @@ import com.orange.testlauncher.Adapter.AppAdapter
 import com.orange.tpms.HomeScream.Beans.AppBeans
 import com.orange.tpms.R
 import kotlinx.android.synthetic.main.fragment_home.view.*
-import java.util.ArrayList
 
 class HomeScreem : RootFragement() {
  var appbeans: AppBeans = AppBeans()

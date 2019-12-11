@@ -66,9 +66,9 @@ public class PackageUtils {
      * @return 名称
      */
     public static String getAppName(Context context) {
-        PackageManager pm = context.getPackageManager();
         //获取包信息
         try {
+            PackageManager pm = context.getPackageManager();
             PackageInfo packageInfo = pm.getPackageInfo(context.getPackageName(), 0);
             //获取应用 信息
             ApplicationInfo applicationInfo = packageInfo.applicationInfo;

@@ -2,11 +2,7 @@ package com.orange.tpms.ue.kt_frag
 
 
 import android.content.Context
-import android.content.Intent
-import android.media.Image
-import android.net.Uri
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -20,11 +16,9 @@ import com.orange.tpms.R
 import com.orange.tpms.bean.PublicBean
 import com.orange.tpms.mmySql.ItemDAO
 import com.orange.tpms.ue.activity.KtActivity
-import com.orange.tpms.utils.OgCommand
 import com.orange.tpms.utils.PackageUtils
 import kotlinx.android.synthetic.main.activity_frag_home.view.*
 import kotlinx.android.synthetic.main.check_update.*
-import java.io.File
 
 
 class Frag_home : RootFragement() {
@@ -48,7 +42,9 @@ class Frag_home : RootFragement() {
                 }
             })
         }
-        if(isInitialized()){return rootview}
+        butt.clear()
+        FuBt.clear()
+        focus=0
         rootview = inflater.inflate(R.layout.activity_frag_home, container, false)
         rootview.i1.isSelected=true
         butt.add(rootview.i1)

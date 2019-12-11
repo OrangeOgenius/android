@@ -12,6 +12,7 @@ public class PublicBean {
     public static String WriteLr="";
     public static String SerialNum="";
     public static String OG_SerialNum="";
+    public static String MCU_NUMBER="";
     public static String admin="";
     public static String password="";
     public static int position=1;

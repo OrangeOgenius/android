@@ -26,7 +26,7 @@
                     android:textColor="@color/color_white"
                     app:layout_widthPercent="35%w"
                     app:layout_marginLeftPercent="8%w" android:layout_weight="1" android:background="@color/buttoncolor"
-                    android:textSize="17sp"/>
+                    android:textSize="18sp"/>
             <ImageView
                     android:layout_width="0.5dp"
                     android:layout_height="match_parent" app:srcCompat="@android:color/white"
@@ -36,14 +36,14 @@
                     android:id="@+id/bt_tigger"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="@string/app_trigger"
+                    android:text="@string/Read"
                     android:textAllCaps="false"
                     android:gravity="center"
                     android:layout_centerHorizontal="true"
                     android:layout_below="@+id/iv_scan_tips"
                     android:textColor="@color/color_white"
                     app:layout_widthPercent="35%w" android:layout_weight="1" android:background="@color/buttoncolor"
-                    android:textSize="17sp"/>
+                    android:textSize="18sp"/>
         </LinearLayout>
         <com.de.rocket.ue.layout.PercentLinearLayout
                 android:layout_width="match_parent"

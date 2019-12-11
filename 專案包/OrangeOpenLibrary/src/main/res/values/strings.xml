@@ -50,7 +50,7 @@
     <string name="app_sign_in">Sign in</string>
     <string name="app_registration">Registration</string>
     <string name="app_forgot_password">Forgot password</string>
-    <string name="app_menue">Menue</string>
+    <string name="app_menue">Menu</string>
     <string name="app_home_check_sensor">CHECK SENSOR</string>
     <string name="app_trigger">trigger</string>
     <string name="app_home_program_sensor_phone">PROGRAM SENSOR</string>
@@ -614,7 +614,7 @@
     <string name="autolock">Changing the Sleep Timer Settings</string>
     <string name="updatefault">update false,Please reconnect wifi and try again!</string>
     <string name="enginer">Engineering mode</string>
-    <string name="maxsize">max size is 12</string>
+    <string name="maxsize">max size is 4</string>
     <string name="wantreprogram">Do you want to Re-Program?</string>
     <string name="app_to_program_sensor">Press the trigger button</string>
     <string name="app_blue_bud_close">Close</string>

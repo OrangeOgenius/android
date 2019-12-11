@@ -109,9 +109,9 @@ public class number_filter implements TextWatcher {
             int mid = lastChar[0];
             if (mid >= 48 && mid <= 57) {
              Log.e("long",""+temp);
-             if(Integer.parseInt(temp)>12){
+             if(Integer.parseInt(temp)>4){
                  mInvalid = true;
-                 mEditText.setText("12");
+                 mEditText.setText("4");
                  Toast.makeText(context,context.getResources().getString(R.string.maxsize),Toast.LENGTH_SHORT).show();
                  return;
              }else if(Integer.parseInt(temp)==0){  mInvalid = true;

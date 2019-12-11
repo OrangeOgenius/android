@@ -29,7 +29,6 @@ import com.orange.tpms.utils.OggUtils
 import com.orange.tpms.utils.WifiUtils
 import kotlinx.android.synthetic.main.data_loading.*
 import kotlinx.android.synthetic.main.frag_wifi.view.*
-import kotlinx.android.synthetic.main.fragment_frag__setting.view.*
 import java.util.*
 
 

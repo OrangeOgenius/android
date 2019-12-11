@@ -14,7 +14,6 @@ import com.de.rocket.ue.injector.BindView;
 import com.orange.tpms.R;
 import com.orange.tpms.bean.ProgramItemBean;
 import com.orange.tpms.utils.KeyboardUtil;
-import com.orange.tpms.utils.ProgramFilter;
 import com.orange.tpms.widget.ClearEditText;
 
 public class ProgramAdapter extends BaseRecyclerAdapter<ProgramItemBean, ProgramAdapter.ViewHolder> {
