@@ -133,7 +133,7 @@ class Frag_Idcopy_New : RootFragement() {
         })
         updateEditable(false)
         Thread{
-            val a = OgCommand.GetPr("00", PublicBean.SensorList.size)
+            val a = OgCommand.GetPr("00", PublicBean.SensorList.size,ObdHex)
             handler.post {
                 run = false
                 if(!act.NowFrage.equals("Frag_Idcopy_New")){return@post}
@@ -193,7 +193,7 @@ class Frag_Idcopy_New : RootFragement() {
             false
         )
         val frBean = IDCopyBean("LF", "", "", "", "", false)
-        val rrBean = IDCopyBean("FR", "", "", "", "", false)
+        val rrBean = IDCopyBean("RF", "", "", "", "", false)
         val rlBean = IDCopyBean("RR", "", "", "", "", false)
         val flBean = IDCopyBean("LR", "", "", "", "", false)
         numberList.add(titleBean)

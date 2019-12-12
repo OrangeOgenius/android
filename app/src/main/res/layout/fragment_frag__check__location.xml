@@ -40,7 +40,7 @@
                 android:id="@+id/bt_check"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="@string/app_trigger"
+                android:text="@string/app_sensor_info_read"
                 android:textAllCaps="false"
                 android:gravity="center"
                 android:layout_centerHorizontal="true"
@@ -66,7 +66,8 @@
                     android:id="@+id/tv_title_left"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    app:layout_widthPercent="20%w"/>
+                    app:layout_widthPercent="20%w" android:text="WH" android:textColor="@android:color/black"
+                    android:gravity="center"/>
 
             <TextView
                     android:layout_toEndOf="@+id/tv_title_left"
@@ -135,7 +136,7 @@
                     android:layout_height="match_parent"
                     android:textColor="@color/color_black"
                     android:gravity="center"
-                    android:text="@string/app_fr"
+                    android:text="LF"
                     app:layout_widthPercent="20%w"/>
 
             <TextView
@@ -206,7 +207,7 @@
                     android:layout_height="match_parent"
                     android:textColor="@color/color_black"
                     android:gravity="center"
-                    android:text="@string/app_rr"
+                    android:text="RF"
                     app:layout_widthPercent="20%w"/>
 
             <TextView
@@ -277,7 +278,7 @@
                     android:layout_height="match_parent"
                     android:textColor="@color/color_black"
                     android:gravity="center"
-                    android:text="@string/app_rl"
+                    android:text="RR"
                     app:layout_widthPercent="20%w"/>
 
             <TextView
@@ -348,7 +349,7 @@
                     android:layout_height="match_parent"
                     android:textColor="@color/color_black"
                     android:gravity="center"
-                    android:text="@string/app_fl"
+                    android:text="LR"
                     app:layout_widthPercent="20%w"/>
 
             <TextView

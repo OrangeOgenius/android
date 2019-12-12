@@ -191,7 +191,7 @@ class Frag_Idcopy_original : RootFragement() {
             false
         )
         val frBean = IDCopyBean("LF", "", "", "", "", false)
-        val rrBean = IDCopyBean("FR", "", "", "", "", false)
+        val rrBean = IDCopyBean("RF", "", "", "", "", false)
         val rlBean = IDCopyBean("RR", "", "", "", "", false)
         val flBean = IDCopyBean("LR", "", "", "", "", false)
         numberList.add(titleBean)

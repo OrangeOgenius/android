@@ -39,7 +39,7 @@
 
         <Button
                 android:id="@+id/bt_program"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="@string/app_sensor_info_read"
                 android:textAllCaps="false"
@@ -54,7 +54,7 @@
                 android:background="@android:color/white"/>
         <Button
                 android:id="@+id/bt_menue"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="@string/app_menue"
                 android:textAllCaps="false"

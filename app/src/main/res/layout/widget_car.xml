@@ -10,7 +10,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             app:layout_heightPercent="100%h"
-            app:layout_widthPercent="110%h">
+            app:layout_widthPercent="130%h">
 
         <ImageView
                 android:id="@+id/iv_wheel_top_left"
@@ -18,7 +18,7 @@
                 android:layout_height="wrap_content"
                 android:background="@mipmap/iv_car_wheel"
                 app:layout_marginTopPercent="7%h"
-                app:layout_marginLeftPercent="20%h"
+                app:layout_marginLeftPercent="30%h"
                 app:layout_widthPercent="25%h"
                 app:layout_heightPercent="25%h" android:elevation="1dp"/>
 
@@ -30,9 +30,9 @@
                 android:textColor="@color/color_white"
                 android:text="@string/app_fl"
                 app:layout_marginBottomPercent="7%h"
-                app:layout_widthPercent="40%h"
-                app:layout_heightPercent="40%h"
-                app:layout_textSizePercent="7%h" />
+                app:layout_widthPercent="50%h"
+                app:layout_heightPercent="50%h"
+                app:layout_textSizePercent="10%h" android:translationX="0dp" android:textSize="18sp"/>
 
         <ImageView
                 android:id="@+id/iv_wheel_top_right"
@@ -41,7 +41,7 @@
                 android:background="@mipmap/iv_car_wheel"
                 android:layout_alignParentEnd="true"
                 app:layout_marginTopPercent="7%h"
-                app:layout_marginRightPercent="20%h"
+                app:layout_marginRightPercent="30%h"
                 app:layout_widthPercent="25%h"
                 app:layout_heightPercent="25%h" android:elevation="1dp"/>
 
@@ -54,9 +54,9 @@
                 android:textColor="@color/color_white"
                 android:text="@string/app_fr"
                 app:layout_marginBottomPercent="7%h"
-                app:layout_widthPercent="40%h"
-                app:layout_heightPercent="40%h"
-                app:layout_textSizePercent="7%h" />
+                app:layout_widthPercent="50%h"
+                app:layout_heightPercent="50%h"
+                app:layout_textSizePercent="10%h" android:translationX="0dp" android:textSize="18sp"/>
 
         <ImageView
                 android:id="@+id/iv_wheel_bottom_right"
@@ -64,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:background="@mipmap/iv_car_wheel"
                 android:layout_alignParentEnd="true"
-                app:layout_marginRightPercent="20%h"
+                app:layout_marginRightPercent="30%h"
                 app:layout_marginTopPercent="70%h"
                 app:layout_widthPercent="25%h"
                 app:layout_heightPercent="25%h" android:elevation="1dp"/>
@@ -79,9 +79,9 @@
                 android:layout_alignParentEnd="true"
                 android:text="@string/app_rr"
                 app:layout_marginBottomPercent="5%h"
-                app:layout_widthPercent="40%h"
-                app:layout_heightPercent="40%h"
-                app:layout_textSizePercent="7%h" />
+                app:layout_widthPercent="50%h"
+                app:layout_heightPercent="50%h"
+                app:layout_textSizePercent="10%h" android:translationX="0dp" android:textSize="18sp"/>
 
         <ImageView
                 android:id="@+id/iv_wheel_bottom_left"
@@ -89,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:background="@mipmap/iv_car_wheel"
                 app:layout_marginTopPercent="70%h"
-                app:layout_marginLeftPercent="20%h"
+                app:layout_marginLeftPercent="30%h"
                 app:layout_widthPercent="25%h"
                 app:layout_heightPercent="25%h" android:elevation="1dp"/>
 
@@ -102,9 +102,9 @@
                 android:layout_alignParentBottom="true"
                 android:text="@string/app_rl"
                 app:layout_marginBottomPercent="5%h"
-                app:layout_widthPercent="40%h"
-                app:layout_heightPercent="40%h"
-                app:layout_textSizePercent="7%h" />
+                app:layout_widthPercent="50%h"
+                app:layout_heightPercent="50%h"
+                app:layout_textSizePercent="10%h" android:translationX="0dp" android:textSize="18sp"/>
 
         <ImageView
                 android:id="@+id/iv_car_body"

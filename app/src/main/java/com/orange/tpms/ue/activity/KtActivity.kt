@@ -4,12 +4,16 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.PowerManager
+import android.os.SystemClock
+import android.provider.Settings
 import android.support.v4.app.Fragment
 import android.util.Log
 import android.view.KeyEvent
 import android.view.KeyEvent.*
 import android.view.MotionEvent
 import android.view.View
+import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
@@ -29,18 +33,20 @@ import com.orange.tpms.ue.kt_frag.Frag_Idcopy_original
 import com.orange.tpms.ue.kt_frag.Frag_Program_Detail
 import com.orange.tpms.ue.kt_frag.kt_splash
 import com.orange.tpms.utils.HttpDownloader
+import com.orange.tpms.utils.ObdCommand.setScreenSleepTime
 import com.orange.tpms.utils.OgCommand
 import com.orange.tpms.utils.OgCommand.StringHexToByte
 import com.orange.tpms.utils.RxCommand
 import kotlinx.android.synthetic.main.dataloading.*
 import java.io.File
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.concurrent.schedule
 
 class KtActivity : BleActivity(), Scan_C {
     override fun onTouchEvent(event: MotionEvent?): Boolean {
-        Log.e("觸控","$event")
+        Log.e("觸控", "$event")
         return super.onTouchEvent(event)
     }
 
@@ -49,6 +55,9 @@ class KtActivity : BleActivity(), Scan_C {
             (Fraging as RootFragement).ScanContent(a!!)
         }
     }
+
+    val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS")
+    var past = sdf.parse(sdf.format(Date()))
     var donload = HttpDownloader()
     var BleCommand = com.orange.tpms.utils.BleCommand()
     var ObdCommand = com.orange.tpms.utils.ObdCommand()
@@ -74,7 +83,11 @@ class KtActivity : BleActivity(), Scan_C {
         if (Fragnumber > 100) {
             Fragnumber = 0
         }
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         when (tag) {
+            "kt_splash" -> {
+                getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+            }
             "Frag_home" -> {
                 tit.text = resources.getString(R.string.app_o_genius)
             }
@@ -123,16 +136,12 @@ class KtActivity : BleActivity(), Scan_C {
 
     lateinit var titlebar: RelativeLayout
     lateinit var tit: TextView
+    @SuppressLint("InvalidWakeLockTag")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        FirebaseInstanceId.getInstance().instanceId
-            .addOnSuccessListener(this) { instanceIdResult ->
-                val mToken = instanceIdResult.token
-                println("printing fcm token: $mToken")
-            }
         FirebaseMessaging.getInstance().subscribeToTopic("update")
-            .addOnCompleteListener( {
-//             Toast("註冊成功")
+            .addOnCompleteListener({
+                //             Toast("註冊成功")
             });
         val file = File("/sdcard/update/");
         val files19 = File("/sdcard/files19/");
@@ -155,13 +164,6 @@ class KtActivity : BleActivity(), Scan_C {
 
         }
         Laninit()
-//tit.setOnClickListener {
-//    var intent =  Intent("android.intent.action.ACTION_REQUEST_SHUTDOWN");
-//                intent.putExtra("android.intent.extra.KEY_CONFIRM", false);
-//                //当中false换成true,会弹出是否关机的确认窗体
-//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                startActivity(intent);
-//}
         ShowTitleBar(false)
         ChangePage(kt_splash(), R.id.frage, "kt_splash", false)
         BleCommand.act = this
@@ -223,9 +225,31 @@ class KtActivity : BleActivity(), Scan_C {
         timer.cancel()
     }
 
+    var awake = true
     override fun onResume() {
         super.onResume()
+        awake = true
         SetNaVaGation(true)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        awake = false
+        past = sdf.parse(sdf.format(Date()))
+        Thread {
+            while (!awake) {
+                if (getDatePoor(past) > 600) {
+                    handler.post {
+                        val intent = Intent("android.intent.action.ACTION_REQUEST_SHUTDOWN");
+                        intent.putExtra("android.intent.extra.KEY_CONFIRM", false);
+                        //当中false换成true,会弹出是否关机的确认窗体
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    }
+                }
+                Thread.sleep(1000)
+            }
+        }.start()
     }
 
     override fun RX(a: String) {
@@ -247,69 +271,92 @@ class KtActivity : BleActivity(), Scan_C {
                 (Fraging as RootFragement).dispatchKeyEvent(event)
             }
             //页面在顶层才会分发
-            if(event.keyCode==KEYCODE_DEL){
+            if (event.keyCode == KEYCODE_DEL) {
                 GoBack()
                 return false
-            }else if(event.keyCode==KEYCODE_BACK){
-                val even=KeyEvent(ACTION_DOWN,KEYCODE_DEL)
+            } else if (event.keyCode == KEYCODE_BACK) {
+                val even = KeyEvent(ACTION_DOWN, KEYCODE_DEL)
                 dispatchKeyEvent(even)
                 return false
             }
         }
-        if (event.keyCode == 19 || event.keyCode == 20 || event.keyCode == 21 || event.keyCode == 22||event.keyCode==66) {
+        if (event.keyCode == 19 || event.keyCode == 20 || event.keyCode == 21 || event.keyCode == 22 || event.keyCode == 66) {
             return false
         }
         return superDispatchKeyEvent(event)
     }
 
     override fun DiaDispath(event: KeyEvent) {
-        Log.e("Dia","$event")
-        if(event.keyCode==KEYCODE_BACK){DaiLogDismiss()}
-        if ((event.keyCode==KEYCODE_ENTER||event.keyCode == 19 || event.keyCode == 20 || event.keyCode == 21 || event.keyCode == 22 )&&event.action==ACTION_UP) {
-            if(diaid==R.layout.sensor_way_dialog){
-              if(mDialog!!.findViewById<RelativeLayout>(R.id.scan).alpha==1F){focus=0}
-                if(mDialog!!.findViewById<RelativeLayout>(R.id.trigger).alpha==1F){focus=1}
-                if(mDialog!!.findViewById<RelativeLayout>(R.id.keyin).alpha==1F){focus=2}
-                when(event.keyCode ){
-                    19->{SensorWayChange(-1)}
-                    20->{SensorWayChange(1)}
-                    KEYCODE_ENTER->{
-                        if(focus==2){
-                            when(NowFrage){
-                                "Frag_Program_Detail"->{
+        Log.e("Dia", "$event")
+        if (event.keyCode == KEYCODE_BACK) {
+            DaiLogDismiss()
+        }
+        if ((event.keyCode == KEYCODE_ENTER || event.keyCode == 19 || event.keyCode == 20 || event.keyCode == 21 || event.keyCode == 22) && event.action == ACTION_UP) {
+            if (diaid == R.layout.sensor_way_dialog) {
+                if (mDialog!!.findViewById<RelativeLayout>(R.id.scan).alpha == 1F) {
+                    focus = 0
+                }
+                if (mDialog!!.findViewById<RelativeLayout>(R.id.trigger).alpha == 1F) {
+                    focus = 1
+                }
+                if (mDialog!!.findViewById<RelativeLayout>(R.id.keyin).alpha == 1F) {
+                    focus = 2
+                }
+                when (event.keyCode) {
+                    19 -> {
+                        SensorWayChange(-1)
+                    }
+                    20 -> {
+                        SensorWayChange(1)
+                    }
+                    KEYCODE_ENTER -> {
+                        if (focus == 2) {
+                            when (NowFrage) {
+                                "Frag_Program_Detail" -> {
                                     (Fraging as Frag_Program_Detail).updateEditable(true)
                                     DaiLogDismiss()
                                 }
-                                "Frag_Idcopy_original"->{
+                                "Frag_Idcopy_original" -> {
                                     (Fraging as Frag_Idcopy_original).updateEditable(true)
                                     DaiLogDismiss()
                                 }
-                                "Frag_Idcopy_New"->{
+                                "Frag_Idcopy_New" -> {
                                     (Fraging as Frag_Idcopy_New).updateEditable(true)
                                     DaiLogDismiss()
                                 }
                             }
-                        }else{DaiLogDismiss()}
+                        } else {
+                            DaiLogDismiss()
+                        }
                     }
                 }
             }
         }
     }
-    var focus=0;
-    fun SensorWayChange(a:Int){
-        if(focus+a in 0..2){
+
+    var focus = 0;
+    fun SensorWayChange(a: Int) {
+        if (focus + a in 0..2) {
             focus += a
-            if (mDialog!!.isShowing&&diaid==R.layout.sensor_way_dialog) {
-                mDialog!!.findViewById<RelativeLayout>(R.id.scan).alpha=0.5F
-                mDialog!!.findViewById<RelativeLayout>(R.id.trigger).alpha=0.5F
-                mDialog!!.findViewById<RelativeLayout>(R.id.keyin).alpha=0.5F
-                when(focus){
-                    0->{mDialog!!.findViewById<RelativeLayout>(R.id.scan).alpha=1F}
-                    1->{mDialog!!.findViewById<RelativeLayout>(R.id.trigger).alpha=1F}
-                    2->{mDialog!!.findViewById<RelativeLayout>(R.id.keyin).alpha=1F}
+            if (mDialog!!.isShowing && diaid == R.layout.sensor_way_dialog) {
+                mDialog!!.findViewById<RelativeLayout>(R.id.scan).alpha = 0.5F
+                mDialog!!.findViewById<RelativeLayout>(R.id.trigger).alpha = 0.5F
+                mDialog!!.findViewById<RelativeLayout>(R.id.keyin).alpha = 0.5F
+                when (focus) {
+                    0 -> {
+                        mDialog!!.findViewById<RelativeLayout>(R.id.scan).alpha = 1F
+                    }
+                    1 -> {
+                        mDialog!!.findViewById<RelativeLayout>(R.id.trigger).alpha = 1F
+                    }
+                    2 -> {
+                        mDialog!!.findViewById<RelativeLayout>(R.id.keyin).alpha = 1F
+                    }
                 }
             }
-        }}
+        }
+    }
+
     fun GetXml() {
         xml.clear()
         val profilePreferences = getSharedPreferences("Setting", Context.MODE_PRIVATE)
@@ -342,5 +389,13 @@ class KtActivity : BleActivity(), Scan_C {
         }
         xml = tmp
         SetXml()
+    }
+
+    fun getDatePoor(endDate: Date): Double {
+        val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS")
+        val now = sdf.parse(sdf.format(Date()))
+        val diff = now.time - endDate.time
+        val sec = diff / 1000
+        return sec.toDouble()
     }
 }

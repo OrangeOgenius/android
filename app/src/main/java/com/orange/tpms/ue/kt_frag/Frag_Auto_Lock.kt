@@ -1,7 +1,9 @@
 package com.orange.tpms.ue.kt_frag
 
 
+import android.content.Context
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.R
+import com.orange.tpms.utils.ObdCommand
 import kotlinx.android.synthetic.main.fragment_frag__auto__lock.view.*
 import java.util.*
 
@@ -41,12 +44,12 @@ class Frag_Auto_Lock : RootFragement() {
         rootview.bt1.setOnClickListener {
             rootview.spinner.setSelection(5)
             SetUp()
-
         }
         rootview.setup.setOnClickListener {
             SetUp()
             GoMenu()
         }
+
         return rootview
     }
 

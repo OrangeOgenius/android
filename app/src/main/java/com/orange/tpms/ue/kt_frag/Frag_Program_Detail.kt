@@ -270,7 +270,7 @@ class Frag_Program_Detail : RootFragement(), Program_C {
         )
         rvProgram.adapter = programAdapter
         //数据源
-        for (i in 0..11) {
+        for (i in 0..3) {
             numberList.add(ProgramItemBean(false, "", ProgramItemBean.STATE_HIDE, false))
         }
         programAdapter.items = numberList
@@ -357,7 +357,7 @@ class Frag_Program_Detail : RootFragement(), Program_C {
             scwTips.hide()
         }
         Thread {
-            val a = OgCommand.GetPr("00", PublicBean.ProgramNumber)
+            val a = OgCommand.GetPr("00", PublicBean.ProgramNumber,ObdHex)
             handler.post {
                 run = false
                 if (!act.NowFrage.equals("Frag_Program_Detail")) {

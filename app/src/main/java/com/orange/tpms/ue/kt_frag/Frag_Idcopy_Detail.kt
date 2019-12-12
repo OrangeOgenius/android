@@ -319,7 +319,7 @@ var BooResult= arrayOf(false,false,false,false)
             IDCopyDetailBean.STATE_HIDE
         )
         val frBean = IDCopyDetailBean("LF", "", "", "", IDCopyDetailBean.STATE_HIDE)
-        val rrBean = IDCopyDetailBean("FR", "", "", "", IDCopyDetailBean.STATE_HIDE)
+        val rrBean = IDCopyDetailBean("RF", "", "", "", IDCopyDetailBean.STATE_HIDE)
         val rlBean = IDCopyDetailBean("RR", "", "", "", IDCopyDetailBean.STATE_HIDE)
         val flBean = IDCopyDetailBean("LR", "", "", "", IDCopyDetailBean.STATE_HIDE)
         numberList.add(titleBean)

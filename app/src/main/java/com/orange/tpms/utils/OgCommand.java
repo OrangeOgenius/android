@@ -136,12 +136,12 @@ public class OgCommand {
         }
     }
     //    public static Read
-    public static ArrayList<SensorData> GetPr(String Lf,int count) {
+    public static ArrayList<SensorData> GetPr(String Lf,int count,String hex) {
         ArrayList<SensorData> response = new ArrayList<SensorData>();
         try {
             String co=Integer.toHexString(count);
             while(co.length()<2){co="0"+co;}
-            Send("0A 10 000E 01 00 LF 00 00 00 00 00 count 00 00 00 39 F5".replace(" ", "").replace("LF", Lf).replace("count",co));
+            Send("0A 10 000E 01 00 LF hex 00 00 00 00 count 00 00 00 39 F5".replace(" ", "").replace("LF", Lf).replace("count",co).replace("hex",hex));
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS");
             Date past = sdf.parse(sdf.format(new Date()));
             while (true) {
@@ -243,8 +243,8 @@ public static boolean ProgramFirst(String Lf, String Hex, String count, String d
             while (true) {
                 Date now = sdf.parse(sdf.format(new Date()));
                 double time = getDatePoor(now, past);
-                if (time > 15 || Rx.equals(GetCrcString("F51C000301000A")) || Rx.equals(GetCrcString("F51C000302000A"))) {
-                    if(time > 15){ReOpen();}
+                if (time > 20 || Rx.equals(GetCrcString("F51C000301000A")) || Rx.equals(GetCrcString("F51C000302000A"))) {
+                    if(time > 20){ReOpen();}
                     return false;
                 }
                 if(Rx.length()>=36){

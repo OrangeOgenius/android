@@ -1,6 +1,7 @@
 package com.orange.tpms.utils;
 
 import android.content.Context;
+import android.provider.Settings;
 import android.util.Log;
 import android.widget.TextView;
 import com.orange.tpms.Callback.Obd_C;
@@ -34,7 +35,13 @@ public class ObdCommand {
         a[a.length - 2] = checkbyte;
         return bytesToHex(a);
     }
-
+    public static void setScreenSleepTime(int millisecond, Context context) {
+        try {
+            Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT,
+                    millisecond);
+        } catch (Exception localException) {
+            localException.printStackTrace();
+        }}
     //握手
     public boolean HandShake() {
         try {

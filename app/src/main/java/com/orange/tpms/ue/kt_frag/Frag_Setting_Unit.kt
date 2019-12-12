@@ -12,6 +12,7 @@ import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.R
 import com.orange.tpms.adapter.SelectAdapter
 import com.orange.tpms.helper.UnitHelper
+import com.orange.tpms.lib.db.share.SettingShare
 
 /**
  * A simple [Fragment] subclass.
@@ -36,7 +37,6 @@ class Frag_Setting_Unit : RootFragement() {
         rvTemperature=rootview.findViewById(R.id.rv_temp)
         rvTirePressure=rootview.findViewById(R.id.rv_tire)
         rvNumeral=rootview.findViewById(R.id.rv_numeral)
-
         initView()
         initHelper()
         return rootview
