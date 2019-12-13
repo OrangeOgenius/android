@@ -164,7 +164,7 @@ fun AllFall(){
         super.onKeyTrigger()
         program()
     }
-
+    var ProgramTrigger=ArrayList<String>()
     /**
      * 烧录
      */
@@ -195,7 +195,7 @@ fun AllFall(){
                     ),
                     act,
                     this
-                )
+                ,ProgramTrigger)
             }.start()
         } else {
             run=false
@@ -288,14 +288,16 @@ var BooResult= arrayOf(false,false,false,false)
      * 检测是否可以copy数据了
      */
     private fun checkCanCopy(): Boolean {
-        for (i in 1 until idCopyDetailAdapter.items.size) {
-            val idCopyDetailBean = idCopyDetailAdapter.items[i]
+        ProgramTrigger.clear()
+        for (i in 0 until PublicBean.NewSensorList.size) {
+            val idCopyDetailBean = idCopyDetailAdapter.items[i+1]
+            ProgramTrigger.add(idCopyDetailBean.newid)
             //只要有一个不为空即可
-            if (!TextUtils.isEmpty(idCopyDetailBean.originalid) && !TextUtils.isEmpty(idCopyDetailBean.newid)) {
-                return true
+            if (TextUtils.isEmpty(idCopyDetailBean.originalid) && TextUtils.isEmpty(idCopyDetailBean.newid)) {
+                return false
             }
         }
-        return false
+        return true
     }
 
     /**

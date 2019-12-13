@@ -106,8 +106,8 @@ public class OgCommand {
             while (true) {
                 Date now = sdf.parse(sdf.format(new Date()));
                 double time = getDatePoor(now, past);
-                if (time > 15 || Rx.equals(GetCrcString("F51C000301000A")) || Rx.equals(GetCrcString("F51C000302000A"))) {
-                    if(time > 15){ReOpen();}
+                if (time > 20 || Rx.equals(GetCrcString("F51C000301000A")) || Rx.equals(GetCrcString("F51C000302000A"))) {
+                    if(time > 20){ReOpen();}
                     return array;
                 }
                 if (Rx.length() >= 36) {
@@ -210,7 +210,7 @@ public class OgCommand {
         }
     }
     public static Program_C P_Callback;
-    public static void Program(String Lf, String Hex, String count, String s19, Activity activity, Program_C caller){
+    public static void Program(String Lf, String Hex, String count, String s19, Activity activity, Program_C caller,ArrayList<String> sensor){
         try{
             P_Callback=caller;
             FileInputStream fo=new FileInputStream("/sdcard/files19/"+s19+".s19");
@@ -221,10 +221,37 @@ public class OgCommand {
                 String s=br.readLine();
                 if(s!=null&&!s.equals("null")){sb.append(s);}
             }
-            if(ProgramFirst( Lf,  Hex,  count,sb.toString())){
+            if(SendTrigerInfo(sensor)&&ProgramFirst( Lf,  Hex,  count,sb.toString())){
                 caller.Program_Finish(ProgramCheck(spilt));
             }else{caller.Program_Finish(false);}
         }catch (Exception e){e.printStackTrace();caller.Program_Finish(false);}
+    }
+    public static boolean SendTrigerInfo(ArrayList<String> sensor){
+        try{
+            for(int i=0;i<sensor.size();i++){
+                String position= Integer.toHexString(i+1);
+                while(position.length()<2){
+                    position="0"+position;}
+                String id= (sensor.get(i));
+                while(id.length()<8){
+                    id="0"+id;}
+                Send("0A 15 00 0E position ID 00 00 00 00 00 00 00 18 F5".replace("position",position).replace("ID", id).replace(" ",""));
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS");
+                Date past = sdf.parse(sdf.format(new Date()));
+                while(true){
+                    Date now = sdf.parse(sdf.format(new Date()));
+                    double time = getDatePoor(now, past);
+                if (time > 20 || Rx.equals(GetCrcString("F51C000301000A")) || Rx.equals(GetCrcString("F51C000302000A"))) {
+                    if(time > 20){ReOpen();}
+                    return false;
+                }
+                if(Rx.length()==36){
+                    break;
+                }
+            }
+            }
+            return true;
+        }catch (Exception e){e.printStackTrace();return false;}
     }
     static String spilt;
 public static boolean ProgramFirst(String Lf, String Hex, String count, String data){

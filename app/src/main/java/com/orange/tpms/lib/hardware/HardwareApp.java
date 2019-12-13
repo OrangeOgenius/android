@@ -425,7 +425,6 @@ public class HardwareApp extends BaseHardware {
     public void scan(){
         // 发送扫描指令
         HardwareApp.send(new byte[] { 0x1B, 0x23, 0x23, 0x35, 0x35, 0x44, 0x4E });
-
         // 开始扫码
         beginScan ();
     }

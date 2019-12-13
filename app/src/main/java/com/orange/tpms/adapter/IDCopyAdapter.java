@@ -39,6 +39,7 @@ public boolean newsensoe=false;
         //不显示软键盘
         KeyboardUtil.hideEditTextKeyboard(holder.etSensorid);
         //全部大写
+        holder.etSensorid.setFilters(new InputFilter[] {new InputFilter.AllCaps(),new InputFilter.LengthFilter(8)});
         if(index==0){
             holder.etSensorid.setBackgroundColor(mContext.getResources().getColor(R.color.gray));
             holder.tvPsi.setBackgroundColor(mContext.getResources().getColor(R.color.gray));
@@ -50,7 +51,6 @@ public boolean newsensoe=false;
             holder.tvTemp.setBackgroundColor(mContext.getResources().getColor(R.color.white));
             holder.tvBat.setBackgroundColor(mContext.getResources().getColor(R.color.white));
         }
-        holder.etSensorid.setFilters(new InputFilter[] {new InputFilter.LengthFilter(idcount)});
         String batString = getItem(index).getBat();
         if(!TextUtils.isEmpty(batString) && NumberUtil.isNumber(batString)){
             int batLevel = Integer.valueOf(batString);

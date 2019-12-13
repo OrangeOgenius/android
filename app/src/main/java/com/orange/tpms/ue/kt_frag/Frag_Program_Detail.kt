@@ -34,6 +34,7 @@ import kotlinx.android.synthetic.main.data_loading.*
 import kotlinx.android.synthetic.main.fragment_frag__program__detail.view.*
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class Frag_Program_Detail : RootFragement(), Program_C {
@@ -81,7 +82,7 @@ class Frag_Program_Detail : RootFragement(), Program_C {
             btProgram.setText(R.string.app_re_program)
         }
     }
-
+    var ProgramTrigger=ArrayList<String>()
     var idcount = 8;
     var LF = "00"
     lateinit var vibMediaUtil: VibMediaUtil
@@ -208,7 +209,7 @@ class Frag_Program_Detail : RootFragement(), Program_C {
                     PublicBean.SelectYear
                 ),
                 act,
-                this
+                this,ProgramTrigger
             )
         }.start()
     }
@@ -449,10 +450,12 @@ class Frag_Program_Detail : RootFragement(), Program_C {
      */
     private fun checkSelectFinish(): Boolean {
         var finish = true
+        ProgramTrigger.clear()
         //数目要对上
         if (programAdapter.items.size >= PublicBean.ProgramNumber) {
             for (i in 0 until PublicBean.ProgramNumber) {
                 val programItemBean = programAdapter.items[i]
+                ProgramTrigger.add(programItemBean.sensorid)
                 //sensorid都不为空才行
                 if (TextUtils.isEmpty(programItemBean.sensorid.trim())) {
                     finish = false

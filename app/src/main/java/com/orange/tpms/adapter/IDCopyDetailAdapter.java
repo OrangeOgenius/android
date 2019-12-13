@@ -63,6 +63,7 @@ public class IDCopyDetailAdapter extends BaseRecyclerAdapter<IDCopyDetailBean, I
         }else if(state == IDCopyDetailBean.STATE_HIDE){
             holder.ivCheck.setVisibility(View.INVISIBLE);
         }
+        holder.tvNewID.setEnabled(false);
         holder.tvPosition.setText(getItem(index).getPosition());
         holder.tvOriginalID.setText(getItem(index).getOriginalid());
         holder.tvNewID.setText(getItem(index).getNewid());

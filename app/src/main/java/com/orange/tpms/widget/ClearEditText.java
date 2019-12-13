@@ -162,7 +162,7 @@ public class ClearEditText extends AppCompatEditText implements View.OnFocusChan
     @Override
     public void afterTextChanged(Editable s) {
         if (hasFocus) {
-            String content = getText().toString().trim();
+            String content = getText().toString().trim().toUpperCase();
             setClearIconVisible(!TextUtils.isEmpty(content));
 //            if(!content.toUpperCase().equals(content)){this.setText(content.toUpperCase());
 //                this.setSelection(content.length());
