@@ -65,7 +65,6 @@ var fal=0;
             1->{
                 handler.post { act.ShowDaiLog(R.layout.update_dialog,false,false, DaiSetUp {  })  }
                 var mcu=GetPro("mcu","no").replace(".x2","")
-
                 if(fal>5){mcu="no"
                     Log.e("update","update重臨開始")}
                 OgCommand.WriteBootloader(act,132,mcu,this)
@@ -95,7 +94,7 @@ var fal=0;
             handler.post {
                 (activity as KtActivity).ShowTitleBar(true)
 //            act.ChangePage(Set_Languages(), R.id.frage, "Set_Languages", false)
-                PublicBean.MCU_NUMBER=GetPro("mcu","no")
+                PublicBean.MCU_NUMBER=GetPro("Version","no")
                 val profilePreferences =act.getSharedPreferences("Setting", Context.MODE_PRIVATE)
                 if (profilePreferences.getString("admin", "nodata").equals("nodata")) {
                     Set_Languages.place = 0

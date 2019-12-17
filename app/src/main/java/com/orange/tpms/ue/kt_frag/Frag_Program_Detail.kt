@@ -59,6 +59,7 @@ class Frag_Program_Detail : RootFragement(), Program_C {
         endtime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
         if (boolean) {
             Log.e("DATA:", "燒錄成功")
+            Thread.sleep(3000)
             val result = OgCommand.GetPrId(ObdHex, LF)
             if (!act.NowFrage.equals("Frag_Program_Detail")) {
                 return
@@ -79,7 +80,10 @@ class Frag_Program_Detail : RootFragement(), Program_C {
         handler.post {
             act.DaiLogDismiss()
             vibMediaUtil.playBeep()
-            btProgram.setText(R.string.app_re_program)
+            btProgram.setText("PROG.Sensor")
+            btProgram.setOnClickListener {
+                act.GoBack()
+            }
         }
     }
     var ProgramTrigger=ArrayList<String>()
@@ -122,11 +126,12 @@ class Frag_Program_Detail : RootFragement(), Program_C {
         initView()
         updateList(PublicBean.ProgramNumber)
         act.ShowDaiLog(R.layout.sensor_way_dialog, false, false, DaiSetUp {
+            (act as KtActivity).focus=0
             it.findViewById<RelativeLayout>(R.id.scan).setOnTouchListener { v, event ->
                 if(event.getAction() == MotionEvent.ACTION_MOVE){
-                    v.alpha = 1F;
+                    v.background=resources.getDrawable(R.color.color_orange)
                 }else{
-                    v.alpha = 0.5F;
+                    v.background=null;
                 }
                 if(event.action == MotionEvent.ACTION_UP){
                     act.DaiLogDismiss()
@@ -135,9 +140,9 @@ class Frag_Program_Detail : RootFragement(), Program_C {
             }
             it.findViewById<RelativeLayout>(R.id.trigger).setOnTouchListener { v, event ->
                 if(event.getAction() == MotionEvent.ACTION_MOVE){
-                    v.alpha = 1F;
+                    v.background=resources.getDrawable(R.color.color_orange)
                 }else{
-                    v.alpha = 0.5F;
+                    v.background=null;
                 }
                 if(event.action == MotionEvent.ACTION_UP){
                     act.DaiLogDismiss()
@@ -146,9 +151,9 @@ class Frag_Program_Detail : RootFragement(), Program_C {
             }
             it.findViewById<RelativeLayout>(R.id.keyin).setOnTouchListener { v, event ->
                 if(event.getAction() == MotionEvent.ACTION_MOVE){
-                    v.alpha = 1F;
+                    v.background=resources.getDrawable(R.color.color_orange)
                 }else{
-                    v.alpha = 0.5F;
+                    v.background=null;
                 }
                 if(event.action == MotionEvent.ACTION_UP){
                     act.DaiLogDismiss()
@@ -279,7 +284,7 @@ class Frag_Program_Detail : RootFragement(), Program_C {
         HardwareApp.getInstance().switchScan(true)
         dataReceiver = object : HardwareApp.DataReceiver {
             override fun scanReceive() {
-
+                act.DaiLogDismiss()
             }
 
             override fun scanMsgReceive(content: String) {
@@ -317,7 +322,7 @@ class Frag_Program_Detail : RootFragement(), Program_C {
             }
 
             override fun uart2MsgReceive(content: String) {
-
+act.DaiLogDismiss()
             }
         }
         HardwareApp.getInstance().addDataReceiver(dataReceiver)
@@ -330,6 +335,7 @@ class Frag_Program_Detail : RootFragement(), Program_C {
         //数目要对上
         if (programAdapter.items.size >= PublicBean.ProgramNumber) {
             for (i in 0 until PublicBean.ProgramNumber) {
+                Log.e("edit","有近來")
                 val programItemBean = programAdapter.items[i]
                 programItemBean.isEditable = a
                 programAdapter.setItem(i, programItemBean)
@@ -351,7 +357,6 @@ class Frag_Program_Detail : RootFragement(), Program_C {
             return
         }
         run = true
-        updateEditable(false)
         act.ShowDaiLog(R.layout.data_loading, false, true, DaiSetUp {
         })
         if (scwTips.isShown()) {
@@ -369,13 +374,14 @@ class Frag_Program_Detail : RootFragement(), Program_C {
                 if (a.size >= 0) {
                     for (i in a) {
                         if (!haveSameSensorid(i.id.substring(8 - idcount))) {
+                            updateEditable(false)
                             updateSensorid(i.id.substring(8 - idcount))
+                            updateEditable(true)
                         }
                     }
                 } else {
                     act.Toast(resources.getString(R.string.app_read_failed))
                 }
-                updateEditable(true)
             }
         }.start()
     }
@@ -411,18 +417,21 @@ class Frag_Program_Detail : RootFragement(), Program_C {
         //数目要对上
         if (programAdapter.items.size >= PublicBean.ProgramNumber) {
             for (i in 0..PublicBean.ProgramNumber) {
-                Log.e("size","${i}")
+
                 val programItemBean = programAdapter.items[i]
                 //sensorid为空才插入
                 if (TextUtils.isEmpty(programItemBean.sensorid.trim())) {
+                    Log.e("size","差入${sensorid}")
+                    programItemBean.isEditable=false
                     programItemBean.isShowIndex = true
                     programItemBean.sensorid = sensorid
                     programItemBean.state = ProgramItemBean.STATE_NORMAL
                     programAdapter.setItem(i, programItemBean)
-                    rvProgram.setAdapter(programAdapter)
+                    rvProgram.adapter = programAdapter
                     if(checkSelectFinish()){
                         rootview.bt_program.text=resources.getString(R.string.app_program)
                     }
+                    programAdapter.notifyDataSetChanged()
                     return
                 }
             }

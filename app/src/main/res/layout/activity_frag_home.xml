@@ -162,7 +162,7 @@
 
                     <ImageView
                             android:layout_width="140dp"
-                            android:layout_height="140dp" app:srcCompat="@drawable/bt_usb_pad_selecter"
+                            android:layout_height="140dp" app:srcCompat="@drawable/bt_usb_pad_selecter_copy"
                             android:id="@+id/i8" android:layout_centerInParent="false"
                             android:layout_centerHorizontal="true"/>
                     <TextView

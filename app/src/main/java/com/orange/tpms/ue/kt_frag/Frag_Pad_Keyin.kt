@@ -84,6 +84,7 @@ super.onCreateView(inflater, container, savedInstanceState)
             act.ChangePage(Frag_Pad_Program_Detail(), R.id.frage,"Frag_Pad_Program_Detail",false);
         }
         act.ShowDaiLog(R.layout.sensor_way_dialog,false,false, DaiSetUp {
+            (act as KtActivity).focus=0
             it.findViewById<RelativeLayout>(R.id.scan).setOnClickListener {
                 act.DaiLogDismiss()
             }

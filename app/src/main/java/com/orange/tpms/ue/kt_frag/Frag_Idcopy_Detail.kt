@@ -58,6 +58,8 @@ class Frag_Idcopy_Detail : RootFragement(), Copy_C, Program_C {
         endtime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
         if (boolean) {
             Log.e("DATA:", "燒錄成功")
+            PublicBean.ProgramNumber=PublicBean.SensorList.size
+            Thread.sleep(3000)
             val result = OgCommand.GetPrId(ObdHex, LF)
             if (!act.NowFrage.equals("Frag_Idcopy_Detail")) {
                 return
@@ -106,7 +108,11 @@ fun AllFall(){
         run = false
         endtime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
         if(!boolean){
-            handler.post { AllFall() }}
+            handler.post {
+                for(i in 0 until PublicBean.CopySuccess.size){
+                    copySuccess(i, PublicBean.CopySuccess[i])
+                }
+            }}
         Log.e("Copy_Finish","$boolean")
         upload()
     }

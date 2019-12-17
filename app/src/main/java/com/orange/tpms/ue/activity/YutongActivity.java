@@ -1,7 +1,10 @@
 package com.orange.tpms.ue.activity;
 
+import android.annotation.SuppressLint;
 //import android.app.Instrumentation;
+//import android.content.Context;
 //import android.graphics.Color;
+//import android.os.PowerManager;
 //import android.view.KeyEvent;
 //import com.de.rocket.Rocket;
 //import com.de.rocket.bean.ActivityParamBean;
@@ -44,6 +47,11 @@ package com.orange.tpms.ue.activity;
 //
 //    @Override
 //    public void initViewFinish() {
+//        PowerManager pm =(PowerManager)getBaseContext().getSystemService(Context.POWER_SERVICE);
+//
+////        wl.acquire();//为了保证任务不被系统休眠打断，申请WakeLock
+//// 开始我们的任务
+////        wl.release();//任务结束后释放，如果不写该句。则可以用wl.acquire(timeout)的方式把释放的工作交给系统。
 //        //恢复状态栏,因为启动Activity的Theme里面清楚了状态栏,需要恢复
 //        //<item name="android:windowFullscreen">true</item>
 //        Rocket.clearWindowFullscreen(this);

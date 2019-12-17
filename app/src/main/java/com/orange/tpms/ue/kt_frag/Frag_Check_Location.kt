@@ -95,7 +95,9 @@ class Frag_Check_Location : RootFragement() {
                 vibMediaUtil.playBeep()
                 act.DaiLogDismiss()
                 if(a.success){
-                    updateSensorbean(a,true);
+                    if(PublicBean.SensorList!=null&&PublicBean.SensorList.contains(a.id)){updateSensorbean(a,true);}else{
+                        updateSensorbean(a,false);
+                    }
                 }else{
                     updateSensorbean(a,false);
                     act.Toast(resources.getString(R.string.app_read_failed))

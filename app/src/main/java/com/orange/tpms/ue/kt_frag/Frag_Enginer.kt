@@ -1,10 +1,14 @@
 package com.orange.tpms.ue.kt_frag
 
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.testlauncher.Frage.HomeScreem
 import com.orange.tpms.R

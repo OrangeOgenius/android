@@ -1,6 +1,9 @@
 package com.orange.tpms.ue.activity
 
 import android.annotation.SuppressLint
+import android.app.AlarmManager
+import android.app.KeyguardManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -32,6 +35,7 @@ import com.orange.tpms.ue.kt_frag.Frag_Idcopy_New
 import com.orange.tpms.ue.kt_frag.Frag_Idcopy_original
 import com.orange.tpms.ue.kt_frag.Frag_Program_Detail
 import com.orange.tpms.ue.kt_frag.kt_splash
+import com.orange.tpms.utils.DateUtil.StrToDate
 import com.orange.tpms.utils.HttpDownloader
 import com.orange.tpms.utils.ObdCommand.setScreenSleepTime
 import com.orange.tpms.utils.OgCommand
@@ -133,7 +137,6 @@ class KtActivity : BleActivity(), Scan_C {
             }
         }
     }
-
     lateinit var titlebar: RelativeLayout
     lateinit var tit: TextView
     @SuppressLint("InvalidWakeLockTag")
@@ -178,6 +181,13 @@ class KtActivity : BleActivity(), Scan_C {
                 val mToken = instanceIdResult.token
                 Log.e("token", mToken)
             }
+
+//        val pm = getSystemService(Context.POWER_SERVICE) as PowerManager
+//        @SuppressLint("InvalidWakeLockTag") val wl = pm.newWakeLock(
+//            PowerManager.PARTIAL_WAKE_LOCK or PowerManager.ACQUIRE_CAUSES_WAKEUP,
+//            "常駐cpu"
+//        )
+//        wl.acquire()
     }
 
     override fun LoadingUI(a: String, pass: Int) {
@@ -222,6 +232,7 @@ class KtActivity : BleActivity(), Scan_C {
 
     override fun onDestroy() {
         super.onDestroy()
+        awake = true
         timer.cancel()
     }
 
@@ -232,6 +243,7 @@ class KtActivity : BleActivity(), Scan_C {
         SetNaVaGation(true)
     }
 
+    @SuppressLint("InvalidWakeLockTag")
     override fun onPause() {
         super.onPause()
         awake = false
@@ -250,6 +262,7 @@ class KtActivity : BleActivity(), Scan_C {
                 Thread.sleep(1000)
             }
         }.start()
+
     }
 
     override fun RX(a: String) {
@@ -293,13 +306,13 @@ class KtActivity : BleActivity(), Scan_C {
         }
         if ((event.keyCode == KEYCODE_ENTER || event.keyCode == 19 || event.keyCode == 20 || event.keyCode == 21 || event.keyCode == 22) && event.action == ACTION_UP) {
             if (diaid == R.layout.sensor_way_dialog) {
-                if (mDialog!!.findViewById<RelativeLayout>(R.id.scan).alpha == 1F) {
+                if (mDialog!!.findViewById<RelativeLayout>(R.id.scan).background==resources.getDrawable(R.color.color_orange)) {
                     focus = 0
                 }
-                if (mDialog!!.findViewById<RelativeLayout>(R.id.trigger).alpha == 1F) {
+                if (mDialog!!.findViewById<RelativeLayout>(R.id.trigger).background==resources.getDrawable(R.color.color_orange)) {
                     focus = 1
                 }
-                if (mDialog!!.findViewById<RelativeLayout>(R.id.keyin).alpha == 1F) {
+                if (mDialog!!.findViewById<RelativeLayout>(R.id.keyin).background==resources.getDrawable(R.color.color_orange)) {
                     focus = 2
                 }
                 when (event.keyCode) {
@@ -339,18 +352,18 @@ class KtActivity : BleActivity(), Scan_C {
         if (focus + a in 0..2) {
             focus += a
             if (mDialog!!.isShowing && diaid == R.layout.sensor_way_dialog) {
-                mDialog!!.findViewById<RelativeLayout>(R.id.scan).alpha = 0.5F
-                mDialog!!.findViewById<RelativeLayout>(R.id.trigger).alpha = 0.5F
-                mDialog!!.findViewById<RelativeLayout>(R.id.keyin).alpha = 0.5F
+                mDialog!!.findViewById<RelativeLayout>(R.id.scan).background=null;
+                mDialog!!.findViewById<RelativeLayout>(R.id.trigger).background=null;
+                mDialog!!.findViewById<RelativeLayout>(R.id.keyin).background=null;
                 when (focus) {
                     0 -> {
-                        mDialog!!.findViewById<RelativeLayout>(R.id.scan).alpha = 1F
+                        mDialog!!.findViewById<RelativeLayout>(R.id.scan).background=resources.getDrawable(R.color.color_orange)
                     }
                     1 -> {
-                        mDialog!!.findViewById<RelativeLayout>(R.id.trigger).alpha = 1F
+                        mDialog!!.findViewById<RelativeLayout>(R.id.trigger).background=resources.getDrawable(R.color.color_orange)
                     }
                     2 -> {
-                        mDialog!!.findViewById<RelativeLayout>(R.id.keyin).alpha = 1F
+                        mDialog!!.findViewById<RelativeLayout>(R.id.keyin).background=resources.getDrawable(R.color.color_orange)
                     }
                 }
             }

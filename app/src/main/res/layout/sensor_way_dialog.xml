@@ -23,7 +23,8 @@
                 android:layout_height="1dp" android:id="@+id/view" android:background="@android:color/white"/>
         <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" android:layout_weight="1" android:id="@+id/scan">
+                android:layout_height="match_parent" android:layout_weight="1" android:id="@+id/scan"
+                android:background="@color/colorPrimary">
 
             <LinearLayout
                     android:orientation="horizontal"
@@ -68,7 +69,7 @@
         <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" android:layout_weight="1" android:id="@+id/trigger"
-                android:alpha="0.5">
+                android:alpha="1">
             <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
@@ -103,7 +104,7 @@
         <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" android:layout_weight="1" android:id="@+id/keyin"
-                android:alpha="0.5">
+                android:alpha="1">
 
             <LinearLayout
                     android:orientation="horizontal"

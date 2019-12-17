@@ -32,5 +32,6 @@ public class PublicBean {
     public static int ScanType=4;
     public static List<String> SensorList=null;
     public static List<String> NewSensorList=null;
+    public static List<Boolean> CopySuccess=null;
     public static boolean Update=false;
 }

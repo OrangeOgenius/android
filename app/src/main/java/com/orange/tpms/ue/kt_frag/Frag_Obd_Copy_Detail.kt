@@ -82,6 +82,7 @@ class Frag_Obd_Copy_Detail : RootFragement() , Copy_C {
             act.GoMenu()
         }
         act.ShowDaiLog(R.layout.sensor_way_dialog,false,false, DaiSetUp {
+            (act as KtActivity).focus=0
             it.findViewById<RelativeLayout>(R.id.scan).setOnClickListener {
                 act.DaiLogDismiss()
                 Downs19()

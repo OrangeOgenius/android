@@ -46,8 +46,7 @@ public class ProgramAdapter extends BaseRecyclerAdapter<ProgramItemBean, Program
         //不显示软键盘
         KeyboardUtil.hideEditTextKeyboard(holder.etTitle);
         //全部大写
-        holder.etTitle.setFilters(new InputFilter[] {new InputFilter.AllCaps(),new InputFilter.LengthFilter(count)});
-        holder.etTitle.setText(getItem(index).getSensorid());
+        holder.etTitle.setFilters(new InputFilter[] {new InputFilter.AllCaps(),new InputFilter.LengthFilter(8)});
         holder.tvNumber.setText(String.valueOf(index+1));
         if(!getItem(index).isShowIndex()){
             holder.tvNumber.setVisibility(View.INVISIBLE);
@@ -67,13 +66,14 @@ public class ProgramAdapter extends BaseRecyclerAdapter<ProgramItemBean, Program
         }else if(state == ProgramItemBean.STATE_FAILED){
             holder.ivNormal.setImageResource(R.mipmap.iv_check_fail);
         }
+        holder.etTitle.setText(getItem(index).getSensorid());
         holder.etTitle.setEnabled(getItem(index).isEditable());
-//        if(getItem(index).isEditable() && index == 0){
-//            //强制获取焦点
-//            holder.etTitle.setFocusable(true);
-//            holder.etTitle.setFocusableInTouchMode(true);
-//            holder.etTitle.requestFocus();
-//        }
+        if(getItem(index).isEditable() && index == 0){
+            //强制获取焦点
+            holder.etTitle.setFocusable(true);
+            holder.etTitle.setFocusableInTouchMode(true);
+            holder.etTitle.requestFocus();
+        }
         holder.itemView.setOnClickListener(v -> {
             int temp = select;
             select = index;
@@ -84,7 +84,7 @@ public class ProgramAdapter extends BaseRecyclerAdapter<ProgramItemBean, Program
             }
         });
         holder.etTitle.setClearStatusListener(empty -> {
-            getItem(index).setSensorid(holder.etTitle.getText().toString());
+            getItem(index).setSensorid(holder.etTitle.getText().toString().toUpperCase());
         });
     }
 

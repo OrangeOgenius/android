@@ -74,12 +74,13 @@ class Frag_Idcopy_original : RootFragement() {
             }
         }
         act.ShowDaiLog(R.layout.sensor_way_dialog,false,false, DaiSetUp {
+            (act as KtActivity).focus=0
             it.findViewById<TextView>(R.id.tit).setText(resources.getString(R.string.app_original_sensor))
             it.findViewById<RelativeLayout>(R.id.scan).setOnTouchListener { v, event ->
                 if(event.getAction() == MotionEvent.ACTION_MOVE){
-                    v.alpha = 1F;
+                    v.background=resources.getDrawable(R.color.color_orange)
                 }else{
-                    v.alpha = 0.5F;
+                    v.background=null;
                 }
                 if(event.action == MotionEvent.ACTION_UP){
                     act.DaiLogDismiss()
@@ -88,9 +89,9 @@ class Frag_Idcopy_original : RootFragement() {
             }
             it.findViewById<RelativeLayout>(R.id.trigger).setOnTouchListener { v, event ->
                 if(event.getAction() == MotionEvent.ACTION_MOVE){
-                    v.alpha = 1F;
+                    v.background=resources.getDrawable(R.color.color_orange)
                 }else{
-                    v.alpha = 0.5F;
+                    v.background=null;
                 }
                 if(event.action == MotionEvent.ACTION_UP){
                     act.DaiLogDismiss()
@@ -99,9 +100,9 @@ class Frag_Idcopy_original : RootFragement() {
             }
             it.findViewById<RelativeLayout>(R.id.keyin).setOnTouchListener { v, event ->
                 if(event.getAction() == MotionEvent.ACTION_MOVE){
-                    v.alpha = 1F;
+                    v.background=resources.getDrawable(R.color.color_orange)
                 }else{
-                    v.alpha = 0.5F;
+                    v.background=null;
                 }
                 if(event.action == MotionEvent.ACTION_UP){
                     act.DaiLogDismiss()
