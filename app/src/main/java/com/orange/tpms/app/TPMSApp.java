@@ -1,5 +1,8 @@
 package com.orange.tpms.app;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import com.de.rocket.app.RoApplication;
@@ -33,6 +36,7 @@ public class TPMSApp extends RoApplication {
 //        mTest.setContext(this);
 //        mTest.setTPMS(this);
         //mTest.run();
+
     }
     public void restartApp() {
         Intent intent = new Intent(getApplicationContext(), KtActivity.class);

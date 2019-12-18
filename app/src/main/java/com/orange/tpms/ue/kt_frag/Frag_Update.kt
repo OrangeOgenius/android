@@ -42,8 +42,10 @@ class Frag_Update : RootFragement(), Update_C {
                 try{
                     SetPro("Firebasetitle","nodata")
                     val intent =  Intent(Intent.ACTION_VIEW);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.setDataAndType(Uri.fromFile(File("/sdcard/update/update.apk")), "application/vnd.android.package-archive");//image/*
                     startActivity(intent);//此处可能会产生异常（比如说你的MIME类型是打开视频，但是你手机里面没装视频播放器，就会报错）
+                    android.os.Process.killProcess(android.os.Process.myPid());
                 }catch (e:Exception){e.printStackTrace()}
             }
         }else{

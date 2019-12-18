@@ -6,6 +6,8 @@ import android.app.KeyguardManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
+import android.content.ServiceConnection
 import android.os.Bundle
 import android.os.PowerManager
 import android.os.SystemClock
@@ -25,6 +27,7 @@ import com.google.firebase.messaging.FirebaseMessaging
 import com.orange.blelibrary.blelibrary.BleActivity
 import com.orange.blelibrary.blelibrary.Callback.DaiSetUp
 import com.orange.blelibrary.blelibrary.RootFragement
+import com.orange.tpms.Brocast.ScreenReceiver
 import com.orange.tpms.Callback.Scan_C
 import com.orange.tpms.HttpCommand.Fuction
 import com.orange.tpms.R
@@ -59,7 +62,6 @@ class KtActivity : BleActivity(), Scan_C {
             (Fraging as RootFragement).ScanContent(a!!)
         }
     }
-
     val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS")
     var past = sdf.parse(sdf.format(Date()))
     var donload = HttpDownloader()
@@ -181,13 +183,14 @@ class KtActivity : BleActivity(), Scan_C {
                 val mToken = instanceIdResult.token
                 Log.e("token", mToken)
             }
+tit.setOnClickListener {
 
-//        val pm = getSystemService(Context.POWER_SERVICE) as PowerManager
-//        @SuppressLint("InvalidWakeLockTag") val wl = pm.newWakeLock(
-//            PowerManager.PARTIAL_WAKE_LOCK or PowerManager.ACQUIRE_CAUSES_WAKEUP,
-//            "常駐cpu"
-//        )
-//        wl.acquire()
+}
+        val sOnBroadcastReciver = ScreenReceiver()
+        val recevierFilter = IntentFilter()
+        recevierFilter.addAction(Intent.ACTION_SCREEN_ON)
+        recevierFilter.addAction(Intent.ACTION_SCREEN_OFF)
+        registerReceiver(sOnBroadcastReciver, recevierFilter)
     }
 
     override fun LoadingUI(a: String, pass: Int) {
@@ -247,22 +250,22 @@ class KtActivity : BleActivity(), Scan_C {
     override fun onPause() {
         super.onPause()
         awake = false
-        past = sdf.parse(sdf.format(Date()))
-        Thread {
-            while (!awake) {
-                if (getDatePoor(past) > 600) {
-                    handler.post {
-                        val intent = Intent("android.intent.action.ACTION_REQUEST_SHUTDOWN");
-                        intent.putExtra("android.intent.extra.KEY_CONFIRM", false);
-                        //当中false换成true,会弹出是否关机的确认窗体
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
-                    }
-                }
-                Thread.sleep(1000)
-            }
-        }.start()
-
+//        past = sdf.parse(sdf.format(Date()))
+//        Thread {
+//            while (!awake) {
+//                Log.e("關機監聽","${past}")
+//                if (getDatePoor(past) > 600) {
+//                    handler.post {
+//                        val intent = Intent("android.intent.action.ACTION_REQUEST_SHUTDOWN");
+//                        intent.putExtra("android.intent.extra.KEY_CONFIRM", false);
+//                        //当中false换成true,会弹出是否关机的确认窗体
+//                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                        startActivity(intent);
+//                    }
+//                }
+//                Thread.sleep(1000)
+//            }
+//        }.start()
     }
 
     override fun RX(a: String) {
@@ -273,7 +276,7 @@ class KtActivity : BleActivity(), Scan_C {
     fun ShowTitleBar(boolean: Boolean) {
         titlebar.visibility = if (boolean) View.VISIBLE else View.GONE
     }
-
+var temppass=""
     @SuppressLint("RestrictedApi")
     override fun dispatchKeyEvent(event: KeyEvent): Boolean {
         Log.e("event", "" + event)
@@ -292,6 +295,14 @@ class KtActivity : BleActivity(), Scan_C {
                 dispatchKeyEvent(even)
                 return false
             }
+            if (event.keyCode == 19 || event.keyCode == 20 || event.keyCode == 21 || event.keyCode == 22 || event.keyCode == 66) {
+                if(event.keyCode==19){temppass=""}
+                temppass=temppass+"${event.keyCode}"
+                if(temppass=="1920212266"){
+                    val intent =  Intent(Settings.ACTION_SETTINGS);
+                    startActivity(intent);
+                }
+            }
         }
         if (event.keyCode == 19 || event.keyCode == 20 || event.keyCode == 21 || event.keyCode == 22 || event.keyCode == 66) {
             return false
@@ -305,6 +316,14 @@ class KtActivity : BleActivity(), Scan_C {
             DaiLogDismiss()
         }
         if ((event.keyCode == KEYCODE_ENTER || event.keyCode == 19 || event.keyCode == 20 || event.keyCode == 21 || event.keyCode == 22) && event.action == ACTION_UP) {
+            if (event.keyCode == 19 || event.keyCode == 20 || event.keyCode == 21 || event.keyCode == 22 || event.keyCode == 66) {
+                if(event.keyCode==19){temppass=""}
+                temppass=temppass+"${event.keyCode}"
+                if(temppass=="1920212266"){
+                    val intent =  Intent(Settings.ACTION_SETTINGS);
+                    startActivity(intent);
+                }
+            }
             if (diaid == R.layout.sensor_way_dialog) {
                 if (mDialog!!.findViewById<RelativeLayout>(R.id.scan).background==resources.getDrawable(R.color.color_orange)) {
                     focus = 0

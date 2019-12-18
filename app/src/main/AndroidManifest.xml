@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools"
-          android:sharedUserId="android.uid.system"
           package="com.orange.tpms"
-          >
+          android:sharedUserId="android.uid.system">
+
     <!-- 摄像头 -->
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" tools:ignore="ProtectedPermissions"/>
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.DEVICE_POWER" tools:ignore="ProtectedPermissions"/>
-    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+    <uses-permission
+            android:name="android.permission.WRITE_SETTINGS"
+            tools:ignore="ProtectedPermissions"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission
+            android:name="android.permission.DEVICE_POWER"
+            tools:ignore="ProtectedPermissions"/>
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.FLASHLIGHT"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
     <uses-feature android:name="android.hardware.camera"/>
     <uses-feature android:name="android.hardware.camera.autofocus"/> <!-- 网络 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/> <!-- 读写 -->
@@ -24,7 +29,9 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.SHUTDOWN" tools:ignore="ProtectedPermissions"/>
+    <uses-permission
+            android:name="android.permission.SHUTDOWN"
+            tools:ignore="ProtectedPermissions"/>
 
     <application
             android:name=".app.TPMSApp"
@@ -35,6 +42,7 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
+
         <!-- <activity android:name=".ue.activity.KtActivity"> -->
         <!-- </activity> -->
         <activity
@@ -43,29 +51,34 @@
                 android:sharedUserId="android.uid.system"
                 android:theme="@style/MainAppTheme"
                 android:windowSoftInputMode="adjustPan">
-            <meta-data android:name="android.webkit.WebView.EnableSafeBrowsing" android:value="true"/>
+            <meta-data
+                    android:name="android.webkit.WebView.EnableSafeBrowsing"
+                    android:value="true"/>
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+
                 <category android:name="android.intent.category.HOME"/>
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
-                <!--<action android:name="android.intent.action.MAIN" />-->
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-                <!--<category android:name="android.intent.category.DEFAULT" />-->
-                <!--<action android:name="com.orange.tpms.ue.activity.MainActivity"/>-->
+                <!-- <action android:name="android.intent.action.MAIN" /> -->
+                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+                <!-- <category android:name="android.intent.category.DEFAULT" /> -->
+                <!-- <action android:name="com.orange.tpms.ue.activity.MainActivity"/> -->
             </intent-filter>
-        </activity>
-        <receiver android:name=".Brocast.BootBroadcastReceiver">
+        </activity> <!-- <receiver android:name=".Brocast.BootBroadcastReceiver"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.intent.action.BOOT_COMPLETED"/> -->
+        <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
+        <!-- </intent-filter> -->
+        <!-- </receiver> -->
+        <service
+                android:name=".FireBase.MyFirebaseService"
+                android:enabled="true"
+                android:exported="false"
+                android:stopWithTask="false">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-        </receiver>
-        <service android:name=".FireBase.MyFirebaseService" android:enabled="true"
-                 android:exported="false"
-                 android:stopWithTask="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
     </application>
