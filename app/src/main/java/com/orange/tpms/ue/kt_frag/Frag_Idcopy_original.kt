@@ -51,7 +51,7 @@ class Frag_Idcopy_original : RootFragement() {
         rootview=inflater.inflate(R.layout.fragment_frag__idcopy_original, container, false)
         ObdHex=(activity as KtActivity).itemDAO.GetHex(PublicBean.SelectMake,PublicBean.SelectModel,PublicBean.SelectYear)
         rootview.tv_content.text="${PublicBean.SelectMake}/${PublicBean.SelectModel}/${PublicBean.SelectYear}"
-        rootview.bt_menue.setOnClickListener { GoMenu() }
+        rootview.bt_menue.setOnClickListener { Trigger() }
         rvIDCopy=rootview.findViewById(R.id.rv_id_copy)
         tvContent=rootview.findViewById(R.id.tv_content)
         initView()
@@ -185,7 +185,7 @@ class Frag_Idcopy_original : RootFragement() {
         val numberList = ArrayList<IDCopyBean>()
         val titleBean = IDCopyBean(
             "WH",
-            getString(R.string.app_original_id),
+            "Original",
             getString(R.string.app_psi),
             getString(R.string.app_temp),
             getString(R.string.app_bat_clear),

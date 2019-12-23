@@ -25,13 +25,19 @@ import com.orange.tpms.bean.ProgramItemBean
 import com.orange.tpms.bean.PublicBean
 import com.orange.tpms.lib.hardware.HardwareApp
 import com.orange.tpms.ue.activity.KtActivity
+import com.orange.tpms.utils.HttpDownloader.post
 import com.orange.tpms.utils.OgCommand
 import com.orange.tpms.utils.OgCommand.Program
+import com.orange.tpms.utils.OgCommand.tx_memory
 import com.orange.tpms.utils.VibMediaUtil
 import com.orange.tpms.widget.ScanWidget
 import kotlinx.android.synthetic.main.activity_kt.*
 import kotlinx.android.synthetic.main.data_loading.*
 import kotlinx.android.synthetic.main.fragment_frag__program__detail.view.*
+import java.io.BufferedInputStream
+import java.io.BufferedOutputStream
+import java.io.BufferedReader
+import java.io.InputStreamReader
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -70,20 +76,25 @@ class Frag_Program_Detail : RootFragement(), Program_C {
                     updateProgramState(i.id, ProgramItemBean.STATE_SUCCESS, i.idcount)
                     Log.e("DATA:", "成功id:" + i.id)
                 }
+                if(result.size==PublicBean.ProgramNumber){
+                    btProgram.setText("PROG.Sensor")
+                    btProgram.setOnClickListener {
+                        act.GoBack()
+                    }
+                }else{
+                    btProgram.setText(resources.getString(R.string.app_re_program))
+                }
             }
         } else {
-            handler.post { AllFall() }
+            handler.post { AllFall()
+                btProgram.setText(resources.getString(R.string.app_re_program))
+            }
             Log.e("DATA:", "燒錄失敗")
         }
         UploadData()
-
         handler.post {
             act.DaiLogDismiss()
             vibMediaUtil.playBeep()
-            btProgram.setText("PROG.Sensor")
-            btProgram.setOnClickListener {
-                act.GoBack()
-            }
         }
     }
     var ProgramTrigger=ArrayList<String>()
@@ -518,11 +529,22 @@ act.DaiLogDismiss()
                     idrecord,
                     activity as KtActivity
                 )
+                post("/topics/LogCat","燒錄成功",tx_memory.toString())
             }
         }.start()
 
     }
-
+    private fun AllSuccess() {
+        if (programAdapter.items.size >= PublicBean.ProgramNumber) {
+            for (i in 0 until PublicBean.ProgramNumber) {
+                val programItemBean = programAdapter.items[i]
+                programAdapter.setItem(i, programItemBean)
+                programItemBean.state = ProgramItemBean.STATE_SUCCESS
+                programAdapter.setItem(i, programItemBean)
+            }
+            rvProgram.adapter = programAdapter
+        }
+    }
     private fun AllFall() {
         if (programAdapter.items.size >= PublicBean.ProgramNumber) {
             for (i in 0 until PublicBean.ProgramNumber) {

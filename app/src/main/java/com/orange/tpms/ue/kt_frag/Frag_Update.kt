@@ -15,6 +15,7 @@ import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.Callback.Update_C
 import com.orange.tpms.R
 import com.orange.tpms.bean.PublicBean
+import com.orange.tpms.ue.activity.KtActivity
 import com.orange.tpms.utils.FileDowload
 import com.orange.tpms.utils.OgCommand
 import com.orange.tpms.utils.PackageUtils
@@ -65,8 +66,10 @@ class Frag_Update : RootFragement(), Update_C {
                             OgCommand.reboot()
                             handler.post {
                                 act.DaiLogDismiss()
-                                val intent2 = context!!.getPackageManager().getLaunchIntentForPackage(context!!.getPackageName())
-                                context!!.startActivity(intent2)
+                                val intent = Intent(act.applicationContext, KtActivity::class.java)
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                startActivity(intent)
+                                android.os.Process.killProcess(android.os.Process.myPid())
                             }
                         }.start()
                     }else{

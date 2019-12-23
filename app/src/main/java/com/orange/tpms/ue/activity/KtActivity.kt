@@ -302,6 +302,7 @@ var temppass=""
                     val intent =  Intent(Settings.ACTION_SETTINGS);
                     startActivity(intent);
                 }
+                if(temppass.length>20){temppass=""}
             }
         }
         if (event.keyCode == 19 || event.keyCode == 20 || event.keyCode == 21 || event.keyCode == 22 || event.keyCode == 66) {

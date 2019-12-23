@@ -55,7 +55,7 @@ class Frag_Idcopy_New : RootFragement() {
         rvIDCopy=rootview.findViewById(R.id.rv_id_copy)
         tvContent=rootview.findViewById(R.id.tv_content)
         scwTips=rootview.findViewById(R.id.scw_tips)
-        rootview.bt_menue.setOnClickListener { GoMenu()}
+        rootview.bt_menue.setOnClickListener { Trigger()}
         rootview.bt_program.setOnClickListener {
             vibMediaUtil.playVibrate()
             if (checkHasSensor()) {
@@ -187,7 +187,7 @@ class Frag_Idcopy_New : RootFragement() {
         val numberList = ArrayList<IDCopyBean>()
         val titleBean = IDCopyBean(
             "WH",
-            getString(R.string.app_new_sensor),
+            "New",
             getString(R.string.app_psi),
             getString(R.string.app_temp),
             getString(R.string.app_bat_clear),

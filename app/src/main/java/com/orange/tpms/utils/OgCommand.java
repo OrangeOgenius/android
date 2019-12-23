@@ -20,12 +20,15 @@ public class OgCommand {
     public static String Rx = "";
     public static String NowTag = "";
     public static String SendTag = "";
-
+    public static StringBuffer tx_memory=new StringBuffer();
     public static void Send(String a) {
+        if(tx_memory.length()>2000){tx_memory=new StringBuffer(tx_memory.substring(2000));}
         Rx = "";
         SendTag = NowTag;
         byte[] data = GetCrc(a.toUpperCase());
-        Log.d("DATA:", "TX:" + bytesToHex(data));
+        String hex=bytesToHex(data);
+        Log.d("DATA:", "TX:" +hex );
+        tx_memory.insert(0,"TX:" +hex+"\n");
         HardwareApp.send(new byte[]{0x1B, 0x23, 0x23, 0x55, 0x54, 0x54, 0x32});
         HardwareApp.send(new byte[]{(byte) data.length});
         HardwareApp.send(data);
@@ -400,6 +403,7 @@ public class OgCommand {
                 Date now = sdf.parse(sdf.format(new Date()));
                 double time = getDatePoor(now, past);
                 if (time > 2 || Rx.equals(GetCrcString("F51C000301000A")) || Rx.equals(GetCrcString("F51C000302000A"))) {
+                    ReOpen();
                     return false;
                 }
                 if (Rx.length() >= 36) {

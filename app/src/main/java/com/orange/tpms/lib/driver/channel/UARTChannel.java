@@ -35,7 +35,7 @@ public class UARTChannel implements IChannel {
         new Thread(() -> {
             String str = StringUtils.byteArrayToHexStr(in);
             str = str_tobyte(str);
-            Log.d("DATA:", "TX: " + str);
+            Log.e("DATA:", "TX: " + str);
             Log.d(TAG, "write: " + str);
             byte[] byte_send = hexStringToBytes(str);
 

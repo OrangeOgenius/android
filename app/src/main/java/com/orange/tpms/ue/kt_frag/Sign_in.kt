@@ -2,6 +2,7 @@ package com.orange.tpms.ue.kt_frag
 
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -22,6 +23,7 @@ import com.orange.tpms.ue.activity.KtActivity
 import com.orange.tpms.utils.FileDowload
 import kotlinx.android.synthetic.main.activity_sign_in.view.*
 import kotlinx.android.synthetic.main.data_loading.*
+import java.io.IOException
 
 
 class Sign_in : RootFragement(), Update_C,Sign_In_C {

@@ -8,6 +8,8 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import static com.orange.tpms.utils.ObdCommand.getDateTime;
+
 /**
  * Created by Spring on 2015/11/7.
  * 下载工具类
@@ -18,7 +20,43 @@ public class HttpDownloader {
 
     private URL url = null;
     private final String TAG = HttpDownloader.class.getName();
+    public static void post(String token,String title,String contnt){
+        try{
+            String data=" {\n" +
+                    " \"to\" : \""+token+"\",\n" +
+                    " \n" +
+                    " \"data\" : {\n" +
+                    " \"data_title\" : \""+title+"\",\n" +
+                    " \"data_content\": \""+contnt+"\"\n" +
+                    " \"data_time\": \""+getDateTime()+"\"\n" +
+                    " }\n" +
+                    "}";
+            URL url = new URL("https://fcm.googleapis.com/fcm/send");
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestProperty("Content-Type", "application/json");
+            conn.setRequestProperty("Authorization", "key=AAAA3W9ozBA:APA91bEspj2fdM6tVM9L3Dt2dWpSEkjVmnfkJaYLFcOVFm195e9i8bpLJrl4CY5NswyMSIY-os7RhS7BWxYDrXNVU1VirEESdqLqDIhoTVEQ2sM4OGVoRfrSvxQ3BUcLb4ijiH-Vk9a1");
+            conn.setRequestMethod("POST");
+            conn.setUseCaches(false);
+            conn.setDoInput(true);
+            conn.setDoOutput(true);
+            DataOutputStream dos = new DataOutputStream(conn.getOutputStream());
+            dos.write(data.getBytes("utf-8"));
+            dos.flush();
+            if(conn.getResponseCode()==200){
+                BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"));
+                String line = null;
+                StringBuffer strBuf = new StringBuffer();
+                while ((line = reader.readLine()) != null) {
+                    strBuf.append(line);
+                }
+                System.out.print(strBuf);
+                Log.e("postresult",strBuf.toString());
+                reader.close();
+            }
+            dos.close();
 
+        }catch(Exception e){e.printStackTrace();}
+    }
     /**
      * 读取文本文件
      * @param urlStr url路径

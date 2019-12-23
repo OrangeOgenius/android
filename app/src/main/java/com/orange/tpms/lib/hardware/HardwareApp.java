@@ -22,6 +22,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import static com.orange.tpms.utils.OgCommand.tx_memory;
 
 /**
  * Created by john on 2019/6/22.
@@ -489,6 +490,7 @@ public class HardwareApp extends BaseHardware {
                         if(strRead.contains("uart2_$")){
                             String ss=bytesToHexString(recv);
                             OgCommand.Rx= OgCommand.Rx+ss.replace("75 61 72 74 32 5f 24","").replace(" ","").toUpperCase();
+                            tx_memory.insert(0,"RX:" +OgCommand.Rx+"\n");
                             Log.e("DATA:", "RX："+ss.replace("75 61 72 74 32 5f 24",""));
                             Log.d(TAG, "receiver: " + ss.replace("75 61 72 74 32 5f 24",""));
                         }
