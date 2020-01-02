@@ -2,7 +2,7 @@ package com.orange.tpms.utils;
 
 import android.app.Activity;
 import android.util.Log;
-import com.orange.blelibrary.blelibrary.BleActivity;
+import com.orange.jzchi.jzframework.JzActivity;
 import com.orange.tpms.Callback.*;
 import com.orange.tpms.bean.PublicBean;
 import com.orange.tpms.bean.SensorData;
@@ -14,7 +14,8 @@ import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+
+import static com.orange.tpms.lib.hardware.HardwareApp.bytesToHexString;
 
 public class OgCommand {
     public static String Rx = "";
@@ -22,13 +23,11 @@ public class OgCommand {
     public static String SendTag = "";
     public static StringBuffer tx_memory=new StringBuffer();
     public static void Send(String a) {
-        if(tx_memory.length()>2000){tx_memory=new StringBuffer(tx_memory.substring(2000));}
+        if(tx_memory.length()>2000){tx_memory= new StringBuffer(tx_memory.substring(0,2000));}
         Rx = "";
         SendTag = NowTag;
         byte[] data = GetCrc(a.toUpperCase());
-        String hex=bytesToHex(data);
-        Log.d("DATA:", "TX:" +hex );
-        tx_memory.insert(0,"TX:" +hex+"\n");
+        tx_memory.insert(0,"TX:" +bytesToHexString(data)+"\n".toUpperCase());
         HardwareApp.send(new byte[]{0x1B, 0x23, 0x23, 0x55, 0x54, 0x54, 0x32});
         HardwareApp.send(new byte[]{(byte) data.length});
         HardwareApp.send(data);
@@ -134,7 +133,8 @@ public class OgCommand {
                     data.vol = 22 + (StringHexToByte(Rx.substring(26, 28))[0] & 0x0F);
                     data.success = true;
                     array.add(data);
-                    if (array.size() == PublicBean.ProgramNumber) {
+                    if (array.size() == ScanCount) {
+                        array.add(data);
                         return array;
                     } else {
                         if (Rx.length() > 36) {
@@ -224,6 +224,9 @@ public class OgCommand {
                     byte[] bytes = StringHexToByte(Rx.substring(18, 22));
                     data.c = bytes[1] - bytes[0];
                     data.vol = 22 + (StringHexToByte(Rx.substring(26, 28))[0] & 0x0F);
+                    data.有無胎溫=getBit(StringHexToByte(Rx.substring(28, 30))[0]).substring(0,1).equals("1");
+                    data.有無電壓=getBit(StringHexToByte(Rx.substring(28, 30))[0]).substring(1,2).equals("1");
+                    data.有無電池=getBit(StringHexToByte(Rx.substring(28, 30))[0]).substring(2,3).equals("1");
                     data.success = true;
                     return data;
                 }
@@ -237,7 +240,6 @@ public class OgCommand {
     }
 
     public static Program_C P_Callback;
-
     public static void Program(String Lf, String Hex, String count, String s19, Activity activity, Program_C caller, ArrayList<String> sensor) {
         try {
             P_Callback = caller;
@@ -298,7 +300,7 @@ public class OgCommand {
     }
 
     static String spilt;
-
+static int ScanCount=0;
     public static boolean ProgramFirst(String Lf, String Hex, String count, String data) {
         try {
 
@@ -326,6 +328,7 @@ public class OgCommand {
                     return false;
                 }
                 if (Rx.length() >= 36) {
+                    ScanCount=Integer.parseInt(Rx.substring(9,10));
                     spilt = (Rx.substring(10, 12).equals("04")) ? data.substring(0, 2048 * 2) : data.substring(0, 6144 * 2);
                     return WriteFlash(spilt);
                 }
@@ -530,7 +533,7 @@ public class OgCommand {
         }
     }
 
-    public static void WriteBootloader(BleActivity act, int Ind, String filename, Update_C caller) {
+    public static void WriteBootloader(JzActivity act, int Ind, String filename, Update_C caller) {
         try {
 //            FileInputStream fo=new FileInputStream(context.getApplicationContext().getFilesDir().getPath()+"/"+filename+".s2");
             InputStreamReader fr = new InputStreamReader((filename.equals("no")) ? act.getAssets().open("update.x2") : new FileInputStream(act.getApplicationContext().getFilesDir().getPath() + "/update.x2"));

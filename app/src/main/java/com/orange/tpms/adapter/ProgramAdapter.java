@@ -2,13 +2,13 @@ package com.orange.tpms.adapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.text.InputFilter;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import com.de.rocket.Rocket;
 import com.de.rocket.ue.injector.BindView;
 import com.orange.tpms.R;
@@ -62,7 +62,7 @@ public class ProgramAdapter extends BaseRecyclerAdapter<ProgramItemBean, Program
         if(state == ProgramItemBean.STATE_NORMAL){
             holder.ivNormal.setImageResource(R.mipmap.iv_square);
         }else if(state == ProgramItemBean.STATE_SUCCESS){
-            holder.ivNormal.setImageResource(R.mipmap.iv_square_select);
+            holder.ivNormal.setImageResource(R.mipmap.icon_correct);
         }else if(state == ProgramItemBean.STATE_FAILED){
             holder.ivNormal.setImageResource(R.mipmap.iv_check_fail);
         }

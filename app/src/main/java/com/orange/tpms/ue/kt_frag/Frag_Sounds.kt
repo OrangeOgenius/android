@@ -10,25 +10,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
-import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.R
+import com.orange.tpms.RootFragement
 import kotlinx.android.synthetic.main.fragment_frag__sounds.view.*
 
-class Frag_Sounds : RootFragement() {
-    lateinit var sbSounds: SeekBar//Sounds
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-      rootview=inflater.inflate(R.layout.fragment_frag__sounds, container, false)
+class Frag_Sounds : RootFragement(R.layout.fragment_frag__sounds) {
+    override fun viewInit() {
         sbSounds=rootview.findViewById(R.id.sb_sounds)
         rootview.iv_check.setOnClickListener {
             it.setSelected(!it.isSelected())
         }
         initView()
-        return rootview
     }
+
+    lateinit var sbSounds: SeekBar//Sounds
+
+
     /**
      * 初始化页面
      */

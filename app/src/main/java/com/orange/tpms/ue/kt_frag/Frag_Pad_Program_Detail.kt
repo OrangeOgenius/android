@@ -6,11 +6,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.orange.blelibrary.blelibrary.RootFragement
+import com.orange.jzchi.jzframework.JzActivity
 import com.orange.tpms.HttpCommand.Fuction.Upload_IDCopyRecord
 import com.orange.tpms.HttpCommand.Fuction.Upload_ProgramRecord
 import com.orange.tpms.HttpCommand.SensorRecord
 import com.orange.tpms.R
+import com.orange.tpms.RootFragement
 import com.orange.tpms.bean.PublicBean
 import com.orange.tpms.ue.activity.KtActivity
 import kotlinx.android.synthetic.main.fragment_frag__pad__program__detail.view.*
@@ -18,8 +19,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class Frag_Pad_Program_Detail : RootFragement() {
-
+class Frag_Pad_Program_Detail : RootFragement(R.layout.fragment_frag__pad__program__detail) {
     var first=true
     val UNLINK=0
     val PROGRAN_SUCCESS=1
@@ -48,18 +48,18 @@ class Frag_Pad_Program_Detail : RootFragement() {
     var mmyNum=""
     lateinit var model: String
     lateinit var year: String
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+
+    override fun viewInit() {
         navActivity = activity as KtActivity
         make = PublicBean.SelectMake
         model = PublicBean.SelectModel
         year = PublicBean.SelectYear
-       if(PublicBean.position==PublicBean.PAD_COPY){
-           WriteLf= PublicBean.WriteLf
-           WriteRf= PublicBean.WriteRf
-           WriteLr= PublicBean.WriteLr
-           WriteRR= PublicBean.WriteRr
-       }
+        if(PublicBean.position==PublicBean.PAD_COPY){
+            WriteLf= PublicBean.WriteLf
+            WriteRf= PublicBean.WriteRf
+            WriteLr= PublicBean.WriteLr
+            WriteRR= PublicBean.WriteRr
+        }
         mmyNum = navActivity.itemDAO.getMMY(make,model,year)
         Log.e("mmy",mmyNum)
         Idcount=8-navActivity.itemDAO.GetCopyId( mmyNum)
@@ -74,23 +74,7 @@ class Frag_Pad_Program_Detail : RootFragement() {
             WriteLr=WriteLrtmp.replace("XX",WriteLr.substring(6,8)).replace("YY",WriteLr.substring(2,4))
             WriteRR=WriteRRtmp.replace("XX",WriteRR.substring(6,8)).replace("YY",WriteRR.substring(2,4))
         }
-        Thread{(activity as KtActivity).BleCommand.Setserial(activity as KtActivity) }.start()
-    }
-    fun getMem(str: String, m: String): Int {
-        var str = str
-        var i = 0
-        while (str.indexOf(m) != -1) {
-            val a = str.indexOf(m)
-            str = str.substring(a + 1)
-            i++
-        }
-        return i
-    }
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        rootview=inflater.inflate(R.layout.fragment_frag__pad__program__detail, container, false)
+        Thread{(activity as KtActivity).BleCommand.Setserial() }.start()
         rootview.mmy_text.text = "$make/$model /$year"
         mmyNum = navActivity.itemDAO.getMMY(make,model,year)
         val mmyname=GetPro(mmyNum,"nodata")
@@ -107,12 +91,12 @@ class Frag_Pad_Program_Detail : RootFragement() {
             rootview.Program_bt.setTextColor(navActivity.resources.getColor(R.color.buttoncolor))
             rootview.Program_bt.setOnClickListener {
                 PublicBean.position=PublicBean.PAD_PROGRAM
-                act.ChangePage(Frag_Pad_Program_Detail(), R.id.frage,"Frag_Pad_Program_Detail",false);
+                JzActivity.getControlInstance().changeFrag(Frag_Pad_Program_Detail(), R.id.frage,"Frag_Pad_Program_Detail",false);
             }
         }else{
             rootview.copy_id_btn.setOnClickListener {
                 PublicBean.position=PublicBean.PAD_COPY
-                act.ChangePage(Frag_Pad_Keyin(), R.id.frage,"Frag_Pad_Keyin",false);
+                JzActivity.getControlInstance().changeFrag(Frag_Pad_Keyin(), R.id.frage,"Frag_Pad_Keyin",false);
             }
         }
 
@@ -124,14 +108,28 @@ class Frag_Pad_Program_Detail : RootFragement() {
         rootview.menu.setOnClickListener {
             program()}
         rootview.Relarm.setOnClickListener {
-            act.ChangePage(Frag_Relearm_Detail(),R.id.frage,"Frag_Relearm_Detail",true);
+            JzActivity.getControlInstance().changeFrag(Frag_Relearm_Detail(),R.id.frage,"Frag_Relearm_Detail",true);
         }
         UdCondition()
 
-        return rootview
     }
+
+
+    fun getMem(str: String, m: String): Int {
+        var str = str
+        var i = 0
+        while (str.indexOf(m) != -1) {
+            val a = str.indexOf(m)
+            str = str.substring(a + 1)
+            i++
+        }
+        return i
+    }
+
     fun UdCondition(){
-        handler.post {     navActivity.back.isClickable=false}
+        handler.post {
+//            navActivity.back.isClickable=false
+        }
         run=true
         Thread(Runnable {
             try{
@@ -140,7 +138,7 @@ class Frag_Pad_Program_Detail : RootFragement() {
                     var Id1 = navActivity.BleCommand.ID
                     val Ch2 = navActivity.BleCommand.Command_11(i, 2)
                     var Id2 = navActivity.BleCommand.ID
-                    if(!act.NowFrage.equals("Frag_Pad_Program_Detail")){return@Runnable}
+                    if(!JzActivity.getControlInstance().getNowPageTag().equals("Frag_Pad_Program_Detail")){return@Runnable}
                     handler.post(Runnable {
                         if (Ch1) {
                             if(mmyNum.equals("RN1628")||mmyNum.equals("SI2048")){
@@ -197,7 +195,8 @@ class Frag_Pad_Program_Detail : RootFragement() {
                     })
                 }
 
-                handler.post {navActivity.back.isClickable=true
+                handler.post {
+//                    navActivity.back.isClickable=true
                     run=false
                 }
                 Thread.sleep(4000)
@@ -389,7 +388,7 @@ class Frag_Pad_Program_Detail : RootFragement() {
     fun program(){
         if(run){return}
         if(!ISPROGRAMMING){
-            navActivity.back.isClickable=false
+//            navActivity.back.isClickable=false
             first=false
             ISPROGRAMMING=true
             UpdateUiCondition(PROGAMMING)
@@ -474,11 +473,11 @@ class Frag_Pad_Program_Detail : RootFragement() {
                     Upload_ProgramRecord(make,model,year,startime,endtime,PublicBean.SerialNum, "USBPad", "Program", idrecord.size, "ALL", idrecord,activity as KtActivity)
                 }
                 handler.post {
-                    navActivity.back.isClickable=true
-                    navActivity.back.setImageResource(R.mipmap.menu)
-                    navActivity.back.setOnClickListener {
-                        GoMenu()
-                    }
+//                    navActivity.back.isClickable=true
+//                    navActivity.back.setImageResource(R.mipmap.menu)
+//                    navActivity.back.setOnClickListener {
+//                        GoMenu()
+//                    }
                     ISPROGRAMMING=false
                     try{
                         LFID=navActivity.resources.getString(R.string.Unlinked)

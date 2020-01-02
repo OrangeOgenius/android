@@ -12,7 +12,7 @@
         tools:layout_heightPercent="9%h"
         tools:background="@color/color_yt"/>
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_marginTop="10dp"
         android:focusable="true"
         android:layout_below="@+id/v_title_bar"

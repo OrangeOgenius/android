@@ -7,8 +7,8 @@ import android.util.Log;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 
-import static com.orange.tpms.utils.ObdCommand.getDateTime;
 
 /**
  * Created by Spring on 2015/11/7.
@@ -20,6 +20,20 @@ public class HttpDownloader {
 
     private URL url = null;
     private final String TAG = HttpDownloader.class.getName();
+    public static String getDateTime(){
+
+        SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+
+        java.util.Date date = new java.util.Date();
+
+        String strDate = sdFormat.format(date);
+
+//System.out.println(strDate);
+
+        return strDate;
+
+    }
+
     public static void post(String token,String title,String contnt){
         try{
             String data=" {\n" +

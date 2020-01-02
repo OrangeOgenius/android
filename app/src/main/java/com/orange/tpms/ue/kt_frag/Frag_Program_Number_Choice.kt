@@ -2,13 +2,14 @@ package com.orange.tpms.ue.kt_frag
 
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.text.InputFilter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.orange.blelibrary.blelibrary.RootFragement
+import androidx.fragment.app.Fragment
+import com.orange.jzchi.jzframework.JzActivity
 import com.orange.tpms.R
+import com.orange.tpms.RootFragement
 import com.orange.tpms.bean.PublicBean
 import com.orange.tpms.utils.KeyboardUtil
 import com.orange.tpms.utils.OggUtils
@@ -20,13 +21,8 @@ import kotlinx.android.synthetic.main.fragment_frag__program__sensor_information
  * A simple [Fragment] subclass.
  *
  */
-class Frag_Program_Number_Choice : RootFragement() {
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-       rootview=inflater.inflate(R.layout.fragment_frag__program__sensor_information, container, false)
+class Frag_Program_Number_Choice : RootFragement(R.layout.fragment_frag__program__sensor_information) {
+    override fun viewInit() {
         rootview.tv_mmy_title.text="${PublicBean.SelectMake}/${PublicBean.SelectModel}/${PublicBean.SelectYear}"
         rootview.et_number.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(2))
         rootview.et_number.addTextChangedListener(number_filter(rootview.et_number,2,context))
@@ -35,16 +31,16 @@ class Frag_Program_Number_Choice : RootFragement() {
             OggUtils.hideKeyBoard(activity)
             if(rootview.et_number.text.isEmpty()){
                 PublicBean.ProgramNumber = 1
-                act.ChangePage(Frag_Program_Detail(),R.id.frage,"Frag_Program_Detail",true)
+                JzActivity.getControlInstance().changeFrag(Frag_Program_Detail(),R.id.frage,"Frag_Program_Detail",true)
             }else{
                 PublicBean.ProgramNumber = Integer.valueOf(rootview.et_number.text.toString())
-                act.ChangePage(Frag_Program_Detail(),R.id.frage,"Frag_Program_Detail",true)
+                JzActivity.getControlInstance().changeFrag(Frag_Program_Detail(),R.id.frage,"Frag_Program_Detail",true)
             }
         }
 
         rootview.et_number.requestFocus()
-        return rootview
     }
+
 
     override fun onTop() {
         rootview.et_number.requestFocus()
@@ -65,10 +61,10 @@ class Frag_Program_Number_Choice : RootFragement() {
         OggUtils.hideKeyBoard(activity)
         if(rootview.et_number.text.isEmpty()){
             PublicBean.ProgramNumber = 1
-            act.ChangePage(Frag_Program_Detail(),R.id.frage,"Frag_Program_Detail",true)
+            JzActivity.getControlInstance().changeFrag(Frag_Program_Detail(),R.id.frage,"Frag_Program_Detail",true)
         }else{
             PublicBean.ProgramNumber = Integer.valueOf(rootview.et_number.text.toString())
-            act.ChangePage(Frag_Program_Detail(),R.id.frage,"Frag_Program_Detail",true)
+            JzActivity.getControlInstance().changeFrag(Frag_Program_Detail(),R.id.frage,"Frag_Program_Detail",true)
         }
     }
 }

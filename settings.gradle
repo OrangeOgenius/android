@@ -1,1 +1,1 @@
-include ':app',':OrangeOpenLibrary'
+include ':app'

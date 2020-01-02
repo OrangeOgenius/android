@@ -2,25 +2,30 @@ package com.orange.tpms.ue.kt_frag
 
 
 import android.Manifest
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.LocationManager
 import android.os.Bundle
 import android.provider.Settings
-import android.support.v4.app.ActivityCompat
-import android.support.v4.app.Fragment
-import android.support.v4.content.ContextCompat
 import android.text.TextUtils
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Spinner
-import com.orange.blelibrary.blelibrary.Callback.DaiSetUp
-import com.orange.blelibrary.blelibrary.RootFragement
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import com.orange.jzchi.jzframework.JzActivity
+import com.orange.jzchi.jzframework.callback.SetupDialog
+import com.orange.tpms.RootFragement
+import kotlinx.android.synthetic.main.frag_wifi.view.*
+
 import com.orange.tpms.R
 import com.orange.tpms.helper.WifiConnectHelper
 import com.orange.tpms.ue.activity.KtActivity
@@ -28,7 +33,6 @@ import com.orange.tpms.ue.receiver.WifiConnectReceiver
 import com.orange.tpms.utils.OggUtils
 import com.orange.tpms.utils.WifiUtils
 import kotlinx.android.synthetic.main.data_loading.*
-import kotlinx.android.synthetic.main.frag_wifi.view.*
 import java.util.*
 
 
@@ -36,7 +40,7 @@ import java.util.*
  * A simple [Fragment] subclass.
  *
  */
-class Frag_Wifi : RootFragement() {
+class Frag_Wifi : RootFragement(R.layout.frag_wifi) {
     var cango=false
     private val Permissions = arrayOf(
         Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -50,16 +54,11 @@ class Frag_Wifi : RootFragement() {
     private var hasList = false//是否已经拿到列表
     var WifiList= ArrayList<String>()
     lateinit var arrayAdapter:ArrayAdapter<String>
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun viewInit() {
         cango=false
-        if(isInitialized()){return rootview}
-        rootview=inflater.inflate(R.layout.frag_wifi, container, false)
         spWifiName=rootview.findViewById(R.id.sp_wifi_name)
         etWifiPassword=rootview.findViewById(R.id.et_wifi_password)
-         arrayAdapter = ArrayAdapter<String>(act, R.layout.spinner, WifiList)
+        arrayAdapter = ArrayAdapter<String>(act, R.layout.spinner, WifiList)
         rootview.sp_wifi_name.adapter=arrayAdapter
 
         if (!isGPSOpen()) {
@@ -71,24 +70,22 @@ class Frag_Wifi : RootFragement() {
         }
         checkPermissions()
         rootview.bt_cancel.setOnClickListener {
-            act.GoBack()
+            JzActivity.getControlInstance().goBack()
         }
         rootview.bt_select.setOnClickListener {
             if (!TextUtils.isEmpty(rootview.sp_wifi_name.selectedItem.toString()) && !OggUtils.isEmpty(etWifiPassword)) {
                 val connetedWifi = WifiUtils.getInstance(activity).connectedSSID
                 if(connetedWifi==rootview.sp_wifi_name.selectedItem.toString()){
-                    act.ChangePage(Sign_in(), R.id.frage,"Sign_in",false)
+                    JzActivity.getControlInstance().changeFrag(Sign_in(), R.id.frage,"Sign_in",false)
                 }else{
                     cango=true
                     wifiHelper.connectWifi(activity,rootview.sp_wifi_name.selectedItem.toString() , etWifiPassword.getText().toString())
                     isStartConnected = true
                 }
             } else {
-                act.Toast(R.string.app_content_empty)
+                JzActivity.getControlInstance().toast(R.string.app_content_empty)
             }
         }
-        return rootview
-        
     }
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -141,37 +138,48 @@ class Frag_Wifi : RootFragement() {
             //关闭定位功能无法正常运行
             val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
             startActivityForResult(intent, permissionRequestCode)
-            act.Toast("請打開定位")
+            JzActivity.getControlInstance().toast("請打開定位")
         }
     }
     private fun initHelper() {
         wifiHelper = WifiConnectHelper()
         //开始连接
         wifiHelper.setOnPreRequestListener {
-            act.ShowDaiLog(R.layout.data_loading,false,true, DaiSetUp {
-                it.pass.visibility=View.VISIBLE
-                it.pass.text=resources.getString(R.string.app_wifi_connecting)
+            JzActivity.getControlInstance().showDiaLog(R.layout.data_loading,false,true, object : SetupDialog {
+                override fun setup(rootview: Dialog) {
+                    rootview.pass.visibility=View.VISIBLE
+                    rootview.pass.text=resources.getString(R.string.app_wifi_connecting)
+                }
+
+                override fun keyevent(event: KeyEvent): Boolean {
+                    return false
+                }
+
+                override fun dismess() {
+
+                }
+
             })
         }
         //连接完成
-        wifiHelper.setOnFinishRequestListener { act.DaiLogDismiss() }
+        wifiHelper.setOnFinishRequestListener { JzActivity.getControlInstance().closeDiaLog() }
         //连接成功
         wifiHelper.setOnConnecteSuccessListener {
-            act.Toast(R.string.app_wifi_connected)
-            if(cango&&(act as KtActivity).NowFrage!="Sign_in"){act.ChangePage(Sign_in(), R.id.frage,"Sign_in",false)}
+            JzActivity.getControlInstance().toast(R.string.app_wifi_connected)
+            if(cango&&JzActivity.getControlInstance().getNowPageTag()!="Sign_in"){JzActivity.getControlInstance().changeFrag(Sign_in(), R.id.frage,"Sign_in",false)}
         }
         //连接失败
         wifiHelper.setOnConnecteFailedListener {
-            act.DaiLogDismiss()
+            JzActivity.getControlInstance().closeDiaLog()
             if (isStartConnected) {
-                act.Toast(R.string.app_connected_failed)
+                JzActivity.getControlInstance().toast(R.string.app_connected_failed)
                 isStartConnected = false
             }
         }
         //wifi扫描失败
         wifiHelper.setOnScanFailedListener { wifiList ->
 //            Log.d("wifi",""+wifiList)
-//            act.Toast(R.string.app_wiFi_scan_failed)
+//            JzActivity.getControlInstance().toast(R.string.app_wiFi_scan_failed)
 //            spWifiName.setVisibility(View.GONE)
             spWifiName.setVisibility(View.VISIBLE)
             for (scanResult in wifiList) {
@@ -211,7 +219,7 @@ class Frag_Wifi : RootFragement() {
         wifiHelper.initViewFinish(activity)
         wifiHelper.switchWifi(activity, true)
 //        if (WifiConnectHelper.isNetworkConnected(activity)) {
-//            act.ChangePage(Sign_in(), R.id.frage,"Sign_in",false)
+//            JzActivity.getControlInstance().changeFrag(Sign_in(), R.id.frage,"Sign_in",false)
 //        } else {
 //            //注册广播
 //            wifiHelper.initViewFinish(activity)

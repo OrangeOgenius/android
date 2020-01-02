@@ -16,7 +16,7 @@ import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import com.orange.blelibrary.R
-import com.orange.blelibrary.blelibrary.Callback.DaiSetUp
+import com.orange.blelibrary.blelibrary.Callback.object :SetupDialog
 import com.orange.blelibrary.blelibrary.EventBus.ConnectBle
 import com.orange.blelibrary.blelibrary.Server.BleServiceControl
 import com.orange.blelibrary.blelibrary.tool.LanguageUtil
@@ -196,7 +196,7 @@ open class BleActivity : AppCompatActivity(), FragmentManager.OnBackStackChanged
         handler.post { Toast.makeText(this,getString(id),Toast.LENGTH_SHORT).show() }
     }
    public var mDialog: Dialog? = null
-    fun ShowDaiLog(Layout:Int,touchcancel:Boolean,style:Int,caller: DaiSetUp){
+    fun ShowDaiLog(Layout:Int,touchcancel:Boolean,style:Int,caller: object :SetupDialog){
         try {
             if (mDialog == null) {
                 mDialog = Dialog(this, style)
@@ -246,7 +246,7 @@ open class BleActivity : AppCompatActivity(), FragmentManager.OnBackStackChanged
         }
     }
     var diaid=0;
-    fun ShowDaiLog(Layout:Int,touchcancel:Boolean,swip:Boolean,caller: DaiSetUp){
+    fun ShowDaiLog(Layout:Int,touchcancel:Boolean,swip:Boolean,caller: object :SetupDialog){
         try {
             if (mDialog == null) {
                 Log.e("Dailog","有"+0)

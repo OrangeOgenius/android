@@ -2,7 +2,6 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.google.gms.google-services'
-
 // 统一
 def info = rootProject.ext.android
 def library = rootProject.ext.dependencies
@@ -16,7 +15,7 @@ android {
         versionCode info.versionCode
         versionName info.versionName
         multiDexEnabled info.multiDexEnabled
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     /*签名发布*/
@@ -74,13 +73,16 @@ dependencies {
     //内存泄漏检测工具，只需要依赖即可无需任何代码，只在debug版本生效
 //    debugApi 'com.squareup.leakcanary:leakcanary-android:2.0-beta-3'
     implementation 'com.facebook.fresco:fresco:1.13.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'com.airbnb.android:lottie:2.7.0'
     implementation 'com.google.code.gson:gson:2.8.5'
-    implementation project(':OrangeOpenLibrary')
+//    implementation project(':OrangeOpenLibrary')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.android.support:recyclerview-v7:28.0.0'
-    implementation 'com.android.support:support-v4:28.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.firebase:firebase-storage:17.0.0'
     implementation 'com.google.firebase:firebase-messaging:17.3.4'
+    implementation  'com.github.sam38124:JzCrashHandler:2.1'
+    implementation  'com.github.sam38124:JzFrameWork:v4.8'
+    implementation  'com.github.sam38124:JzBleHelper:3.6'
 }

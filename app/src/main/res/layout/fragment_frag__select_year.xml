@@ -17,7 +17,7 @@
             android:gravity="center"
             android:text="@string/Select_Year"
             app:layout_textSizePercent="3.3%h" android:textSize="20sp"/>
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_year"
             android:layout_below="@id/tv_content4"
             android:layout_width="match_parent"

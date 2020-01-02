@@ -1,26 +1,28 @@
 package com.orange.tpms.ue.kt_frag
 
 
+import android.app.Dialog
 import android.bluetooth.BluetoothAdapter
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.WindowManager
+import android.view.*
 import android.widget.TextView
-import com.orange.blelibrary.blelibrary.Callback.DaiSetUp
-import com.orange.blelibrary.blelibrary.RootFragement
+import androidx.fragment.app.Fragment
+import com.orange.jzchi.jzframework.JzActivity
+import com.orange.jzchi.jzframework.callback.SetupDialog
+import kotlinx.android.synthetic.main.fragment_frag__setting.*
+import kotlinx.android.synthetic.main.fragment_frag__setting.view.*
+import kotlinx.android.synthetic.main.fragment_frag__setting.view.bleconnect
+
 import com.orange.tpms.R
+import com.orange.tpms.RootFragement
 import com.orange.tpms.bean.PublicBean
 import com.orange.tpms.lib.db.share.SettingShare
 import com.orange.tpms.ue.activity.KtActivity
 import com.orange.tpms.utils.AssetsUtils
 import com.orange.tpms.utils.WifiUtils
-import kotlinx.android.synthetic.main.fragment_frag__setting.view.*
 import java.io.File
 
 
@@ -28,18 +30,8 @@ import java.io.File
  * A simple [Fragment] subclass.
  *
  */
-class Frag_Setting : RootFragement() {
-    val adapter = BluetoothAdapter.getDefaultAdapter()
-    var btn = ArrayList<View>()
-    var Ttn = ArrayList<TextView>()
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        if (isInitialized()) {
-            return rootview
-        }
-        rootview = inflater.inflate(R.layout.fragment_frag__setting, container, false)
+class Frag_Setting : RootFragement(R.layout.fragment_frag__setting) {
+    override fun viewInit() {
         btn.add(rootview.bt_favorite)
         btn.add(rootview.bt_wifi)
         btn.add(rootview.bt_ble)
@@ -68,93 +60,130 @@ class Frag_Setting : RootFragement() {
         val connetedWifi = WifiUtils.getInstance(activity).connectedSSID
         rootview.tv_conneted_wifi.text = connetedWifi
         rootview.bt_enginer.setOnClickListener {
-            act.ChangePage(Frag_Enginer(), R.id.frage, "Frag_Enginer", true)
+            JzActivity.getControlInstance().changeFrag(Frag_Enginer(), R.id.frage, "Frag_Enginer", true)
         }
         rootview.bt_update.setOnClickListener {
             PublicBean.Update = false
-            act.ChangePage(Frag_Update(), R.id.frage, "Frag_Update", true)
+            JzActivity.getControlInstance().changeFrag(Frag_Update(), R.id.frage, "Frag_Update", true)
         }
         rootview.bt_favorite.setOnClickListener {
-            act.ChangePage(Frag_SettingFavorite(), R.id.frage, "Frag_SettingFavorite", true)
+            JzActivity.getControlInstance().changeFrag(Frag_SettingFavorite(), R.id.frage, "Frag_SettingFavorite", true)
         }
         rootview.bt_wifi.setOnClickListener {
-            act.ChangePage(Frag_Setting_Wifi(), R.id.frage, "Frag_Setting_Wifi", true)
+            JzActivity.getControlInstance().changeFrag(Frag_Setting_Wifi(), R.id.frage, "Frag_Setting_Wifi", true)
         }
         rootview.bt_lan.setOnClickListener {
-            act.ChangePage(Frag_Setting_Lan(), R.id.frage, "Frag_Setting_Lan", true)
+            JzActivity.getControlInstance().changeFrag(Frag_Setting_Lan(), R.id.frage, "Frag_Setting_Lan", true)
         }
         rootview.bt_unit.setOnClickListener {
-            act.ChangePage(Frag_Setting_Unit(), R.id.frage, "Frag_Setting_Unit", true)
+            JzActivity.getControlInstance().changeFrag(Frag_Setting_Unit(), R.id.frage, "Frag_Setting_Unit", true)
         }
         rootview.bt_auto_lock.setOnClickListener {
-            act.ChangePage(Frag_Auto_Lock(), R.id.frage, "Frag_Auto_Lock", true)
+            JzActivity.getControlInstance().changeFrag(Frag_Auto_Lock(), R.id.frage, "Frag_Auto_Lock", true)
         }
         rootview.bt_sounds.setOnClickListener {
-            act.ChangePage(Frag_Sounds(), R.id.frage, "Frag_Sounds", true)
+            JzActivity.getControlInstance().changeFrag(Frag_Sounds(), R.id.frage, "Frag_Sounds", true)
         }
         rootview.bt_information.setOnClickListener {
-            act.ChangePage(Frag_Information(), R.id.frage, "Frag_Information", true)
+            JzActivity.getControlInstance().changeFrag(Frag_Information(), R.id.frage, "Frag_Information", true)
         }
         rootview.bt_policy.setOnClickListener {
-            act.ChangePage(Frag_Policy(), R.id.frage, "Frag_Policy", true)
+            JzActivity.getControlInstance().changeFrag(Frag_Policy(), R.id.frage, "Frag_Policy", true)
         }
         rootview.bt_ble.setOnClickListener {
-            act.ShowDaiLog(R.layout.bledialog, true, false, DaiSetUp {
-                it.findViewById<TextView>(R.id.no).setOnClickListener {
-                    adapter.disable()
-                    rootview.bleconnect.text = resources.getString(R.string.app_blue_bud_close)
-                    act.DaiLogDismiss()
+            JzActivity.getControlInstance().showDiaLog(R.layout.bledialog, true, false, object : SetupDialog {
+                override fun dismess() {
+
                 }
-                it.findViewById<TextView>(R.id.yes).setOnClickListener {
-                    adapter.enable()
-                    rootview.bleconnect.text = resources.getString(R.string.app_blue_bud_open)
-                    act.DaiLogDismiss()
+
+                override fun keyevent(event: KeyEvent): Boolean {
+                    return true
                 }
+
+                override fun setup(rootview: Dialog) {
+                    rootview.findViewById<TextView>(R.id.no).setOnClickListener {
+                        adapter.disable()
+                        this@Frag_Setting.rootview.bleconnect.text = resources.getString(R.string.app_blue_bud_close)
+                        JzActivity.getControlInstance().closeDiaLog()
+                    }
+                    rootview.findViewById<TextView>(R.id.yes).setOnClickListener {
+                        adapter.enable()
+                        this@Frag_Setting.rootview.bleconnect.text = resources.getString(R.string.app_blue_bud_open)
+                        JzActivity.getControlInstance().closeDiaLog()
+                    }
+                }
+
             })
 
         }
         rootview.bt_reset.setOnClickListener {
-            act.ShowDaiLog(R.layout.reset, true, false, DaiSetUp {
-                it.findViewById<TextView>(R.id.no).setOnClickListener {
-                    act.DaiLogDismiss()
-                }
-                it.findViewById<TextView>(R.id.yes).setOnClickListener {
-                    act.ShowDaiLog(R.layout.data_loading, false, false, DaiSetUp { })
-                    val information = SettingShare.getSystemInformation(act)
-                    if (information.version == "101") {
-                        act.DaiLogDismiss()
-                        act.getSharedPreferences("Setting", Context.MODE_PRIVATE).edit().clear().commit()
-                        act.getSharedPreferences("Favorite", Context.MODE_PRIVATE).edit().clear().commit()
-                        val intent = Intent(act.applicationContext, KtActivity::class.java)
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        startActivity(intent)
-                        android.os.Process.killProcess(android.os.Process.myPid())
-                    } else {
-                        Thread {
-                            AssetsUtils.copyFilesFassets(act, "original.apk", "/sdcard/update/reset.apk")
-                            handler.post {
-                                act.getSharedPreferences("Setting", Context.MODE_PRIVATE).edit().clear().commit()
-                                act.getSharedPreferences("Favorite", Context.MODE_PRIVATE).edit().clear().commit()
-                                val intent = Intent(Intent.ACTION_VIEW);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                intent.setDataAndType(
-                                    Uri.fromFile(File("/sdcard/update/reset.apk")),
-                                    "application/vnd.android.package-archive"
-                                )//image/*
-                                startActivity(intent);//此处可能会产生异常（比如说你的MIME类型是打开视频，但是你手机里面没装视频播放器，就会报错）
-                                android.os.Process.killProcess(android.os.Process.myPid());
-                            }
-                        }.start()
-                    }
-//            act.finish()
+            JzActivity.getControlInstance().showDiaLog(R.layout.reset, true, false, object :SetupDialog {
+                override fun dismess() {
 
                 }
+
+                override fun keyevent(event: KeyEvent): Boolean {
+                    return true
+                }
+
+                override fun setup(rootview: Dialog) {
+                    rootview.findViewById<TextView>(R.id.no).setOnClickListener {
+                        JzActivity.getControlInstance().closeDiaLog()
+                    }
+                    rootview.findViewById<TextView>(R.id.yes).setOnClickListener {
+                        JzActivity.getControlInstance().closeDiaLog()
+                        JzActivity.getControlInstance().showDiaLog(R.layout.data_loading, false, false, object :SetupDialog {
+                            override fun dismess() {
+
+                            }
+
+                            override fun keyevent(event: KeyEvent): Boolean {
+                               return false
+                            }
+
+                            override fun setup(rootview: Dialog) {
+                            }
+                        })
+                        val information = SettingShare.getSystemInformation(act)
+                        if (information.version == "101") {
+                            JzActivity.getControlInstance().closeDiaLog()
+                            act.getSharedPreferences("Setting", Context.MODE_PRIVATE).edit().clear().commit()
+                            act.getSharedPreferences("Favorite", Context.MODE_PRIVATE).edit().clear().commit()
+                            val intent = Intent(act.applicationContext, KtActivity::class.java)
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            startActivity(intent)
+                            android.os.Process.killProcess(android.os.Process.myPid())
+                        } else {
+                            Thread {
+                                AssetsUtils.copyFilesFassets(act, "original.apk", "/sdcard/update/reset.apk")
+                                handler.post {
+                                    act.getSharedPreferences("Setting", Context.MODE_PRIVATE).edit().clear().commit()
+                                    act.getSharedPreferences("Favorite", Context.MODE_PRIVATE).edit().clear().commit()
+                                    val intent = Intent(Intent.ACTION_VIEW);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    intent.setDataAndType(
+                                        Uri.fromFile(File("/sdcard/update/reset.apk")),
+                                        "application/vnd.android.package-archive"
+                                    )//image/*
+                                    startActivity(intent);//此处可能会产生异常（比如说你的MIME类型是打开视频，但是你手机里面没装视频播放器，就会报错）
+                                    android.os.Process.killProcess(android.os.Process.myPid());
+                                }
+                            }.start()
+                        }
+//            act.finish()
+                    }
+                }
+
             })
         }
         BleUpdate()
         act.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        return rootview
     }
+
+    val adapter = BluetoothAdapter.getDefaultAdapter()
+    var btn = ArrayList<View>()
+    var Ttn = ArrayList<TextView>()
+
 
     override fun enter() {
         for (i in 0 until Ttn.size) {

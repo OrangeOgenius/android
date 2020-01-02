@@ -65,7 +65,7 @@ public class FileDowload {
     }
     public static boolean DownAllObd(Activity activity,Update_C caller){
         try{
-            String response=GetText("http://bento2.orange-electronic.com/Orange%20Cloud/Drive/OBD%20DONGLE/",10);
+            String response=GetText("https://bento2.orange-electronic.com/Orange%20Cloud/Drive/OBD%20DONGLE/",10);
             if(response.equals("nodata")){return false;}
             boolean success=true;
             String[] arg=response.split("HREF=\"");
@@ -89,7 +89,7 @@ public class FileDowload {
                 Log.e("obd失敗",name);
                 return false;}
             if(donloadobd.equals(profilePreferences.getString("obd"+name,"nodata"))){return true;}
-            boolean result=FileDonload(activity.getApplicationContext().getFilesDir().getPath() + "/" + name + ".srec","http://bento2.orange-electronic.com/Orange%20Cloud/Drive/OBD%20DONGLE/" + name + "/" + donloadobd,30,progress -> {
+            boolean result=FileDonload(activity.getApplicationContext().getFilesDir().getPath() + "/" + name + ".srec","https://bento2.orange-electronic.com/Orange%20Cloud/Drive/OBD%20DONGLE/" + name + "/" + donloadobd,30,progress -> {
 
             });
             if(!result){
@@ -105,7 +105,7 @@ public class FileDowload {
     }
     public static String GetObdName(String name) {
         try {
-            String response=GetText("http://bento2.orange-electronic.com/Orange%20Cloud/Drive/OBD%20DONGLE/"+name,10);
+            String response=GetText("https://bento2.orange-electronic.com/Orange%20Cloud/Drive/OBD%20DONGLE/"+name,10);
             if(response.equals("nodata")){return response;}
             String[] arg = response.toString().split(" HREF=\"");
             for (String a : arg) {

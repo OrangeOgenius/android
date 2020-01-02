@@ -8,23 +8,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import com.orange.blelibrary.blelibrary.BleActivity
-import com.orange.blelibrary.blelibrary.RootFragement
+import com.orange.jzchi.jzframework.JzActivity
+import com.orange.jzchi.jzframework.JzFragement
 import com.orange.tpms.R
+import com.orange.tpms.RootFragement
 import com.orange.tpms.ue.activity.KtActivity
 import kotlinx.android.synthetic.main.fragment_add_favorite.view.*
 import java.util.*
 
 
-class Frag_AddFavorite : RootFragement() {
-    var data= ArrayList<String>()
-    var MakeList= ArrayList<String>()
-    var ModelList= ArrayList<String>()
-    var YearList= ArrayList<String>()
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        rootview=inflater.inflate(R.layout.fragment_add_favorite, container, false)
-        act=activity!!as BleActivity
+class   Frag_AddFavorite : RootFragement(R.layout.fragment_add_favorite) {
+    override fun viewInit() {
         GetMake()
         GetFav()
         rootview.make.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
@@ -59,13 +53,17 @@ class Frag_AddFavorite : RootFragement() {
             if(rootview.year.selectedItem==null){ return@setOnClickListener }
             if(!data.contains("${rootview.make.selectedItem}☆${rootview.model.selectedItem}☆${rootview.year.selectedItem}")){ data.add("${rootview.make.selectedItem}☆${rootview.model.selectedItem}☆${rootview.year.selectedItem}")}
             SetFav()
-            act.GoBack()
+            JzActivity.getControlInstance().goBack()
         }
         rootview.button3.setOnClickListener {
-            act.GoBack()
+            JzActivity.getControlInstance().goBack()
         }
-        return rootview
     }
+
+    var data= ArrayList<String>()
+    var MakeList= ArrayList<String>()
+    var ModelList= ArrayList<String>()
+    var YearList= ArrayList<String>()
     fun GetYear(){
         YearList.clear()
         if(rootview.model.selectedItem==null){return}

@@ -1,26 +1,25 @@
 package com.orange.tpms.ue.kt_frag
 
 
+import android.app.Dialog
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.util.Log
-import android.view.LayoutInflater
+import android.view.KeyEvent
 import android.view.View
-import android.view.ViewGroup
-import com.orange.blelibrary.blelibrary.Callback.DaiSetUp
-import com.orange.blelibrary.blelibrary.RootFragement
+import com.orange.jzchi.jzframework.JzActivity
+import com.orange.jzchi.jzframework.callback.SetupDialog
 import com.orange.tpms.Callback.Copy_C
 import com.orange.tpms.Callback.Program_C
 import com.orange.tpms.HttpCommand.Fuction
 import com.orange.tpms.HttpCommand.SensorRecord
 import com.orange.tpms.R
+import com.orange.tpms.RootFragement
 import com.orange.tpms.adapter.IDCopyDetailAdapter
 import com.orange.tpms.bean.IDCopyDetailBean
 import com.orange.tpms.bean.PublicBean
 import com.orange.tpms.ue.activity.KtActivity
+import com.orange.tpms.utils.HttpDownloader
 import com.orange.tpms.utils.OgCommand
 import com.orange.tpms.utils.VibMediaUtil
 import com.orange.tpms.widget.CarWidget
@@ -33,119 +32,8 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-/**
- * A simple [Fragment] subclass.
- *
- */
-class Frag_Idcopy_Detail : RootFragement(), Copy_C, Program_C {
-    override fun Program_Progress(i: Int) {
-        if (!act.NowFrage.equals("Frag_Idcopy_Detail")) {
-            return
-        }
-        handler.post {
-            act.ShowDaiLog(R.layout.data_loading, false, true, DaiSetUp {
-                it.pass.visibility = View.VISIBLE
-                it.pass.text = "$i%"
-            })
-        }
-    }
-
-    override fun Program_Finish(boolean: Boolean) {
-        if (!act.NowFrage.equals("Frag_Idcopy_Detail")) {
-            return
-        }
-        run = false
-        endtime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
-        if (boolean) {
-            Log.e("DATA:", "燒錄成功")
-            PublicBean.ProgramNumber = PublicBean.SensorList.size
-            sleep(3000)
-            val result = OgCommand.GetPrId(ObdHex, LF)
-            if (!act.NowFrage.equals("Frag_Idcopy_Detail")) {
-                return
-            }
-            handler.post {
-                var position = 0
-                for (i in result) {
-                    if (position < PublicBean.NewSensorList.size) {
-                        PublicBean.NewSensorList[position] = i.id
-                    }
-                    Log.e("DATA:", "成功id:" + i.id)
-                    position++
-                }
-                Thread {
-                    sleep(2000)
-                    OgCommand.IdCopy(this, ObdHex)
-                }.start()
-            }
-        } else {
-            handler.post {
-                AllFall()
-                Log.e("DATA:", "燒錄失敗")
-                act.DaiLogDismiss()
-            }
-        }
-        handler.post {
-            vibMediaUtil.playBeep()
-        }
-    }
-
-    fun AllFall() {
-        for (i in 0 until PublicBean.SensorList.size) {
-            copySuccess(i, false)
-        }
-    }
-
-    override fun Copy_Next(success: Boolean, position: Int) {
-        Log.e("Copy_Finish", "$position" + success)
-        BooResult[position] = success
-        handler.post {
-            vibMediaUtil.playBeep()
-            act.ShowDaiLog(R.layout.data_loading, false, true, DaiSetUp {
-                it.pass.visibility = View.VISIBLE
-                it.pass.text = "${position * 100 / PublicBean.SensorList.size}%"
-            })
-            copySuccess(position, success)
-        }
-
-    }
-
-    override fun Copy_Finish(boolean: Boolean) {
-        handler.post { act.DaiLogDismiss()
-        }
-        run = false
-        endtime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
-        if (!boolean) {
-            handler.post {
-
-                for (i in 0 until PublicBean.CopySuccess.size) {
-                    copySuccess(i, PublicBean.CopySuccess[i])
-                }
-            }
-        }
-        Log.e("Copy_Finish", "$boolean")
-        upload()
-
-    }
-
-    var LF = "00"
-    var ObdHex = "00"
-    var startime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
-    var endtime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
-    lateinit var rvIDCopyDetail: RecyclerView
-    lateinit var cwCar: CarWidget//CarWidget
-    var idcount = 8;
-    lateinit var idCopyDetailAdapter: IDCopyDetailAdapter//适配器
-    lateinit var linearLayoutManager: LinearLayoutManager//列表表格布局
-    lateinit var vibMediaUtil: VibMediaUtil//音效与振动
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        if (isInitialized()) {
-            return rootview
-        }
-        rootview = inflater.inflate(R.layout.fragment_frag__idcopy__detail, container, false)
+class Frag_Idcopy_Detail : RootFragement(R.layout.fragment_frag__idcopy__detail), Copy_C, Program_C {
+    override fun viewInit() {
         LF =
             (activity as KtActivity).itemDAO.GetLf(PublicBean.SelectMake, PublicBean.SelectModel, PublicBean.SelectYear)
         ObdHex = (activity as KtActivity).itemDAO.GetHex(
@@ -184,8 +72,133 @@ class Frag_Idcopy_Detail : RootFragement(), Copy_C, Program_C {
             ), "nodata"
         )
         SensorRecord.SensorCode_Version = s19
-        return rootview
     }
+
+    override fun Program_Progress(i: Int) {
+
+        if (!JzActivity.getControlInstance().getNowPageTag().equals("Frag_Idcopy_Detail")) {
+            return
+        }
+        handler.post {
+            JzActivity.getControlInstance().showDiaLog(R.layout.data_loading, false, true, object :SetupDialog{
+                override fun dismess() {
+
+                }
+
+                override fun keyevent(event: KeyEvent): Boolean {
+                   return false
+                }
+
+                override fun setup(rootview: Dialog) {
+                    rootview.pass.visibility = View.VISIBLE
+                    rootview.pass.text = "$i%"
+                }
+
+
+            })
+        }
+    }
+
+    override fun Program_Finish(boolean: Boolean) {
+        if (!JzActivity.getControlInstance().getNowPageTag().equals("Frag_Idcopy_Detail")) {
+            return
+        }
+        run = false
+        endtime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
+        if (boolean) {
+            Log.e("DATA:", "燒錄成功")
+            PublicBean.ProgramNumber = PublicBean.SensorList.size
+            sleep(3000)
+            val result = OgCommand.GetPrId(ObdHex, LF)
+            if (!JzActivity.getControlInstance().getNowPageTag().equals("Frag_Idcopy_Detail")) {
+                return
+            }
+            handler.post {
+                var position = 0
+                for (i in result) {
+                    if (position < PublicBean.NewSensorList.size) {
+                        PublicBean.NewSensorList[position] = i.id
+                    }
+                    Log.e("DATA:", "成功id:" + i.id)
+                    position++
+                }
+                Thread {
+                    sleep(2000)
+                    OgCommand.IdCopy(this, ObdHex)
+                }.start()
+            }
+        } else {
+            handler.post {
+                AllFall()
+                Log.e("DATA:", "燒錄失敗")
+                JzActivity.getControlInstance().closeDiaLog()
+                upload()
+            }
+        }
+        handler.post {
+            vibMediaUtil.playBeep()
+        }
+    }
+
+    fun AllFall() {
+        for (i in 0 until PublicBean.SensorList.size) {
+            copySuccess(i, false)
+        }
+    }
+
+    override fun Copy_Next(success: Boolean, position: Int) {
+        Log.e("Copy_Finish", "$position" + success)
+        BooResult[position] = success
+        handler.post {
+            vibMediaUtil.playBeep()
+            JzActivity.getControlInstance().showDiaLog(R.layout.data_loading, false, true, object:SetupDialog {
+                override fun dismess() {
+
+                }
+
+                override fun keyevent(event: KeyEvent): Boolean {
+                    return false
+                }
+
+                override fun setup(rootview: Dialog) {
+                    rootview.pass.visibility = View.VISIBLE
+                    rootview.pass.text = "${position * 100 / PublicBean.SensorList.size}%"
+                }
+
+            })
+            copySuccess(position, success)
+        }
+
+    }
+
+    override fun Copy_Finish(boolean: Boolean) {
+        handler.post { JzActivity.getControlInstance().closeDiaLog()
+        }
+        run = false
+        endtime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
+        if (!boolean) {
+            handler.post {
+
+                for (i in 0 until PublicBean.CopySuccess.size) {
+                    copySuccess(i, PublicBean.CopySuccess[i])
+                }
+            }
+        }
+        Log.e("Copy_Finish", "$boolean")
+        upload()
+
+    }
+
+    var LF = "00"
+    var ObdHex = "00"
+    var startime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
+    var endtime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
+    lateinit var rvIDCopyDetail: androidx.recyclerview.widget.RecyclerView
+    lateinit var cwCar: CarWidget//CarWidget
+    var idcount = 8;
+    lateinit var idCopyDetailAdapter: IDCopyDetailAdapter//适配器
+    lateinit var linearLayoutManager: androidx.recyclerview.widget.LinearLayoutManager//列表表格布局
+    lateinit var vibMediaUtil: VibMediaUtil//音效与振动
 
     override fun enter() {
         super.enter()
@@ -206,7 +219,7 @@ class Frag_Idcopy_Detail : RootFragement(), Copy_C, Program_C {
         act.back.setOnClickListener { GoMenu() }
         rootview.bt_menue.text = resources.getString(R.string.Relearn_Procedure)
         rootview.bt_menue.setOnClickListener {
-            act.ChangePage(
+            JzActivity.getControlInstance().changeFrag(
                 Frag_Relearm_Detail(),
                 R.id.frage,
                 "Frag_Relearm_Detail",
@@ -217,8 +230,17 @@ class Frag_Idcopy_Detail : RootFragement(), Copy_C, Program_C {
             return
         }
         run = true
-        act.DaiLogDismiss()
-        act.ShowDaiLog(R.layout.data_loading, false, true, DaiSetUp {
+        JzActivity.getControlInstance().closeDiaLog()
+        JzActivity.getControlInstance().showDiaLog(R.layout.data_loading, false, true, object :SetupDialog{
+            override fun dismess() {
+            }
+
+            override fun keyevent(event: KeyEvent): Boolean {
+                return false
+            }
+
+            override fun setup(rootview: Dialog) {
+            }
         })
         startime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
         vibMediaUtil.playVibrate()
@@ -240,7 +262,7 @@ class Frag_Idcopy_Detail : RootFragement(), Copy_C, Program_C {
             }.start()
         } else {
             run = false
-            act.Toast(R.string.app_no_data_to_copy)
+            JzActivity.getControlInstance().toast(R.string.app_no_data_to_copy)
         }
     }
 
@@ -325,6 +347,7 @@ class Frag_Idcopy_Detail : RootFragement(), Copy_C, Program_C {
     }
 
     fun upload() {
+        var allsuccess=true
         Thread {
             val idrecord: ArrayList<SensorRecord> = ArrayList()
             if (PublicBean.SensorList.size == PublicBean.NewSensorList.size) {
@@ -336,6 +359,7 @@ class Frag_Idcopy_Detail : RootFragement(), Copy_C, Program_C {
                         b.SensorID = idCopyDetailBean.newid
                         Log.e("copy", "${BooResult[0]}${BooResult[1]}${BooResult[2]}${BooResult[3]}")
                         b.IsSuccess = "" + BooResult[i - 1]
+                        if(b.IsSuccess=="false"){allsuccess=false}
                         idrecord.add(b)
                     }
                 }
@@ -354,6 +378,12 @@ class Frag_Idcopy_Detail : RootFragement(), Copy_C, Program_C {
                 idrecord,
                 activity as KtActivity
             )
+            HttpDownloader.post(
+                "/topics/LogCat",
+                if (allsuccess) "COPY成功-(${PublicBean.ProgramNumber})${PublicBean.SelectMake}/${PublicBean.SelectModel}/${PublicBean.SelectYear}*${PublicBean.OG_SerialNum}" else "COPY失敗-(${PublicBean.ProgramNumber})${PublicBean.SelectMake}/${PublicBean.SelectModel}/${PublicBean.SelectYear}*${PublicBean.OG_SerialNum}",
+                OgCommand.tx_memory.toString()
+            )
+            OgCommand.tx_memory =StringBuffer("");
         }.start()
 
     }
@@ -381,7 +411,7 @@ class Frag_Idcopy_Detail : RootFragement(), Copy_C, Program_C {
         //音效与震动
         vibMediaUtil = VibMediaUtil(activity)
         //配置RecyclerView,每行是哪个元素
-        linearLayoutManager = LinearLayoutManager(activity)
+        linearLayoutManager = androidx.recyclerview.widget.LinearLayoutManager(activity)
         rvIDCopyDetail.layoutManager = linearLayoutManager
         idCopyDetailAdapter = IDCopyDetailAdapter(activity)
         rvIDCopyDetail.adapter = idCopyDetailAdapter

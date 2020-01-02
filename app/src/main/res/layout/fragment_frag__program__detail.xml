@@ -23,7 +23,7 @@
                 android:textSize="20sp"/>
 
     </com.de.rocket.ue.layout.PercentLinearLayout>
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
             android:layout_below="@+id/pll_title"
             android:id="@+id/rv_program"
             android:layout_width="match_parent"

@@ -5,7 +5,7 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.util.Log
-import com.orange.blelibrary.blelibrary.BleActivity
+import com.orange.jzchi.jzframework.JzActivity
 import com.orange.tpms.R
 import com.orange.tpms.bean.PublicBean
 import com.orange.tpms.ue.kt_frag.*
@@ -95,7 +95,7 @@ class ItemDAO(context: Activity) {
             return act.resources.getString(R.string.norelarm)
         }
     }
-fun GoOk(code:String,navigationActivity: BleActivity){
+fun GoOk(code:String){
     val sql="select `Make`,`Model`,`Year`,`Make_Img` from `Summary table` where `Direct Fit` not in($notin) and `$MAKE_IMG_COLUMN` not in($notin) and `MMY number`='$code' limit 0,1"
     val result = db.rawQuery(
         sql,null)
@@ -105,31 +105,31 @@ fun GoOk(code:String,navigationActivity: BleActivity){
             PublicBean.SelectMake=result.getString(0)
             PublicBean.SelectModel=result.getString(1)
             PublicBean.SelectYear=result.getString(2)
-            AddFavorite(navigationActivity)
+            AddFavorite(JzActivity.getControlInstance().getRootActivity())
             when(PublicBean.position){
                 PublicBean.檢查傳感器->{
-                    navigationActivity.ChangePage(Frag_Check_Sensor_Information(),R.id.frage,"Frag_Check_Sensor_Information",true);
+                    JzActivity.getControlInstance().changeFrag(Frag_Check_Sensor_Information(),R.id.frage,"Frag_Check_Sensor_Information",true);
                 }
                 PublicBean.燒錄傳感器->{
-                    navigationActivity.ChangePage(Frag_Program_Number_Choice(),R.id.frage,"Frag_Program_Number_Choice",true);
+                    JzActivity.getControlInstance().changeFrag(Frag_Program_Number_Choice(),R.id.frage,"Frag_Program_Number_Choice",true);
                 }
                 PublicBean.複製傳感器->{
-                    navigationActivity.ChangePage(Frag_Idcopy_original(),R.id.frage,"Frag_Idcopy_original",true);
+                    JzActivity.getControlInstance().changeFrag(Frag_Idcopy_original(),R.id.frage,"Frag_Idcopy_original",true);
                 }
                 PublicBean.學碼步驟->{
-                    navigationActivity.ChangePage(Frag_Relearm_Detail(),R.id.frage,"Frag_Relearm_Detail",true);
+                    JzActivity.getControlInstance().changeFrag(Frag_Relearm_Detail(),R.id.frage,"Frag_Relearm_Detail",true);
                 }
                 PublicBean.PAD_PROGRAM->{
-                    navigationActivity.ChangePage(Frag_Pad_Program_Detail(), R.id.frage,"Frag_Pad_Program_Detail",true);
+                    JzActivity.getControlInstance().changeFrag(Frag_Pad_Program_Detail(), R.id.frage,"Frag_Pad_Program_Detail",true);
                 }
                 PublicBean.PAD_COPY->{
-                    navigationActivity.ChangePage(Frag_Pad_Keyin(), R.id.frage,"Frag_Pad_Keyin",true);
+                    JzActivity.getControlInstance().changeFrag(Frag_Pad_Keyin(), R.id.frage,"Frag_Pad_Keyin",true);
                 }
                 PublicBean.ID_COPY_OBD->{
-                    navigationActivity.ChangePage(Frag_Obd_Copy_Detail(), R.id.frage,"Frag_Obd_Copy_Detail",true);
+                    JzActivity.getControlInstance().changeFrag(Frag_Obd_Copy_Detail(), R.id.frage,"Frag_Obd_Copy_Detail",true);
                 }
                 PublicBean.OBD_RELEARM->{
-                    navigationActivity.ChangePage(Frag_Obd_Copy_Detail(), R.id.frage,"Frag_Obd_Copy_Detail",true);
+                    JzActivity.getControlInstance().changeFrag(Frag_Obd_Copy_Detail(), R.id.frage,"Frag_Obd_Copy_Detail",true);
                 }
             }
         }while (result.moveToNext())

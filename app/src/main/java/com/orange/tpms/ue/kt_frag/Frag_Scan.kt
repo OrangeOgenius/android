@@ -1,35 +1,34 @@
 package com.orange.tpms.ue.kt_frag
 
 
+import android.app.Dialog
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.text.TextUtils
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.orange.blelibrary.blelibrary.Callback.DaiSetUp
-import com.orange.blelibrary.blelibrary.RootFragement
+import androidx.fragment.app.Fragment
+import com.orange.jzchi.jzframework.JzActivity
+import com.orange.jzchi.jzframework.callback.SetupDialog
+import kotlinx.android.synthetic.main.fragment_frag__scan.view.*
+
 import com.orange.tpms.R
+import com.orange.tpms.RootFragement
 import com.orange.tpms.bean.PublicBean
 import com.orange.tpms.lib.hardware.HardwareApp
 import com.orange.tpms.ue.activity.KtActivity
 import kotlinx.android.synthetic.main.data_loading.*
-import kotlinx.android.synthetic.main.fragment_frag__scan.view.*
 
 
 /**
  * A simple [Fragment] subclass.
  *
  */
-class Frag_Scan : RootFragement() {
+class Frag_Scan : RootFragement(R.layout.fragment_frag__scan) {
     private var dataReceiver: HardwareApp.DataReceiver? = null
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        rootview=inflater.inflate(R.layout.fragment_frag__scan, container, false)
-
+    override fun viewInit() {
         when(PublicBean.ScanType){
             PublicBean.掃描Mmy->{
                 rootview.iv_scan_tips.setImageResource(R.mipmap.iv_scan_mmy)
@@ -41,22 +40,32 @@ class Frag_Scan : RootFragement() {
             }
         }
         init()
-        return rootview
     }
 
     override fun onKeyScan() {
         if(run){return}
         run=true
         HardwareApp.getInstance().scan()
-        act.DaiLogDismiss()
-        act.ShowDaiLog(R.layout.data_loading,false,true, DaiSetUp {
-            it.pass.visibility=View.VISIBLE
-            it.pass.text=resources.getString(R.string.app_scaning)
+        JzActivity.getControlInstance().closeDiaLog()
+        JzActivity.getControlInstance().showDiaLog(R.layout.data_loading,false,true, object : SetupDialog {
+            override fun dismess() {
+
+            }
+
+            override fun keyevent(event: KeyEvent): Boolean {
+            return false
+            }
+
+            override fun setup(rootview: Dialog) {
+                rootview.pass.visibility=View.VISIBLE
+                rootview.pass.text=resources.getString(R.string.app_scaning)
+            }
+
         })
 
         Thread{
             Thread.sleep(5000)
-            handler.post { act.DaiLogDismiss() }
+            handler.post { JzActivity.getControlInstance().closeDiaLog() }
             run=false
         }.start()
     }
@@ -67,7 +76,7 @@ fun init(){
 
         }
         override fun scanMsgReceive(content: String) {
-            act.DaiLogDismiss()
+            JzActivity.getControlInstance().closeDiaLog()
             Log.v("yhd-", "backToLastFrag:$content")
                 GoOk(content)
         }
@@ -82,18 +91,18 @@ fun init(){
         if(!TextUtils.isEmpty(content)){
             if(PublicBean.ScanType==PublicBean.掃描Mmy){
                 if (!content.contains("**")) {
-                    act.Toast(R.string.app_invalid_mmy_qrcode)
+                    JzActivity.getControlInstance().toast(R.string.app_invalid_mmy_qrcode)
                 } else {
                     Log.d("Scan","")
                     val dataArray = content.split("\\*\\*".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
                     if(dataArray.size==2){
-                        (activity as KtActivity).itemDAO.GoOk(dataArray.get(0),act)
+                        (activity as KtActivity).itemDAO.GoOk(dataArray.get(0))
                     }
                 }
             }else if(PublicBean.ScanType==PublicBean.掃描Sensor){
 
             }else{
-                act.Toast(R.string.app_content_empty)
+                JzActivity.getControlInstance().toast(R.string.app_content_empty)
             }
         }
     }

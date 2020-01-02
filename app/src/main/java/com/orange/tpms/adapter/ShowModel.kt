@@ -1,21 +1,20 @@
 package com.orango.electronic.orangetxusb.Adapter
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.orange.blelibrary.blelibrary.BleActivity
+import com.orange.jzchi.jzframework.JzActivity
 import com.orange.tpms.R
 import com.orange.tpms.bean.PublicBean
 import com.orange.tpms.ue.kt_frag.Frag_SelectYear
 import java.util.*
 
 
-class ShowModel(private val models: ArrayList<String>,private val navigationActivity:BleActivity)
-    : RecyclerView.Adapter<ShowModel.ViewHolder>() {
+class ShowModel(private val models: ArrayList<String>)
+    : androidx.recyclerview.widget.RecyclerView.Adapter<ShowModel.ViewHolder>() {
 var focus=0
     lateinit var context:Context
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -40,7 +39,7 @@ var focus=0
             }
             if(event.action == MotionEvent.ACTION_UP){
                 PublicBean.SelectModel = models.get(position)
-                navigationActivity.ChangePage(Frag_SelectYear(),R.id.frage,"Frag_SelectYear",true)
+                JzActivity.getControlInstance().changeFrag(Frag_SelectYear(),R.id.frage,"Frag_SelectYear",true)
             }
             true
         }
@@ -48,7 +47,7 @@ var focus=0
 
     override fun getItemCount(): Int = models.size
 
-    inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
+    inner class ViewHolder(val mView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(mView) {
         val text_item: TextView = mView.findViewById(R.id.text_item)
         override fun toString(): String {
             return super.toString() + " '" + text_item.text + "'"

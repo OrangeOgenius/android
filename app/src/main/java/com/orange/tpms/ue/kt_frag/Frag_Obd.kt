@@ -6,39 +6,40 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
-import com.orange.blelibrary.blelibrary.RootFragement
+import com.orange.jzchi.jzframework.JzActivity
 import com.orange.tpms.R
+import com.orange.tpms.RootFragement
 import com.orange.tpms.bean.PublicBean
-import kotlinx.android.synthetic.main.fragment_frag__id__copy.view.*
+import com.orange.tpms.ue.activity.KtActivity
+import kotlinx.android.synthetic.main.fragment_frag__obd.view.*
 
-class Frag_Obd : RootFragement() {
-    var position=0
-    var btn=ArrayList<RelativeLayout>()
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        if(isInitialized()){return rootview}
-        rootview=inflater.inflate(R.layout.fragment_frag__obd, container, false)
+class Frag_Obd : RootFragement(R.layout.fragment_frag__obd) {
+    override fun viewInit() {
         btn.add(rootview.b1)
         btn.add(rootview.b2)
         btn.add(rootview.b3)
         rootview.b1.setOnClickListener {
             PublicBean.ScanType = PublicBean.掃描Mmy
-//            act.ChangePage(Frag_Scan(),R.id.frage,"Frag_Scan",true)
-            act.GoScanner(Frag_Scan(),10,R.id.frage,"Frag_Scan")
+            (JzActivity.getControlInstance().getRootActivity() as KtActivity).BleManager.scan(Frag_Scan(),"Frag_Scan")
+//            JzActivity.getControlInstance().changeFrag(Frag_Scan(),R.id.frage,"Frag_Scan",true)
+//            act.GoScanner(Frag_Scan(),10,R.id.frage,"Frag_Scan")
         }
         rootview.b2.setOnClickListener {
-//            act.ChangePage(Frag_SelectMake(),R.id.frage,"Frag_SelectMake",true)
-            act.GoScanner(Frag_SelectMake(),10,R.id.frage,"Frag_SelectMake")
+            (JzActivity.getControlInstance().getRootActivity() as KtActivity).BleManager.scan(Frag_SelectMake(),"Frag_SelectMake")
+            //            JzActivity.getControlInstance().changeFrag(Frag_SelectMake(),R.id.frage,"Frag_SelectMake",true)
+//            act.GoScanner(Frag_SelectMake(),10,R.id.frage,"Frag_SelectMake")
         }
         rootview.b3.setOnClickListener {
-//            act.ChangePage(Frag_Favorite(),R.id.frage,"Frag_Favorite",true)
-            act.GoScanner(Frag_Favorite(),10,R.id.frage,"Frag_Favorite")
+            (JzActivity.getControlInstance().getRootActivity() as KtActivity).BleManager.scan(Frag_Favorite(),"Frag_Favorite")
+            //            JzActivity.getControlInstance().changeFrag(Frag_Favorite(),R.id.frage,"Frag_Favorite",true)
+//            act.GoScanner(Frag_Favorite(),10,R.id.frage,"Frag_Favorite")
         }
         rootview.b1.isSelected=true
-        return rootview
     }
+
+    var position=0
+    var btn=ArrayList<RelativeLayout>()
+
     override fun onTop() {
         ChangePosition(-1)
     }

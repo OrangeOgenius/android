@@ -1,12 +1,7 @@
 package com.orange.tpms.utils;
 
 import android.content.Context;
-import android.os.Build;
 import android.util.AttributeSet;
-
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 
 public class WebView extends android.webkit.WebView {
     public WebView(Context context) {

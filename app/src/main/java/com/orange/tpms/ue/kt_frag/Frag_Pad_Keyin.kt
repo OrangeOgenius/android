@@ -1,23 +1,27 @@
 package com.orange.tpms.ue.kt_frag
 
 
+import android.app.Dialog
 import android.os.Bundle
 import android.text.InputFilter
 import android.text.TextUtils
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
-import com.orange.blelibrary.blelibrary.Callback.DaiSetUp
-import com.orange.blelibrary.blelibrary.RootFragement
+import com.orange.jzchi.jzframework.JzActivity
+import com.orange.jzchi.jzframework.callback.SetupDialog
 import com.orange.tpms.R
+import com.orange.tpms.RootFragement
 import com.orange.tpms.bean.MMYQrCodeBean
 import com.orange.tpms.bean.PublicBean
 import com.orange.tpms.lib.hardware.HardwareApp
 import com.orange.tpms.ue.activity.KtActivity
+import com.orange.tpms.ue.dialog.SensorWay
 import com.orange.tpms.utils.CustomTextWatcherForpad
 import com.orange.tpms.utils.KeyboardUtil.hideEditTextKeyboard
 import com.orange.tpms.utils.OgCommand
@@ -25,28 +29,19 @@ import com.orange.tpms.utils.VibMediaUtil
 import kotlinx.android.synthetic.main.fragment_frag__pad__keyin.view.*
 
 
-class Frag_Pad_Keyin : RootFragement() {
+class Frag_Pad_Keyin : RootFragement(R.layout.fragment_frag__pad__keyin) {
     lateinit var navActivity: KtActivity
     var mmyNum=""
     var need=0
     lateinit var dataReceiver: HardwareApp.DataReceiver
     lateinit var vibMediaUtil: VibMediaUtil
     var ObdHex = "00"
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        retainInstance = true
+    override fun viewInit() {
         navActivity = activity as KtActivity
         mmyNum = navActivity.itemDAO.getMMY(PublicBean.SelectMake,PublicBean.SelectModel,PublicBean.SelectYear)
         if(!mmyNum.equals("")){
             need=navActivity.itemDAO.GetCopyId( mmyNum)
         }else{navActivity.finish()}
-    }
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        rootview=inflater.inflate(R.layout.fragment_frag__pad__keyin, container, false)
-super.onCreateView(inflater, container, savedInstanceState)
         rootview.mmy_text6.text="${PublicBean.SelectMake}/${PublicBean.SelectModel}/${PublicBean.SelectYear}"
         vibMediaUtil = VibMediaUtil(activity)
         rootview.Lft.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(need))
@@ -81,20 +76,9 @@ super.onCreateView(inflater, container, savedInstanceState)
             PublicBean.WriteLr=lr
             PublicBean.WriteRf=Rf
             PublicBean.WriteRr=Rr
-            act.ChangePage(Frag_Pad_Program_Detail(), R.id.frage,"Frag_Pad_Program_Detail",false);
+            JzActivity.getControlInstance().changeFrag(Frag_Pad_Program_Detail(), R.id.frage,"Frag_Pad_Program_Detail",false)
         }
-        act.ShowDaiLog(R.layout.sensor_way_dialog,false,false, DaiSetUp {
-            (act as KtActivity).focus=0
-            it.findViewById<RelativeLayout>(R.id.scan).setOnClickListener {
-                act.DaiLogDismiss()
-            }
-            it.findViewById<RelativeLayout>(R.id.trigger).setOnClickListener {
-                act.DaiLogDismiss()
-            }
-            it.findViewById<RelativeLayout>(R.id.keyin).setOnClickListener {
-                act.DaiLogDismiss()
-            }
-        })
+        JzActivity.getControlInstance().showDiaLog(R.layout.sensor_way_dialog,false,false, SensorWay())
         ObdHex=(activity as KtActivity).itemDAO.GetHex(PublicBean.SelectMake,PublicBean.SelectModel,PublicBean.SelectYear)
         while(ObdHex.length<2){ObdHex="0"+ObdHex}
         HardwareApp.getInstance().switchScan(true)
@@ -104,12 +88,12 @@ super.onCreateView(inflater, container, savedInstanceState)
             }
 
             override fun scanMsgReceive(content: String) {
-                act.DaiLogDismiss()
+                JzActivity.getControlInstance().closeDiaLog()
                 if (!content.contains(":") && !content.contains("*")) {
                     if (content != "nofound") {
-                        act.Toast(R.string.app_invalid_sensor_qrcode)
+                        JzActivity.getControlInstance().toast(R.string.app_invalid_sensor_qrcode)
                     } else {
-                        act.Toast(R.string.app_scan_code_timeout)
+                        JzActivity.getControlInstance().toast(R.string.app_scan_code_timeout)
                     }
                     return
                 }
@@ -122,7 +106,7 @@ super.onCreateView(inflater, container, savedInstanceState)
                     }
                 }
                 if (TextUtils.isEmpty(sensorid)) {
-                    act.Toast(R.string.app_invalid_sensor_qrcode)
+                    JzActivity.getControlInstance().toast(R.string.app_invalid_sensor_qrcode)
                     return
                 }
                 vibMediaUtil.playBeep()
@@ -138,26 +122,39 @@ super.onCreateView(inflater, container, savedInstanceState)
             }
         }
         HardwareApp.getInstance().addDataReceiver(dataReceiver)
-        return rootview
     }
+
+
+
     override fun onKeyScan() {
         super.onKeyScan()
         if(run){return}
         run=true
-        act.DaiLogDismiss()
+        JzActivity.getControlInstance().closeDiaLog()
         HardwareApp.getInstance().scan()
-        act.ShowDaiLog(R.layout.normal_dialog,true,true, DaiSetUp {
-            it.findViewById<TextView>(R.id.tit).text=resources.getString(R.string.app_scaning)
+        JzActivity.getControlInstance().showDiaLog(R.layout.normal_dialog,true,true,object :SetupDialog {
+            override fun dismess() {
+
+            }
+
+            override fun keyevent(event: KeyEvent): Boolean {
+              return true
+            }
+
+            override fun setup(rootview: Dialog) {
+                rootview.findViewById<TextView>(R.id.tit).text=resources.getString(R.string.app_scaning)
+            }
+
         })
         Thread{
             Thread.sleep(3000)
-            handler.post {act.DaiLogDismiss()  }
+            handler.post {JzActivity.getControlInstance().closeDiaLog() }
             run=false
         }.start()
     }
     override fun onPause() {
         super.onPause()
-        act.DaiLogDismiss()
+        JzActivity.getControlInstance().closeDiaLog()
         vibMediaUtil.release()
         try{
             HardwareApp.getInstance().switchScan(false)
@@ -170,23 +167,36 @@ super.onCreateView(inflater, container, savedInstanceState)
     fun Trigger(){
         if(run){return}
         run=true
-        act.ShowDaiLog(R.layout.normal_dialog,true,true, DaiSetUp {
-            it.findViewById<TextView>(R.id.tit).text=resources.getString(R.string.app_scaning)
+
+        JzActivity.getControlInstance().showDiaLog(R.layout.normal_dialog,true,true, object :SetupDialog {
+            override fun dismess() {
+
+            }
+
+            override fun keyevent(event: KeyEvent): Boolean {
+              return true
+            }
+
+            override fun setup(rootview: Dialog) {
+                rootview.findViewById<TextView>(R.id.tit).text=resources.getString(R.string.app_scaning)
+            }
+
         })
         Thread{
             val a = OgCommand.GetId(ObdHex, "00")
             handler.post {
                 run = false
-                if(!act.NowFrage.equals("Frag_Pad_Keyin")){return@post}
+
+                if(!JzActivity.getControlInstance().getNowPageTag().equals("Frag_Pad_Keyin")){return@post}
                 vibMediaUtil.playBeep()
-                act.DaiLogDismiss()
+                JzActivity.getControlInstance().closeDiaLog()
                 if(a.success){
                     if(rootview.Lft.isFocused){rootview.Lft.setText(a.id)}
                     if(rootview.Rrt.isFocused){rootview.Rrt.setText(a.id)}
                     if(rootview.Rft.isFocused){rootview.Rft.setText(a.id)}
                     if(rootview.Lrt.isFocused){rootview.Lrt.setText(a.id)}
                 }else{
-                    act.Toast(resources.getString(R.string.app_read_failed))
+                    JzActivity.getControlInstance().toast(resources.getString(R.string.app_read_failed))
                 }
 
             }
@@ -198,7 +208,7 @@ super.onCreateView(inflater, container, savedInstanceState)
                 for (i in 0..1) {
                     val Ch1 = navActivity.BleCommand.Command_11(i, 1)
                     val Ch2 = navActivity.BleCommand.Command_11(i, 2)
-                    if(!navActivity.NowFrage.equals("Frag_Pad_Keyin")){return@Thread}
+                    if(!JzActivity.getControlInstance().getNowPageTag().equals("Frag_Pad_Keyin")){return@Thread}
                     handler.post {  if (Ch1) {
                         if(i==0){
                             rootview.Lft.isEnabled=true

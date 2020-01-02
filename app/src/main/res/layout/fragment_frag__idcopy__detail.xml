@@ -40,11 +40,11 @@
                     android:layout_height="wrap_content"
                     app:layout_heightPercent="35%h"/>
 
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_id_copy_neww"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-            </android.support.v7.widget.RecyclerView>
+            </androidx.recyclerview.widget.RecyclerView>
 
         </com.de.rocket.ue.layout.PercentLinearLayout>
 

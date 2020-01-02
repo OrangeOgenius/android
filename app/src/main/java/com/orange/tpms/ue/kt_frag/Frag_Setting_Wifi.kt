@@ -2,6 +2,7 @@ package com.orange.tpms.ue.kt_frag
 
 
 import android.Manifest
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -9,21 +10,21 @@ import android.location.LocationManager
 import android.net.wifi.ScanResult
 import android.os.Bundle
 import android.provider.Settings
-import android.support.v4.app.ActivityCompat
-import android.support.v4.app.Fragment
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import com.de.rocket.ue.layout.PercentRelativeLayout
-import com.orange.blelibrary.blelibrary.Callback.DaiSetUp
-import com.orange.blelibrary.blelibrary.RootFragement
+import com.orange.jzchi.jzframework.JzActivity
+import com.orange.jzchi.jzframework.callback.SetupDialog
+import com.orange.tpms.RootFragement
 import com.orange.tpms.R
 import com.orange.tpms.adapter.WifiAdapter
 import com.orange.tpms.helper.WifiConnectHelper
@@ -37,25 +38,22 @@ import java.util.*
  * A simple [Fragment] subclass.
  *
  */
-class Frag_Setting_Wifi : RootFragement() {
+class Frag_Setting_Wifi : RootFragement(R.layout.fragment_frag__setting__wifi) {
     private val Permissions = arrayOf(
         Manifest.permission.WRITE_EXTERNAL_STORAGE,
         Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
     private val permissionRequestCode = 1001
     lateinit var prlConnectedWifi: PercentRelativeLayout//ConnectedWifi
     lateinit var tvConnectedWifi: TextView//ConnectedWifi
-    lateinit var rvWifi: RecyclerView//Wifi列表
+    lateinit var rvWifi: androidx.recyclerview.widget.RecyclerView//Wifi列表
     lateinit var ivWifiCheck: ImageView//Wifi开关
     lateinit var edwPassword: EditDialogWidget//Loading
     lateinit var ivAskCheck: ImageView//Ask开关
     lateinit var wifiAdapter: WifiAdapter//适配器
-    lateinit var linearLayoutManager: LinearLayoutManager//列表表格布局
+    lateinit var linearLayoutManager: androidx.recyclerview.widget.LinearLayoutManager//列表表格布局
     lateinit var wifiConnectHelper: WifiConnectHelper//Helper
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-      rootview=inflater.inflate(R.layout.fragment_frag__setting__wifi, container, false)
+
+    override fun viewInit() {
         prlConnectedWifi=rootview.findViewById(R.id.prl_connected)
         tvConnectedWifi=rootview.findViewById(R.id.tv_connected)
         rvWifi=rootview.findViewById(R.id.rv_wifi)
@@ -71,10 +69,7 @@ class Frag_Setting_Wifi : RootFragement() {
             initHelper()
         }
         checkPermissions()
-        super.onCreateView(inflater, container, savedInstanceState)
-        return rootview
     }
-
     /**
      * 初始化页面
      */
@@ -87,7 +82,7 @@ class Frag_Setting_Wifi : RootFragement() {
         //开关Ask
         ivAskCheck.setOnClickListener { view -> ivAskCheck.setSelected(!ivAskCheck.isSelected()) }
         //配置RecyclerView,每行是哪个元素
-            linearLayoutManager = LinearLayoutManager(activity)
+            linearLayoutManager = androidx.recyclerview.widget.LinearLayoutManager(activity)
         rvWifi.setLayoutManager(linearLayoutManager)
         wifiAdapter = WifiAdapter(activity)
         rvWifi.setAdapter(wifiAdapter)
@@ -163,13 +158,24 @@ class Frag_Setting_Wifi : RootFragement() {
         wifiConnectHelper = WifiConnectHelper()
         //开始请求
         wifiConnectHelper.setOnPreRequestListener {
-            act.ShowDaiLog(R.layout.data_loading,false,true, DaiSetUp {
-                it.pass.visibility=View.VISIBLE
-                it.pass.text=resources.getString(R.string.app_wifi_connecting)
+            JzActivity.getControlInstance().showDiaLog(R.layout.data_loading,false,true, object : SetupDialog {
+                override fun dismess() {
+
+                }
+
+                override fun keyevent(event: KeyEvent): Boolean {
+                    return false
+                }
+
+                override fun setup(rootview: Dialog) {
+                    rootview.pass.visibility=View.VISIBLE
+                    rootview.pass.text=resources.getString(R.string.app_wifi_connecting)
+                }
+
             })
         }
         //结束请求
-        wifiConnectHelper.setOnFinishRequestListener { act.DaiLogDismiss() }
+        wifiConnectHelper.setOnFinishRequestListener { JzActivity.getControlInstance().closeDiaLog() }
         //wifi连接成功
         wifiConnectHelper.setOnConnecteFailedListener {
 

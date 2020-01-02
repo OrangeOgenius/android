@@ -1,17 +1,13 @@
 package com.orange.tpms.utils;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-
-import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.IBinder;
 import android.os.PowerManager;
-import android.os.SystemClock;
 import android.util.Log;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 //注意，PowerManager只有系统应用才能操作，普通应用不能操作，所以下面代码仅供参考
 public class PowerUtil {

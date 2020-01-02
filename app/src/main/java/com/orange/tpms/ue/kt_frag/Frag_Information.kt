@@ -2,37 +2,31 @@ package com.orange.tpms.ue.kt_frag
 
 
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.orange.blelibrary.blelibrary.RootFragement
+import com.orange.jzchi.jzframework.JzActivity
 import com.orange.tpms.R
+import com.orange.tpms.RootFragement
 import com.orange.tpms.adapter.InformationAdapter
 import com.orange.tpms.helper.InformationHelper
 
-class Frag_Information : RootFragement() {
-    lateinit var rvInformation: RecyclerView//列表
+class Frag_Information : RootFragement(R.layout.fragment_frag__information) {
+    lateinit var rvInformation: androidx.recyclerview.widget.RecyclerView//列表
     lateinit var informationAdapter: InformationAdapter//Adapter
-    lateinit var linearLayoutManager: LinearLayoutManager//列表表格布局
+    lateinit var linearLayoutManager: androidx.recyclerview.widget.LinearLayoutManager//列表表格布局
     lateinit var informationHelper: InformationHelper//Helper
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-       rootview=inflater.inflate(R.layout.fragment_frag__information, container, false)
+    override fun viewInit() {
         rvInformation=rootview.findViewById(R.id.rv_information)
         initView()
         initHelper()
-        return rootview
     }
 
     /**
      * 初始化页面
      */
     private fun initView() {
-            linearLayoutManager = LinearLayoutManager(activity)
+            linearLayoutManager = androidx.recyclerview.widget.LinearLayoutManager(activity)
         rvInformation.layoutManager = linearLayoutManager
         informationAdapter = InformationAdapter(activity)
         rvInformation.adapter = informationAdapter
@@ -50,7 +44,7 @@ class Frag_Information : RootFragement() {
         //请求成功
         informationHelper.setOnSuccessRequestListener { `object` -> }
         //请求失败
-        informationHelper.setOnFailedRequestListener { `object` -> act.Toast(`object`.toString()) }
+        informationHelper.setOnFailedRequestListener { `object` -> JzActivity.getControlInstance().toast(`object`.toString()) }
         //锁定列表回调
         informationHelper.setOnGetInformationListener { arrayList ->
             informationAdapter.items = arrayList

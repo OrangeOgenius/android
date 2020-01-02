@@ -5,7 +5,6 @@ import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
-import com.orange.blelibrary.blelibrary.BleActivity;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -70,7 +69,7 @@ public class AssetsUtils {
         }
         return files;
     }
-    public static void copyFilesFassets(BleActivity context, String oldPath, String newPath) {
+    public static void copyFilesFassets(Context context, String oldPath, String newPath) {
         try {
             String fileNames[] = context.getAssets().list(oldPath);//获取assets目录下的所有文件及目录名
             if (fileNames.length > 0) {//如果是目录

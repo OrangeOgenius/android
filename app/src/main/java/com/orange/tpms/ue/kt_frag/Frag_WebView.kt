@@ -9,21 +9,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.tpms.R
+import com.orange.tpms.RootFragement
 import kotlinx.android.synthetic.main.fragment_frag__web_view.view.*
 import java.lang.reflect.Method
 
 
-class Frag_WebView : RootFragement() {
-
+class Frag_WebView : RootFragement(R.layout.fragment_frag__web_view) {
     @SuppressLint("SetJavaScriptEnabled")
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        hookWebView()
-rootview=inflater.inflate(R.layout.fragment_frag__web_view, container, false)
+    override fun viewInit() {
         try{
             val a=GetPro("Lan",LOCALE_ENGLISH)
             var uti="https://simple-sensor.com"
@@ -48,8 +42,10 @@ rootview=inflater.inflate(R.layout.fragment_frag__web_view, container, false)
 
             }
         }catch (e:Exception){e.printStackTrace()}
-        return rootview
     }
+
+
+
     private fun hookWebView() {
         var factoryClass: Class<*>? = null
         try {

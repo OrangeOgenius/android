@@ -1,16 +1,19 @@
 package com.orange.tpms.ue.kt_frag
 
 
+import android.app.Dialog
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import com.orange.blelibrary.blelibrary.Callback.DaiSetUp
-import com.orange.blelibrary.blelibrary.RootFragement
+import com.orange.jzchi.jzframework.JzActivity
+import com.orange.jzchi.jzframework.callback.SetupDialog
 import com.orange.tpms.R
+import com.orange.tpms.RootFragement
 import com.orange.tpms.bean.PublicBean
 import com.orange.tpms.bean.SensorData
 import com.orange.tpms.ue.activity.KtActivity
@@ -19,7 +22,7 @@ import com.orange.tpms.utils.VibMediaUtil
 import com.orange.tpms.widget.CarWidget
 import kotlinx.android.synthetic.main.fragment_frag__check__location.view.*
 
-class Frag_Check_Location : RootFragement() {
+class Frag_Check_Location : RootFragement(R.layout.fragment_frag__check__location) {
     lateinit var cwCar: CarWidget//CarWidget
     lateinit var tvTopRight: TextView//FRID
     lateinit var tvBottomRight: TextView//RRID
@@ -34,46 +37,49 @@ class Frag_Check_Location : RootFragement() {
     lateinit var btCheck: Button//Title
     var ObdHex = "00"
     lateinit var vibMediaUtil: VibMediaUtil//音效与振动
-     var failedOneTime = false//是否失败过一次
-     var carLocation: CarWidget.CAR_LOCATION = CarWidget.CAR_LOCATION.TOP_RIGHT
-     enum class CHECK_STATUS {
+    var failedOneTime = false//是否失败过一次
+    var carLocation: CarWidget.CAR_LOCATION = CarWidget.CAR_LOCATION.TOP_RIGHT
+
+    enum class CHECK_STATUS {
         STCCESS, //成功
         FAILED, //失败
         CLEAR
         //清空
     }
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        rootview=inflater.inflate(R.layout.fragment_frag__check__location, container, false)
-        cwCar=rootview.findViewById(R.id.cw_car)
-        tvTopRight=rootview.findViewById(R.id.tv_fr_id)
-        tvBottomRight=rootview.findViewById(R.id.tv_rr_id)
-        tvBottomLeft=rootview.findViewById(R.id.tv_rl_id)
-        tvTopLeft=rootview.findViewById(R.id.tv_fl_id)
-        ivTopRightStatus=rootview.findViewById(R.id.iv_fr_status)
-        ivBottomRightStatus=rootview.findViewById(R.id.iv_rr_status)
-        ivBottomLeftStatus=rootview.findViewById(R.id.iv_rl_status)
-        ivTopLeftStatus=rootview.findViewById(R.id.iv_fl_status)
-        tvContent=rootview.findViewById(R.id.tv_content)
-        btCheck=rootview.findViewById(R.id.bt_check)
+
+    override fun viewInit() {
+        cwCar = rootview.findViewById(R.id.cw_car)
+        tvTopRight = rootview.findViewById(R.id.tv_fr_id)
+        tvBottomRight = rootview.findViewById(R.id.tv_rr_id)
+        tvBottomLeft = rootview.findViewById(R.id.tv_rl_id)
+        tvTopLeft = rootview.findViewById(R.id.tv_fl_id)
+        ivTopRightStatus = rootview.findViewById(R.id.iv_fr_status)
+        ivBottomRightStatus = rootview.findViewById(R.id.iv_rr_status)
+        ivBottomLeftStatus = rootview.findViewById(R.id.iv_rl_status)
+        ivTopLeftStatus = rootview.findViewById(R.id.iv_fl_status)
+        tvContent = rootview.findViewById(R.id.tv_content)
+        btCheck = rootview.findViewById(R.id.bt_check)
         rootview.bt_menue.setOnClickListener { GoMenu() }
         rootview.bt_check.setOnClickListener { trigger() }
         initView()
-        rootview.tv_content.text="${PublicBean.SelectMake}/${PublicBean.SelectModel}/${PublicBean.SelectYear}"
-        return rootview
+        rootview.tv_content.text = "${PublicBean.SelectMake}/${PublicBean.SelectModel}/${PublicBean.SelectYear}"
     }
+
 
     override fun onKeyTrigger() {
         super.onKeyTrigger()
         trigger()
     }
+
     /**
      * 初始化页面
      */
     private fun initView() {
-        ObdHex=(activity as KtActivity).itemDAO.GetHex(PublicBean.SelectMake,PublicBean.SelectModel,PublicBean.SelectYear);
+        ObdHex = (activity as KtActivity).itemDAO.GetHex(
+            PublicBean.SelectMake,
+            PublicBean.SelectModel,
+            PublicBean.SelectYear
+        );
         //音效与震动
         vibMediaUtil = VibMediaUtil(activity)
     }
@@ -82,25 +88,48 @@ class Frag_Check_Location : RootFragement() {
      * 读传感器
      */
     private fun trigger() {
-        if(run){return}
-        run=true
+        if (run) {
+            return
+        }
+        run = true
         clearViewIfFailed()
         vibMediaUtil.playVibrate()
-        act.ShowDaiLog(R.layout.data_loading,false,true, DaiSetUp {  })
-        Thread{
+        JzActivity.getControlInstance().showDiaLog(R.layout.data_loading, false, false, object : SetupDialog {
+            override fun keyevent(event: KeyEvent): Boolean {
+                //按鈕事件監聽
+                // return true後會繼續執行父類別的dispathKeyevent方法，反之攔截按鈕事件
+                return false
+            }
+
+            override fun setup(rootview: Dialog) {
+                //Dialog的載入設定
+                rootview.findViewById<Button>(R.id.button).setOnClickListener {
+                    rootview.dismiss()
+                }
+            }
+
+            override fun dismess() {
+                //Dialog關閉的監聽
+            }
+        })
+        Thread {
             val a = OgCommand.GetId(ObdHex, "00")
             handler.post {
                 run = false
-                if(!act.NowFrage.equals("Frag_Check_Location")){return@post}
+                if (!JzActivity.getControlInstance().getNowPageTag().equals("Frag_Check_Location")) {
+                    return@post
+                }
                 vibMediaUtil.playBeep()
-                act.DaiLogDismiss()
-                if(a.success){
-                    if(PublicBean.SensorList!=null&&PublicBean.SensorList.contains(a.id)){updateSensorbean(a,true);}else{
-                        updateSensorbean(a,false);
+                JzActivity.getControlInstance().closeDiaLog()
+                if (a.success) {
+                    if (PublicBean.SensorList != null && PublicBean.SensorList.contains(a.id)) {
+                        updateSensorbean(a, true);
+                    } else {
+                        updateSensorbean(a, false);
                     }
-                }else{
-                    updateSensorbean(a,false);
-                    act.Toast(resources.getString(R.string.app_read_failed))
+                } else {
+                    updateSensorbean(a, false);
+                    JzActivity.getControlInstance().toast(resources.getString(R.string.app_read_failed))
                 }
             }
         }.start()

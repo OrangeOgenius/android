@@ -2,14 +2,18 @@ package com.orange.tpms.adapter
 
 import android.text.InputFilter
 import android.view.View
-import com.orange.blelibrary.blelibrary.Adapter.RootAdapter
+import com.orange.jzchi.jzframework.JzAdapter
 import com.orange.tpms.R
 import com.orange.tpms.bean.ObdBeans
 import com.orange.tpms.bean.PublicBean
 import com.orange.tpms.utils.KeyboardUtil
 import kotlinx.android.synthetic.main.item_id_copy_new.view.*
 
-class obdadapter(public val beans: ObdBeans) : RootAdapter(R.layout.item_id_copy_new) {
+class obdadapter(public val beans: ObdBeans) : JzAdapter(R.layout.item_id_copy_new) {
+    override fun sizeInit(): Int {
+        return  beans.rowcount
+    }
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if (position == 0) {
             holder.mView.tv_newid.filters= arrayOf<InputFilter>(InputFilter.LengthFilter(30))
@@ -100,5 +104,4 @@ class obdadapter(public val beans: ObdBeans) : RootAdapter(R.layout.item_id_copy
         }
     }
 
-    override fun getItemCount(): Int = beans.rowcount
 }

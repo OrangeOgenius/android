@@ -1,6 +1,5 @@
 package com.orange.tpms.ue.activity;
 
-import android.annotation.SuppressLint;
 //import android.app.Instrumentation;
 //import android.content.Context;
 //import android.graphics.Color;

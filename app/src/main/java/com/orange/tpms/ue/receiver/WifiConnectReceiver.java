@@ -9,8 +9,8 @@ import android.net.NetworkInfo;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
+import androidx.annotation.RequiresApi;
 import com.orange.tpms.utils.WifiUtils;
 
 import java.util.ArrayList;

@@ -43,9 +43,9 @@ public class RxCommand {
         if(data.length==21&&data[2]==0x10&&data[20]==0x0A){
             ArrayList<String> A0X10=A0X10(data);
             String spn ="SensorModel:"+A0X10.get(0)+"\nAppVersion:"+A0X10.get(1)+"\nLib:"+A0X10.get(2);
-            activity.getBleCommand().SensorModel=A0X10.get(0);
-            activity.getBleCommand().AppVersion=A0X10.get(1);
-            activity.getBleCommand().Lib=A0X10.get(2);
+            activity.getBleCommand().setSensorModel(A0X10.get(0));
+            activity.getBleCommand().setAppVersion(A0X10.get(1));
+            activity.getBleCommand().setLib(A0X10.get(2));
             return spn; }
         if(data.length>21&&data[1]==(byte)0xFE&&data[data.length-1]==(byte)0x0A&&data[2]==0x10){
             ArrayList<String> A0X10=A0X10(data);
@@ -68,9 +68,9 @@ public class RxCommand {
                     }
                 }
             }
-            activity.getBleCommand().SensorModel=tmpSensorModel;
-            activity.getBleCommand().AppVersion=tmpAppVersion;
-            activity.getBleCommand().Lib=tmpLib;
+            activity.getBleCommand().setSensorModel(tmpSensorModel);
+            activity.getBleCommand().setAppVersion(tmpAppVersion);
+            activity.getBleCommand().setLib(tmpLib);
             return spn;
         }
 

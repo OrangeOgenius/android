@@ -4,31 +4,26 @@ package com.orange.testlauncher.Frage
 import android.content.Intent
 import android.content.res.Resources
 import android.os.Bundle
-import android.support.v7.widget.GridLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.orange.blelibrary.blelibrary.RootFragement
 import com.orange.testlauncher.Adapter.AppAdapter
 import com.orange.tpms.HomeScream.Beans.AppBeans
 import com.orange.tpms.R
+import com.orange.tpms.RootFragement
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
-class HomeScreem : RootFragement() {
- var appbeans: AppBeans = AppBeans()
-    lateinit var adapter:AppAdapter
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        rootview=inflater.inflate(R.layout.fragment_home, container, false)
+class HomeScreem : RootFragement(R.layout.fragment_home) {
+    override fun viewInit() {
         adapter= AppAdapter(appbeans)
-        rootview.re.layoutManager=GridLayoutManager(act,4)
+        rootview.re.layoutManager= androidx.recyclerview.widget.GridLayoutManager(act, 4)
         rootview.re.adapter=adapter
         loadApps()
-        return rootview
     }
+
+    var appbeans: AppBeans = AppBeans()
+    lateinit var adapter:AppAdapter
     lateinit var mResources: Resources;
 
     fun loadApps() {

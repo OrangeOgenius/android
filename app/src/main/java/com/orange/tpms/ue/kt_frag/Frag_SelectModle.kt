@@ -2,13 +2,13 @@ package com.orange.tpms.ue.kt_frag
 
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.orange.blelibrary.blelibrary.RootFragement
+import androidx.fragment.app.Fragment
+import com.orange.jzchi.jzframework.JzActivity
 import com.orange.tpms.R
+import com.orange.tpms.RootFragement
 import com.orange.tpms.bean.PublicBean
 import com.orange.tpms.ue.activity.KtActivity
 import com.orango.electronic.orangetxusb.Adapter.ShowModel
@@ -20,25 +20,21 @@ import java.util.*
  * A simple [Fragment] subclass.
  *
  */
-class Frag_SelectModle : RootFragement() {
-    private var modle: ArrayList<String> = ArrayList()
-    lateinit var adapter:ShowModel
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        if(isInitialized()){return  rootview}
-        rootview=inflater.inflate(R.layout.fragment_frag__select_modle, container, false)
+class Frag_SelectModle : RootFragement(R.layout.fragment_frag__select_modle) {
+    override fun viewInit() {
         if(PublicBean.position==PublicBean.ID_COPY_OBD||PublicBean.position==PublicBean.OBD_RELEARM){
             modle=(activity as KtActivity).itemDAO.getobdmodel(PublicBean.SelectMake)
         }else{
             modle = (activity as KtActivity).itemDAO.getModel(PublicBean.SelectMake)
         }
-        adapter=ShowModel(modle,act)
-        rootview.rv_model.layoutManager= LinearLayoutManager(activity)
+        adapter=ShowModel(modle)
+        rootview.rv_model.layoutManager= androidx.recyclerview.widget.LinearLayoutManager(activity)
         rootview.rv_model.adapter=adapter
-        return rootview
     }
+
+    private var modle: ArrayList<String> = ArrayList()
+    lateinit var adapter:ShowModel
+
 
     override fun onTop() {
         FocusReset(-1)
@@ -56,7 +52,7 @@ class Frag_SelectModle : RootFragement() {
 
     override fun enter() {
         PublicBean.SelectModel = modle.get(adapter.focus)
-        act.ChangePage(Frag_SelectYear(),R.id.frage,"Frag_SelectYear",true)
+        JzActivity.getControlInstance().changeFrag(Frag_SelectYear(),R.id.frage,"Frag_SelectYear",true)
     }
 
 }

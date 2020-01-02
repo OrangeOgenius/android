@@ -2,25 +2,20 @@ package com.orange.tpms.ue.kt_frag
 
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.orange.blelibrary.blelibrary.RootFragement
+import androidx.fragment.app.Fragment
 import com.orange.tpms.R
+import com.orange.tpms.RootFragement
 import kotlinx.android.synthetic.main.frag_language.view.*
 
 /**
  * A simple [Fragment] subclass.
  *
  */
-class Frag_Setting_Lan : RootFragement() {
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-       rootview=inflater.inflate(R.layout.frag_language, container, false)
+class Frag_Setting_Lan : RootFragement(R.layout.frag_language) {
+    override fun viewInit() {
         rootview.bt_select_en.setOnClickListener {
             SetLan(LOCALE_ENGLISH)
             GoMenu()
@@ -28,7 +23,7 @@ class Frag_Setting_Lan : RootFragement() {
         }
         rootview.bt_select_cn.setOnClickListener {
             SetLan(LOCALE_CHINESE)
-        GoMenu()
+            GoMenu()
         }
         rootview.bt_select_tr.setOnClickListener {
             SetLan(LOCALE_TAIWAIN)
@@ -42,8 +37,5 @@ class Frag_Setting_Lan : RootFragement() {
             SetLan(LOCALE_DE)
             GoMenu()
         }
-        return rootview
     }
-
-
 }

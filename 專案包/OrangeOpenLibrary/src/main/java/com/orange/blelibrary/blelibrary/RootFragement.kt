@@ -74,7 +74,7 @@ open class RootFragement : Fragment() {
     fun dispatchKeyEvent(event: KeyEvent) {
         val keyCode = event.keyCode
         Log.e("keycode",""+keyCode)
-//        activity!!.runOnUiThread { act.Toast("KeyCode--->$keyCode") }
+//        activity!!.runOnUiThread { JzActivity.getControlInstance().toast("KeyCode--->$keyCode") }
         if (event.action == KeyEvent.ACTION_DOWN) {
             if (keyCode == KEY_SCAN) {
                 //扫码

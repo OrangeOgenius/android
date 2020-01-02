@@ -2,13 +2,17 @@ package com.orange.testlauncher.Adapter
 
 import android.content.ComponentName
 import android.content.Intent
-import com.orange.blelibrary.blelibrary.Adapter.RootAdapter
+import com.orange.jzchi.jzframework.JzActivity
+import com.orange.jzchi.jzframework.JzAdapter
 import com.orange.tpms.HomeScream.Beans.AppBeans
 import com.orange.tpms.R
 import kotlinx.android.synthetic.main.appitem.view.*
 
-class AppAdapter(val beans: AppBeans): RootAdapter(R.layout.appitem) {
-    override fun getItemCount(): Int = beans.app.size
+class AppAdapter(val beans: AppBeans): JzAdapter(R.layout.appitem) {
+    override fun sizeInit(): Int {
+        return beans.app.size
+    }
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.mView.appname.text=beans.app[position].loadLabel(holder.mView.context.packageManager)
         holder.mView.setOnClickListener {

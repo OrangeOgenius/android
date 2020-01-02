@@ -1,26 +1,25 @@
 package com.orange.tpms.ue.kt_frag
 
 
+import android.app.Dialog
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
-import android.view.LayoutInflater
-import android.view.MotionEvent
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.RelativeLayout
 import android.widget.TextView
-import com.orange.blelibrary.blelibrary.Callback.DaiSetUp
-import com.orange.blelibrary.blelibrary.RootFragement
+import androidx.fragment.app.Fragment
+import com.orange.jzchi.jzframework.JzActivity
+import com.orange.jzchi.jzframework.callback.SetupDialog
 import com.orange.tpms.R
+import com.orange.tpms.RootFragement
 import com.orange.tpms.adapter.IDCopyAdapter
 import com.orange.tpms.bean.IDCopyBean
 import com.orange.tpms.bean.MMYQrCodeBean
 import com.orange.tpms.bean.PublicBean
 import com.orange.tpms.lib.hardware.HardwareApp
 import com.orange.tpms.ue.activity.KtActivity
+import com.orange.tpms.ue.dialog.EmptyDialog
+import com.orange.tpms.ue.dialog.SensorWay
 import com.orange.tpms.utils.OgCommand
 import com.orange.tpms.utils.VibMediaUtil
 import kotlinx.android.synthetic.main.data_loading.*
@@ -32,23 +31,16 @@ import java.util.*
  * A simple [Fragment] subclass.
  *
  */
-class Frag_Idcopy_original : RootFragement() {
-    lateinit var rvIDCopy: RecyclerView//IDCopy
+class Frag_Idcopy_original : RootFragement(R.layout.fragment_frag__idcopy_original) {
+    lateinit var rvIDCopy: androidx.recyclerview.widget.RecyclerView//IDCopy
     lateinit var tvContent: TextView//title
     var ObdHex = "00"
     var idcount=8
     lateinit var idCopyAdapter: IDCopyAdapter//适配器
-    lateinit var linearLayoutManager: LinearLayoutManager//列表表格布局
+    lateinit var linearLayoutManager: androidx.recyclerview.widget.LinearLayoutManager//列表表格布局
     lateinit var dataReceiver: HardwareApp.DataReceiver
     lateinit var vibMediaUtil: VibMediaUtil//音效与振动
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        if(isInitialized()){
-            return rootview
-        }
-        rootview=inflater.inflate(R.layout.fragment_frag__idcopy_original, container, false)
+    override fun viewInit() {
         ObdHex=(activity as KtActivity).itemDAO.GetHex(PublicBean.SelectMake,PublicBean.SelectModel,PublicBean.SelectYear)
         rootview.tv_content.text="${PublicBean.SelectMake}/${PublicBean.SelectModel}/${PublicBean.SelectYear}"
         rootview.bt_menue.setOnClickListener { Trigger() }
@@ -64,54 +56,17 @@ class Frag_Idcopy_original : RootFragement() {
                         HardwareApp.getInstance().removeDataReceiver(dataReceiver)
                     }catch (e:Exception){e.printStackTrace()}
                     PublicBean.SensorList = getSensoridList()
-                    act.ChangePage(Frag_Idcopy_New(),R.id.frage,"Frag_Idcopy_New",true)
+                    JzActivity.getControlInstance().changeFrag(Frag_Idcopy_New(),R.id.frage,"Frag_Idcopy_New",true)
                 } else {
-                    act.Toast(R.string.app_sensor_repeated)
+                    JzActivity.getControlInstance().toast(R.string.app_sensor_repeated)
                 }
             } else {
-                act.Toast(R.string.app_no_sensor_set)
+                JzActivity.getControlInstance().toast(R.string.app_no_sensor_set)
 //                Trigger()
             }
         }
-        act.ShowDaiLog(R.layout.sensor_way_dialog,false,false, DaiSetUp {
-            (act as KtActivity).focus=0
-            it.findViewById<TextView>(R.id.tit).setText(resources.getString(R.string.app_original_sensor))
-            it.findViewById<RelativeLayout>(R.id.scan).setOnTouchListener { v, event ->
-                if(event.getAction() == MotionEvent.ACTION_MOVE){
-                    v.background=resources.getDrawable(R.color.color_orange)
-                }else{
-                    v.background=null;
-                }
-                if(event.action == MotionEvent.ACTION_UP){
-                    act.DaiLogDismiss()
-                }
-                true
-            }
-            it.findViewById<RelativeLayout>(R.id.trigger).setOnTouchListener { v, event ->
-                if(event.getAction() == MotionEvent.ACTION_MOVE){
-                    v.background=resources.getDrawable(R.color.color_orange)
-                }else{
-                    v.background=null;
-                }
-                if(event.action == MotionEvent.ACTION_UP){
-                    act.DaiLogDismiss()
-                }
-                true
-            }
-            it.findViewById<RelativeLayout>(R.id.keyin).setOnTouchListener { v, event ->
-                if(event.getAction() == MotionEvent.ACTION_MOVE){
-                    v.background=resources.getDrawable(R.color.color_orange)
-                }else{
-                    v.background=null;
-                }
-                if(event.action == MotionEvent.ACTION_UP){
-                    act.DaiLogDismiss()
-                }
-                true
-            }
-        })
+        JzActivity.getControlInstance().showDiaLog(R.layout.sensor_way_dialog,false,false, SensorWay())
         updateEditable(true)
-        return rootview
     }
 
     override fun enter() {
@@ -120,21 +75,32 @@ class Frag_Idcopy_original : RootFragement() {
     override fun onKeyScan() {
         super.onKeyScan()
         if(run){return}
-        act.DaiLogDismiss()
+        JzActivity.getControlInstance().closeDiaLog()
         HardwareApp.getInstance().scan()
-        act.ShowDaiLog(R.layout.data_loading,false,true, DaiSetUp {
-            it.pass.visibility=View.VISIBLE
-            it.pass.text=resources.getString(R.string.app_scaning)
+        JzActivity.getControlInstance().showDiaLog(R.layout.data_loading,false,true, object :SetupDialog {
+            override fun dismess() {
+
+            }
+
+            override fun keyevent(event: KeyEvent): Boolean {
+              return false
+            }
+
+            override fun setup(rootview: Dialog) {
+                rootview.pass.visibility=View.VISIBLE
+                rootview.pass.text=resources.getString(R.string.app_scaning)
+            }
+
         })
         Thread{
-            handler.post { act.DaiLogDismiss()}
+            handler.post { JzActivity.getControlInstance().closeDiaLog()}
             Thread.sleep(3000)
             run=false
         }.start()
     }
     override fun onPause() {
         super.onPause()
-        act.DaiLogDismiss()
+        JzActivity.getControlInstance().closeDiaLog()
         vibMediaUtil.release()
         try{
             HardwareApp.getInstance().switchScan(false)
@@ -148,23 +114,22 @@ class Frag_Idcopy_original : RootFragement() {
         if(run){return}
         run=true
         updateEditable(false)
-        act.ShowDaiLog(R.layout.data_loading,false,true, DaiSetUp {
-        })
+        EmptyDialog(R.layout.data_loading).show()
         Thread{
             val a = OgCommand.GetId(ObdHex, "00")
             handler.post {
                 run = false
-                if(!act.NowFrage.equals("Frag_Idcopy_original")){return@post}
+                if(!JzActivity.getControlInstance().getNowPageTag().equals("Frag_Idcopy_original")){return@post}
                 vibMediaUtil.playBeep()
-                act.DaiLogDismiss()
+                JzActivity.getControlInstance().closeDiaLog()
                 if(a.success){
                     if (!haveSameSensorid(a.id)) {
                         updateSensorid(a.id,""+a.kpa,""+a.c,""+a.vol);
                     } else {
-                        act.Toast(R.string.app_sensor_repeated)
+                        JzActivity.getControlInstance().toast(R.string.app_sensor_repeated)
                     }
                 }else{
-                    act.Toast(resources.getString(R.string.app_read_failed))
+                    JzActivity.getControlInstance().toast(resources.getString(R.string.app_read_failed))
                 }
                 updateEditable(true)
             }
@@ -177,7 +142,7 @@ class Frag_Idcopy_original : RootFragement() {
         //音效与震动
         vibMediaUtil = VibMediaUtil(activity)
         //配置RecyclerView,每行是哪个元素
-        linearLayoutManager = LinearLayoutManager(activity)
+        linearLayoutManager = androidx.recyclerview.widget.LinearLayoutManager(activity)
         rvIDCopy.layoutManager = linearLayoutManager
         idCopyAdapter = IDCopyAdapter(activity,idcount)
         rvIDCopy.adapter = idCopyAdapter
@@ -210,12 +175,12 @@ class Frag_Idcopy_original : RootFragement() {
             }
 
             override fun scanMsgReceive(content: String) {
-                act.DaiLogDismiss()
+                JzActivity.getControlInstance().closeDiaLog()
                 if (!content.contains(":") && !content.contains("*")) {
                     if (content != "nofound") {
-                        act.Toast(R.string.app_invalid_sensor_qrcode)
+                        JzActivity.getControlInstance().toast(R.string.app_invalid_sensor_qrcode)
                     } else {
-                        act.Toast(R.string.app_scan_code_timeout)
+                        JzActivity.getControlInstance().toast(R.string.app_scan_code_timeout)
                     }
                     return
                 }
@@ -228,7 +193,7 @@ class Frag_Idcopy_original : RootFragement() {
                     }
                 }
                 if (TextUtils.isEmpty(sensorid)) {
-                    act.Toast(R.string.app_invalid_sensor_qrcode)
+                    JzActivity.getControlInstance().toast(R.string.app_invalid_sensor_qrcode)
                     return
                 }
                 vibMediaUtil.playBeep()
@@ -237,7 +202,7 @@ class Frag_Idcopy_original : RootFragement() {
                     updateSensorid(sensorid)
                     updateEditable(true)
                 } else {
-                    act.Toast(R.string.app_sensor_repeated)
+                    JzActivity.getControlInstance().toast(R.string.app_sensor_repeated)
                 }
             }
 

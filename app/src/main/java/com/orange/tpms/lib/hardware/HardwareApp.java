@@ -22,6 +22,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import static com.orange.tpms.utils.OgCommand.tx_memory;
 
 /**
@@ -489,10 +490,11 @@ public class HardwareApp extends BaseHardware {
                         Log.e("RX:", "22数据："+strRead);
                         if(strRead.contains("uart2_$")){
                             String ss=bytesToHexString(recv);
-                            OgCommand.Rx= OgCommand.Rx+ss.replace("75 61 72 74 32 5f 24","").replace(" ","").toUpperCase();
-                            tx_memory.insert(0,"RX:" +OgCommand.Rx+"\n");
-                            Log.e("DATA:", "RX："+ss.replace("75 61 72 74 32 5f 24",""));
-                            Log.d(TAG, "receiver: " + ss.replace("75 61 72 74 32 5f 24",""));
+                            String rx=ss.replace("75 61 72 74 32 5f 24","");
+                            OgCommand.Rx= OgCommand.Rx+rx.replace(" ","").toUpperCase();
+                            tx_memory.insert(0,"RX:" +rx.toUpperCase()+"\n");
+                            Log.e("DATA:", "RX："+rx);
+                            Log.d(TAG, "receiver: " + rx);
                         }
                     } catch (UnsupportedEncodingException e) {
                         // TODO Auto-generated catch block
@@ -735,7 +737,9 @@ public class HardwareApp extends BaseHardware {
             return;
         if (mComFd > 0) {
             mCommonApi.writeCom(mComFd, data, data.length);
-            Log.d(TAG, "write: " + bytesToHexString(data));
+            String Tx=bytesToHexString(data);
+            Log.d("DATA:", "TX:" + Tx);
+            Log.d(TAG, "write: " + Tx);
         }
     }
 

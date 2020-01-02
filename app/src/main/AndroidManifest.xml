@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools"
-          package="com.orange.tpms"
-          android:sharedUserId="android.uid.system">
-
+          package="com.orange.tpms">
+    <!--android:sharedUserId="android.uid.system"-->
     <!-- 摄像头 -->
     <uses-permission
             android:name="android.permission.WRITE_SETTINGS"
@@ -32,6 +31,7 @@
             android:name="android.permission.SHUTDOWN"
             tools:ignore="ProtectedPermissions"/>
 
+
     <application
             android:name=".app.TPMSApp"
             android:allowBackup="true"
@@ -48,6 +48,7 @@
                 android:name=".ue.activity.KtActivity"
                 android:screenOrientation="portrait"
                 android:sharedUserId="android.uid.system"
+                android:alwaysRetainTaskState="true"
                 android:theme="@style/MainAppTheme"
                 android:windowSoftInputMode="adjustPan">
             <meta-data
