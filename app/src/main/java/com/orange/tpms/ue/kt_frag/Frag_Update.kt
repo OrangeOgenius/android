@@ -4,17 +4,12 @@ package com.orange.tpms.ue.kt_frag
 import android.app.Dialog
 import android.content.Intent
 import android.net.Uri
-import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.orange.jzchi.jzframework.JzActivity
 import com.orange.jzchi.jzframework.callback.SetupDialog
-
 import com.orange.tpms.Callback.Update_C
 import com.orange.tpms.R
 import com.orange.tpms.RootFragement
@@ -114,7 +109,7 @@ class Frag_Update : RootFragement(R.layout.fragment_frag__update), Update_C {
         val version = PackageUtils.getVersionCode(act)
         Log.e("Version_APP", GetPro("apk", "" + PackageUtils.getVersionCode(act)).replace(".apk", ""))
         Log.e("Version_APP", "" + version)
-        if (GetPro("apk", "$version").replace(".apk", "") != "$version") {
+        if (GetPro("apk", "$version").replace(".apk", "") != "$version" || KtActivity.beta) {
             handler.post {
                 try {
                     SetPro("Firebasetitle", "nodata")

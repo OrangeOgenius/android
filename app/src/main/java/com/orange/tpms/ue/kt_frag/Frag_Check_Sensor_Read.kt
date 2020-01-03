@@ -2,12 +2,9 @@ package com.orange.tpms.ue.kt_frag
 
 
 import android.app.Dialog
-import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import com.orange.jzchi.jzframework.JzActivity
 import com.orange.jzchi.jzframework.callback.SetupDialog
 import com.orange.tpms.R
@@ -17,7 +14,6 @@ import com.orange.tpms.ue.activity.KtActivity
 import com.orange.tpms.utils.OgCommand
 import com.orange.tpms.utils.VibMediaUtil
 import kotlinx.android.synthetic.main.fragment_frag__check__sensor__read.view.*
-import java.lang.Thread.sleep
 
 class Frag_Check_Sensor_Read : RootFragement(R.layout.fragment_frag__check__sensor__read) {
     internal var ObdHex = "00"

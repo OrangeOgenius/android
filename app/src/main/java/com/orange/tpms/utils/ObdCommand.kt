@@ -12,15 +12,12 @@ import com.orange.tpms.Callback.Obd_C
 import com.orange.tpms.R
 import com.orange.tpms.bean.ID_Beans
 import com.orange.tpms.ue.activity.KtActivity
-
+import com.orange.tpms.utils.OgCommand.StringHexToByte
 import java.io.BufferedReader
 import java.io.FileInputStream
 import java.io.InputStreamReader
 import java.text.SimpleDateFormat
-import java.util.ArrayList
-import java.util.Date
-
-import com.orange.tpms.utils.OgCommand.StringHexToByte
+import java.util.*
 import kotlin.experimental.xor
 
 

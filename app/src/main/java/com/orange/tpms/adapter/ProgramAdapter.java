@@ -60,11 +60,11 @@ public class ProgramAdapter extends BaseRecyclerAdapter<ProgramItemBean, Program
             holder.ivNormal.setVisibility(View.VISIBLE);
         }
         if(state == ProgramItemBean.STATE_NORMAL){
-            holder.ivNormal.setImageResource(R.mipmap.iv_square);
+            holder.ivNormal.setImageResource(R.color.white);
         }else if(state == ProgramItemBean.STATE_SUCCESS){
             holder.ivNormal.setImageResource(R.mipmap.icon_correct);
         }else if(state == ProgramItemBean.STATE_FAILED){
-            holder.ivNormal.setImageResource(R.mipmap.iv_check_fail);
+            holder.ivNormal.setImageResource(R.mipmap.error);
         }
         holder.etTitle.setText(getItem(index).getSensorid());
         holder.etTitle.setEnabled(getItem(index).isEditable());

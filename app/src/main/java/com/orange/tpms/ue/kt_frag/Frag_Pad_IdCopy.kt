@@ -2,9 +2,11 @@ package com.orange.tpms.ue.kt_frag
 
 
 import android.widget.RelativeLayout
+import com.orange.jzchi.jzframework.JzActivity
 import com.orange.tpms.R
 import com.orange.tpms.RootFragement
 import com.orange.tpms.bean.PublicBean
+import com.orange.tpms.ue.activity.KtActivity
 import kotlinx.android.synthetic.main.fragment_frag__pad__id_copy.view.*
 
 
@@ -15,16 +17,13 @@ class Frag_Pad_IdCopy : RootFragement(R.layout.fragment_frag__pad__id_copy) {
         btn.add(rootview.b3)
         rootview.b1.setOnClickListener {
             PublicBean.ScanType = PublicBean.掃描Mmy
-//            act.GoScanner(Frag_Scan(),10,R.id.frage,"Frag_Scan")
-//            JzActivity.getControlInstance().changeFrag(Frag_Scan(),R.id.frage,"Frag_Scan",true)
+            (JzActivity.getControlInstance().getRootActivity() as KtActivity).BleManager.scan(Frag_Scan(),"Frag_Scan")
         }
         rootview.b2.setOnClickListener {
-//            act.GoScanner(Frag_SelectMake(),10,R.id.frage,"Frag_SelectMake")
-//            JzActivity.getControlInstance().changeFrag(Frag_SelectMake(),R.id.frage,"Frag_SelectMake",true)
+            (JzActivity.getControlInstance().getRootActivity() as KtActivity).BleManager.scan(Frag_SelectMake(),"Frag_SelectMake")
         }
         rootview.b3.setOnClickListener {
-//            act.GoScanner(Frag_Favorite(),10,R.id.frage,"Frag_Favorite")
-//            JzActivity.getControlInstance().changeFrag(Frag_Favorite(),R.id.frage,"Frag_Favorite",true)
+            (JzActivity.getControlInstance().getRootActivity() as KtActivity).BleManager.scan(Frag_Favorite(),"Frag_Favorite")
         }
         rootview.b1.isSelected=true
     }

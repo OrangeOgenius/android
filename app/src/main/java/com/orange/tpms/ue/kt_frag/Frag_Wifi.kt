@@ -7,14 +7,11 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.LocationManager
-import android.os.Bundle
 import android.provider.Settings
 import android.text.TextUtils
 import android.util.Log
 import android.view.KeyEvent
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Spinner
@@ -23,16 +20,14 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.orange.jzchi.jzframework.JzActivity
 import com.orange.jzchi.jzframework.callback.SetupDialog
-import com.orange.tpms.RootFragement
-import kotlinx.android.synthetic.main.frag_wifi.view.*
-
 import com.orange.tpms.R
+import com.orange.tpms.RootFragement
 import com.orange.tpms.helper.WifiConnectHelper
-import com.orange.tpms.ue.activity.KtActivity
 import com.orange.tpms.ue.receiver.WifiConnectReceiver
 import com.orange.tpms.utils.OggUtils
 import com.orange.tpms.utils.WifiUtils
 import kotlinx.android.synthetic.main.data_loading.*
+import kotlinx.android.synthetic.main.frag_wifi.view.*
 import java.util.*
 
 

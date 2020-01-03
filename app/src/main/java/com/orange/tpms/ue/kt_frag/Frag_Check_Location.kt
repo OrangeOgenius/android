@@ -2,11 +2,8 @@ package com.orange.tpms.ue.kt_frag
 
 
 import android.app.Dialog
-import android.os.Bundle
 import android.view.KeyEvent
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -103,9 +100,6 @@ class Frag_Check_Location : RootFragement(R.layout.fragment_frag__check__locatio
 
             override fun setup(rootview: Dialog) {
                 //Dialog的載入設定
-                rootview.findViewById<Button>(R.id.button).setOnClickListener {
-                    rootview.dismiss()
-                }
             }
 
             override fun dismess() {

@@ -2,27 +2,23 @@ package com.orange.tpms.utils
 
 import android.util.Log
 import com.orange.jzchi.jzframework.JzActivity
+import com.orange.tpms.HttpCommand.Fuction.AddIfNotValid
 import com.orange.tpms.bean.PublicBean
 import com.orange.tpms.ue.activity.KtActivity
-
-import java.io.BufferedReader
-import java.io.FileInputStream
-import java.io.InputStream
-import java.io.InputStreamReader
-import java.text.SimpleDateFormat
-import java.util.ArrayList
-import java.util.Date
-
-import com.orange.tpms.HttpCommand.Fuction.AddIfNotValid
 import com.orange.tpms.utils.FormatConvert.getCRC16
 import com.orange.tpms.utils.OgCommand.*
+import java.io.BufferedReader
+import java.io.FileInputStream
+import java.io.InputStreamReader
+import java.text.SimpleDateFormat
+import java.util.*
 import kotlin.experimental.xor
 
-class BleCommand {
+public class BleCommand {
     var act= (JzActivity.getControlInstance().getRootActivity() as KtActivity).BleManager
-    var SensorModel = "nodata"
-    var AppVersion = "nodata"
-    var Lib = "nodata"
+    public var SensorModel = "nodata"
+    public var AppVersion = "nodata"
+    public var Lib = "nodata"
     var Appver = ""
     var AppverInspire = "nodata"
     var Boover = "101"
@@ -68,7 +64,8 @@ class BleCommand {
         }
 
     }
-
+//    F5FE10001FC0002B030108073ED96427E21E00A0002B030108073ED96427E21E014A080A
+//    F5FE10001FD0002B030108073ED96427E21E00B0002B030108073ED96427E21E01E5FD0A
     fun Command03(): Boolean {
         try {
             val check = 22
@@ -575,6 +572,7 @@ class BleCommand {
     fun Command10_FE(): Boolean {
         try {
             val check = (14 * IC + 8) * 2
+            Log.e("ic",""+check)
             SendData(getCRC16("0AFE10000754504D537331F5"), check)
             val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS")
             var past = sdf.parse(sdf.format(Date()))
@@ -771,7 +769,6 @@ class BleCommand {
     //        }catch (Exception e){e.printStackTrace();return false;}
     //    }
     fun SendData(data: String, check: Int) {
-        act.BleHelper.RxData=""
         act.BleHelper.writeHex(getCRC16(data),act.RxChannel,act.TxChannel)
     }
 

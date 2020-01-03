@@ -3,11 +3,7 @@ package com.orange.testlauncher.Frage
 
 import android.content.Intent
 import android.content.res.Resources
-import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import com.orange.testlauncher.Adapter.AppAdapter
 import com.orange.tpms.HomeScream.Beans.AppBeans
 import com.orange.tpms.R

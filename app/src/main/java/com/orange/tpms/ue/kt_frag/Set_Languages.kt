@@ -1,10 +1,6 @@
 package com.orango.electronic.orangetxusb.SettingPagr
 
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import com.orange.jzchi.jzframework.JzActivity
 import com.orange.tpms.R
 import com.orange.tpms.RootFragement

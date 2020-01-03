@@ -3,10 +3,6 @@ package com.orange.tpms.ue.kt_frag
 
 import android.annotation.SuppressLint
 import android.os.Build
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.orange.tpms.R

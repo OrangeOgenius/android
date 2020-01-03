@@ -1,11 +1,8 @@
 package com.orange.tpms.ue.kt_frag
 
 
-import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import com.orange.jzchi.jzframework.JzActivity
 import com.orange.tpms.HttpCommand.Fuction.Upload_IDCopyRecord
 import com.orange.tpms.HttpCommand.Fuction.Upload_ProgramRecord
@@ -111,7 +108,6 @@ class Frag_Pad_Program_Detail : RootFragement(R.layout.fragment_frag__pad__progr
             JzActivity.getControlInstance().changeFrag(Frag_Relearm_Detail(),R.id.frage,"Frag_Relearm_Detail",true);
         }
         UdCondition()
-
     }
 
 

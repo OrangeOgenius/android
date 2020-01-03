@@ -2,24 +2,20 @@ package com.orange.tpms.ue.kt_frag
 
 
 import android.app.Dialog
-import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.KeyEvent
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.orange.jzchi.jzframework.JzActivity
 import com.orange.jzchi.jzframework.callback.SetupDialog
-import kotlinx.android.synthetic.main.fragment_frag__scan.view.*
-
 import com.orange.tpms.R
 import com.orange.tpms.RootFragement
 import com.orange.tpms.bean.PublicBean
 import com.orange.tpms.lib.hardware.HardwareApp
 import com.orange.tpms.ue.activity.KtActivity
 import kotlinx.android.synthetic.main.data_loading.*
+import kotlinx.android.synthetic.main.fragment_frag__scan.view.*
 
 
 /**

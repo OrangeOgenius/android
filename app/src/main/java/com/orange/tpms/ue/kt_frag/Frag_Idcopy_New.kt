@@ -2,10 +2,9 @@ package com.orange.tpms.ue.kt_frag
 
 
 import android.app.Dialog
-import android.os.Bundle
 import android.text.TextUtils
-import android.view.*
-import android.widget.RelativeLayout
+import android.view.KeyEvent
+import android.view.View
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.orange.jzchi.jzframework.JzActivity
@@ -100,13 +99,13 @@ class Frag_Idcopy_New : RootFragement(R.layout.fragment_frag__idcopy__new) {
         })
         updateEditable(false)
         Thread{
-            val a = OgCommand.GetPr("00", PublicBean.SensorList.size,ObdHex)
+            val a = OgCommand.GetPr("00", 1,ObdHex)
             handler.post {
                 run = false
                 if(!JzActivity.getControlInstance().getNowPageTag().equals("Frag_Idcopy_New")){return@post}
                 vibMediaUtil.playBeep()
                 JzActivity.getControlInstance().closeDiaLog()
-                if(a.size == PublicBean.SensorList.size){
+                if(a.size == 1){
                     for(i in a){
                         if (!haveSameSensorid(i.id)) {
                             updateSensorid(i.id,""+i.kpa,""+i.c,""+i.vol);

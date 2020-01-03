@@ -10,7 +10,6 @@ import android.widget.RelativeLayout
 import com.orange.jzchi.jzframework.JzActivity
 import com.orange.jzchi.jzframework.callback.SetupDialog
 import com.orange.tpms.R
-import com.orange.tpms.ue.activity.KtActivity
 import com.orange.tpms.ue.kt_frag.Frag_Idcopy_New
 import com.orange.tpms.ue.kt_frag.Frag_Idcopy_original
 import com.orange.tpms.ue.kt_frag.Frag_Program_Detail

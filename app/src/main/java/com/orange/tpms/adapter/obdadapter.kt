@@ -79,15 +79,15 @@ class obdadapter(public val beans: ObdBeans) : JzAdapter(R.layout.item_id_copy_n
             when (beans.state[position - 1]) {
                 ObdBeans.PROGRAM_FALSE -> {
                     holder.mView.iv_check.setVisibility(View.VISIBLE)
-                    holder.mView.iv_check.setImageResource(R.mipmap.iv_check_fail)
+                    holder.mView.iv_check.setImageResource(R.mipmap.error)
                 }
                 ObdBeans.PROGRAM_WAIT -> {
                     holder.mView.iv_check.setVisibility(View.VISIBLE)
-                    holder.mView.iv_check.setImageResource(R.mipmap.iv_square)
+                    holder.mView.iv_check.setImageResource(R.color.white)
                 }
                 ObdBeans.PROGRAM_SUCCESS -> {
                     holder.mView.iv_check.setVisibility(View.VISIBLE)
-                    holder.mView.iv_check.setImageResource(R.mipmap.iv_square_select)
+                    holder.mView.iv_check.setImageResource(R.mipmap.correct)
                     if(PublicBean.position==PublicBean.OBD_RELEARM){
                         holder.mView.tv_originalid.setTextColor(holder.itemView.context.resources.getColor(R.color.color_black));
                     }else{

@@ -8,14 +8,11 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.LocationManager
 import android.net.wifi.ScanResult
-import android.os.Bundle
 import android.provider.Settings
 import android.text.TextUtils
 import android.util.Log
 import android.view.KeyEvent
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.app.ActivityCompat
@@ -24,8 +21,8 @@ import androidx.fragment.app.Fragment
 import com.de.rocket.ue.layout.PercentRelativeLayout
 import com.orange.jzchi.jzframework.JzActivity
 import com.orange.jzchi.jzframework.callback.SetupDialog
-import com.orange.tpms.RootFragement
 import com.orange.tpms.R
+import com.orange.tpms.RootFragement
 import com.orange.tpms.adapter.WifiAdapter
 import com.orange.tpms.helper.WifiConnectHelper
 import com.orange.tpms.ue.receiver.WifiConnectReceiver

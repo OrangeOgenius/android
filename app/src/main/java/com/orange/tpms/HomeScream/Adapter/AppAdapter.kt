@@ -2,7 +2,6 @@ package com.orange.testlauncher.Adapter
 
 import android.content.ComponentName
 import android.content.Intent
-import com.orange.jzchi.jzframework.JzActivity
 import com.orange.jzchi.jzframework.JzAdapter
 import com.orange.tpms.HomeScream.Beans.AppBeans
 import com.orange.tpms.R

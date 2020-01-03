@@ -3,12 +3,9 @@ package com.orange.tpms.ue.kt_frag
 
 import android.app.Dialog
 import android.content.Context
-import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import com.orange.jzchi.jzframework.JzActivity
@@ -26,6 +23,7 @@ import kotlinx.android.synthetic.main.check_update.*
 
 class Frag_home : RootFragement(R.layout.activity_frag_home) {
     override fun viewInit() {
+        refresh=true
         if(!GetPro("Firebasetitle","nodata").equals("nodata")){
             JzActivity.getControlInstance().showDiaLog(R.layout.check_update, false, false, object :SetupDialog{
                 override fun dismess() {

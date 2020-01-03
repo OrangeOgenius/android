@@ -2,10 +2,9 @@ package com.orange.tpms.ue.kt_frag
 
 
 import android.app.Dialog
-import android.os.Bundle
 import android.text.TextUtils
-import android.view.*
-import android.widget.RelativeLayout
+import android.view.KeyEvent
+import android.view.View
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.orange.jzchi.jzframework.JzActivity

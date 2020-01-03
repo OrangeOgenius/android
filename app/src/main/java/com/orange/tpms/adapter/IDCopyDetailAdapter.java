@@ -54,12 +54,12 @@ public class IDCopyDetailAdapter extends BaseRecyclerAdapter<IDCopyDetailBean, I
             holder.ivCheck.setVisibility(View.GONE);
         }
         if(state == IDCopyDetailBean.STATE_NORMAL){
-            holder.ivCheck.setImageResource(R.mipmap.iv_square);
+            holder.ivCheck.setImageResource(R.color.white);
         }else if(state == IDCopyDetailBean.STATE_SUCCESS){
             holder.tvNewID.setTextColor(holder.itemView.getContext().getResources().getColor(R.color.color_black));
-            holder.ivCheck.setImageResource(R.mipmap.iv_square_select);
+            holder.ivCheck.setImageResource(R.mipmap.icon_correct);
         }else if(state == IDCopyDetailBean.STATE_FAILED){
-            holder.ivCheck.setImageResource(R.mipmap.iv_check_fail);
+            holder.ivCheck.setImageResource(R.mipmap.error);
         }else if(state == IDCopyDetailBean.STATE_HIDE){
             holder.ivCheck.setVisibility(View.INVISIBLE);
         }

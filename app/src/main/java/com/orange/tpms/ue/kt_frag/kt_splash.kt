@@ -2,7 +2,6 @@ package com.orange.tpms.ue.kt_frag
 
 
 import android.app.Dialog
-import android.content.Context
 import android.content.Intent
 import android.provider.Settings
 import android.util.Log
@@ -15,10 +14,7 @@ import com.orange.tpms.Callback.Hanshake_C
 import com.orange.tpms.Callback.Update_C
 import com.orange.tpms.Callback.Version_C
 import com.orange.tpms.R
-import com.orange.tpms.bean.PublicBean
-import com.orange.tpms.ue.activity.KtActivity
 import com.orange.tpms.utils.OgCommand
-import com.orango.electronic.orangetxusb.SettingPagr.Set_Languages
 import java.lang.Thread.sleep
 
 

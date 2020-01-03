@@ -1,7 +1,6 @@
 package com.orange.tpms
 
 import android.content.Context
-import android.provider.Settings
 import android.util.Log
 import android.view.KeyEvent
 import com.orange.jzchi.jzframework.JzFragement

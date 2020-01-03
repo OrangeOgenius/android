@@ -1,10 +1,6 @@
 package com.orange.tpms.ue.kt_frag
 
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.RelativeLayout
 import com.orange.jzchi.jzframework.JzActivity
 import com.orange.tpms.R

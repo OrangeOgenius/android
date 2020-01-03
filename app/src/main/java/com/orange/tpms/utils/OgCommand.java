@@ -675,8 +675,11 @@ static int ScanCount=0;
             caller.result(-1);
         }
     }
-
-    public static void IdCopy(Copy_C caller, String hex) {
+//01-03 11:12:43.743 10851-10890/com.orange.homescreem E/DATA:: RX： f5 20 00 0e c4 e9 12 61 00 00 00 00 00 00 00 00 85 0a
+//01-03 11:12:43.860 10851-10890/com.orange.homescreem E/DATA:: RX： f5 20 00 0e c4 dd c0 8b 00 00 00 00 00 00 00 00 89 0a
+//01-03 11:12:45.576 10851-10890/com.orange.homescreem E/DATA:: RX： f5 20 00 0e 60 dd c1 8e 00 00 00 00 00 00 00 00 29 0a
+//01-03 11:12:45.923 10851-10890/com.orange.homescreem E/DATA:: RX： f5 20 00 0e 60 dd db 46 00 00 00 00 00 00 00 00 fb 0a
+    public static void IdCopy(Copy_C caller, String hex,int _long) {
         try {
             PublicBean.CopySuccess = new ArrayList<Boolean>();
             PublicBean.CopySuccess.add(false);
@@ -687,8 +690,6 @@ static int ScanCount=0;
                 hex = "0" + hex;
             }
             for (int i = 0; i < PublicBean.SensorList.size(); i++) {
-                int Original_Long = PublicBean.SensorList.get(i).length();
-                int New_Long = PublicBean.NewSensorList.get(i).length();
                 String Original_ID = PublicBean.SensorList.get(i);
                 while (Original_ID.length() < 8) {
                     Original_ID = "0" + Original_ID;
@@ -697,8 +698,8 @@ static int ScanCount=0;
                 while (New_ID.length() < 8) {
                     New_ID = "0" + New_ID;
                 }
-                String data = "0A 11 00 0E Original_ID Original_Long New_ID New_Long hex 00 ff f5".replace(" ", "").replace("Original_Long", "0" + Original_Long)
-                        .replace("New_Long", "0" + New_Long).replace("Original_ID", Original_ID).replace("New_ID", New_ID).replace("hex", hex);
+                String data = "0A 11 00 0E Original_ID Original_Long New_ID New_Long hex 00 ff f5".replace(" ", "").replace("Original_Long", "0" + _long)
+                        .replace("New_Long", "0" + _long).replace("Original_ID", Original_ID).replace("New_ID", New_ID).replace("hex", hex);
                 Log.e("DATA:", "Prepare:" + data);
                 Send(data);
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS");

@@ -58,7 +58,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/color_white"
                     android:background="@color/color_FF314A56"
-                    app:layout_heightPercent="12%h"
+                    app:layout_heightPercent="9%h"
                     android:gravity="center"
                     android:text=""
                     app:layout_textSizePercent="5%h" android:textSize="20sp"/>
@@ -72,7 +72,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_widthPercent="80%w"
-                    app:layout_heightPercent="8%h"
+                    app:layout_heightPercent="9%h"
             >
 
                 <TextView
@@ -82,10 +82,10 @@
                         android:textColor="@color/color_black"
                         android:text="@string/app_id"
                         android:gravity="center_vertical|end"
-                        app:layout_textSizePercent="2.5%sh"
+                        app:layout_textSizePercent="5%sh"
                         app:layout_widthPercent="15%sw"
                         tools:layout_textSizePercent="40%h"
-                        tools:layout_widthPercent="20%w"/>
+                        tools:layout_widthPercent="22%w"/>
 
                 <TextView
                         android:id="@+id/tv_id"
@@ -96,7 +96,7 @@
                         android:layout_centerVertical="true"
                         tools:text="@string/app_scan"
                         app:layout_marginLeftPercent="5%w"
-                        app:layout_textSizePercent="2.5%sh"
+                        app:layout_textSizePercent="5%sh"
                         tools:layout_textSizePercent="40%h"/>
 
                 <View
@@ -113,7 +113,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_widthPercent="80%w"
-                    app:layout_heightPercent="6%h"
+                    app:layout_heightPercent="9%h"
                     app:layout_marginTopPercent="3%h">
 
                 <TextView
@@ -123,10 +123,10 @@
                         android:textColor="@color/color_black"
                         android:text="@string/app_kpa"
                         android:gravity="center_vertical|end"
-                        app:layout_textSizePercent="2.5%sh"
+                        app:layout_textSizePercent="5%sh"
                         app:layout_widthPercent="15%sw"
                         tools:layout_textSizePercent="40%h"
-                        tools:layout_widthPercent="20%w"/>
+                        tools:layout_widthPercent="22%w"/>
 
                 <TextView
                         android:id="@+id/tv_kpa"
@@ -137,7 +137,7 @@
                         android:layout_centerVertical="true"
                         tools:text="@string/app_scan"
                         app:layout_marginLeftPercent="5%w"
-                        app:layout_textSizePercent="2.5%sh"
+                        app:layout_textSizePercent="5%sh"
                         tools:layout_textSizePercent="40%h"/>
 
                 <View
@@ -154,7 +154,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_widthPercent="80%w"
-                    app:layout_heightPercent="6%h"
+                    app:layout_heightPercent="9%h"
                     app:layout_marginTopPercent="3%h">
 
                 <TextView
@@ -164,10 +164,10 @@
                         android:textColor="@color/color_black"
                         android:text="@string/app_c"
                         android:gravity="center_vertical|end"
-                        app:layout_textSizePercent="2.5%sh"
+                        app:layout_textSizePercent="5%sh"
                         app:layout_widthPercent="15%sw"
                         tools:layout_textSizePercent="40%h"
-                        tools:layout_widthPercent="20%w"/>
+                        tools:layout_widthPercent="22%w"/>
 
                 <TextView
                         android:id="@+id/tv_c"
@@ -178,7 +178,7 @@
                         android:layout_centerVertical="true"
                         tools:text="@string/app_scan"
                         app:layout_marginLeftPercent="5%w"
-                        app:layout_textSizePercent="2.5%sh"
+                        app:layout_textSizePercent="5%sh"
                         tools:layout_textSizePercent="40%h"/>
 
                 <View
@@ -195,7 +195,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_widthPercent="80%w"
-                    app:layout_heightPercent="6%h"
+                    app:layout_heightPercent="9%h"
                     app:layout_marginTopPercent="3%h">
 
                 <TextView
@@ -205,10 +205,10 @@
                         android:textColor="@color/color_black"
                         android:text="@string/app_bat"
                         android:gravity="center_vertical|end"
-                        app:layout_textSizePercent="2.5%sh"
+                        app:layout_textSizePercent="5%sh"
                         app:layout_widthPercent="15%sw"
                         tools:layout_textSizePercent="40%h"
-                        tools:layout_widthPercent="20%w"/>
+                        tools:layout_widthPercent="22%w"/>
 
                 <TextView
                         android:id="@+id/tv_bat"
@@ -219,7 +219,7 @@
                         android:layout_centerVertical="true"
                         tools:text="@string/app_scan"
                         app:layout_marginLeftPercent="5%w"
-                        app:layout_textSizePercent="2.5%sh"
+                        app:layout_textSizePercent="5%sh"
                         tools:layout_textSizePercent="40%h"/>
 
                 <View
@@ -236,7 +236,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_widthPercent="80%w"
-                    app:layout_heightPercent="6%h"
+                    app:layout_heightPercent="9%h"
                     app:layout_marginTopPercent="3%h">
 
                 <TextView
@@ -246,10 +246,9 @@
                         android:textColor="@color/color_black"
                         android:text="@string/app_voltage"
                         android:gravity="center_vertical|end"
-                        app:layout_textSizePercent="2.5%sh"
-                        app:layout_widthPercent="15%sw"
+                        app:layout_textSizePercent="5%sh"
                         tools:layout_textSizePercent="40%h"
-                        tools:layout_widthPercent="20%w"/>
+                        tools:layout_widthPercent="22%w"/>
 
                 <TextView
                         android:id="@+id/tv_vol"
@@ -260,7 +259,7 @@
                         android:layout_centerVertical="true"
                         tools:text="@string/app_scan"
                         app:layout_marginLeftPercent="5%w"
-                        app:layout_textSizePercent="2.5%sh"
+                        app:layout_textSizePercent="5%sh"
                         tools:layout_textSizePercent="40%h"/>
 
                 <View

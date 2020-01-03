@@ -3,22 +3,19 @@ package com.orange.tpms.ue.kt_frag
 
 import android.app.Dialog
 import android.content.Context
-import android.os.Bundle
 import android.view.KeyEvent
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import com.orange.jzchi.jzframework.JzActivity
 import com.orange.jzchi.jzframework.callback.SetupDialog
-import com.orange.tpms.RootFragement
 import com.orange.tpms.Callback.Sign_In_C
 import com.orange.tpms.Callback.Update_C
 import com.orange.tpms.HttpCommand.Fuction
 import com.orange.tpms.R
+import com.orange.tpms.RootFragement
 import com.orange.tpms.bean.PublicBean
 import com.orange.tpms.helper.WifiConnectHelper
 import com.orange.tpms.ue.activity.KtActivity

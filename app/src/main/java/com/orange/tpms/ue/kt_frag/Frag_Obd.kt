@@ -1,10 +1,6 @@
 package com.orange.tpms.ue.kt_frag
 
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.RelativeLayout
 import com.orange.jzchi.jzframework.JzActivity
 import com.orange.tpms.R
@@ -21,18 +17,12 @@ class Frag_Obd : RootFragement(R.layout.fragment_frag__obd) {
         rootview.b1.setOnClickListener {
             PublicBean.ScanType = PublicBean.掃描Mmy
             (JzActivity.getControlInstance().getRootActivity() as KtActivity).BleManager.scan(Frag_Scan(),"Frag_Scan")
-//            JzActivity.getControlInstance().changeFrag(Frag_Scan(),R.id.frage,"Frag_Scan",true)
-//            act.GoScanner(Frag_Scan(),10,R.id.frage,"Frag_Scan")
         }
         rootview.b2.setOnClickListener {
             (JzActivity.getControlInstance().getRootActivity() as KtActivity).BleManager.scan(Frag_SelectMake(),"Frag_SelectMake")
-            //            JzActivity.getControlInstance().changeFrag(Frag_SelectMake(),R.id.frage,"Frag_SelectMake",true)
-//            act.GoScanner(Frag_SelectMake(),10,R.id.frage,"Frag_SelectMake")
         }
         rootview.b3.setOnClickListener {
             (JzActivity.getControlInstance().getRootActivity() as KtActivity).BleManager.scan(Frag_Favorite(),"Frag_Favorite")
-            //            JzActivity.getControlInstance().changeFrag(Frag_Favorite(),R.id.frage,"Frag_Favorite",true)
-//            act.GoScanner(Frag_Favorite(),10,R.id.frage,"Frag_Favorite")
         }
         rootview.b1.isSelected=true
     }

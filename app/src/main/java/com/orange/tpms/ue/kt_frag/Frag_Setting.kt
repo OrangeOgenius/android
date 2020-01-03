@@ -6,16 +6,13 @@ import android.bluetooth.BluetoothAdapter
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.os.Bundle
-import android.view.*
+import android.view.KeyEvent
+import android.view.View
+import android.view.WindowManager
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.orange.jzchi.jzframework.JzActivity
 import com.orange.jzchi.jzframework.callback.SetupDialog
-import kotlinx.android.synthetic.main.fragment_frag__setting.*
-import kotlinx.android.synthetic.main.fragment_frag__setting.view.*
-import kotlinx.android.synthetic.main.fragment_frag__setting.view.bleconnect
-
 import com.orange.tpms.R
 import com.orange.tpms.RootFragement
 import com.orange.tpms.bean.PublicBean
@@ -23,6 +20,7 @@ import com.orange.tpms.lib.db.share.SettingShare
 import com.orange.tpms.ue.activity.KtActivity
 import com.orange.tpms.utils.AssetsUtils
 import com.orange.tpms.utils.WifiUtils
+import kotlinx.android.synthetic.main.fragment_frag__setting.view.*
 import java.io.File
 
 

@@ -2,15 +2,10 @@ package com.orange.tpms.ue.kt_frag
 
 
 import android.content.Context
-import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import com.orange.jzchi.jzframework.JzActivity
-import com.orange.jzchi.jzframework.JzFragement
 import com.orange.tpms.R
 import com.orange.tpms.RootFragement
 import kotlinx.android.synthetic.main.fragment_frag__auto__lock.view.*

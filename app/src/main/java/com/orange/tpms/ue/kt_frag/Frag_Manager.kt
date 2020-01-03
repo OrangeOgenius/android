@@ -1,8 +1,6 @@
 package com.orange.tpms.ue.kt_frag
 
 import android.content.Context
-import android.content.Intent
-import android.view.View
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
@@ -29,9 +27,9 @@ class Frag_Manager :JzFragement(R.layout.activity_kt){
         logout.setOnClickListener {
 
         }
-        titlebar.setOnClickListener {
-            a.text=""
-        }
+//        titlebar.setOnClickListener {
+//            a.text=""
+//        }
         PublicBean.MCU_NUMBER=JzActivity.getControlInstance().getPro("Version","no")
         val profilePreferences =act.getSharedPreferences("Setting", Context.MODE_PRIVATE)
         if (profilePreferences.getString("admin", "nodata").equals("nodata")) {

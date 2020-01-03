@@ -2,7 +2,6 @@ package com.orange.tpms.ue.kt_frag
 
 
 import android.app.Dialog
-import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.KeyEvent
@@ -116,6 +115,12 @@ class Frag_Idcopy_Detail : RootFragement(R.layout.fragment_frag__idcopy__detail)
             handler.post {
                 var position = 0
                 for (i in result) {
+                        for(check in 0 until PublicBean.NewSensorList.size){
+                            val a=PublicBean.NewSensorList[check]
+                            if(PublicBean.NewSensorList[check].substring(a.length-4,a.length).equals(i.id.substring(4,8))){
+                                PublicBean.NewSensorList[check]=i.id
+                            }
+                        }
                     if (position < PublicBean.NewSensorList.size) {
                         PublicBean.NewSensorList[position] = i.id
                     }
@@ -124,7 +129,7 @@ class Frag_Idcopy_Detail : RootFragement(R.layout.fragment_frag__idcopy__detail)
                 }
                 Thread {
                     sleep(2000)
-                    OgCommand.IdCopy(this, ObdHex)
+                    OgCommand.IdCopy(this, ObdHex,idcount)
                 }.start()
             }
         } else {
@@ -334,7 +339,7 @@ class Frag_Idcopy_Detail : RootFragement(R.layout.fragment_frag__idcopy__detail)
                     val idCopyDetailBean = idCopyDetailAdapter.items[i]
                     if (success) {
                         idCopyDetailBean.state = IDCopyDetailBean.STATE_SUCCESS
-                        idCopyDetailBean.newid = idCopyDetailBean.newid.substring(8 - idcount)
+                        idCopyDetailBean.newid = PublicBean.SensorList[i]
                     } else {
                         idCopyDetailBean.state = IDCopyDetailBean.STATE_FAILED
                     }

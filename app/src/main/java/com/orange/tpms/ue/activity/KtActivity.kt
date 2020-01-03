@@ -1,7 +1,6 @@
 package com.orange.tpms.ue.activity
 
 import android.annotation.SuppressLint
-import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
@@ -12,15 +11,11 @@ import android.view.KeyEvent.*
 import android.view.MotionEvent
 import android.view.View
 import android.view.WindowManager
-import android.widget.ImageView
-import android.widget.RelativeLayout
-import android.widget.TextView
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.messaging.FirebaseMessaging
-import com.jianzhi.jzblehelper.callback.BleCallBack
+import com.google.gson.annotations.SerializedName
 import com.orange.jzchi.jzframework.JzActivity
 import com.orange.jzchi.jzframework.callback.DownloadCallback
-import com.orange.jzchi.jzframework.callback.SetupDialog
 import com.orange.jzchi.jzframework.tool.LanguageUtil
 import com.orange.tpms.BleManager
 import com.orange.tpms.Brocast.ScreenReceiver
@@ -31,21 +26,23 @@ import com.orange.tpms.RootFragement
 import com.orange.tpms.bean.PublicBean
 import com.orange.tpms.lib.db.share.SettingShare
 import com.orange.tpms.mmySql.ItemDAO
-import com.orange.tpms.ue.kt_frag.*
+import com.orange.tpms.ue.kt_frag.Frag_Manager
+import com.orange.tpms.ue.kt_frag.kt_splash
 import com.orange.tpms.utils.BleCommand
 import com.orange.tpms.utils.FileDowload.FileDonload
-import com.orange.tpms.utils.HttpDownloader
 import com.orange.tpms.utils.ObdCommand
 import com.orange.tpms.utils.OgCommand
+import kotlinx.android.synthetic.main.activity_kt.*
 import java.io.File
-import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.concurrent.schedule
 
 class KtActivity : JzActivity(), Scan_C {
+    companion object{
+        var beta=true
+    }
     var temppass = ""
-    var beta=true
     lateinit var BleManager: BleManager
     override fun keyEventListener(event: KeyEvent): Boolean {
         Log.e("event", "" + event)
@@ -176,6 +173,7 @@ class KtActivity : JzActivity(), Scan_C {
             Log.e("switch", tag)
             Log.e("switch", "count:" + supportFragmentManager.backStackEntryCount)
             mainfrag.back.setImageResource(R.mipmap.back)
+            if(beta){mainfrag.titlebar.setBackgroundResource(R.color.material_deep_teal_200)}
             mainfrag.back.setOnClickListener { JzActivity.getControlInstance().goBack() }
             if (supportFragmentManager.backStackEntryCount != 0) {
                 mainfrag.back.setImageResource(R.mipmap.back)
@@ -189,9 +187,11 @@ class KtActivity : JzActivity(), Scan_C {
                 Fragnumber = 0
             }
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+            if(beta){mainfrag.tit.text="Beta版本"
+            return}
             when (tag) {
                 "Frag_home" -> {
-                    mainfrag.tit.text =if(beta) "Beta版本" else resources.getString(R.string.app_o_genius)
+                    mainfrag.tit.text = resources.getString(R.string.app_o_genius)
                 }
                 "Frag_CheckSensor" -> {
                     mainfrag.tit.text = resources.getString(R.string.app_home_check_sensor)

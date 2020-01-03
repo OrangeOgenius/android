@@ -176,7 +176,6 @@ public class FileDowload {
         try{
             String mcu=GetMucName();
             SharedPreferences profilePreferences = activity.getSharedPreferences("Setting", Context.MODE_PRIVATE);
-            if(profilePreferences.getString("mcu","no").equals(mcu)){ return  true; }
             boolean result=FileDonload(activity.getApplicationContext().getFilesDir().getPath()+"/update.x2","https://bento2.orange-electronic.com/Orange%20Cloud/Drive/OG/Firmware/"+mcu,30,progress -> {
 
             });

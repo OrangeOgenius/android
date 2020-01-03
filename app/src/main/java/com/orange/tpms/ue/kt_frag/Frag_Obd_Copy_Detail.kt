@@ -2,14 +2,10 @@ package com.orange.tpms.ue.kt_frag
 
 
 import android.app.Dialog
-import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.KeyEvent
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.orange.jzchi.jzframework.JzActivity
@@ -17,6 +13,9 @@ import com.orange.jzchi.jzframework.callback.SetupDialog
 import com.orange.jzchi.jzframework.tool.FormatConvert
 import com.orange.tpms.Callback.Copy_C
 import com.orange.tpms.Callback.Obd_C
+import com.orange.tpms.Callback.Program_C
+import com.orange.tpms.HttpCommand.Fuction
+import com.orange.tpms.HttpCommand.SensorRecord
 import com.orange.tpms.R
 import com.orange.tpms.RootFragement
 import com.orange.tpms.adapter.obdadapter
@@ -25,23 +24,95 @@ import com.orange.tpms.bean.ObdBeans
 import com.orange.tpms.bean.PublicBean
 import com.orange.tpms.lib.hardware.HardwareApp
 import com.orange.tpms.ue.activity.KtActivity
-import com.orange.tpms.ue.dialog.EmptyDialog
 import com.orange.tpms.ue.dialog.SensorWay
+import com.orange.tpms.utils.HttpDownloader
 import com.orange.tpms.utils.OgCommand
 import com.orange.tpms.utils.VibMediaUtil
+import kotlinx.android.synthetic.main.data_loading.*
 import kotlinx.android.synthetic.main.fragment_frag__obd__copy__detail.view.*
 import kotlinx.android.synthetic.main.normal_dialog.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class Frag_Obd_Copy_Detail : RootFragement(R.layout.fragment_frag__obd__copy__detail) , Copy_C {
+class Frag_Obd_Copy_Detail : RootFragement(R.layout.fragment_frag__obd__copy__detail) , Copy_C, Program_C {
+    override fun Program_Progress(i: Int) {
+        if (!JzActivity.getControlInstance().getNowPageTag().equals("Frag_Obd_Copy_Detail")) {
+            return
+        }
+        handler.post {
+            JzActivity.getControlInstance().showDiaLog(R.layout.data_loading, false, true, object :SetupDialog{
+                override fun dismess() {
+
+                }
+
+                override fun keyevent(event: KeyEvent): Boolean {
+                    return false
+                }
+
+                override fun setup(rootview: Dialog) {
+                    rootview.pass.visibility = View.VISIBLE
+                    rootview.pass.text = "$i%"
+                }
+
+
+            })
+        }
+    }
+    override fun Program_Finish(a: Boolean) {
+        if (!JzActivity.getControlInstance().getNowPageTag().equals("Frag_Obd_Copy_Detail")) {
+            return
+        }
+        run = false
+        endtime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
+        if (a) {
+            Log.e("DATA:", "燒錄成功")
+            PublicBean.ProgramNumber = PublicBean.SensorList.size
+            Thread.sleep(3000)
+            val result = OgCommand.GetPrId(ObdHex, LF)
+            if (!JzActivity.getControlInstance().getNowPageTag().equals("Frag_Obd_Copy_Detail")) {
+                return
+            }
+            handler.post {
+                var position = 0
+                for (i in result) {
+                    if (position < PublicBean.NewSensorList.size) {
+                        PublicBean.NewSensorList[position] = i.id
+                    }
+                    Log.e("DATA:", "成功id:" + i.id)
+                    position++
+                }
+                Thread {
+                    Thread.sleep(2000)
+                    OgCommand.IdCopy(this, ObdHex,idcount)
+                }.start()
+            }
+        } else {
+            handler.post {
+                Allfalse()
+                Log.e("DATA:", "燒錄失敗")
+                JzActivity.getControlInstance().closeDiaLog()
+            }
+        }
+        handler.post {
+            vibMediaUtil.playBeep()
+        }
+    }
+    var LF = "00"
     lateinit var adapter: obdadapter
     lateinit var beans: ObdBeans
     lateinit var dataReceiver: HardwareApp.DataReceiver
     lateinit var vibMediaUtil: VibMediaUtil
     lateinit var srec: String
     var ObdHex = "00"
+    var idcount = 8;
     override fun viewInit() {
+        idcount = (activity as KtActivity).itemDAO.GetCopyId(
+            (activity as KtActivity).itemDAO.getMMY(
+                PublicBean.SelectMake,
+                PublicBean.SelectModel,
+                PublicBean.SelectYear
+            )
+        )
         rootview.tv_content.text = "${PublicBean.SelectMake}/${PublicBean.SelectModel}/${PublicBean.SelectYear}"
         ObdHex = (activity as KtActivity).itemDAO.GetHex(
             PublicBean.SelectMake,
@@ -207,7 +278,7 @@ fun Program(){
     }
     run = true
 
-    JzActivity.getControlInstance().showDiaLog(R.layout.normal_dialog, false, true, object:SetupDialog{
+    JzActivity.getControlInstance().showDiaLog(R.layout.data_loading, false, true, object:SetupDialog{
         override fun dismess() {
 
         }
@@ -217,7 +288,8 @@ fun Program(){
         }
 
         override fun setup(rootview: Dialog) {
-            rootview.tit.text = act.resources.getString(R.string.Programming)
+            rootview.pass.text = act.resources.getString(R.string.Programming)
+            rootview.pass.visibility=View.VISIBLE
         }
 
     })
@@ -228,7 +300,20 @@ fun Program(){
     if (Check_Complete()) {
         when(PublicBean.position){
             PublicBean.ID_COPY_OBD->{Thread {
-                OgCommand.IdCopy(this,ObdHex) }.start()}
+                OgCommand.Program(
+                    "00",
+                    ObdHex,
+                    Integer.toHexString(PublicBean.SensorList.size),
+                    (activity as KtActivity).itemDAO.getMMY(
+                        PublicBean.SelectMake,
+                        PublicBean.SelectModel,
+                        PublicBean.SelectYear
+                    ),
+                    act,
+                    this
+                    , ProgramTrigger
+                )
+                }.start()}
             PublicBean.OBD_RELEARM->{
                 Thread{ (activity!! as KtActivity).ObdCommand.setTireId(beans.NewSensor, Obd_C{
                     handler.post {
@@ -286,7 +371,7 @@ fun Allfalse(){
 
         })
         Thread {
-            val a = OgCommand.GetId(ObdHex, "00")
+            val a = OgCommand.GetPr("00", 4,ObdHex)
             handler.post {
                 run = false
                 if (!JzActivity.getControlInstance().getNowPageTag().equals("Frag_Obd_Copy_Detail")) {
@@ -294,8 +379,10 @@ fun Allfalse(){
                 }
                 vibMediaUtil.playBeep()
                 JzActivity.getControlInstance().closeDiaLog()
-                if (a.success) {
-                    updateSensorid(a.id)
+                if (a.size==4) {
+                    for(i in a){
+                        updateSensorid(i.id)
+                    }
                     adapter.notifyDataSetChanged()
                 } else {
                     JzActivity.getControlInstance().toast(resources.getString(R.string.app_read_failed))
@@ -303,7 +390,6 @@ fun Allfalse(){
             }
         }.start()
     }
-
     fun Downs19() {
         JzActivity.getControlInstance().showDiaLog(R.layout.normal_dialog, false, true, object :SetupDialog{
             override fun dismess() {
@@ -356,7 +442,9 @@ fun Allfalse(){
                             }
 
                             override fun setup(rootview: Dialog) {
-                                rootview.findViewById<TextView>(R.id.ok).setOnClickListener { JzActivity.getControlInstance().closeDiaLog()
+                                rootview.findViewById<TextView>(R.id.ok).setOnClickListener {
+                                    (JzActivity.getControlInstance().getRootActivity() as KtActivity).BleManager.BleHelper.disconnect()
+                                    JzActivity.getControlInstance().closeDiaLog()
                                     JzActivity.getControlInstance().goBack("Frag_Obd")
                                 }
                                 rootview.findViewById<TextView>(R.id.yes).setOnClickListener {
@@ -396,6 +484,7 @@ fun Allfalse(){
                         override fun setup(rootview: Dialog) {
                             rootview.findViewById<TextView>(R.id.ok).setOnClickListener { JzActivity.getControlInstance().closeDiaLog()
                                 JzActivity.getControlInstance().goBack("Frag_Obd")
+                                (JzActivity.getControlInstance().getRootActivity() as KtActivity).BleManager.BleHelper.disconnect()
                             }
                             rootview.findViewById<TextView>(R.id.yes).setOnClickListener {
                                 JzActivity.getControlInstance().closeDiaLog()
@@ -424,6 +513,7 @@ fun Allfalse(){
             }
 
         })
+
         Thread {
             val a = (activity!! as KtActivity).ObdCommand.GetId(if (beans.rowcount == 6) "05" else "04");
             handler.post {
@@ -456,14 +546,17 @@ fun Allfalse(){
             beans.NewSensor[i] = ""
         }
     }
-
+    val ProgramTrigger = ArrayList<String>()
     fun Check_Complete(): Boolean {
+        ProgramTrigger.clear()
         if(beans.NewSensor.size<beans.rowcount-1){return false}
         for (i in 0 until beans.rowcount - 1) {
             if (beans.NewSensor[i] == "") {
                 return false
             }
+            ProgramTrigger.add(beans.NewSensor[i])
         }
         return true
     }
+
 }

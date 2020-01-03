@@ -1,7 +1,6 @@
 package com.orange.tpms.adapter
 
 
-import android.content.Context
 import android.os.Handler
 import android.os.Message
 import android.util.Log
@@ -17,8 +16,7 @@ import com.orange.tpms.R
 import com.orange.tpms.bean.PublicBean
 import com.orange.tpms.mmySql.Item
 import com.orange.tpms.ue.kt_frag.Frag_SelectModle
-
-import java.util.ArrayList
+import java.util.*
 
 
 class ShowItemImage(var makes: ArrayList<Item>) : RecyclerView.Adapter<ShowItemImage.ViewHolder>() {

@@ -35,7 +35,7 @@
                 android:textColor="@color/color_white"
                 android:background="@color/buttoncolor"
                 app:layout_widthPercent="35%w"
-                android:layout_weight="1" android:layout_marginEnd="0.5dp"/>
+                android:layout_weight="1" android:layout_marginEnd="0.5dp" android:textSize="17sp"/>
         <Button
                 android:id="@+id/bt_check"
                 android:layout_width="wrap_content"
@@ -47,7 +47,8 @@
                 android:layout_below="@+id/iv_scan_tips"
                 android:textColor="@color/color_white"
                 android:background="@color/buttoncolor"
-                app:layout_widthPercent="35%w" android:layout_weight="1" android:layout_marginStart="0.5dp"/>
+                app:layout_widthPercent="35%w" android:layout_weight="1" android:layout_marginStart="0.5dp"
+                android:textSize="17sp"/>
     </LinearLayout>
     <com.de.rocket.ue.layout.PercentLinearLayout
             android:layout_width="match_parent"
@@ -57,78 +58,11 @@
             android:layout_above="@id/bt" android:padding="10dp">
 
         <com.de.rocket.ue.layout.PercentRelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_heightPercent="8%h"
-                app:layout_widthPercent="80%w">
-
-            <TextView
-                    android:id="@+id/tv_title_left"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    app:layout_widthPercent="20%w" android:text="WH" android:textColor="@android:color/black"
-                    android:gravity="center"/>
-
-            <TextView
-                    android:layout_toEndOf="@+id/tv_title_left"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="@string/app_id_clear"
-                    android:gravity="center"
-                    android:textColor="@color/color_black"
-                    app:layout_widthPercent="50%w"/>
-
-            <TextView
-                    android:id="@+id/tv_status"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentEnd="true"
-                    android:text="@string/app_check"
-                    android:gravity="center"
-                    android:textColor="@color/color_black"
-                    android:src="@mipmap/iv_check_ok"
-                    app:layout_widthPercent="30%w"/>
-
-            <!--上边框-->
-            <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:background="@color/color_black"/>
-            <!--左边框-->
-            <View
-                    android:layout_width="0.5dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/color_black"/>
-
-            <!--左一边框-->
-            <View
-                    android:layout_width="0.5dp"
-                    android:layout_toEndOf="@+id/tv_title_left"
-                    android:layout_height="match_parent"
-                    android:background="@color/color_black"/>
-
-            <!--右边框-->
-            <View
-                    android:layout_width="0.5dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_height="match_parent"
-                    android:background="@color/color_black"/>
-
-            <!--右一边框-->
-            <View
-                    android:layout_width="0.5dp"
-                    android:layout_toStartOf="@+id/tv_status"
-                    android:layout_height="match_parent"
-                    android:background="@color/color_black"/>
-
-        </com.de.rocket.ue.layout.PercentRelativeLayout>
-
-        <com.de.rocket.ue.layout.PercentRelativeLayout
                 android:id="@+id/prl_fr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_heightPercent="8%h"
-                app:layout_widthPercent="80%w">
+                app:layout_heightPercent="10%h"
+                app:layout_widthPercent="90%w">
 
             <TextView
                     android:id="@+id/tv_fr_left"
@@ -137,7 +71,7 @@
                     android:textColor="@color/color_black"
                     android:gravity="center"
                     android:text="LF"
-                    app:layout_widthPercent="20%w"/>
+                    app:layout_widthPercent="20%w" android:textSize="20sp"/>
 
             <TextView
                     android:id="@+id/tv_fr_id"
@@ -147,8 +81,8 @@
                     android:textColor="@color/color_black"
                     android:gravity="center"
                     tools:text="@string/app_name"
-                    app:layout_widthPercent="50%w"
-                    app:layout_textSizePercent="50%h"/>
+                    app:layout_widthPercent="60%w"
+                    app:layout_textSizePercent="50%h" android:textSize="20sp"/>
 
             <ImageView
                     android:visibility="invisible"
@@ -158,7 +92,7 @@
                     android:layout_alignParentEnd="true"
                     app:layout_paddingPercent="3%w"
                     android:src="@drawable/iv_check_status_selecter"
-                    app:layout_widthPercent="30%w"/>
+                    app:layout_widthPercent="100%h"/>
 
             <!--上边框-->
             <View
@@ -198,8 +132,8 @@
                 android:id="@+id/prl_rr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_heightPercent="8%h"
-                app:layout_widthPercent="80%w">
+                app:layout_heightPercent="10%h"
+                app:layout_widthPercent="90%w">
 
             <TextView
                     android:id="@+id/tv_rr_left"
@@ -208,7 +142,7 @@
                     android:textColor="@color/color_black"
                     android:gravity="center"
                     android:text="RF"
-                    app:layout_widthPercent="20%w"/>
+                    app:layout_widthPercent="20%w" android:textSize="20sp"/>
 
             <TextView
                     android:id="@+id/tv_rr_id"
@@ -218,8 +152,8 @@
                     android:textColor="@color/color_black"
                     android:gravity="center"
                     tools:text="@string/app_name"
-                    app:layout_widthPercent="50%w"
-                    app:layout_textSizePercent="50%h"/>
+                    app:layout_widthPercent="60%w"
+                    app:layout_textSizePercent="50%h" android:textSize="20sp"/>
 
             <ImageView
                     android:visibility="invisible"
@@ -229,7 +163,7 @@
                     android:layout_alignParentEnd="true"
                     app:layout_paddingPercent="3%w"
                     android:src="@drawable/iv_check_status_selecter"
-                    app:layout_widthPercent="30%w"/>
+                    app:layout_widthPercent="100%h"/>
 
             <!--上边框-->
             <View
@@ -269,8 +203,8 @@
                 android:id="@+id/prl_lr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_heightPercent="8%h"
-                app:layout_widthPercent="80%w">
+                app:layout_heightPercent="10%h"
+                app:layout_widthPercent="90%w">
 
             <TextView
                     android:id="@+id/tv_rl_left"
@@ -279,7 +213,7 @@
                     android:textColor="@color/color_black"
                     android:gravity="center"
                     android:text="RR"
-                    app:layout_widthPercent="20%w"/>
+                    app:layout_widthPercent="20%w" android:textSize="20sp"/>
 
             <TextView
                     android:id="@+id/tv_rl_id"
@@ -289,8 +223,8 @@
                     android:textColor="@color/color_black"
                     android:gravity="center"
                     tools:text="@string/app_name"
-                    app:layout_widthPercent="50%w"
-                    app:layout_textSizePercent="50%h"/>
+                    app:layout_widthPercent="60%w"
+                    app:layout_textSizePercent="50%h" android:textSize="20sp"/>
 
             <ImageView
                     android:visibility="invisible"
@@ -300,7 +234,7 @@
                     android:layout_alignParentEnd="true"
                     app:layout_paddingPercent="3%w"
                     android:src="@drawable/iv_check_status_selecter"
-                    app:layout_widthPercent="30%w"/>
+                    app:layout_widthPercent="100%h"/>
 
             <!--上边框-->
             <View
@@ -340,8 +274,8 @@
                 android:id="@+id/prl_lf"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_heightPercent="8%h"
-                app:layout_widthPercent="80%w">
+                app:layout_heightPercent="10%h"
+                app:layout_widthPercent="90%w">
 
             <TextView
                     android:id="@+id/tv_fl_left"
@@ -350,7 +284,7 @@
                     android:textColor="@color/color_black"
                     android:gravity="center"
                     android:text="LR"
-                    app:layout_widthPercent="20%w"/>
+                    app:layout_widthPercent="20%w" android:textSize="20sp"/>
 
             <TextView
                     android:id="@+id/tv_fl_id"
@@ -360,8 +294,8 @@
                     android:textColor="@color/color_black"
                     android:gravity="center"
                     tools:text="@string/app_name"
-                    app:layout_widthPercent="50%w"
-                    app:layout_textSizePercent="50%h"/>
+                    app:layout_widthPercent="60%w"
+                    app:layout_textSizePercent="50%h" android:textSize="20sp"/>
 
             <ImageView
                     android:visibility="invisible"
@@ -371,7 +305,7 @@
                     android:layout_alignParentEnd="true"
                     app:layout_paddingPercent="3%w"
                     android:src="@drawable/iv_check_status_selecter"
-                    app:layout_widthPercent="30%w"/>
+                    app:layout_widthPercent="100%h"/>
 
             <!--上边框-->
             <View
@@ -409,7 +343,7 @@
 
         <View
                 android:layout_width="wrap_content"
-                app:layout_widthPercent="80%w"
+                app:layout_widthPercent="90%w"
                 android:layout_height="0.5dp"
                 android:background="@color/color_black"/>
 
