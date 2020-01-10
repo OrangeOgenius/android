@@ -1,5 +1,6 @@
 package com.orange.tpms.bean;
 
+import android.text.Editable;
 import com.de.rocket.bean.RoBean;
 
 public class IDCopyDetailBean extends RoBean {
@@ -14,6 +15,7 @@ public class IDCopyDetailBean extends RoBean {
     private String newid;
     private String checkTitle;
     private int state;
+    private boolean editable;
 
     public IDCopyDetailBean(String position, String originalid, String newid, String checkTitle, int state) {
         this.position = position;
@@ -22,7 +24,12 @@ public class IDCopyDetailBean extends RoBean {
         this.checkTitle = checkTitle;
         this.state = state;
     }
-
+public void setEditable(Boolean a){
+        editable=a;
+}
+public Boolean getEditable(){
+        return editable;
+}
     public String getPosition() {
         return position;
     }

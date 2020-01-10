@@ -614,7 +614,7 @@
     <string name="Scan_Two">Please scan the QR Code on the catalog or poster.</string>
     <string name="keyin">key in</string>
     <string name="app_sensor_info_read">Read sensor</string>
-    <string name="app_to_trigger_sensor">Press the Trigger sensor</string>
+    <string name="app_to_trigger_sensor">Press the read sensor</string>
     <string name="Notall">Not all of the OE sensor contains the temperature, Battery and Voltage status</string>
     <string name="idcopyobd">ID Copy by OBD</string>
     <string name="prusbpad">Program (USB PAD)</string>

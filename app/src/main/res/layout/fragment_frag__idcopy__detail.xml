@@ -13,7 +13,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_horizontal"
-                android:orientation="vertical" android:layout_marginBottom="90dp">
+                android:orientation="vertical" android:layout_marginBottom="75dp" android:paddingBottom="2dp">
 
             <com.de.rocket.ue.layout.PercentLinearLayout
                     android:layout_width="match_parent"
@@ -33,18 +33,614 @@
                         tools:layout_textSizePercent="27%h"/>
 
             </com.de.rocket.ue.layout.PercentLinearLayout>
-
             <com.orange.tpms.widget.CarWidget
                     android:id="@+id/cw_car"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
-                    app:layout_heightPercent="35%h" android:layout_gravity="left"/>
-
-            <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_id_copy_neww"
+                    app:layout_heightPercent="35%h" android:layout_gravity="left">
+            </com.orange.tpms.widget.CarWidget>
+            <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-            </androidx.recyclerview.widget.RecyclerView>
+                    android:layout_height="match_parent" android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp">
+
+
+                <com.de.rocket.ue.layout.PercentRelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/color_white"
+                        app:layout_heightPercent="7.5%sh"
+                        app:layout_widthPercent="90%w"
+                        tools:layout_heightPercent="5%h" android:layout_weight="1">
+
+                    <TextView
+                            android:id="@+id/tv_position"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:textColor="@color/rocket_cl_black"
+                            android:gravity="center"
+                            app:layout_widthPercent="100%h" android:background="@color/gray" android:text="WH"
+                            android:textSize="17sp" android:enabled="false"/>
+
+                    <com.de.rocket.ue.layout.PercentRelativeLayout
+                            android:id="@+id/rv_check"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentEnd="true"
+                            android:gravity="center"
+                            app:layout_widthPercent="100%h">
+
+                        <TextView
+                                android:id="@+id/tv_check"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:textColor="@android:color/white" android:background="@color/colorRecieveText"
+                                android:text="CHK" android:textSize="17sp" android:enabled="false"/>
+
+
+                    </com.de.rocket.ue.layout.PercentRelativeLayout>
+
+                    <com.de.rocket.ue.layout.PercentLinearLayout
+                            android:id="@+id/ll_id"
+                            android:layout_toStartOf="@+id/rv_check"
+                            android:layout_toEndOf="@+id/tv_position"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:gravity="center">
+
+                        <com.orange.tpms.widget.ClearEditText
+                                android:id="@+id/tv_originalid"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:textColor="@color/rocket_cl_black"
+                                android:layout_weight="1"
+                                android:gravity="center" android:background="@color/gray" android:textSize="17sp"
+                                android:text="Original" android:enabled="false"/>
+
+                        <View
+                                android:layout_width="0.5dp"
+                                android:layout_height="match_parent"
+                                android:background="@color/color_black"/>
+
+                        <com.orange.tpms.widget.ClearEditText
+                                android:id="@+id/tv_newid"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:textColor="@android:color/white"
+                                android:layout_weight="1"
+                                android:gravity="center" android:background="@color/colorAccent"
+                                android:textSize="17sp" android:text="New" android:enabled="false"/>
+
+                    </com.de.rocket.ue.layout.PercentLinearLayout>
+                    <!--上边框-->
+                    <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="@color/color_black"/>
+
+                    <!--左边框-->
+                    <View
+                            android:layout_width="0.5dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/color_black"/>
+
+                    <!--左一边框-->
+                    <View
+                            android:layout_width="0.5dp"
+                            android:layout_toEndOf="@+id/tv_position"
+                            android:layout_height="match_parent"
+                            android:background="@color/color_black"/>
+
+                    <!--右一边框-->
+                    <View
+                            android:layout_width="0.5dp"
+                            android:layout_toEndOf="@+id/ll_id"
+                            android:layout_height="match_parent"
+                            android:background="@color/color_black"/>
+
+                    <!--右三边框-->
+                    <View
+                            android:layout_width="0.5dp"
+                            android:layout_toEndOf="@+id/tv_id"
+                            android:layout_height="match_parent"
+                            android:background="@color/color_black"/>
+
+                    <!--右边框-->
+                    <View
+                            android:layout_width="0.5dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_height="match_parent"
+                            android:background="@color/color_black"/>
+
+                    <!--下边框-->
+                    <View
+                            android:id="@+id/v_bottom_sep"
+                            android:visibility="gone"
+                            android:layout_width="match_parent"
+                            android:layout_alignParentBottom="true"
+                            android:layout_height="0.5dp"
+                            android:background="@color/color_black"/>
+
+                </com.de.rocket.ue.layout.PercentRelativeLayout>
+                <com.de.rocket.ue.layout.PercentRelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/color_white"
+                        app:layout_heightPercent="7.5%sh"
+                        app:layout_widthPercent="90%w"
+                        tools:layout_heightPercent="5%h" android:layout_weight="1">
+
+                    <TextView
+                            android:id="@+id/tv_position"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:textColor="@color/rocket_cl_black"
+                            android:gravity="center"
+                            app:layout_widthPercent="100%h" android:background="@color/gray" android:text="LF"
+                            android:textSize="17sp"/>
+
+                    <com.de.rocket.ue.layout.PercentRelativeLayout
+                            android:id="@+id/rv_check"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentEnd="true"
+                            android:gravity="center"
+                            app:layout_widthPercent="100%h">
+
+                        <ImageView
+                                android:id="@+id/i1"
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:layout_heightPercent="95%h"
+                                app:layout_widthPercent="95%h" android:layout_centerHorizontal="true"
+                                android:layout_above="@+id/i2" android:layout_marginBottom="4dp"/>
+
+
+                    </com.de.rocket.ue.layout.PercentRelativeLayout>
+
+                    <com.de.rocket.ue.layout.PercentLinearLayout
+                            android:id="@+id/ll_id"
+                            android:layout_toStartOf="@+id/rv_check"
+                            android:layout_toEndOf="@+id/tv_position"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:gravity="center">
+
+                        <com.orange.tpms.widget.ClearEditText
+                                android:id="@+id/o1"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:textColor="@color/color_black"
+                                android:layout_weight="1"
+                                android:gravity="center" android:background="@color/white" android:textSize="16sp"/>
+
+                        <View
+                                android:layout_width="0.5dp"
+                                android:layout_height="match_parent"
+                                android:background="@color/color_black"/>
+
+                        <com.orange.tpms.widget.ClearEditText
+                                android:id="@+id/n1"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:textColor="?attr/colorError"
+                                android:layout_weight="1"
+                                android:gravity="center" android:background="@null" android:textSize="16sp"/>
+
+                    </com.de.rocket.ue.layout.PercentLinearLayout>
+                    <!--上边框-->
+                    <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="@color/color_black"/>
+
+                    <!--左边框-->
+                    <View
+                            android:layout_width="0.5dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/color_black"/>
+
+                    <!--左一边框-->
+                    <View
+                            android:layout_width="0.5dp"
+                            android:layout_toEndOf="@+id/tv_position"
+                            android:layout_height="match_parent"
+                            android:background="@color/color_black"/>
+
+                    <!--右一边框-->
+                    <View
+                            android:layout_width="0.5dp"
+                            android:layout_toEndOf="@+id/ll_id"
+                            android:layout_height="match_parent"
+                            android:background="@color/color_black"/>
+
+                    <!--右三边框-->
+                    <View
+                            android:layout_width="0.5dp"
+                            android:layout_toEndOf="@+id/tv_id"
+                            android:layout_height="match_parent"
+                            android:background="@color/color_black"/>
+
+                    <!--右边框-->
+                    <View
+                            android:layout_width="0.5dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_height="match_parent"
+                            android:background="@color/color_black"/>
+
+                    <!--下边框-->
+                    <View
+                            android:id="@+id/v_bottom_sep"
+                            android:visibility="gone"
+                            android:layout_width="match_parent"
+                            android:layout_alignParentBottom="true"
+                            android:layout_height="0.5dp"
+                            android:background="@color/color_black"/>
+
+                </com.de.rocket.ue.layout.PercentRelativeLayout>
+                <com.de.rocket.ue.layout.PercentRelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/color_white"
+                        app:layout_heightPercent="7.5%sh"
+                        app:layout_widthPercent="90%w"
+                        tools:layout_heightPercent="5%h" android:layout_weight="1">
+
+                    <TextView
+                            android:id="@+id/tv_position"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:textColor="@color/rocket_cl_black"
+                            android:gravity="center"
+                            app:layout_widthPercent="100%h" android:background="@color/gray" android:text="RF"
+                            android:textSize="17sp"/>
+
+                    <com.de.rocket.ue.layout.PercentRelativeLayout
+                            android:id="@+id/rv_check"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentEnd="true"
+                            android:gravity="center"
+                            app:layout_widthPercent="100%h">
+
+                        <ImageView
+                                android:id="@+id/i2"
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                app:layout_heightPercent="95%h"
+                                app:layout_widthPercent="95%h"/>
+
+
+                    </com.de.rocket.ue.layout.PercentRelativeLayout>
+
+                    <com.de.rocket.ue.layout.PercentLinearLayout
+                            android:id="@+id/ll_id"
+                            android:layout_toStartOf="@+id/rv_check"
+                            android:layout_toEndOf="@+id/tv_position"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:gravity="center">
+
+                        <com.orange.tpms.widget.ClearEditText
+                                android:id="@+id/o2"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:textColor="@color/color_black"
+                                android:layout_weight="1"
+                                android:gravity="center" android:background="@color/white" android:textSize="16sp"/>
+
+                        <View
+                                android:layout_width="0.5dp"
+                                android:layout_height="match_parent"
+                                android:background="@color/color_black"/>
+
+                        <com.orange.tpms.widget.ClearEditText
+                                android:id="@+id/n2"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:textColor="?attr/colorError"
+                                android:layout_weight="1"
+                                android:gravity="center" android:background="@null" android:textSize="16sp"/>
+
+                    </com.de.rocket.ue.layout.PercentLinearLayout>
+                    <!--上边框-->
+                    <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="@color/color_black"/>
+
+                    <!--左边框-->
+                    <View
+                            android:layout_width="0.5dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/color_black"/>
+
+                    <!--左一边框-->
+                    <View
+                            android:layout_width="0.5dp"
+                            android:layout_toEndOf="@+id/tv_position"
+                            android:layout_height="match_parent"
+                            android:background="@color/color_black"/>
+
+                    <!--右一边框-->
+                    <View
+                            android:layout_width="0.5dp"
+                            android:layout_toEndOf="@+id/ll_id"
+                            android:layout_height="match_parent"
+                            android:background="@color/color_black"/>
+
+                    <!--右三边框-->
+                    <View
+                            android:layout_width="0.5dp"
+                            android:layout_toEndOf="@+id/tv_id"
+                            android:layout_height="match_parent"
+                            android:background="@color/color_black"/>
+
+                    <!--右边框-->
+                    <View
+                            android:layout_width="0.5dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_height="match_parent"
+                            android:background="@color/color_black"/>
+
+                    <!--下边框-->
+                    <View
+                            android:id="@+id/v_bottom_sep"
+                            android:visibility="gone"
+                            android:layout_width="match_parent"
+                            android:layout_alignParentBottom="true"
+                            android:layout_height="0.5dp"
+                            android:background="@color/color_black"/>
+
+                </com.de.rocket.ue.layout.PercentRelativeLayout>
+                <com.de.rocket.ue.layout.PercentRelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/color_white"
+                        app:layout_heightPercent="7.5%sh"
+                        app:layout_widthPercent="90%w"
+                        tools:layout_heightPercent="5%h" android:layout_weight="1">
+
+                    <TextView
+                            android:id="@+id/tv_position"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:textColor="@color/rocket_cl_black"
+                            android:gravity="center"
+                            app:layout_widthPercent="100%h" android:background="@color/gray"
+                            android:text="RR" android:textSize="17sp"/>
+
+                    <com.de.rocket.ue.layout.PercentRelativeLayout
+                            android:id="@+id/rv_check"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentEnd="true"
+                            android:gravity="center"
+                            app:layout_widthPercent="100%h">
+
+                        <ImageView
+                                android:id="@+id/i3"
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                app:layout_heightPercent="95%h"
+                                app:layout_widthPercent="95%h"/>
+
+
+                    </com.de.rocket.ue.layout.PercentRelativeLayout>
+
+                    <com.de.rocket.ue.layout.PercentLinearLayout
+                            android:id="@+id/ll_id"
+                            android:layout_toStartOf="@+id/rv_check"
+                            android:layout_toEndOf="@+id/tv_position"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:gravity="center">
+
+                        <com.orange.tpms.widget.ClearEditText
+                                android:id="@+id/o3"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:textColor="@color/color_black"
+                                android:layout_weight="1"
+                                android:gravity="center" android:background="@color/white" android:textSize="16sp"/>
+
+                        <View
+                                android:layout_width="0.5dp"
+                                android:layout_height="match_parent"
+                                android:background="@color/color_black"/>
+
+                        <com.orange.tpms.widget.ClearEditText
+                                android:id="@+id/n3"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:textColor="?attr/colorError"
+                                android:layout_weight="1"
+                                android:gravity="center" android:background="@null" android:textSize="16sp"/>
+
+                    </com.de.rocket.ue.layout.PercentLinearLayout>
+                    <!--上边框-->
+                    <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="@color/color_black"/>
+
+                    <!--左边框-->
+                    <View
+                            android:layout_width="0.5dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/color_black"/>
+
+                    <!--左一边框-->
+                    <View
+                            android:layout_width="0.5dp"
+                            android:layout_toEndOf="@+id/tv_position"
+                            android:layout_height="match_parent"
+                            android:background="@color/color_black"/>
+
+                    <!--右一边框-->
+                    <View
+                            android:layout_width="0.5dp"
+                            android:layout_toEndOf="@+id/ll_id"
+                            android:layout_height="match_parent"
+                            android:background="@color/color_black"/>
+
+                    <!--右三边框-->
+                    <View
+                            android:layout_width="0.5dp"
+                            android:layout_toEndOf="@+id/tv_id"
+                            android:layout_height="match_parent"
+                            android:background="@color/color_black"/>
+
+                    <!--右边框-->
+                    <View
+                            android:layout_width="0.5dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_height="match_parent"
+                            android:background="@color/color_black"/>
+
+                    <!--下边框-->
+                    <View
+                            android:id="@+id/v_bottom_sep"
+                            android:visibility="gone"
+                            android:layout_width="match_parent"
+                            android:layout_alignParentBottom="true"
+                            android:layout_height="0.5dp"
+                            android:background="@color/color_black"/>
+
+                </com.de.rocket.ue.layout.PercentRelativeLayout>
+                <com.de.rocket.ue.layout.PercentRelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/color_white"
+                        app:layout_heightPercent="7.5%sh"
+                        app:layout_widthPercent="90%w"
+                        tools:layout_heightPercent="5%h" android:layout_weight="1">
+
+                    <TextView
+                            android:id="@+id/tv_position"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:textColor="@color/rocket_cl_black"
+                            android:gravity="center"
+                            app:layout_widthPercent="100%h" android:background="@color/gray" android:text="LR"
+                            android:textSize="17sp"/>
+
+                    <com.de.rocket.ue.layout.PercentRelativeLayout
+                            android:id="@+id/rv_check"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentEnd="true"
+                            android:gravity="center"
+                            app:layout_widthPercent="100%h">
+
+                        <ImageView
+                                android:id="@+id/i4"
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                app:layout_heightPercent="95%h"
+                                app:layout_widthPercent="95%h"/>
+
+
+                    </com.de.rocket.ue.layout.PercentRelativeLayout>
+
+                    <com.de.rocket.ue.layout.PercentLinearLayout
+                            android:id="@+id/ll_id"
+                            android:layout_toStartOf="@+id/rv_check"
+                            android:layout_toEndOf="@+id/tv_position"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:gravity="center">
+
+                        <com.orange.tpms.widget.ClearEditText
+                                android:id="@+id/o4"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:textColor="@color/color_black"
+                                android:layout_weight="1"
+                                android:gravity="center" android:background="@color/white" android:textSize="16sp"/>
+
+                        <View
+                                android:layout_width="0.5dp"
+                                android:layout_height="match_parent"
+                                android:background="@color/color_black"/>
+
+                        <com.orange.tpms.widget.ClearEditText
+                                android:id="@+id/n4"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:textColor="?attr/colorError"
+                                android:layout_weight="1"
+                                android:gravity="center" android:background="@null" android:textSize="16sp"/>
+
+                    </com.de.rocket.ue.layout.PercentLinearLayout>
+                    <!--上边框-->
+                    <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="@color/color_black"/>
+
+                    <!--左边框-->
+                    <View
+                            android:layout_width="0.5dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/color_black"/>
+
+                    <!--左一边框-->
+                    <View
+                            android:layout_width="0.5dp"
+                            android:layout_toEndOf="@+id/tv_position"
+                            android:layout_height="match_parent"
+                            android:background="@color/color_black"/>
+
+                    <!--右一边框-->
+                    <View
+                            android:layout_width="0.5dp"
+                            android:layout_toEndOf="@+id/ll_id"
+                            android:layout_height="match_parent"
+                            android:background="@color/color_black"/>
+
+                    <!--右三边框-->
+                    <View
+                            android:layout_width="0.5dp"
+                            android:layout_toEndOf="@+id/tv_id"
+                            android:layout_height="match_parent"
+                            android:background="@color/color_black"/>
+
+                    <!--右边框-->
+                    <View
+                            android:layout_width="0.5dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_height="match_parent"
+                            android:background="@color/color_black"/>
+
+                    <!--下边框-->
+                    <View
+                            android:id="@+id/v_bottom_sep"
+                            android:visibility="gone"
+                            android:layout_width="match_parent"
+                            android:layout_alignParentBottom="true"
+                            android:layout_height="0.5dp"
+                            android:background="@color/color_black"/>
+                </com.de.rocket.ue.layout.PercentRelativeLayout>
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp" android:id="@+id/view10"
+                        android:background="@color/rocket_cl_black"/>
+            </LinearLayout>
 
         </com.de.rocket.ue.layout.PercentLinearLayout>
 
@@ -63,7 +659,7 @@
                     android:id="@+id/bt_menue"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="@string/app_menue"
+                    android:text="@string/Read"
                     android:textAllCaps="false"
                     android:gravity="center"
                     android:textColor="@color/color_white"

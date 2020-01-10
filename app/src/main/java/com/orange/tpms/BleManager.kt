@@ -16,6 +16,7 @@ import com.orange.jzchi.jzframework.JzActivity
 import com.orange.jzchi.jzframework.JzFragement
 import com.orange.jzchi.jzframework.callback.SetupDialog
 import com.orange.tpms.adapter.BleAdapter
+import com.orange.tpms.utils.OgCommand.StringHexToByte
 import com.orange.tpms.utils.RxCommand
 
 class BleManager(var context: Context) : BleCallBack {
@@ -59,7 +60,7 @@ class BleManager(var context: Context) : BleCallBack {
 
     override fun rx(a: BleBinary) {
         BleHelper.RxData += a.readHEX()
-//        RxCommand.RX(BleHelper.RxData, BleHelper)
+        RxCommand.RX(StringHexToByte(BleHelper.RxData))
         Log.d("JzBleMessage", "收到藍牙消息${a.readHEX()}")
     }
 

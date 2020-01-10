@@ -6,8 +6,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.util.Log;
+import com.orange.jzchi.jzframework.JzActivity;
 import com.orange.tpms.Callback.Donload_C;
 import com.orange.tpms.Callback.Update_C;
+import com.orange.tpms.ue.activity.KtActivity;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -65,7 +67,7 @@ public class FileDowload {
     }
     public static boolean DownAllObd(Activity activity,Update_C caller){
         try{
-            String response=GetText("https://bento2.orange-electronic.com/Orange%20Cloud/Drive/OBD%20DONGLE/",10);
+            String response=GetText((KtActivity.Companion.getBeta())?"https://bento2.orange-electronic.com/Orange%20Cloud/Beta/Drive/OBD%20DONGLE/":"https://bento2.orange-electronic.com/Orange%20Cloud/Drive/OBD%20DONGLE/",10);
             if(response.equals("nodata")){return false;}
             boolean success=true;
             String[] arg=response.split("HREF=\"");
@@ -89,7 +91,7 @@ public class FileDowload {
                 Log.e("obd失敗",name);
                 return false;}
             if(donloadobd.equals(profilePreferences.getString("obd"+name,"nodata"))){return true;}
-            boolean result=FileDonload(activity.getApplicationContext().getFilesDir().getPath() + "/" + name + ".srec","https://bento2.orange-electronic.com/Orange%20Cloud/Drive/OBD%20DONGLE/" + name + "/" + donloadobd,30,progress -> {
+            boolean result=FileDonload(activity.getApplicationContext().getFilesDir().getPath() + "/" + name + ".srec",(KtActivity.Companion.getBeta())?"https://bento2.orange-electronic.com/Orange%20Cloud/Beta/Drive/OBD%20DONGLE/" + name + "/" + donloadobd:"https://bento2.orange-electronic.com/Orange%20Cloud/Drive/OBD%20DONGLE/" + name + "/" + donloadobd,30,progress -> {
 
             });
             if(!result){
@@ -105,7 +107,7 @@ public class FileDowload {
     }
     public static String GetObdName(String name) {
         try {
-            String response=GetText("https://bento2.orange-electronic.com/Orange%20Cloud/Drive/OBD%20DONGLE/"+name,10);
+            String response=GetText((KtActivity.Companion.getBeta())?"https://bento2.orange-electronic.com/Orange%20Cloud/Beta/Drive/OBD%20DONGLE/"+name:"https://bento2.orange-electronic.com/Orange%20Cloud/Drive/OBD%20DONGLE/"+name,10);
             if(response.equals("nodata")){return response;}
             String[] arg = response.toString().split(" HREF=\"");
             for (String a : arg) {
@@ -124,7 +126,7 @@ public class FileDowload {
     }
     public static boolean DownAllS19(Activity activity,Update_C caller){
         try{
-            String response=GetText("https://bento2.orange-electronic.com/Orange%20Cloud/Database/SensorCode/SIII/",10);
+            String response=GetText((KtActivity.Companion.getBeta())?"https://bento2.orange-electronic.com/Orange%20Cloud/Beta/Database/SensorCode/SIII/":"https://bento2.orange-electronic.com/Orange%20Cloud/Database/SensorCode/SIII/",10);
             if(response.equals("nodata")){return false;}
             boolean success=true;
             String[] arg=response.toString().split("HREF=\"");
@@ -141,7 +143,7 @@ public class FileDowload {
     }
     public static String GetS19Name(String name){
         try{
-            String response=GetText("https://bento2.orange-electronic.com/Orange%20Cloud/Database/SensorCode/SIII/"+name+"/",10);
+            String response=GetText((KtActivity.Companion.getBeta())? "https://bento2.orange-electronic.com/Orange%20Cloud/Beta/Database/SensorCode/SIII/"+name+"/":"https://bento2.orange-electronic.com/Orange%20Cloud/Database/SensorCode/SIII/"+name+"/",10);
             if(response.equals("nodata")){return response;}
             String[] arg=response.toString().split(" HREF=\"");
             for(String a : arg){
@@ -202,7 +204,7 @@ public class FileDowload {
                 String s19name=GetS19Name(name);
                 SharedPreferences profilePreferences = activity.getSharedPreferences("Setting", Context.MODE_PRIVATE);
                 if(profilePreferences.getString(name,"no").equals(s19name)){ return  true; }
-                boolean result=FileDonload("/sdcard/files19/"+name+".s19","https://bento2.orange-electronic.com/Orange%20Cloud/Database/SensorCode/SIII/"+name+"/"+s19name,30,progress -> {
+                boolean result=FileDonload("/sdcard/files19/"+name+".s19",(KtActivity.Companion.getBeta()) ? "https://bento2.orange-electronic.com/Orange%20Cloud/Beta/Database/SensorCode/SIII/"+name+"/"+s19name:"https://bento2.orange-electronic.com/Orange%20Cloud/Database/SensorCode/SIII/"+name+"/"+s19name,30, progress -> {
 
                 });
                 if(result){profilePreferences.edit().putString(name,s19name).commit();}
@@ -214,7 +216,7 @@ public class FileDowload {
             SharedPreferences profilePreferences = activity.getSharedPreferences("Setting", Context.MODE_PRIVATE);
             String mmyname=mmyname();
             if(profilePreferences.getString("mmyname","").equals(mmyname)){return true;}
-            boolean result=FileDonload(fileanme,"https://bento2.orange-electronic.com/Orange%20Cloud/Database/MMY/EU/"+mmyname,30, progress -> {
+            boolean result=FileDonload(fileanme,(KtActivity.Companion.getBeta())?"https://bento2.orange-electronic.com/Orange%20Cloud/Beta/Database/MMY/EU/"+mmyname:"https://bento2.orange-electronic.com/Orange%20Cloud/Database/MMY/EU/"+mmyname,30, progress -> {
 
             });
             File f= new File(fileanme);
@@ -230,7 +232,7 @@ public class FileDowload {
 
     public static String mmyname(){
         try{
-            String response=GetText("https://bento2.orange-electronic.com/Orange%20Cloud/Database/MMY/EU/",10);
+            String response=GetText((KtActivity.Companion.getBeta())?"https://bento2.orange-electronic.com/Orange%20Cloud/Beta/Database/MMY/EU/":"https://bento2.orange-electronic.com/Orange%20Cloud/Database/MMY/EU/",10);
             if(response.equals("nodata")){return response;}
             String[] arg=response.toString().split("HREF=\"");
             for(String a : arg){

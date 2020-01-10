@@ -10,6 +10,7 @@ import android.widget.RelativeLayout
 import com.orange.jzchi.jzframework.JzActivity
 import com.orange.jzchi.jzframework.callback.SetupDialog
 import com.orange.tpms.R
+import com.orange.tpms.ue.kt_frag.Frag_Idcopy_Detail
 import com.orange.tpms.ue.kt_frag.Frag_Idcopy_New
 import com.orange.tpms.ue.kt_frag.Frag_Idcopy_original
 import com.orange.tpms.ue.kt_frag.Frag_Program_Detail
@@ -81,6 +82,10 @@ open class SensorWay : SetupDialog {
                                 (JzActivity.getControlInstance().getNowPage() as Frag_Idcopy_New).updateEditable(true)
                                 JzActivity.getControlInstance().closeDiaLog()
                             }
+                            "Frag_Idcopy_Detail" -> {
+                                (JzActivity.getControlInstance().getNowPage() as Frag_Idcopy_Detail).updateEditable(true)
+                                JzActivity.getControlInstance().closeDiaLog()
+                            }
                         }
                     } else {
                         JzActivity.getControlInstance().closeDiaLog()
@@ -134,23 +139,23 @@ open class SensorWay : SetupDialog {
         if (focus + a in 0..2) {
             focus += a
             val dia = JzActivity.getControlInstance().getRootActivity().mDialog
-                dia!!.findViewById<RelativeLayout>(R.id.scan).background = null;
-                dia.findViewById<RelativeLayout>(R.id.trigger).background = null;
-                dia.findViewById<RelativeLayout>(R.id.keyin).background = null;
-                when (focus) {
-                    0 -> {
-                        dia.findViewById<RelativeLayout>(R.id.scan).background =
-                            JzActivity.getControlInstance().getRootActivity().resources.getDrawable(R.color.color_orange)
-                    }
-                    1 -> {
-                        dia.findViewById<RelativeLayout>(R.id.trigger).background =
-                            JzActivity.getControlInstance().getRootActivity().resources.getDrawable(R.color.color_orange)
-                    }
-                    2 -> {
-                        dia.findViewById<RelativeLayout>(R.id.keyin).background =
-                            JzActivity.getControlInstance().getRootActivity().getDrawable(R.color.color_orange)
-                    }
+            dia!!.findViewById<RelativeLayout>(R.id.scan).background = null;
+            dia.findViewById<RelativeLayout>(R.id.trigger).background = null;
+            dia.findViewById<RelativeLayout>(R.id.keyin).background = null;
+            when (focus) {
+                0 -> {
+                    dia.findViewById<RelativeLayout>(R.id.scan).background =
+                        JzActivity.getControlInstance().getRootActivity().resources.getDrawable(R.color.color_orange)
+                }
+                1 -> {
+                    dia.findViewById<RelativeLayout>(R.id.trigger).background =
+                        JzActivity.getControlInstance().getRootActivity().resources.getDrawable(R.color.color_orange)
+                }
+                2 -> {
+                    dia.findViewById<RelativeLayout>(R.id.keyin).background =
+                        JzActivity.getControlInstance().getRootActivity().getDrawable(R.color.color_orange)
                 }
             }
+        }
     }
 }

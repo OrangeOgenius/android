@@ -1,5 +1,6 @@
 package com.orange.tpms.bean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PublicBean {
@@ -32,6 +33,7 @@ public class PublicBean {
     public static int ScanType=4;
     public static List<String> SensorList=null;
     public static List<String> NewSensorList=null;
+    public static ArrayList<String> CopySuccessID=new ArrayList<String>();
     public static List<Boolean> CopySuccess=null;
     public static boolean Update=false;
 }

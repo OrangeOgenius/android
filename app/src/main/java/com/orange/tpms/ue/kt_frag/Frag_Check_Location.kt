@@ -31,11 +31,12 @@ class Frag_Check_Location : RootFragement(R.layout.fragment_frag__check__locatio
     lateinit var ivTopLeftStatus: ImageView//FLStatua
     lateinit var tvContent: TextView//Title
     lateinit var tvTips: TextView//Title
+    var idcount=8
     lateinit var btCheck: Button//Title
     var ObdHex = "00"
     lateinit var vibMediaUtil: VibMediaUtil//音效与振动
     var failedOneTime = false//是否失败过一次
-    var carLocation: CarWidget.CAR_LOCATION = CarWidget.CAR_LOCATION.TOP_RIGHT
+    var carLocation: CarWidget.CAR_LOCATION = CarWidget.CAR_LOCATION.TOP_LEFT
 
     enum class CHECK_STATUS {
         STCCESS, //成功
@@ -45,20 +46,37 @@ class Frag_Check_Location : RootFragement(R.layout.fragment_frag__check__locatio
     }
 
     override fun viewInit() {
+        idcount = (activity as KtActivity).itemDAO.GetCopyId(
+            (activity as KtActivity).itemDAO.getMMY(
+                PublicBean.SelectMake,
+                PublicBean.SelectModel,
+                PublicBean.SelectYear
+            )
+        )
         cwCar = rootview.findViewById(R.id.cw_car)
-        tvTopRight = rootview.findViewById(R.id.tv_fr_id)
-        tvBottomRight = rootview.findViewById(R.id.tv_rr_id)
-        tvBottomLeft = rootview.findViewById(R.id.tv_rl_id)
-        tvTopLeft = rootview.findViewById(R.id.tv_fl_id)
-        ivTopRightStatus = rootview.findViewById(R.id.iv_fr_status)
-        ivBottomRightStatus = rootview.findViewById(R.id.iv_rr_status)
-        ivBottomLeftStatus = rootview.findViewById(R.id.iv_rl_status)
-        ivTopLeftStatus = rootview.findViewById(R.id.iv_fl_status)
+        tvTopRight = rootview.findViewById(R.id.tv_rr_id)
+        tvBottomRight = rootview.findViewById(R.id.tv_rl_id)
+        tvBottomLeft = rootview.findViewById(R.id.tv_fl_id)
+        tvTopLeft = rootview.findViewById(R.id.tv_fr_id)
+        ivTopRightStatus = rootview.findViewById(R.id.iv_rr_status)
+        ivBottomRightStatus = rootview.findViewById(R.id.iv_rl_status)
+        ivBottomLeftStatus = rootview.findViewById(R.id.iv_fl_status)
+        ivTopLeftStatus = rootview.findViewById(R.id.iv_fr_status
+        )
         tvContent = rootview.findViewById(R.id.tv_content)
         btCheck = rootview.findViewById(R.id.bt_check)
         rootview.bt_menue.setOnClickListener { GoMenu() }
         rootview.bt_check.setOnClickListener { trigger() }
         initView()
+        for(i in 0 until PublicBean.CopySuccessID.size){
+            when(i){
+                0->{tvTopLeft.text=PublicBean.CopySuccessID[i]}
+                1->{tvTopRight.text=PublicBean.CopySuccessID[i]}
+                2->{tvBottomRight.text=PublicBean.CopySuccessID[i]}
+                3->{tvBottomLeft.text=PublicBean.CopySuccessID[i]}
+            }
+        }
+
         rootview.tv_content.text = "${PublicBean.SelectMake}/${PublicBean.SelectModel}/${PublicBean.SelectYear}"
     }
 
@@ -80,7 +98,7 @@ class Frag_Check_Location : RootFragement(R.layout.fragment_frag__check__locatio
         //音效与震动
         vibMediaUtil = VibMediaUtil(activity)
     }
-
+var position=0;
     /**
      * 读传感器
      */
@@ -91,21 +109,7 @@ class Frag_Check_Location : RootFragement(R.layout.fragment_frag__check__locatio
         run = true
         clearViewIfFailed()
         vibMediaUtil.playVibrate()
-        JzActivity.getControlInstance().showDiaLog(R.layout.data_loading, false, false, object : SetupDialog {
-            override fun keyevent(event: KeyEvent): Boolean {
-                //按鈕事件監聽
-                // return true後會繼續執行父類別的dispathKeyevent方法，反之攔截按鈕事件
-                return false
-            }
-
-            override fun setup(rootview: Dialog) {
-                //Dialog的載入設定
-            }
-
-            override fun dismess() {
-                //Dialog關閉的監聽
-            }
-        })
+        JzActivity.getControlInstance().showDiaLog(R.layout.data_loading, false, false)
         Thread {
             val a = OgCommand.GetId(ObdHex, "00")
             handler.post {
@@ -116,13 +120,15 @@ class Frag_Check_Location : RootFragement(R.layout.fragment_frag__check__locatio
                 vibMediaUtil.playBeep()
                 JzActivity.getControlInstance().closeDiaLog()
                 if (a.success) {
-                    if (PublicBean.SensorList != null && PublicBean.SensorList.contains(a.id)) {
+                    if (PublicBean.CopySuccessID != null && PublicBean.CopySuccessID.size>position&&PublicBean.CopySuccessID[position].contains(a.id)) {
+                        position++;
                         updateSensorbean(a, true);
                     } else {
                         updateSensorbean(a, false);
+                        if(!failedOneTime){position++}
                     }
+
                 } else {
-                    updateSensorbean(a, false);
                     JzActivity.getControlInstance().toast(resources.getString(R.string.app_read_failed))
                 }
             }
@@ -208,13 +214,13 @@ class Frag_Check_Location : RootFragement(R.layout.fragment_frag__check__locatio
                 cwCar.setCarStatus(carLocation, CarWidget.CAR_STATUS.NORMAL)
                 updateView(tvBottomLeft, ivBottomLeftStatus, sensorDataBean!!.id, CHECK_STATUS.STCCESS)
                 failedOneTime = false
-                carLocation = CarWidget.CAR_LOCATION.TOP_LEFT
+                btCheck.isEnabled = false
             } else {
                 cwCar.setCarStatus(carLocation, CarWidget.CAR_STATUS.BAD)
                 updateView(tvBottomLeft, ivBottomLeftStatus, "check failed!", CHECK_STATUS.FAILED)
                 if (failedOneTime) {
                     failedOneTime = false
-                    carLocation = CarWidget.CAR_LOCATION.TOP_LEFT
+                    btCheck.isEnabled = false
                 } else {
                     failedOneTime = true
                 }
@@ -224,13 +230,13 @@ class Frag_Check_Location : RootFragement(R.layout.fragment_frag__check__locatio
                 cwCar.setCarStatus(carLocation, CarWidget.CAR_STATUS.NORMAL)
                 updateView(tvTopLeft, ivTopLeftStatus, sensorDataBean!!.id, CHECK_STATUS.STCCESS)
                 failedOneTime = false
-                btCheck.isEnabled = false
+                carLocation = CarWidget.CAR_LOCATION.TOP_RIGHT
             } else {
                 cwCar.setCarStatus(carLocation, CarWidget.CAR_STATUS.BAD)
                 updateView(tvTopLeft, ivTopLeftStatus, "check failed!", CHECK_STATUS.FAILED)
                 if (failedOneTime) {
                     failedOneTime = false
-                    btCheck.isEnabled = false
+                    carLocation = CarWidget.CAR_LOCATION.TOP_RIGHT
                 } else {
                     failedOneTime = true
                 }

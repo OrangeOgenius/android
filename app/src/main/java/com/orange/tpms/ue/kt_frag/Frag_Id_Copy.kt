@@ -23,6 +23,7 @@ class Frag_Id_Copy : RootFragement(R.layout.fragment_frag__id__copy) {
         btn.add(rootview.b3)
         rootview.b1.setOnClickListener {
             PublicBean.ScanType = PublicBean.掃描Mmy
+
             JzActivity.getControlInstance().changeFrag(Frag_Scan(),R.id.frage,"Frag_Scan",true)
         }
         rootview.b2.setOnClickListener {

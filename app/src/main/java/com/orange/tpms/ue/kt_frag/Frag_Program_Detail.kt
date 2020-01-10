@@ -125,6 +125,8 @@ class Frag_Program_Detail : RootFragement(R.layout.fragment_frag__program__detai
                     btProgram.setOnClickListener {
                         JzActivity.getControlInstance().goBack()
                     }
+                    (JzActivity.getControlInstance().findFragByTag("Frag_Manager") as Frag_Manager).back.setImageResource(R.mipmap.menu)
+                    (JzActivity.getControlInstance().findFragByTag("Frag_Manager") as Frag_Manager).back.setOnClickListener { JzActivity.getControlInstance().goMenu() }
                 } else {
                     btProgram.setText(resources.getString(R.string.app_re_program))
                 }
@@ -417,8 +419,7 @@ class Frag_Program_Detail : RootFragement(R.layout.fragment_frag__program__detai
     private fun updateSensorid(sensorid: String) {
         //数目要对上
         if (programAdapter.items.size >= PublicBean.ProgramNumber) {
-            for (i in 0..PublicBean.ProgramNumber) {
-
+            for (i in 0 until PublicBean.ProgramNumber) {
                 val programItemBean = programAdapter.items[i]
                 //sensorid为空才插入
                 if (TextUtils.isEmpty(programItemBean.sensorid.trim())) {

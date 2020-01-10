@@ -15,6 +15,7 @@ class obdadapter(public val beans: ObdBeans) : JzAdapter(R.layout.item_id_copy_n
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.mView.tv_originalid.isEnabled=false
         if (position == 0) {
             holder.mView.tv_newid.filters= arrayOf<InputFilter>(InputFilter.LengthFilter(30))
             holder.mView.tv_position.setBackground(holder.mView.context.resources.getDrawable(R.color.gray))
@@ -26,7 +27,7 @@ class obdadapter(public val beans: ObdBeans) : JzAdapter(R.layout.item_id_copy_n
             holder.mView.iv_check.setVisibility(View.GONE)
             holder.mView.tv_originalid.setTextColor(holder.mView.context.resources.getColor(R.color.color_black))
             holder.mView.tv_position.text = "WH"
-            holder.mView.tv_originalid.text = "Original ID"
+            holder.mView.tv_originalid.setText( "Original ID")
             holder.mView.tv_newid.isEnabled=false
             holder.mView.tv_newid.setText("New sensor")
             holder.mView.tv_check.text = "CHK"
@@ -47,7 +48,7 @@ class obdadapter(public val beans: ObdBeans) : JzAdapter(R.layout.item_id_copy_n
             holder.mView.tv_check.setBackground(holder.mView.context.resources.getDrawable(R.color.white))
             holder.mView.tv_check.setTextColor(holder.mView.context.resources.getColor(R.color.white))
             holder.mView.iv_check.setVisibility(View.VISIBLE)
-            holder.mView.tv_originalid.text = ""
+            holder.mView.tv_originalid.setText("")
             holder.mView.tv_newid.isEnabled=beans.CanEdit
             holder.mView.tv_newid.setText("")
             holder.mView.tv_check.text = ""
@@ -74,7 +75,7 @@ class obdadapter(public val beans: ObdBeans) : JzAdapter(R.layout.item_id_copy_n
             }
         }
         if (position - 1 < beans.OldSemsor.size) {
-            holder.mView.tv_originalid.text = beans.OldSemsor[position - 1]
+            holder.mView.tv_originalid.setText(beans.OldSemsor[position - 1])
             holder.mView.tv_newid.setText(beans.NewSensor[position - 1])
             when (beans.state[position - 1]) {
                 ObdBeans.PROGRAM_FALSE -> {

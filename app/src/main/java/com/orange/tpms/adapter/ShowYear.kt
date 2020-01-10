@@ -54,7 +54,7 @@ fun ChangePage(){
             JzActivity.getControlInstance().changeFrag(Frag_Program_Number_Choice(), R.id.frage,"Frag_Program_Number_Choice",true);
         }
         PublicBean.複製傳感器->{
-            JzActivity.getControlInstance().changeFrag(Frag_Idcopy_original(), R.id.frage,"Frag_Idcopy_original",true);
+            JzActivity.getControlInstance().changeFrag(Frag_Idcopy_Detail(), R.id.frage, "Frag_Idcopy_Detail", true)
         }
         PublicBean.學碼步驟->{
             JzActivity.getControlInstance().changeFrag(Frag_Relearm_Detail(), R.id.frage,"Frag_Relearm_Detail",true);

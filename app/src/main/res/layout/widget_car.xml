@@ -32,7 +32,8 @@
                 app:layout_marginBottomPercent="7%h"
                 app:layout_widthPercent="50%h"
                 app:layout_heightPercent="50%h"
-                app:layout_textSizePercent="10%h" android:translationX="0dp" android:textSize="18sp"/>
+                app:layout_textSizePercent="10%h" android:translationX="0dp" android:textSize="18sp"
+                android:id="@+id/lft"/>
 
         <ImageView
                 android:id="@+id/iv_wheel_top_right"
@@ -56,7 +57,8 @@
                 app:layout_marginBottomPercent="7%h"
                 app:layout_widthPercent="50%h"
                 app:layout_heightPercent="50%h"
-                app:layout_textSizePercent="10%h" android:translationX="0dp" android:textSize="18sp"/>
+                app:layout_textSizePercent="10%h" android:translationX="0dp" android:textSize="18sp"
+                android:id="@+id/rft"/>
 
         <ImageView
                 android:id="@+id/iv_wheel_bottom_right"
@@ -81,7 +83,8 @@
                 app:layout_marginBottomPercent="5%h"
                 app:layout_widthPercent="50%h"
                 app:layout_heightPercent="50%h"
-                app:layout_textSizePercent="10%h" android:translationX="0dp" android:textSize="18sp"/>
+                app:layout_textSizePercent="10%h" android:translationX="0dp" android:textSize="18sp"
+                android:id="@+id/rbt"/>
 
         <ImageView
                 android:id="@+id/iv_wheel_bottom_left"
@@ -104,7 +107,8 @@
                 app:layout_marginBottomPercent="5%h"
                 app:layout_widthPercent="50%h"
                 app:layout_heightPercent="50%h"
-                app:layout_textSizePercent="10%h" android:translationX="0dp" android:textSize="18sp"/>
+                app:layout_textSizePercent="10%h" android:translationX="0dp" android:textSize="18sp"
+                android:id="@+id/lbt"/>
 
         <ImageView
                 android:id="@+id/iv_car_body"

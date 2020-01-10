@@ -2,10 +2,12 @@ package com.orange.tpms.ue.kt_frag
 
 
 import android.app.Dialog
+import android.text.InputFilter
 import android.text.TextUtils
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
+import android.widget.ImageView
 import com.orange.jzchi.jzframework.JzActivity
 import com.orange.jzchi.jzframework.callback.SetupDialog
 import com.orange.tpms.Callback.Copy_C
@@ -16,15 +18,21 @@ import com.orange.tpms.R
 import com.orange.tpms.RootFragement
 import com.orange.tpms.adapter.IDCopyDetailAdapter
 import com.orange.tpms.bean.IDCopyDetailBean
+import com.orange.tpms.bean.MMYQrCodeBean
 import com.orange.tpms.bean.PublicBean
+import com.orange.tpms.lib.hardware.HardwareApp
 import com.orange.tpms.ue.activity.KtActivity
+import com.orange.tpms.ue.dialog.SensorWay
 import com.orange.tpms.utils.HttpDownloader
+import com.orange.tpms.utils.KeyboardUtil
 import com.orange.tpms.utils.OgCommand
 import com.orange.tpms.utils.VibMediaUtil
 import com.orange.tpms.widget.CarWidget
+import com.orange.tpms.widget.ClearEditText
 import kotlinx.android.synthetic.main.activity_kt.*
 import kotlinx.android.synthetic.main.data_loading.*
 import kotlinx.android.synthetic.main.fragment_frag__idcopy__detail.view.*
+import kotlinx.android.synthetic.main.sensor_way_dialog.*
 import java.lang.Thread.sleep
 import java.text.SimpleDateFormat
 import java.util.*
@@ -32,6 +40,7 @@ import kotlin.collections.ArrayList
 
 
 class Frag_Idcopy_Detail : RootFragement(R.layout.fragment_frag__idcopy__detail), Copy_C, Program_C {
+    lateinit var dataReceiver: HardwareApp.DataReceiver
     override fun viewInit() {
         LF =
             (activity as KtActivity).itemDAO.GetLf(PublicBean.SelectMake, PublicBean.SelectModel, PublicBean.SelectYear)
@@ -57,10 +66,9 @@ class Frag_Idcopy_Detail : RootFragement(R.layout.fragment_frag__idcopy__detail)
             PublicBean.SelectYear
         )
         run = false
-        rvIDCopyDetail = rootview.findViewById(R.id.rv_id_copy_neww)
         cwCar = rootview.findViewById(R.id.cw_car)
         rootview.bt_program.setOnClickListener { program() }
-        rootview.bt_menue.setOnClickListener { GoMenu() }
+        rootview.bt_menue.setOnClickListener { onKeyTrigger() }
         initView()
         updateView()
         val s19 = GetPro(
@@ -71,6 +79,85 @@ class Frag_Idcopy_Detail : RootFragement(R.layout.fragment_frag__idcopy__detail)
             ), "nodata"
         )
         SensorRecord.SensorCode_Version = s19
+        originalist.add(rootview.o1)
+        originalist.add(rootview.o2)
+        originalist.add(rootview.o3)
+        originalist.add(rootview.o4)
+        newlist.add(rootview.n1)
+        newlist.add(rootview.n2)
+        newlist.add(rootview.n3)
+        newlist.add(rootview.n4)
+        staticlist.add(rootview.i1)
+        staticlist.add(rootview.i2)
+        staticlist.add(rootview.i3)
+        staticlist.add(rootview.i4)
+        updateEditable(false)
+        updateEditable(true)
+        for (i in newlist) {
+            KeyboardUtil.hideEditTextKeyboard(i)
+            i.filters = arrayOf(InputFilter.AllCaps(), InputFilter.LengthFilter(8))
+            i.setClearStatusListener {
+                if (haveSameSensorid(i.text.toString()) && i.text.toString().length >= 6) {
+//                    JzActivity.getControlInstance().toast(R.string.app_sensor_repeated)
+                } else if (i.text.toString().length >= 6) {
+                    updateEditable(true)
+                }
+            }
+        }
+        for (i in originalist) {
+            KeyboardUtil.hideEditTextKeyboard(i)
+            i.filters = arrayOf(InputFilter.AllCaps(), InputFilter.LengthFilter(8))
+            i.setClearStatusListener {
+                if (haveSameSensorid(i.text.toString()) && i.text.toString().length >= 6) {
+//                    JzActivity.getControlInstance().toast(R.string.app_sensor_repeated)
+                } else if (i.text.toString().length >= 6) {
+                    updateEditable(true)
+                }
+            }
+        }
+        HardwareApp.getInstance().switchScan(true)
+        dataReceiver = object : HardwareApp.DataReceiver {
+            override fun scanReceive() {
+
+            }
+            override fun scanMsgReceive(content: String) {
+                JzActivity.getControlInstance().closeDiaLog()
+                if (!content.contains(":") && !content.contains("*")) {
+                    if (content != "nofound") {
+                        JzActivity.getControlInstance().toast(R.string.app_invalid_sensor_qrcode)
+                    } else {
+                        JzActivity.getControlInstance().toast(R.string.app_scan_code_timeout)
+                    }
+                    return
+                }
+                var sensorid=""
+                if (content.contains("**")) {
+                    sensorid = MMYQrCodeBean.toQRcodeBean(content).mmyNumber
+                } else {
+                    if(content.split(":","*").size>=3){
+                        sensorid=content.split(":","*")[1]
+                    }
+                }
+                if (TextUtils.isEmpty(sensorid)) {
+                    JzActivity.getControlInstance().toast(R.string.app_invalid_sensor_qrcode)
+                    return
+                }
+                vibMediaUtil.playBeep()
+                Log.e("id為",""+sensorid)
+                if (!haveSameSensorid(sensorid)) {
+                    updateEditable(false)
+                    updateSensor(sensorid)
+                    updateEditable(true)
+                } else {
+                    JzActivity.getControlInstance().toast(R.string.app_sensor_repeated)
+                }
+            }
+
+            override fun uart2MsgReceive(content: String) {
+
+            }
+        }
+        HardwareApp.getInstance().addDataReceiver(dataReceiver)
     }
 
     override fun Program_Progress(i: Int) {
@@ -79,13 +166,13 @@ class Frag_Idcopy_Detail : RootFragement(R.layout.fragment_frag__idcopy__detail)
             return
         }
         handler.post {
-            JzActivity.getControlInstance().showDiaLog(R.layout.data_loading, false, true, object :SetupDialog{
+            JzActivity.getControlInstance().showDiaLog(R.layout.data_loading, false, true, object : SetupDialog {
                 override fun dismess() {
 
                 }
 
                 override fun keyevent(event: KeyEvent): Boolean {
-                   return false
+                    return false
                 }
 
                 override fun setup(rootview: Dialog) {
@@ -115,21 +202,24 @@ class Frag_Idcopy_Detail : RootFragement(R.layout.fragment_frag__idcopy__detail)
             handler.post {
                 var position = 0
                 for (i in result) {
-                        for(check in 0 until PublicBean.NewSensorList.size){
-                            val a=PublicBean.NewSensorList[check]
-                            if(PublicBean.NewSensorList[check].substring(a.length-4,a.length).equals(i.id.substring(4,8))){
-                                PublicBean.NewSensorList[check]=i.id
-                            }
+                    for (check in 0 until PublicBean.NewSensorList.size) {
+                        val a = PublicBean.NewSensorList[check]
+                        if (PublicBean.NewSensorList[check].substring(a.length - 4, a.length).equals(
+                                i.id.substring(
+                                    4,
+                                    8
+                                )
+                            )
+                        ) {
+                            PublicBean.NewSensorList[check] = i.id
                         }
-                    if (position < PublicBean.NewSensorList.size) {
-                        PublicBean.NewSensorList[position] = i.id
                     }
                     Log.e("DATA:", "成功id:" + i.id)
                     position++
                 }
                 Thread {
                     sleep(2000)
-                    OgCommand.IdCopy(this, ObdHex,idcount)
+                    OgCommand.IdCopy(this, ObdHex, idcount)
                 }.start()
             }
         } else {
@@ -156,7 +246,7 @@ class Frag_Idcopy_Detail : RootFragement(R.layout.fragment_frag__idcopy__detail)
         BooResult[position] = success
         handler.post {
             vibMediaUtil.playBeep()
-            JzActivity.getControlInstance().showDiaLog(R.layout.data_loading, false, true, object:SetupDialog {
+            JzActivity.getControlInstance().showDiaLog(R.layout.data_loading, false, true, object : SetupDialog {
                 override fun dismess() {
 
                 }
@@ -177,7 +267,8 @@ class Frag_Idcopy_Detail : RootFragement(R.layout.fragment_frag__idcopy__detail)
     }
 
     override fun Copy_Finish(boolean: Boolean) {
-        handler.post { JzActivity.getControlInstance().closeDiaLog()
+        handler.post {
+            JzActivity.getControlInstance().closeDiaLog()
         }
         run = false
         endtime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
@@ -198,13 +289,12 @@ class Frag_Idcopy_Detail : RootFragement(R.layout.fragment_frag__idcopy__detail)
     var ObdHex = "00"
     var startime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
     var endtime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
-    lateinit var rvIDCopyDetail: androidx.recyclerview.widget.RecyclerView
     lateinit var cwCar: CarWidget//CarWidget
     var idcount = 8;
-    lateinit var idCopyDetailAdapter: IDCopyDetailAdapter//适配器
-    lateinit var linearLayoutManager: androidx.recyclerview.widget.LinearLayoutManager//列表表格布局
     lateinit var vibMediaUtil: VibMediaUtil//音效与振动
-
+    var originalist = ArrayList<ClearEditText>()
+    var newlist = ArrayList<ClearEditText>()
+    var staticlist = ArrayList<ImageView>()
     override fun enter() {
         super.enter()
         program()
@@ -212,14 +302,109 @@ class Frag_Idcopy_Detail : RootFragement(R.layout.fragment_frag__idcopy__detail)
 
     override fun onKeyTrigger() {
         super.onKeyTrigger()
-        program()
+//        program()
+        if (run) {
+            return
+        }
+        run = true
+        JzActivity.getControlInstance().showDiaLog(R.layout.data_loading, false, true)
+        updateEditable(false)
+        Thread {
+            val a = OgCommand.GetPr("00", 1, ObdHex)
+            handler.post {
+                run = false
+                if (!JzActivity.getControlInstance().getNowPageTag().equals("Frag_Idcopy_Detail")) {
+                    return@post
+                }
+                vibMediaUtil.playBeep()
+                JzActivity.getControlInstance().closeDiaLog()
+                if (a.size == 1) {
+                    for (i in a) {
+                        if (!haveSameSensorid(i.id)) {
+                            updateSensor(i.id);
+                        } else {
+                            JzActivity.getControlInstance().toast(R.string.app_sensor_repeated)
+                        }
+                    }
+                } else {
+                    JzActivity.getControlInstance().toast(resources.getString(R.string.app_read_failed))
+                }
+                updateEditable(true)
+            }
+        }.start()
     }
 
-    var ProgramTrigger = ArrayList<String>()
+    fun haveSameSensorid(id: String): Boolean {
+        Log.e("haveSameSensorid",id)
+        for (i in 0 until originalist.size) {
+            if (originalist[i].text!!.isEmpty()) {
+                for (a in originalist) {
+                    if (a.text!!.toString() == id) {
+                        return true
+                    }
+                }
+                return false
+            }
+            if (newlist[i].text!!.isEmpty()) {
+                for (a in newlist) {
+                    if (a.text!!.toString() == id) {
+                        return true
+                    }
+                }
+                return false
+            }
+        }
+        return false
+    }
+
+    fun updateSensor(id: String) {
+        Log.e("getid",id)
+        for (i in 0 until originalist.size) {
+            if (originalist[i].text!!.isEmpty()) {
+                originalist[i].setText(id)
+                return
+            }
+            if (newlist[i].text!!.isEmpty()) {
+                newlist[i].setText(id)
+                return
+            }
+        }
+    }
+
+    fun updateEditable(a: Boolean) {
+        if (a) {
+            for (i in 0 until originalist.size) {
+                if (originalist[i].text!!.isNotEmpty() || newlist[i].text!!.isNotEmpty()) {
+                    originalist[i].isEnabled = true
+                    newlist[i].isEnabled = true
+                } else {
+                    if (originalist[i].text!!.isEmpty()) {
+                        originalist[i].isEnabled = true
+                        return
+                    }
+                    if (newlist[i].text!!.isEmpty()) {
+                        newlist[i].isEnabled = true
+                        return
+                    }
+                }
+            }
+        } else {
+            for (i in 0 until originalist.size) {
+                originalist[i].isEnabled = false
+                newlist[i].isEnabled = false
+            }
+        }
+    }
+
+
+
     /**
      * 烧录
      */
     private fun program() {
+        if (!checkComplete()) {
+            return
+        }
         act.back.setImageResource(R.mipmap.menu)
         act.back.setOnClickListener { GoMenu() }
         rootview.bt_menue.text = resources.getString(R.string.Relearn_Procedure)
@@ -236,7 +421,7 @@ class Frag_Idcopy_Detail : RootFragement(R.layout.fragment_frag__idcopy__detail)
         }
         run = true
         JzActivity.getControlInstance().closeDiaLog()
-        JzActivity.getControlInstance().showDiaLog(R.layout.data_loading, false, true, object :SetupDialog{
+        JzActivity.getControlInstance().showDiaLog(R.layout.data_loading, false, true, object : SetupDialog {
             override fun dismess() {
             }
 
@@ -262,7 +447,7 @@ class Frag_Idcopy_Detail : RootFragement(R.layout.fragment_frag__idcopy__detail)
                     ),
                     act,
                     this
-                    , ProgramTrigger
+                    ,ArrayList(PublicBean.NewSensorList)
                 )
             }.start()
         } else {
@@ -271,22 +456,56 @@ class Frag_Idcopy_Detail : RootFragement(R.layout.fragment_frag__idcopy__detail)
         }
     }
 
+    private fun checkComplete(): Boolean {
+        for (i in 0 until originalist.size) {
+            if ((originalist[i].text!!.isEmpty()) && (newlist[i].text!!.isEmpty()) && i == 0) {
+                JzActivity.getControlInstance().toast(R.string.app_no_sensor_set)
+                return false
+            }
+            if (newlist[i].text!!.isEmpty() && i == 0) {
+                JzActivity.getControlInstance().toast(R.string.app_sensor_copy_different)
+                return false
+            }
+            if (originalist[i].text!!.isEmpty() && i == 0) {
+                JzActivity.getControlInstance().toast(R.string.app_sensor_copy_different)
+                return false
+            }
+            if (originalist[i].text!!.isNotEmpty() || newlist[i].text!!.isNotEmpty()) {
+                if (originalist[i].text!!.isEmpty() || newlist[i].text!!.isEmpty()) {
+                    JzActivity.getControlInstance().toast(R.string.app_sensor_copy_different)
+                    return false
+                }
+            }
+        }
+        var originallist = ArrayList<String>()
+        var newslist = ArrayList<String>()
+        for (i in 0 until originalist.size) {
+            if (originalist[i].text!!.isNotEmpty() && newlist[i].text!!.isNotEmpty()) {
+                originallist.add(originalist[i].text.toString())
+                newslist.add(newlist[i].text.toString())
+            }
+        }
+        PublicBean.SensorList = originallist
+        PublicBean.NewSensorList = newslist
+        return true
+    }
+
     /**
      * 刷新页面
      */
     private fun updateView() {
-        if (PublicBean.SensorList.size == PublicBean.NewSensorList.size) {
-            for (i in 1 until idCopyDetailAdapter.items.size) {
-                if (i <= PublicBean.SensorList.size) {
-                    val idCopyDetailBean = idCopyDetailAdapter.items[i]
-                    idCopyDetailBean.originalid = PublicBean.SensorList[i - 1]
-                    idCopyDetailBean.newid = PublicBean.NewSensorList[i - 1]
-                    idCopyDetailBean.state = IDCopyDetailBean.STATE_NORMAL
-                    idCopyDetailAdapter.setItem(i, idCopyDetailBean)
-                }
-            }
-            rvIDCopyDetail.adapter = idCopyDetailAdapter
-        }
+//        if (PublicBean.SensorList.size == PublicBean.NewSensorList.size) {
+//            for (i in 1 until idCopyDetailAdapter.items.size) {
+//                if (i <= PublicBean.SensorList.size) {
+//                    val idCopyDetailBean = idCopyDetailAdapter.items[i]
+//                    idCopyDetailBean.originalid = PublicBean.SensorList[i - 1]
+//                    idCopyDetailBean.newid = PublicBean.NewSensorList[i - 1]
+//                    idCopyDetailBean.state = IDCopyDetailBean.STATE_NORMAL
+//                    idCopyDetailAdapter.setItem(i, idCopyDetailBean)
+//                }
+//            }
+//            rvIDCopyDetail.adapter = idCopyDetailAdapter
+//        }
     }
 
     var BooResult = arrayOf(false, false, false, false)
@@ -294,17 +513,20 @@ class Frag_Idcopy_Detail : RootFragement(R.layout.fragment_frag__idcopy__detail)
      * Copy成功
      */
     private fun copySuccess(index: Int, success: Boolean) {
+        PublicBean.CopySuccessID = ArrayList(PublicBean.SensorList)
         BooResult[index] = success
-        if(index==PublicBean.SensorList.size-1){
-            var issuccess=true
-            for(i in 0 until PublicBean.SensorList.size){issuccess=BooResult[i] && issuccess}
-            if(issuccess){
-                rootview.bt_program.visibility=View.GONE
-                rootview.bt_menue.visibility=View.VISIBLE
-            }else{
-                rootview.bt_program.text=resources.getString(R.string.app_re_program)
-                rootview.bt_menue.visibility=View.GONE
-                rootview.bt_program.visibility=View.VISIBLE
+        if (index == PublicBean.SensorList.size - 1) {
+            var issuccess = true
+            for (i in 0 until PublicBean.SensorList.size) {
+                issuccess = BooResult[i] && issuccess
+            }
+            if (issuccess) {
+                rootview.bt_program.visibility = View.GONE
+                rootview.bt_menue.visibility = View.VISIBLE
+            } else {
+                rootview.bt_program.text = resources.getString(R.string.app_re_program)
+                rootview.bt_menue.visibility = View.GONE
+                rootview.bt_program.visibility = View.VISIBLE
             }
         }
         when (index) {
@@ -333,38 +555,59 @@ class Frag_Idcopy_Detail : RootFragement(R.layout.fragment_frag__idcopy__detail)
                 )
             }
         }
-        if (PublicBean.SensorList.size == PublicBean.NewSensorList.size) {
-            for (i in 1 until idCopyDetailAdapter.items.size) {
-                if (i <= PublicBean.SensorList.size && i == index + 1) {
-                    val idCopyDetailBean = idCopyDetailAdapter.items[i]
-                    if (success) {
-                        idCopyDetailBean.state = IDCopyDetailBean.STATE_SUCCESS
-                        idCopyDetailBean.newid = PublicBean.SensorList[i]
-                    } else {
-                        idCopyDetailBean.state = IDCopyDetailBean.STATE_FAILED
-                    }
-                    idCopyDetailAdapter.setItem(i, idCopyDetailBean)
+                if (success) {
+                    staticlist[index].setImageResource(R.mipmap.icon_correct)
+                    newlist[index].setText(PublicBean.NewSensorList[index].substring(8 - idcount))
+                    newlist[index].setTextColor(resources.getColor(R.color.color_black))
+                } else {
+                    staticlist[index].setImageResource(R.mipmap.icon_error)
                 }
-//                BooResult
+
+    }
+
+    override fun onKeyScan() {
+        super.onKeyScan()
+        if(run){return}
+        JzActivity.getControlInstance().closeDiaLog()
+        HardwareApp.getInstance().scan()
+        JzActivity.getControlInstance().showDiaLog(R.layout.data_loading,false,true, object :SetupDialog {
+            override fun dismess() {
+
             }
-            idCopyDetailAdapter.notifyDataSetChanged()
-        }
+
+            override fun keyevent(event: KeyEvent): Boolean {
+                return false
+            }
+
+            override fun setup(rootview: Dialog) {
+                rootview.pass.visibility=View.VISIBLE
+                rootview.pass.text=resources.getString(R.string.app_scaning)
+            }
+
+        })
+        Thread{
+            handler.post { JzActivity.getControlInstance().closeDiaLog()}
+            Thread.sleep(3000)
+            run=false
+        }.start()
+
     }
 
     fun upload() {
-        var allsuccess=true
+        var allsuccess = true
         Thread {
             val idrecord: ArrayList<SensorRecord> = ArrayList()
             if (PublicBean.SensorList.size == PublicBean.NewSensorList.size) {
-                for (i in 1 until idCopyDetailAdapter.items.size) {
-                    val idCopyDetailBean = idCopyDetailAdapter.items[i]
-                    if (idCopyDetailBean.originalid.isNotEmpty()) {
+                for (i in 0 until newlist.size) {
+                    if (originalist[i].text!!.isNotEmpty()) {
                         val b = SensorRecord()
-                        b.Car_SensorID = idCopyDetailBean.originalid
-                        b.SensorID = idCopyDetailBean.newid
+                        b.Car_SensorID = originalist[i].text.toString()
+                        b.SensorID = newlist[i].text.toString()
                         Log.e("copy", "${BooResult[0]}${BooResult[1]}${BooResult[2]}${BooResult[3]}")
-                        b.IsSuccess = "" + BooResult[i - 1]
-                        if(b.IsSuccess=="false"){allsuccess=false}
+                        b.IsSuccess = "" + BooResult[i]
+                        if (b.IsSuccess == "false") {
+                            allsuccess = false
+                        }
                         idrecord.add(b)
                     }
                 }
@@ -388,7 +631,7 @@ class Frag_Idcopy_Detail : RootFragement(R.layout.fragment_frag__idcopy__detail)
                 if (allsuccess) "COPY成功-(${PublicBean.ProgramNumber})${PublicBean.SelectMake}/${PublicBean.SelectModel}/${PublicBean.SelectYear}*${PublicBean.OG_SerialNum}" else "COPY失敗-(${PublicBean.ProgramNumber})${PublicBean.SelectMake}/${PublicBean.SelectModel}/${PublicBean.SelectYear}*${PublicBean.OG_SerialNum}",
                 OgCommand.tx_memory.toString()
             )
-            OgCommand.tx_memory =StringBuffer("");
+            OgCommand.tx_memory = StringBuffer("");
         }.start()
 
     }
@@ -397,15 +640,15 @@ class Frag_Idcopy_Detail : RootFragement(R.layout.fragment_frag__idcopy__detail)
      * 检测是否可以copy数据了
      */
     private fun checkCanCopy(): Boolean {
-        ProgramTrigger.clear()
-        for (i in 0 until PublicBean.NewSensorList.size) {
-            val idCopyDetailBean = idCopyDetailAdapter.items[i + 1]
-            ProgramTrigger.add(idCopyDetailBean.newid)
-            //只要有一个不为空即可
-            if (TextUtils.isEmpty(idCopyDetailBean.originalid) && TextUtils.isEmpty(idCopyDetailBean.newid)) {
-                return false
-            }
-        }
+//        ProgramTrigger.clear()
+//        for (i in 0 until PublicBean.NewSensorList.size) {
+//            val idCopyDetailBean = idCopyDetailAdapter.items[i + 1]
+//            ProgramTrigger.add(idCopyDetailBean.newid)
+//            //只要有一个不为空即可
+//            if (TextUtils.isEmpty(idCopyDetailBean.originalid) && TextUtils.isEmpty(idCopyDetailBean.newid)) {
+//                return false
+//            }
+//        }
         return true
     }
 
@@ -413,37 +656,17 @@ class Frag_Idcopy_Detail : RootFragement(R.layout.fragment_frag__idcopy__detail)
      * 初始化页面
      */
     private fun initView() {
+        JzActivity.getControlInstance().showDiaLog(R.layout.sensor_way_dialog, false, false, SensorWay())
         //音效与震动
         vibMediaUtil = VibMediaUtil(activity)
-        //配置RecyclerView,每行是哪个元素
-        linearLayoutManager = androidx.recyclerview.widget.LinearLayoutManager(activity)
-        rvIDCopyDetail.layoutManager = linearLayoutManager
-        idCopyDetailAdapter = IDCopyDetailAdapter(activity)
-        rvIDCopyDetail.adapter = idCopyDetailAdapter
-        //数据源
-        val numberList = ArrayList<IDCopyDetailBean>()
-        val titleBean = IDCopyDetailBean(
-            "WH",
-            "Original",
-            "New",
-            "CHK",
-            IDCopyDetailBean.STATE_HIDE
-        )
-        val frBean = IDCopyDetailBean("LF", "", "", "", IDCopyDetailBean.STATE_HIDE)
-        val rrBean = IDCopyDetailBean("RF", "", "", "", IDCopyDetailBean.STATE_HIDE)
-        val rlBean = IDCopyDetailBean("RR", "", "", "", IDCopyDetailBean.STATE_HIDE)
-        val flBean = IDCopyDetailBean("LR", "", "", "", IDCopyDetailBean.STATE_HIDE)
-        numberList.add(titleBean)
-        numberList.add(frBean)
-        numberList.add(rrBean)
-        numberList.add(rlBean)
-        numberList.add(flBean)
-        idCopyDetailAdapter.items = numberList
-        idCopyDetailAdapter.notifyDataSetChanged()
     }
 
     override fun onPause() {
         super.onPause()
         vibMediaUtil.release()
+        try{
+            HardwareApp.getInstance().switchScan(false)
+            HardwareApp.getInstance().removeDataReceiver(dataReceiver)
+        }catch (e:Exception){e.printStackTrace()}
     }
 }

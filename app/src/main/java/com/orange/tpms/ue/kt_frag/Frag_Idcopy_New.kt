@@ -99,13 +99,13 @@ class Frag_Idcopy_New : RootFragement(R.layout.fragment_frag__idcopy__new) {
         })
         updateEditable(false)
         Thread{
-            val a = OgCommand.GetPr("00", 1,ObdHex)
+            val a = OgCommand.GetPr("00", PublicBean.SensorList.size,ObdHex)
             handler.post {
                 run = false
                 if(!JzActivity.getControlInstance().getNowPageTag().equals("Frag_Idcopy_New")){return@post}
                 vibMediaUtil.playBeep()
                 JzActivity.getControlInstance().closeDiaLog()
-                if(a.size == 1){
+                if(a.size == PublicBean.SensorList.size){
                     for(i in a){
                         if (!haveSameSensorid(i.id)) {
                             updateSensorid(i.id,""+i.kpa,""+i.c,""+i.vol);

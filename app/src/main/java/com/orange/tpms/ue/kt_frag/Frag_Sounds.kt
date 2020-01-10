@@ -14,7 +14,7 @@ class Frag_Sounds : RootFragement(R.layout.fragment_frag__sounds) {
     override fun viewInit() {
         sbSounds=rootview.findViewById(R.id.sb_sounds)
         rootview.iv_check.setOnClickListener {
-            it.setSelected(!it.isSelected())
+            it.isSelected = !it.isSelected
         }
         initView()
     }

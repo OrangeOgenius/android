@@ -58,7 +58,7 @@
                 android:orientation="horizontal"
                 android:gravity="center">
 
-            <TextView
+            <com.orange.tpms.widget.ClearEditText
                     android:id="@+id/tv_originalid"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"

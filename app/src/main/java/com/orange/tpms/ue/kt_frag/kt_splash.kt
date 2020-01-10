@@ -6,6 +6,7 @@ import android.content.Intent
 import android.provider.Settings
 import android.util.Log
 import android.view.KeyEvent
+import android.view.WindowManager
 import android.widget.TextView
 import com.orange.jzchi.jzframework.JzActivity
 import com.orange.jzchi.jzframework.JzFragement
@@ -14,6 +15,7 @@ import com.orange.tpms.Callback.Hanshake_C
 import com.orange.tpms.Callback.Update_C
 import com.orange.tpms.Callback.Version_C
 import com.orange.tpms.R
+import com.orange.tpms.ue.activity.KtActivity
 import com.orange.tpms.utils.OgCommand
 import java.lang.Thread.sleep
 
@@ -31,6 +33,7 @@ class kt_splash : JzFragement(R.layout.frag_splash), Hanshake_C, Update_C, Versi
         Thread {
             sleep(1000)
             handler.post {
+                while(!JzActivity.getControlInstance().isFrontDesk()){sleep(100)}
                 JzActivity.getControlInstance().setHome(Frag_Manager(), "Frag_Manager")
             }
         }.start()
@@ -61,8 +64,7 @@ class kt_splash : JzFragement(R.layout.frag_splash), Hanshake_C, Update_C, Versi
                     }
 
                     override fun setup(rootview: Dialog) {
-                        rootview.findViewById<TextView>(R.id.tit).text =
-                            resources.getString(R.string.app_updating) + "$progress%"
+                        rootview.findViewById<TextView>(R.id.tit).text = resources.getString(R.string.app_updating) + "$progress%"
                     }
 
                 })
@@ -76,8 +78,10 @@ class kt_splash : JzFragement(R.layout.frag_splash), Hanshake_C, Update_C, Versi
         if (a) {
             handler.post {
                 JzActivity.getControlInstance().closeDiaLog()
-                val intent2 = context!!.getPackageManager().getLaunchIntentForPackage(context!!.getPackageName())
-                context!!.startActivity(intent2)
+                val intent = Intent(act.applicationContext, KtActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+                android.os.Process.killProcess(android.os.Process.myPid())
             }
         } else {
             OgCommand.HandShake(this)

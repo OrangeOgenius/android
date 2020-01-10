@@ -134,7 +134,6 @@ public class OgCommand {
                     data.success = true;
                     array.add(data);
                     if (array.size() == ScanCount) {
-                        array.add(data);
                         return array;
                     } else {
                         if (Rx.length() > 36) {
@@ -659,13 +658,17 @@ static int ScanCount=0;
                 if (Rx.length() >= 14) {
                     if (Rx.contains(GetCrcString("F500000302F40A"))) {
                         caller.result(2);
+                        return;
                     }
                     if (Rx.contains(GetCrcString("F500000301F40A"))) {
                         caller.result(1);
+                        return;
                     }
                     if (Rx.contains(GetCrcString("F501000300F70A"))) {
                         caller.result(1);
+                        return;
                     }
+                    caller.result(-1);
                     return;
                 }
                 Thread.currentThread().sleep(100);
