@@ -1,13 +1,17 @@
 package com.orange.tpms.ue.kt_frag
 
 
+import android.app.Dialog
 import android.content.Context
 import android.provider.Settings
 import android.util.Log
+import android.view.KeyEvent
 import android.widget.ArrayAdapter
 import com.orange.jzchi.jzframework.JzActivity
+import com.orange.jzchi.jzframework.callback.SetupDialog
 import com.orange.tpms.R
 import com.orange.tpms.RootFragement
+import com.orange.tpms.ue.dialog.SensorWay
 import kotlinx.android.synthetic.main.fragment_frag__auto__lock.view.*
 import java.util.*
 

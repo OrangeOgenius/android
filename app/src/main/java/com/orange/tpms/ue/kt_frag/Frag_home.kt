@@ -40,6 +40,7 @@ class Frag_home : RootFragement(R.layout.activity_frag_home) {
                     rootview.cancel.setOnClickListener { JzActivity.getControlInstance().closeDiaLog()}
                     rootview.yes.setOnClickListener {
                         PublicBean.Update=true
+                        JzActivity.getControlInstance().closeDiaLog()
                         JzActivity.getControlInstance().changeFrag(Frag_Update(),R.id.frage,"Frag_Update",true)
                     }
                     if(GetPro("Firebasebody","nodata").trim().isEmpty()||GetPro("Firebasebody","nodata").trim().equals("nodata")){

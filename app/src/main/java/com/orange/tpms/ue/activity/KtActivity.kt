@@ -43,7 +43,7 @@ import kotlin.concurrent.schedule
 
 class KtActivity : JzActivity(), Scan_C {
     companion object {
-        var beta = true
+        var beta = false
     }
 
     var temppass = ""
