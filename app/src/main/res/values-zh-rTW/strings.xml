@@ -190,6 +190,7 @@
     <string name="RE_PROGRAM">重新燒錄</string>
     <string name="Relearn_Procedure">學碼步驟</string>
     <string name="Key_in_the_original_sensor_ID_number">輸入原發射器ID號碼</string>
+    <string name="sensor_ID_number">發射器ID號碼</string>
     <string name="ID_code_should_be_8_characters">ID碼需為8個字元</string>
     <string name="Bluetooth_pairing_requirements">藍牙配對要求</string>
     <string name="would_like_to_with_pair">USB PAD將與您手機進行配對</string>

@@ -180,6 +180,7 @@
     <string name="RE_PROGRAM">neu programmieren</string>
     <string name="Relearn_Procedure">Anlern-Prozedur</string>
     <string name="Key_in_the_original_sensor_ID_number">Bitte geben sie die Sensor ID Nummer gemäß der Position ein </string>
+    <string name="sensor_ID_number">Sensor ID Nummer</string>
     <string name="ID_code_should_be_8_characters">ID Code soll aus 8 Buchstaben bestehen</string>
     <string name="Bluetooth_pairing_requirements">Bluetooth-Verbindung erforderlich</string>
     <string name="would_like_to_with_pair">"USB PDA" möchte sich mit Ihrem Smartphone verbinden</string>

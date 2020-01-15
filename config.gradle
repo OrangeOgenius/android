@@ -6,7 +6,7 @@ ext {
             compileSdkVersion: 28,
             minSdkVersion    : 21,
             targetSdkVersion : 22,//22 可以绕过6.0动态获取权限
-            versionCode      : 115,
+            versionCode      : 116,
             versionName      : "1.0.74",
             multiDexEnabled  : true
     ]

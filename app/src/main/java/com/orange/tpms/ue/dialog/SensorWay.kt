@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.KeyEvent
 import android.view.MotionEvent
 import android.widget.RelativeLayout
+import android.widget.TextView
 import com.orange.jzchi.jzframework.JzActivity
 import com.orange.jzchi.jzframework.callback.SetupDialog
 import com.orange.tpms.R
@@ -95,6 +96,9 @@ open class SensorWay : SetupDialog {
 
     override fun setup(rootview: Dialog) {
 //        (act as KtActivity).focus=0
+        if(JzActivity.getControlInstance().getNowPageTag()=="Frag_Idcopy_Detail"){
+            rootview.findViewById<TextView>(R.id.tit).text=JzActivity.getControlInstance().getRootActivity().resources.getString(R.string.sensor_ID_number)
+        }
         rootview.findViewById<RelativeLayout>(R.id.scan).setOnTouchListener { v, event ->
             if (event.getAction() == MotionEvent.ACTION_MOVE) {
                 v.background =

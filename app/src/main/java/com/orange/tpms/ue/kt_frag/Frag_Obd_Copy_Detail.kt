@@ -53,8 +53,6 @@ class Frag_Obd_Copy_Detail : RootFragement(R.layout.fragment_frag__obd__copy__de
                     rootview.pass.visibility = View.VISIBLE
                     rootview.pass.text = "$i%"
                 }
-
-
             })
         }
     }

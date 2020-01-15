@@ -143,7 +143,7 @@ class Frag_Setting : RootFragement(R.layout.fragment_frag__setting) {
                             }
                         })
                         val information = SettingShare.getSystemInformation(act)
-                        if (information.version == "101") {
+                        if (information.version == "115") {
                             JzActivity.getControlInstance().closeDiaLog()
                             act.getSharedPreferences("Setting", Context.MODE_PRIVATE).edit().clear().commit()
                             act.getSharedPreferences("Favorite", Context.MODE_PRIVATE).edit().clear().commit()

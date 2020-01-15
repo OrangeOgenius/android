@@ -198,7 +198,7 @@ class Frag_Register : RootFragement(R.layout.fragment_frag__register), Register_
                 Fuction.Register(
                     email,
                     password,
-                    "" + SettingShare.getSystemInformation(act),
+                    "" + SettingShare.getSystemInformation(act).serialNumber,
                     "Distributor",
                     company,
                     firstname,
@@ -215,7 +215,7 @@ class Frag_Register : RootFragement(R.layout.fragment_frag__register), Register_
                 Fuction.Register(
                     email,
                     password,
-                    "" + SettingShare.getSystemInformation(act),
+                    "" + SettingShare.getSystemInformation(act).serialNumber,
                     "Retailer",
                     company,
                     firstname,
